@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useHistory, Redirect } from 'react-router-dom'
 import * as Icon from 'react-bootstrap-icons'
 import "./login.scss"
 import {
@@ -24,12 +24,45 @@ import {
   CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import { login } from "../../../actions/auth";
+
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
+
+
 const Login = () => {
   const { t, i18n } = useTranslation();
   const placements = [
     'bottom',
-  ]
+  ];
+
+  const dispatch = useDispatch();
+  // get from store redux
+  let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const [userData, setUserData] = useState({ phone: '', password: '' })
+
+  const onChange = e => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+  const onSubmit = e => {
+    e.preventDefault();
+
+    dispatch(login(userData)).then(() => {
+      isAuthenticated = true;
+    });
+  };
+  // useEffect(() => {
+  //   console.log("isAuthenticated", isAuthenticated)
+  //   if (isAuthenticated) {
+  //     console.log('Login roi vo day lam chi?');
+  //     history.push('/');
+  //   }
+  // }, [isAuthenticated]);
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />
+  }
+
   return (
     <div className="c-app c-default-layout flex-row align-items-start pt-4" >
       <CContainer>
@@ -88,7 +121,7 @@ const Login = () => {
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" placeholder={t('login.ph-username')} autoComplete="username" />
+                      <CInput type="text" placeholder={t('login.ph-username')} autoComplete="username" name="phone" onChange={value => onChange(value)} />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
@@ -96,7 +129,7 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" placeholder={t('login.ph-password')} autoComplete="current-password" />
+                      <CInput type="password" placeholder={t('login.ph-password')} autoComplete="current-password" name="password" onChange={value => onChange(value)} />
                     </CInputGroup>
                     {/* check login */}
                     <CRow>
@@ -108,14 +141,14 @@ const Login = () => {
                             name="inline-checkbox1"
                             value="option1"
                           />
-                       <CLabel className="check-label-custom" variant="custom-checkbox" htmlFor="inline-checkbox1"><p>{t('login.lb-check-login')}</p></CLabel>
+                          <CLabel className="check-label-custom" variant="custom-checkbox" htmlFor="inline-checkbox1"><p>{t('login.lb-check-login')}</p></CLabel>
                         </CFormGroup>
                       </CCol>
                       <CCol col="3" className="pt-0 pb-4"> <a href="##" className="text-ps d-inline-block float-right">{t('login.bt-forget-password')}</a></CCol>
                     </CRow>
                     {/* button login  */}
                     <CCol col="6" lg="0" className="pt-2 pb-2">
-                      <CButton block color="primary">Log in</CButton>
+                      <CButton block color="primary" onClick={onSubmit}>{t('login.bt-login')}</CButton>
                     </CCol>
                   </CForm>
                 </CCardBody>
