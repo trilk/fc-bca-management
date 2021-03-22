@@ -1,1 +1,109 @@
 // Here you can add other styles
+.card {
+    border-radius: 0.25rem !important;
+    border: 1px solid #E6E9ED !important;
+    box-shadow: 0 0 4px #dde1e4;
+}
+//@at-root
+//button checkbox custom control label
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: #007bff !important;
+    background-color: #007bff !important;
+}
+.custom-control-label::before {
+    border-color: #D5DADE !important;
+}
+// Button
+//Primary Button
+.btn{
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #007BFF !important;
+    border-color: #007BFF !important;
+    transition: color .2s ease,background-color .2s ease,border-color .2s ease,box-shadow .2s ease;
+    &:hover{
+        background-color: darken($color: #007BFF, $amount: 10%)!important;
+    }
+}
+.btn-primary:focus{
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(21, 156, 228, 0.4);
+}
+// buton ghost none outline
+.btn-ghost-primary{
+    color:#007BFF !important;
+    padding: 0.02rem 0.75rem;
+    &:hover{
+        background-color: rgba(0, 123, 255, 0.1) !important;
+        border-color: transparent !important;
+    }
+}
+.btn-ghost:focus{
+    outline: 1px auto -webkit-focus-ring-color #007BFF!important;
+    border-color: #007BFF !important;
+    background-color: rgba(0, 123, 255, 0.1) !important; 
+    box-shadow: 0 0 2px 3px transparent, 0 0 2px transparent inset;
+}
+// button outline dropdown
+.btn-outline{
+    background-color: #fff !important;
+    border-radius: 4px !important;
+    border-color: #007BFF !important;
+    color:#007BFF !important;
+    &:hover{
+        background-color: #007BFF !important;
+        color: #fff !important;
+    }
+}
+.btn-outline:focus{
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(21, 156, 228, 0.4);
+    background-color: #007BFF !important;
+    color: #fff !important;
+}
+// button outline
+.btn-outline-primary{
+    background-color: #fff !important;
+    border-radius: 4px !important;
+    border-color: #007BFF !important;
+    color:#007BFF !important;
+    &:hover{
+        background-color: #007BFF !important;
+        color: #fff !important;
+    }
+}
+.btn-outline-primary:focus{
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(21, 156, 228, 0.4);
+    background-color: #007BFF !important;
+    color: #fff !important;
+}
+//@at-root
+//@at-root
+// Form Input
+.form-control {
+    border-color: #D5DADE !important;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+// Focus Hover form input
+.form-control:focus {
+    outline: 1px auto -webkit-focus-ring-color #007BFF!important;
+    color:  #292642 !important;
+    border-color: #007BFF !important;
+    background-color: rgba(0, 123, 255, 0.1) !important; 
+    box-shadow: 0 0 2px 3px transparent, 0 0 2px transparent inset;
+  }
+.form-control:hover{
+    border-color: #007BFF !important;
+  }
+//style placeholder 
+::-webkit-input-placeholder {
+    color: #B0B7C0 !important;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
