@@ -1,6 +1,14 @@
 {
-    "Dashboard": {
-        "title": "Welcome to Dashboard",
-        "traffic": "Traffic"
+    "login": {
+        "title": "LOGIN",
+        "description": "Sending OTT messages system",
+        "ph-username": "Phone No.",
+        "ph-password": "Password",
+        "bt-register": "Register",
+        "bt-login": "Login",
+        "msg-error-title": "Login fail",
+        "msg-error": "Cannot login to system. Please check your email and password again.",
+        "lb-check-login": "Remember login",
+        "bt-forget-password": "Forget password"
     }
 }
