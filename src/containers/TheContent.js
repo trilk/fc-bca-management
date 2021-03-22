@@ -8,7 +8,6 @@ import { CContainer, CFade } from '@coreui/react'
 
 // routes config
 import routes from '../routes';
-import PrivateRoute from '../helpers/PrivateRoute';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -17,6 +16,7 @@ const loading = (
 )
 
 const TheContent = () => {
+
   return (
     <main className="c-main">
       <CContainer fluid>
