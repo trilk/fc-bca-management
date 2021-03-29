@@ -1,10 +1,12 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
+import i18n from 'i18next'
+
 
 const _nav =  [
   {
     _tag: 'CSidebarNavItem',
-    name: 'Dashboard',
+    name: i18n.t('left-menu.item-dashboard'),
     to: '/dashboard',
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
     badge: {
@@ -12,6 +14,85 @@ const _nav =  [
       text: 'NEW',
     }
   },
+  {
+    _tag: 'CSidebarNavDropdown',
+    name: i18n.t('left-menu.item-message'),
+    route: '/messages',
+    icon: 'cil-puzzle',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-allmessages'),
+        to: '/messages/all-messages',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-createmessage'),
+        to: '/messages/create-message',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-schedule'),
+        to: '/messages/schedule',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-draft'),
+        to: '/messages/##',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-template'),
+        to: '/messages/##',
+      },
+    ]
+  },
+  {
+    _tag: 'CSidebarNavDropdown',
+    name: i18n.t('left-menu.item-audience'),
+    route: '/audience-studio',
+    icon: 'cil-people',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-segments'),
+        to: '/audience-studio/segments',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-customers'),
+        to: '/audience-studio/customers',
+      },
+    ]
+  },
+  {
+    _tag: 'CSidebarNavDropdown',
+    name: i18n.t('left-menu.item-user-management'),
+    route: '/user-management',
+    icon: 'cil-people',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-account-info'),
+        to: '/user-management/account-info',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-users'),
+        to: '/##/##',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.item-roles'),
+        to: '/##/##',
+      },
+    ]
+  },
+  
+
+
+
+
   {
     _tag: 'CSidebarNavTitle',
     _children: ['Theme']

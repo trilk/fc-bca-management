@@ -10,5 +10,26 @@
         "msg-error": "Không thể đăng nhập vào hệ thống. Vui lòng kiểm tra lại email hoặc mật khẩu.",
         "lb-check-login": "Ghi nhớ đăng nhập",
         "bt-forget-password": "Quên mật khẩu"
+    },
+    "user-topmenu": {
+        "item-profile-info": "Thông tin cá nhân",
+        "item-setting": "Cài đặt",
+        "item-logout": "Đăng xuất"
+    },
+    "left-menu": {
+        "item-dashboard": "Bảng điều khiển",
+        "item-message": "Tin nhắn",
+        "item-allmessages": "Tất cả tin nhắn",
+        "item-createmessage": "Tạo tin nhắn",
+        "item-schedule": "Lịch trình",
+        "item-draft": "Tin nhắn nháp",
+        "item-template": "Tin nhắn mẫu",
+        "item-audience": "Quản lý Khách hàng",
+        "item-segments": "Nhóm khách hàng",
+        "item-customers": "Danh sách khách hàng",
+        "item-user-management": "Quản trị người dùng",
+        "item-account-info": "Thông tin tài khoản",
+        "item-users": "Tất cả người dùng",
+        "item-roles": "Các quyền"
     }
 }

@@ -10,5 +10,26 @@
         "msg-error": "Cannot login to system. Please check your email and password again.",
         "lb-check-login": "Remember login",
         "bt-forget-password": "Forget password"
+    },
+    "user-topmenu": {
+        "item-profile-info": "Profile Info",
+        "item-setting": "Setting",
+        "item-logout": "Log Out"
+    },
+    "left-menu": {
+        "item-dashboard": "Dashboard",
+        "item-message": "Messages",
+        "item-allmessages": "All Messages",
+        "item-createmessage": "Create Message",
+        "item-schedule": "Schedule",
+        "item-draft": "Drafts",
+        "item-template": "Template",
+        "item-audience": "Audience Studio",
+        "item-segments": "Segments",
+        "item-customers": "Customers",
+        "item-user-management": "User Management",
+        "item-account-info": "Account info",
+        "item-users": "All Users",
+        "item-roles": "Roles"
     }
 }

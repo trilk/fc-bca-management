@@ -1,15 +1,20 @@
 import React from 'react'
+import * as Icon from 'react-bootstrap-icons'
 import {
   CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CLink,
+  CLabel,
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import { useTranslation } from 'react-i18next';
 
 const TheHeaderDropdown = () => {
+  const { t, i18n } = useTranslation();
   return (
     <CDropdown
       inNav
@@ -25,64 +30,18 @@ const TheHeaderDropdown = () => {
           />
         </div>
       </CDropdownToggle>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem
-          header
-          tag="div"
-          color="light"
-          className="text-center"
-        >
-          <strong>Account</strong>
-        </CDropdownItem>
+      <CDropdownMenu className="pt-2" placement="bottom-end">
         <CDropdownItem>
-          <CIcon name="cil-bell" className="mfe-2" />
-          Updates
-          <CBadge color="info" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-envelope-open" className="mfe-2" />
-          Messages
-          <CBadge color="success" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-task" className="mfe-2" />
-          Tasks
-          <CBadge color="danger" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-comment-square" className="mfe-2" />
-          Comments
-          <CBadge color="warning" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem
-          header
-          tag="div"
-          color="light"
-          className="text-center"
-        >
-          <strong>Settings</strong>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-user" className="mfe-2" />Profile
+          <CLink to="/user-management/profile-info"><CIcon name="cil-user" className="mfe-2" />{t('user-topmenu.item-profile-info')}</CLink>
         </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-settings" className="mfe-2" />
-          Settings
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-credit-card" className="mfe-2" />
-          Payments
-          <CBadge color="secondary" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-file" className="mfe-2" />
-          Projects
-          <CBadge color="primary" className="mfs-auto">42</CBadge>
+          {t('user-topmenu.item-setting')}
         </CDropdownItem>
         <CDropdownItem divider />
         <CDropdownItem>
-          <CIcon name="cil-lock-locked" className="mfe-2" />
-          Lock Account
+          <Icon.BoxArrowRight className="mfe-2" />
+          {t('user-topmenu.item-logout')}
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
