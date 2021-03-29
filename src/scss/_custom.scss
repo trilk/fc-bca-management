@@ -81,6 +81,23 @@
     background-color: #007BFF !important;
     color: #fff !important;
 }
+// btn secondary
+.btn-secondary{
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff !important;
+    border: none !important;
+    &:hover{
+        background-color: #007BFF !important;
+        color: #fff !important;
+    }
+}
+.btn-secondary:focus{
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(21, 156, 228, 0.4);
+    background-color: #007BFF !important;
+    color: #fff !important;
+}
+
 //@at-root
 //@at-root
 // Form Input
@@ -89,6 +106,10 @@
     border-radius: 0.25rem;
     font-weight: 500;
     font-size: 0.875rem;
+}
+//label
+.form-control-label{
+    color: #6c757d !important;
 }
 // Focus Hover form input
 .form-control:focus {
@@ -106,4 +127,71 @@
     color: #B0B7C0 !important;
     font-weight: 500;
     font-size: 0.875rem;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #F3F5F9 !important;
+    opacity: 1;
+}
+//
+.custom-select {
+    border-color: #D5DADE !important;
+    &:hover{
+        border-color: #007BFF !important;
+    }
+}
+.custom-select:focus {
+    outline: 1px auto -webkit-focus-ring-color #007BFF!important;
+    color:  #292642 !important;
+    border-color: #007BFF !important;
+    background-color: rgba(0, 123, 255, 0.1) !important; 
+    box-shadow: 0 0 2px 3px transparent, 0 0 2px transparent inset;
+}
+//line
+hr{
+    border: 0;
+    border-top: 0.5px solid #E6E9EB !important ;
+    border-color: #E6E9EB !important;
+}
+//Modal
+// .modal-header {
+//     border-bottom: 1px solid #E6E9EB !important ;
+//     background-color: rgb(250, 251, 251) !important;  
+//     padding: 1rem 1.5rem !important;
+
+// }
+// .modal-body {
+//     padding: 1.5rem !important;
+// }
+// .modal-title {
+//     font-weight: 600 !important;
+//     font-size: 18px !important;
+// }
+// .modal-footer {
+//     border-top:1px solid #E6E9EB !important ;
+//     background-color: rgb(250, 251, 251) !important;  
+//     padding: 0.75rem 1.5rem !important;
+// }
+// .modal-content {
+//     border: 0px !important;
+// }
+a:hover {
+    text-decoration: none ;
+    color: #007bff !important;
+}
+.c-sidebar .c-sidebar-nav-link:hover{
+    background-color: #007bff!important;
+    color: #fff !important;
+  
+}
+a {
+    text-decoration: none;
+    background-color: transparent;
+    color:#4f5d73 !important;
+}
+.c-sidebar-nav-link{
+    color:#fff !important;
+}
+.dropdown-item:hover{
+    background-color: #E3E3E6 !important;
 }
