@@ -4,6 +4,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SIDEBAR_SHOW,
 } from "../actions/types";
 
 // const isEmpty = require("is-empty");
@@ -12,6 +13,7 @@ const initialState = {
   sidebarShow: 'responsive',
   isAuthenticated: false,
   user: {},
+  role: 'admin',
   loading: false
 };
 
@@ -45,6 +47,11 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: false,
         user: null,
+      };
+    case SIDEBAR_SHOW:
+      return {
+        ...state,
+        sidebarShow: action.payload
       };
     default:
       return state;
