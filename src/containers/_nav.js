@@ -74,7 +74,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: i18n.t('left-menu.item-account-info'),
-        to: '/user-management/account-info',
+        to: '/profile-info',
       },
       {
         _tag: 'CSidebarNavItem',

@@ -26,10 +26,28 @@
         "item-template": "Tin nhắn mẫu",
         "item-audience": "Quản lý Khách hàng",
         "item-segments": "Nhóm khách hàng",
-        "item-customers": "Danh sách khách hàng",
+        "item-customers": "Tất cả khách hàng",
         "item-user-management": "Quản trị người dùng",
-        "item-account-info": "Thông tin tài khoản",
+        "item-account-info": "Thông tin cá nhân",
         "item-users": "Tất cả người dùng",
         "item-roles": "Các quyền"
+    },
+    "personal-info": {
+        "title": "Thông tin cá nhân",
+        "description": "Thông tin cơ bản, như địa chỉ tên và ảnh của bạn, mà bạn sử dụng trên Hệ thống",
+        "lb-detail": "Chi tiết",
+        "lb-last-update": "Cập nhật lúc 20/10/2020",
+        "lb-photo": "Hình",
+        "lb-name": "Tên",
+        "lb-role": "Quyền",
+        "lb-phone": "Số điện thoại",
+        "lb-address": "Địa chỉ",
+        "lb-birthday": "Ngày sinh",
+        "lb-gender": "Giới tính",
+        "lb-male": "Nam",
+        "lb-female": "Nữ",
+        "lb-password": "Mật khẩu",
+        "lb-password-update": "Thay đổi lần cuối vào 10:00 20/11/2020",
+        "btn-update-info": "Cập nhật thông tin"
     }
 }

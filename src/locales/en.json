@@ -12,7 +12,7 @@
         "bt-forget-password": "Forget password"
     },
     "user-topmenu": {
-        "item-profile-info": "Profile Info",
+        "item-profile-info": "Personal info",
         "item-setting": "Setting",
         "item-logout": "Log Out"
     },
@@ -28,8 +28,25 @@
         "item-segments": "Segments",
         "item-customers": "Customers",
         "item-user-management": "User Management",
-        "item-account-info": "Account info",
+        "item-account-info": "Personal info",
         "item-users": "All Users",
         "item-roles": "Roles"
+    },
+    "personal-info": {
+        "title": "Personal info",
+        "description": "Basic info, like your name address and photo, that you use on System",
+        "lb-detail": "Details",
+        "lb-last-update": "Last update 20/10/2020",
+        "lb-photo": "Photo",
+        "lb-name": "Name",
+        "lb-role": "Role",
+        "lb-phone": "Phone",
+        "lb-address": "Address",
+        "lb-gender": "Gender",
+        "lb-male": "Male",
+        "lb-female": "Female",
+        "lb-password": "Password",
+        "lb-password-update": "Last update 20/10/2020",
+        "btn-update-info": "Update info"
     }
 }
