@@ -35,11 +35,12 @@
     "personal-info": {
         "title": "Thông tin cá nhân",
         "description": "Thông tin cơ bản, như địa chỉ tên và ảnh của bạn, mà bạn sử dụng trên Hệ thống",
-        "lb-detail": "Chi tiết",
-        "lb-last-update": "Cập nhật lúc 20/10/2020",
+        "lb-detail": "Thông tin người dùng",
+        "lb-last-update": "Cập nhật lần cuối lúc 10:00 20/10/2020",
         "lb-photo": "Hình",
         "lb-name": "Tên",
         "lb-role": "Quyền",
+        "lb-status": "Trạng thái",
         "lb-phone": "Số điện thoại",
         "lb-address": "Địa chỉ",
         "lb-birthday": "Ngày sinh",
@@ -48,6 +49,6 @@
         "lb-female": "Nữ",
         "lb-password": "Mật khẩu",
         "lb-password-update": "Thay đổi lần cuối vào 10:00 20/11/2020",
-        "btn-update-info": "Cập nhật thông tin"
+        "btn-update-info": "Cập nhật"
     }
 }

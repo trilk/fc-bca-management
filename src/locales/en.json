@@ -35,18 +35,20 @@
     "personal-info": {
         "title": "Personal info",
         "description": "Basic info, like your name address and photo, that you use on System",
-        "lb-detail": "Details",
+        "lb-detail": "Personal Info",
         "lb-last-update": "Last update 20/10/2020",
         "lb-photo": "Photo",
         "lb-name": "Name",
         "lb-role": "Role",
+        "lb-status": "Status",
         "lb-phone": "Phone",
         "lb-address": "Address",
+        "lb-birthday": "Birthday",
         "lb-gender": "Gender",
         "lb-male": "Male",
         "lb-female": "Female",
         "lb-password": "Password",
         "lb-password-update": "Last update 20/10/2020",
-        "btn-update-info": "Update info"
+        "btn-update-info": "Update"
     }
 }
