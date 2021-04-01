@@ -11,6 +11,7 @@ import {
   CDataTable,
   CLabel,
   CCard,
+  CLink,
   CCardHeader,
   CCardBody,
   CPopover,
@@ -43,9 +44,7 @@ const getRole = role => {
 
 
 const Users = () => {
-  const placements = [
-    'bottom',
-  ]
+  
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
@@ -68,7 +67,7 @@ const Users = () => {
               <CRow className="align-items-start">
                 <CCol className="d-flex bd-highlight">
                   <CCol className="pt-2 pl-0">
-                    <h5>List Users</h5>
+                    <h5 className="tt-header">List Users</h5>
                   </CCol>
                   {/* sm,md,lg,xl, screen */}
                   <CCol col="6" sm="4" md="4" lg="4" className="d-none d-sm-block">
@@ -76,7 +75,7 @@ const Users = () => {
                   </CCol>
                   {/* sm,md,lg,xl, screen*/}
                   <CCol col="2" lg="0" className="d-none d-sm-block">
-                    <CButton color="primary"><Icon.PlusCircleFill className="mr-2 mb-0" />New User</CButton>
+                    <CLink to="/create-user"><CButton color="primary"><Icon.PlusCircleFill className="mr-2 mb-0" />New User</CButton></CLink>
                   </CCol>
                 </CCol>
                 {/* Mobile xs */}
@@ -95,7 +94,7 @@ const Users = () => {
               <CDataTable
                 items={usersData}
                 fields={[
-                  { key: 'name', label: 'name',_style: { width: '20%' }, _classes: 'font-weight-bold' },
+                  { key: 'name', label: 'name',_style: { width: '20%' }, _classes: 'font-weight-bold'},
                   { key: 'status', label: 'status', _style: { width: '8%' } },
                   { key: 'role', label: 'role', _style: { width: '12%' } },
                   { key: 'phone', label: 'phone no.', _style: { width: '15%' } },
@@ -134,6 +133,7 @@ const Users = () => {
                 }}
               />
               <CPagination
+              className="pt-4"
                 activePage={page}
                 onActivePageChange={pageChange}
                 doubleArrows={false}

@@ -36,8 +36,8 @@ const Colors = React.lazy(() => import('./views/theme/colors/Colors'));
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'));
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
-const User = React.lazy(() => import('./views/users/UserDetails'));
-const ProfileInfo = React.lazy(() => import('./views/UserManagement/ProfileInfo/ProfileInfo.js'));
+const UserDetails = React.lazy(() => import('./views/users/UserDetails'));
+const CreateUser = React.lazy(() => import('./views/users/createUser'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -79,9 +79,8 @@ const routes = [
   { path: '/notifications/toaster', name: 'Toaster', component: Toaster },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/user-management', name: '', component: ProfileInfo, exact: true },
-  { path: '/profile-info', name: 'Profile Info', component: ProfileInfo },
+  { path: '/users/:id', exact: true, name: 'User Details', component: UserDetails },
+  { path: '/create-user', exact: true,  name: 'Create User', component: CreateUser },
 ];
 
 export default routes;

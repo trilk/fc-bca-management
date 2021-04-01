@@ -32,7 +32,7 @@ const TheHeaderDropdown = () => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-2" placement="bottom-end">
         <CDropdownItem>
-          <CLink to="/profile-info"><CIcon name="cil-user" className="mfe-2" />{t('user-topmenu.item-profile-info')}</CLink>
+          <CLink to="/users/:id"><CIcon name="cil-user" className="mfe-2" />{t('user-topmenu.item-profile-info')}</CLink>
         </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-settings" className="mfe-2" />
