@@ -5,15 +5,15 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SIDEBAR_SHOW,
+  CHANGE_LANGUAGE
 } from "../actions/types";
-
-// const isEmpty = require("is-empty");
 
 const initialState = {
   sidebarShow: 'responsive',
   isAuthenticated: false,
   user: {},
-  role: 'admin',
+  role: 'user',
+  lang: 'vi',
   loading: false
 };
 
@@ -52,6 +52,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         sidebarShow: action.payload
+      };
+    case CHANGE_LANGUAGE:
+      return {
+        ...state,
+        lang: action.payload
       };
     default:
       return state;

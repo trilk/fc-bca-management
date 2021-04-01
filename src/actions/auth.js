@@ -1,6 +1,7 @@
 import setAuthToken from "../services/authToken";
 import AuthService from "../services/auth.service";
 import jwt_decode from "jwt-decode";
+// import { useHistory, Redirect } from 'react-router-dom';
 
 import {
   REGISTER_SUCCESS,
@@ -104,6 +105,9 @@ export const logout = () => dispatch => {
     type: LOGOUT,
     payload: null
   });
+
+  // Redirect to login
+  // return history.push("/login");
 };
 
 // Set logged in user
