@@ -1,6 +1,5 @@
 // Here you can add other styles
 .card {
-    border-radius: 0.25rem !important;
     border: 1px solid #E6E9ED !important;
     box-shadow: 0 0 4px #dde1e4;
 }
@@ -81,6 +80,14 @@
     background-color: #007BFF !important;
     color: #fff !important;
 }
+.btn-outline-dark {
+    color: #636f83;
+    border-color: #ced4da !important;
+    &:hover{
+        background: rgba(0, 123, 255, 0.1);
+        color: #007bff !important;
+    }
+}
 // btn secondary
 .btn-secondary{
     background: rgba(0, 123, 255, 0.1);
@@ -102,14 +109,12 @@
 //@at-root
 // Form Input
 .form-control {
-    border-color: #D5DADE !important;
-    border-radius: 0.25rem;
+    border-color: #ced4da !important;
     font-weight: 500;
-    font-size: 0.875rem;
 }
 //label
 .form-control-label{
-    color: #6c757d !important;
+    font-weight: 600 !important;
 }
 // Focus Hover form input
 .form-control:focus {
@@ -132,10 +137,11 @@
 .form-control:disabled, .form-control[readonly] {
     background-color: #F3F5F9 !important;
     opacity: 1;
+    cursor: not-allowed;
 }
 //
 .custom-select {
-    border-color: #D5DADE !important;
+    border-color:  #ced4da  !important;
     &:hover{
         border-color: #007BFF !important;
     }
@@ -149,32 +155,8 @@
 }
 //line
 hr{
-    border: 0;
-    border-top: 0.5px solid #E6E9EB !important ;
-    border-color: #E6E9EB !important;
+    border-top: 0.1px solid #E6E9ED   !important ;
 }
-//Modal
-// .modal-header {
-//     border-bottom: 1px solid #E6E9EB !important ;
-//     background-color: rgb(250, 251, 251) !important;  
-//     padding: 1rem 1.5rem !important;
-
-// }
-// .modal-body {
-//     padding: 1.5rem !important;
-// }
-// .modal-title {
-//     font-weight: 600 !important;
-//     font-size: 18px !important;
-// }
-// .modal-footer {
-//     border-top:1px solid #E6E9EB !important ;
-//     background-color: rgb(250, 251, 251) !important;  
-//     padding: 0.75rem 1.5rem !important;
-// }
-// .modal-content {
-//     border: 0px !important;
-// }
 a:hover {
     text-decoration: none ;
     color: #007bff !important;
@@ -194,4 +176,53 @@ a {
 }
 .dropdown-item:hover{
     background-color: #E3E3E6 !important;
+}
+// tabel header
+.table thead th {
+    padding: 1rem !important;
+    border-top: 0px !important;
+    border-bottom: #E6E9ED !important ;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding-bottom: 1rem !important;
+}
+//style table
+.table td{  
+    vertical-align: middle !important;
+    border-bottom: 1px solid #E6E9ED  !important ;
+    border-top: 1px solid #E6E9ED  !important;
+    color: #768192;
+}
+// Style for Card
+.card-header{
+    background-color: rgb(250, 251, 251);  
+    border-bottom: 0.1px solid #E6E9ED !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa !important;
+    &:hover{
+        background-color: #E7E7EA !important;
+    }
+} 
+// style pagingin
+.pagination{
+    display: flex;
+    justify-content: center !important;
+}
+.page-link{
+    color: #292642 !important;
+    border-color: #E6E9ED !important;
+
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff !important;
+    background-color: #007BFF !important;
+    border-color: #007BFF !important;
+}
+.tt-header{
+    color: #6c757d;
+}
+.text-discription{
+    color: #768192;
 }

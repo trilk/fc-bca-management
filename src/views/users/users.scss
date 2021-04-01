@@ -1,0 +1,44 @@
+.role-tag-inner{
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 3px 13px;
+    border-radius: 3px;
+    background-color: #adb5bd;
+    border: 1px solid #868e96;
+    color: #fff;
+    transition: opacity .2s;
+    font-size: 10px;
+}
+// nút status
+.badge-status{
+    display: inline-block !important;
+    padding: 0.5rem !important;
+    border-radius: 4px !important;
+}
+// custom nút warring pending
+.badge-warning {
+    color: #FFC107;
+    background-color: #FFF8E2;
+    border: 0.2px solid #EADEB8;
+}
+// custom nút đã gửi thành công 
+.badge-success {
+    color: #28A745;
+    background-color: rgba(40, 167, 69, 0.2);
+}
+/// progress cho delivery
+.progress-delivery{
+    height: 1rem !important;
+    width: 4rem !important;
+    border: 0.1px solid  #E6E9EB !important;
+    border-radius: 10rem !important;
+}
+.hr{
+    padding-bottom: 0rem !important;
+}
+.title-left{
+    color: #9492A0 !important;
+    text-transform: uppercase;
+}
+

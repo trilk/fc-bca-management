@@ -65,29 +65,29 @@ const _nav = [
       },
     ]
   },
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: i18n.t('left-menu.item-user-management'),
-    route: '/user-management',
-    icon: 'cil-people',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-account-info'),
-        to: '/profile-info',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-users'),
-        to: '/##/##',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-roles'),
-        to: '/##/##',
-      },
-    ]
-  },
+  // {
+  //   _tag: 'CSidebarNavDropdown',
+  //   name: i18n.t('left-menu.item-user-management'),
+  //   route: '/user-management',
+  //   icon: 'cil-people',
+  //   _children: [
+  //     {
+  //       _tag: 'CSidebarNavItem',
+  //       name: i18n.t('left-menu.item-account-info'),
+  //       to: '/profile-info',
+  //     },
+  //     {
+  //       _tag: 'CSidebarNavItem',
+  //       name: i18n.t('left-menu.item-users'),
+  //       to: '/##/##',
+  //     },
+  //     {
+  //       _tag: 'CSidebarNavItem',
+  //       name: i18n.t('left-menu.item-roles'),
+  //       to: '/##/##',
+  //     },
+  //   ]
+  // },
 
 
 
