@@ -40,6 +40,9 @@
         border-color: transparent !important;
     }
 }
+.btn-ghost {
+    color:#007BFF !important;
+}
 .btn-ghost:focus{
     outline: 1px auto -webkit-focus-ring-color #007BFF!important;
     border-color: #007BFF !important;
@@ -168,14 +171,14 @@ a:hover {
 }
 a {
     text-decoration: none;
-    background-color: transparent;
+    // background-color: transparent;
     color:#4f5d73 !important;
 }
 .c-sidebar-nav-link{
     color:#fff !important;
 }
 .dropdown-item:hover{
-    background-color: #E3E3E6 !important;
+    background: rgba(0, 123, 255, 0.1) !important;
 }
 // tabel header
 .table thead th {
@@ -226,3 +229,26 @@ a {
 .text-discription{
     color: #768192;
 }
+
+// status
+.badge-status {
+    padding: 0.5rem 0.5rem;
+    font-size: 10px;
+}
+.badge-success{
+    color: #28A745;
+    background: rgba(40, 167, 69, 0.2);
+}
+.badge-primary{
+    color: #007BFF;
+    background: rgba(0, 123, 255, 0.1);
+}
+//color
+.light-color{
+    color: rgb(149, 161, 172);
+}
+.danger-color{
+    color: #DC3545 !important;
+}
+//end
+//

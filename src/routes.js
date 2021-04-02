@@ -38,6 +38,8 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
 const UserDetails = React.lazy(() => import('./views/users/UserDetails'));
 const CreateUser = React.lazy(() => import('./views/users/createUser'));
+const Segments = React.lazy(() => import('./views/audience-studio/Segments'));
+const Customers = React.lazy(() => import('./views/audience-studio/Customers'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -81,6 +83,8 @@ const routes = [
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: UserDetails },
   { path: '/create-user', exact: true,  name: 'Create User', component: CreateUser },
+  { path: '/audience-studio/segments', exact: true,  name: 'Segmnets', component: Segments },
+  { path: '/audience-studio/customers', exact: true,  name: 'Customers', component: Customers },
 ];
 
 export default routes;

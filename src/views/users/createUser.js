@@ -139,7 +139,7 @@ const CreateUser = () => {
                                         <CCol className="mb-2"><span className="text-discription" htmlFor="title-authority-option">{t('create-user.tt-table')}</span></CCol>
                                         <CCol>
                                             <CCol className="tb-explan p-0">
-                                                <table className="table table-hover table-outline mb-0">
+                                                <table className="table table-hover table-outline mb-0 table-responsive">
                                                     <thead className="thead-light">
                                                         <tr>
                                                             <th className="text-center" htmlFor="">{t('create-user.th-classification')}</th>
