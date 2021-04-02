@@ -80,7 +80,7 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/notifications/toaster', name: 'Toaster', component: Toaster },
   { path: '/widgets', name: 'Widgets', component: Widgets },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
+  { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: UserDetails },
   { path: '/create-user', exact: true,  name: 'Create User', component: CreateUser },
   { path: '/audience-studio/segments', exact: true,  name: 'Segmnets', component: Segments },

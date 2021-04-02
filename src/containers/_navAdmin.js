@@ -1,12 +1,11 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import i18n from './../i18n'
+import i18n from "i18next";
 
-
-const _nav = [
+const _navAdmin = [
   {
     _tag: 'CSidebarNavItem',
-    name: i18n.t('left-menu.item-dashboard'),
+    name: i18n.t('login.title'),
     to: '/dashboard',
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
     badge: {
@@ -14,85 +13,6 @@ const _nav = [
       text: 'NEW',
     }
   },
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: i18n.t('left-menu.item-message'),
-    route: '/messages',
-    icon: 'cil-puzzle',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-allmessages'),
-        to: '/messages/all-messages',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-createmessage'),
-        to: '/messages/create-message',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-schedule'),
-        to: '/messages/schedule',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-draft'),
-        to: '/messages/##',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-template'),
-        to: '/messages/##',
-      },
-    ]
-  },
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: i18n.t('left-menu.item-audience'),
-    route: '/audience-studio',
-    icon: 'cil-people',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-segments'),
-        to: '/audience-studio/segments',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-customers'),
-        to: '/audience-studio/customers',
-      },
-    ]
-  },
-  // {
-  //   _tag: 'CSidebarNavDropdown',
-  //   name: i18n.t('left-menu.item-user-management'),
-  //   route: '/user-management',
-  //   icon: 'cil-people',
-  //   _children: [
-  //     {
-  //       _tag: 'CSidebarNavItem',
-  //       name: i18n.t('left-menu.item-account-info'),
-  //       to: '/profile-info',
-  //     },
-  //     {
-  //       _tag: 'CSidebarNavItem',
-  //       name: i18n.t('left-menu.item-users'),
-  //       to: '/##/##',
-  //     },
-  //     {
-  //       _tag: 'CSidebarNavItem',
-  //       name: i18n.t('left-menu.item-roles'),
-  //       to: '/##/##',
-  //     },
-  //   ]
-  // },
-
-
-
-
-
   {
     _tag: 'CSidebarNavTitle',
     _children: ['Theme']
@@ -289,105 +209,7 @@ const _nav = [
         to: '/notifications/toaster'
       }
     ]
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Widgets',
-    to: '/widgets',
-    icon: 'cil-calculator',
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
-  },
-  {
-    _tag: 'CSidebarNavDivider'
-  },
-  {
-    _tag: 'CSidebarNavTitle',
-    _children: ['Extras'],
-  },
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Pages',
-    route: '/pages',
-    icon: 'cil-star',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Login',
-        to: '/login',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Register',
-        to: '/register',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Error 404',
-        to: '/404',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Error 500',
-        to: '/500',
-      },
-    ],
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Disabled',
-    icon: 'cil-ban',
-    badge: {
-      color: 'secondary',
-      text: 'NEW',
-    },
-    addLinkClass: 'c-disabled',
-    'disabled': true
-  },
-  {
-    _tag: 'CSidebarNavDivider',
-    className: 'm-2'
-  },
-  {
-    _tag: 'CSidebarNavTitle',
-    _children: ['Labels']
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Label danger',
-    to: '',
-    icon: {
-      name: 'cil-star',
-      className: 'text-danger'
-    },
-    label: true
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Label info',
-    to: '',
-    icon: {
-      name: 'cil-star',
-      className: 'text-info'
-    },
-    label: true
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Label warning',
-    to: '',
-    icon: {
-      name: 'cil-star',
-      className: 'text-warning'
-    },
-    label: true
-  },
-  {
-    _tag: 'CSidebarNavDivider',
-    className: 'm-2'
   }
 ]
 
-export default _nav
+export default _navAdmin

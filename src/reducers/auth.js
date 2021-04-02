@@ -4,14 +4,16 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SIDEBAR_SHOW,
+  CHANGE_LANGUAGE
 } from "../actions/types";
-
-// const isEmpty = require("is-empty");
 
 const initialState = {
   sidebarShow: 'responsive',
   isAuthenticated: false,
   user: {},
+  role: 'user',
+  lang: 'vi',
   loading: false
 };
 
@@ -45,6 +47,16 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: false,
         user: null,
+      };
+    case SIDEBAR_SHOW:
+      return {
+        ...state,
+        sidebarShow: action.payload
+      };
+    case CHANGE_LANGUAGE:
+      return {
+        ...state,
+        lang: action.payload
       };
     default:
       return state;

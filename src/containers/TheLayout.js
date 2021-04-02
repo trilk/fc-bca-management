@@ -15,7 +15,7 @@ const TheLayout = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   if (!isAuthenticated) {
-    return <Redirect to="/login" />;
+    //return <Redirect to="/login" />;
     //history.push('/login');
   }
 

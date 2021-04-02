@@ -8,7 +8,6 @@ import {
   CCard,
   CFormGroup,
   CCardBody,
-  CDropdownItem,
   CCardGroup,
   CCol,
   CContainer,
@@ -18,20 +17,22 @@ import {
   CAlert,
   CInputGroup,
   CInputGroupPrepend,
-  CPopover,
+  CSelect,
   CInputGroupText,
   CHeaderBrand,
   CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { login } from "../../../actions/auth";
+import { CHANGE_LANGUAGE } from "../../../actions/types";
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
+import i18n from './../../../i18n';
 
 
 const Login = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const placements = [
     'bottom',
   ];
@@ -39,10 +40,18 @@ const Login = () => {
   const dispatch = useDispatch();
   // get from store redux
   let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  let language = useSelector(state => state.auth.lang);
   const [userData, setUserData] = useState({ phone: '', password: '' })
 
   const onChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+  const onLanguageChanged = e => {
+    i18n.changeLanguage(e.target.value);
+    dispatch({
+      type: CHANGE_LANGUAGE,
+      payload: e.target.value
+    });
   };
   const onSubmit = e => {
     e.preventDefault();
@@ -66,7 +75,7 @@ const Login = () => {
   return (
     <div className="c-app c-default-layout flex-row align-items-start pt-4" >
       <CContainer>
-        <CRow classname="d-flex justify-content-center">
+        <CRow className="d-flex justify-content-center">
           <CCol col="6">
             <CHeaderBrand className="mb-3 d-flex justify-content-center" to="">
               <CIcon name="logoBg" height="120" alt="Logo-bg" />
@@ -80,26 +89,11 @@ const Login = () => {
                 <CCardBody className="pb-5">
                   <CForm>
                     <CRow>
-                      <CCol col="6" className="pb-4 pr-0">
-                        {placements.map(placement => {
-                          return (
-                            <CCol col="6" className="pb-4" key={placement}>
-                              <CPopover className="d-inline-block float-right"
-
-                                content={
-                                  <>
-                                    <CDropdownItem className="select-item">English</CDropdownItem>
-                                    <CDropdownItem className="select-item">Vietnamese</CDropdownItem>
-                                  </>
-                                }
-                                placement={placement}
-                                interactive={true}
-                                trigger="click"
-                              >
-                                <a className="d-inline-block float-right language pr-0">English<Icon.ChevronDown className="ml-2" /></a>
-                              </CPopover>
-                            </CCol>)
-                        })}
+                      <CCol col="6" className="pb-2">
+                        <CSelect className='col-md-4 float-right' custom name="select" id="select-lang" defaultValue={language} onChange={value => onLanguageChanged(value)}>
+                          <option value="en" >English</option>
+                          <option value="vi" >Tieng Viet</option>
+                        </CSelect>
                       </CCol>
                     </CRow>
                     <CRow>
