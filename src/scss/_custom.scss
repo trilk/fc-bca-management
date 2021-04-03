@@ -160,10 +160,7 @@
 hr{
     border-top: 0.1px solid #E6E9ED   !important ;
 }
-a:hover {
-    text-decoration: none ;
-    color: #007bff !important;
-}
+
 .c-sidebar .c-sidebar-nav-link:hover{
     background-color: #007bff!important;
     color: #fff !important;
@@ -171,14 +168,22 @@ a:hover {
 }
 a {
     text-decoration: none;
-    // background-color: transparent;
     color:#4f5d73 !important;
+}
+a:hover {
+    text-decoration: none ;
+    // color: #007bff !important;
 }
 .c-sidebar-nav-link{
     color:#fff !important;
 }
+//drop down menu
 .dropdown-item:hover{
+    color: none !important;
     background: rgba(0, 123, 255, 0.1) !important;
+}
+.dropdown-menu{
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
 }
 // tabel header
 .table thead th {

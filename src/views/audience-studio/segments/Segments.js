@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faChevronDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faProjectDiagram, faChartPie, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 // import Avatar from 'react-avatar';
 import './segments.scss'
@@ -41,7 +41,15 @@ const getBadge = status => {
         case 'Pause': return 'light'
         case 'Pending': return 'warning'
         case 'Banned': return 'danger'
+        case 'Default': return 'primary'
         default: return 'primary'
+    }
+}
+
+const getDefaultSegments = defaultSegment => {
+    switch (defaultSegment) {
+        case 'Default': return 'primary'
+        case 'noDefault': return false
     }
 }
 const placements = [
@@ -56,6 +64,9 @@ const Segments = () => {
         <>
             <CRow>
                 <CCol>
+                    <CCol xs="12" className="p-0 d-flex justify-content-start">
+                        <h3 className="pb-3"><FontAwesomeIcon icon={faChartPie} className="mr-3" />Segments</h3>
+                    </CCol>
                     <CCol className="pb-3 d-flex bd-highlight pl-0">
                         <CCol lg="0" className="p-0 pl-0">
                             <CButton color="primary" onClick={() => setLarge(!large)}><FontAwesomeIcon icon={faPlusCircle} className="mr-2" /><span>Create segment</span></CButton>
@@ -63,8 +74,8 @@ const Segments = () => {
                         <CCol className="p-0">
                             <CDropdown className="ml-3">
                                 <CDropdownToggle color="outline" className="d-flex align-items-center">
-                                    <span>All</span>
-                                    <FontAwesomeIcon icon={faChevronDown} style={{ width: 10, height: 10 }} className="ml-2" />
+                                    <span>Filter</span>
+                                    <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
                                 </CDropdownToggle>
                                 <CDropdownMenu className="mt-2">
                                     <CDropdownItem checked><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#007BFF', width: 10, height: 10 }} />All</CDropdownItem>
@@ -97,25 +108,25 @@ const Segments = () => {
                                             <td>
                                                 <CCol className="pl-1">
                                                     <CCol className="p-0">
-                                                        <CCol className="p-0 d-flex flex-row bd-highlight">
-                                                            <h5 className="mb-0 pr-2" style={{ color: '#292642' }}><strong>Subscribered Users</strong></h5>
-                                                            {placements.map(placement => {
+                                                        <div className="p-0 d-flex flex-row bd-highlight">
+                                                            <h5 className="mb-1 pr-2" ><strong>{item.name}</strong></h5>
+                                                            {/* {placements.map(placement => {
                                                                 return (
                                                                     <CTooltip
                                                                         content={`Default segment is used as first or default option when sending messages`}
                                                                         placement={placement}
                                                                     >
-                                                                        <CBadge className="mr-1 badge-status" color="primary">Default</CBadge>
+                                                                        <CBadge className="mr-1 badge-status" block color="primary">{item.defaultSegment}</CBadge>
                                                                     </CTooltip>
                                                                 )
-                                                            })}
-                                                        </CCol>
-                                                        <small className="mt-0">Create Date: 10:00 Jan 1, 2015</small>
+                                                            })} */}
+                                                        </div>
+                                                        <small className="mt-0">Create Date: {item.createDate}</small>
                                                     </CCol>
                                                     <CCol className="p-0 pt-2 d-flex flex-column bd-highlight">
-                                                        <span className="segment-lb pb-1"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</span>
-                                                        <span className="segment-lb pb-1"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</span>
-                                                        <span className="segment-lb pb-1"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</span>
+                                                        {item.filter.includes("ageRange") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</span>}
+                                                        {item.filter.includes("channelsType") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</span>}
+                                                        {item.filter.includes("gender") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</span>}
                                                     </CCol>
                                                 </CCol>
 
@@ -133,7 +144,6 @@ const Segments = () => {
                                                             alt="admin@bootstrapmaster.com"
                                                         />
                                                     </div>
-                                                    {/* <span className="">Nguyễn Văn Nam</span> */}
                                                 </CCol>
                                             </td>
                                         ),
@@ -192,7 +202,7 @@ const Segments = () => {
                             </CCol>
                             <CCol className="p-0 pl-2 pr-2">
                                 <CFormGroup>
-                                    <CLabel htmlFor="name" className="form-control-label">Segmnet Name <span style={{ color: 'cd384a' }}>*</span></CLabel>
+                                    <CLabel htmlFor="name" className="form-control-label">Segmnet Name <span style={{ color: '#cd384a' }}>*</span></CLabel>
                                     <CInput id="name" placeholder="Enter your name" required />
                                 </CFormGroup>
                             </CCol>
@@ -272,7 +282,7 @@ const Segments = () => {
                         {/* filter gender */}
                         <CCol col="12" lg="12" className="d-flex flex-row bd-highlight">
                             <CCol lg="0" className="pl-2 mr-2">
-                                <FontAwesomeIcon icon={faUsersCog} />
+                                <FontAwesomeIcon icon={faUserTag} />
                             </CCol>
                             <CCol className="pl-0">
                                 <CCol className="pl-2">

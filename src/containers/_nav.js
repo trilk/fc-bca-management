@@ -50,18 +50,18 @@ const _nav = [
   {
     _tag: 'CSidebarNavDropdown',
     name: i18n.t('left-menu.item-audience'),
-    route: '/audience-studio',
+    route: '',
     icon: 'cil-people',
     _children: [
       {
         _tag: 'CSidebarNavItem',
         name: i18n.t('left-menu.item-segments'),
-        to: '/audience-studio/segments',
+        to: '/segments',
       },
       {
         _tag: 'CSidebarNavItem',
         name: i18n.t('left-menu.item-customers'),
-        to: '/audience-studio/customers',
+        to: '/contacts',
       },
     ]
   },

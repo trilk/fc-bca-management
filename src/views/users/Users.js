@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import './users.scss'
 import * as Icon from 'react-bootstrap-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faUsers, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import {
   CBadge,
   CButton,
@@ -44,7 +44,7 @@ const getRole = role => {
 
 
 const Users = () => {
-  
+
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
@@ -62,43 +62,52 @@ const Users = () => {
     <>
       <CRow>
         <CCol xl={12}>
+          <CCol lg="12" className="p-0 d-flex align-content-start flex-wrap ">
+            <CCol xs="12" className="p-0 d-flex justify-content-start">
+              <h3 className="pb-3"><FontAwesomeIcon icon={faUsersCog} className="mr-3" />List Users</h3>
+            </CCol>
+            <CCol lg="0" className="d-flex justify-content-end pb-3">
+              <CLink to="/create-user"><CButton color="primary"><FontAwesomeIcon icon={faPlusCircle} className="mr-2 mb-0" />New User</CButton></CLink>
+            </CCol>
+            <CCol lg="0" className="pl-3 pb-3 d-flex justify-content-end float-right">
+              <CInput id="text-input" name="text-input" placeholder="Search by name" />
+            </CCol>
+          </CCol>
           <CCard>
-            <CCardHeader>
-              <CRow className="align-items-start">
+            {/* <CRow className="align-items-start">
                 <CCol className="d-flex bd-highlight">
                   <CCol className="pt-2 pl-0">
                     <h5 className="tt-header">List Users</h5>
                   </CCol>
-                  {/* sm,md,lg,xl, screen */}
+                  sm,md,lg,xl, screen
                   <CCol col="6" sm="4" md="4" lg="4" className="d-none d-sm-block">
                     <CInput id="text-input" name="text-input" placeholder="Search by name" />
                   </CCol>
-                  {/* sm,md,lg,xl, screen*/}
+                  sm,md,lg,xl, screen
                   <CCol col="2" lg="0" className="d-none d-sm-block">
                     <CLink to="/create-user"><CButton color="primary"><Icon.PlusCircleFill className="mr-2 mb-0" />New User</CButton></CLink>
                   </CCol>
                 </CCol>
-                {/* Mobile xs */}
+                Mobile xs
                 <CCol col="12" xs="12" className="d-block d-sm-none p-0 pt-2 d-flex bd-highlight" >
                   <CCol className="pr-0">
                     <CInput id="text-input" name="text-input" placeholder="Search by name" />
                   </CCol >
-                  {/* Mobile xs */}
+                  Mobile xs
                   <CCol>
                     <CButton color="primary"><Icon.PlusCircleFill className="mr-2 mb-0 " />New User</CButton>
                   </CCol>
                 </CCol>
-              </CRow>
-            </CCardHeader>
-            <CCardBody className="pt-0">
+              </CRow> */}
+            <CCardBody>
               <CDataTable
                 items={usersData}
                 fields={[
-                  { key: 'name', label: 'name',_style: { width: '20%' }, _classes: 'font-weight-bold'},
+                  { key: 'name', label: 'name', _style: { width: '20%' }, _classes: 'font-weight-bold' },
                   { key: 'status', label: 'status', _style: { width: '8%' } },
                   { key: 'role', label: 'role', _style: { width: '12%' } },
                   { key: 'phone', label: 'phone no.', _style: { width: '15%' } },
-                  { key: 'gender', label: 'gender', _style: { width: '10%' }},
+                  { key: 'gender', label: 'gender', _style: { width: '10%' } },
                   { key: 'createdate', label: 'create date', _style: { width: '15%' } },
                   { key: 'lastupdate', label: 'last update', _style: { width: '15%' } },
                 ]}
@@ -133,7 +142,7 @@ const Users = () => {
                 }}
               />
               <CPagination
-              className="pt-4"
+                className="pt-4"
                 activePage={page}
                 onActivePageChange={pageChange}
                 doubleArrows={false}
