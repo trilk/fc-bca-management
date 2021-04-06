@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faProjectDiagram, faChartPie, } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faProjectDiagram, faChartPie, faAsterisk, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 // import Avatar from 'react-avatar';
 import './segments.scss'
@@ -32,6 +32,7 @@ import {
     CInput,
     CRow,
     CDropdownDivider,
+    CLink,
 } from '@coreui/react'
 import segmentData from './segmentData'
 
@@ -86,13 +87,13 @@ const Segments = () => {
                         </CCol>
                     </CCol>
                     <CCard>
-                        <CCardBody>
+                        <CCardBody className="pt-0">
                             <CDataTable
                                 items={segmentData}
                                 fields={[
-                                    { key: 'name', label: 'name', _style: { width: '40%' } },
+                                    { key: 'name', label: 'name', _style: { width: '50%' } },
                                     { key: 'status', label: 'status', _style: { width: '5%' } },
-                                    { key: 'users', label: 'users', _style: { width: '10%' } },
+                                    { key: 'users', label: 'Users in segment', _style: { width: '10%' } },
                                     { key: 'createby', label: 'create by', _style: { width: '3%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
@@ -101,16 +102,17 @@ const Segments = () => {
                                 striped
                                 pagination
                                 scopedSlots={{
-
                                     // name
                                     'name':
                                         (item) => (
                                             <td>
-                                                <CCol className="pl-1">
-                                                    <CCol className="p-0">
-                                                        <div className="p-0 d-flex flex-row bd-highlight">
+                                                <CCol className="p-0">
+                                                    <div className="d-flex flex-row align-items-center">
+                                                        <div className="p-0">
                                                             <h5 className="mb-1 pr-2" ><strong>{item.name}</strong></h5>
-                                                            {/* {placements.map(placement => {
+                                                        </div>
+                                                        <div>
+                                                            {placements.map(placement => {
                                                                 return (
                                                                     <CTooltip
                                                                         content={`Default segment is used as first or default option when sending messages`}
@@ -119,17 +121,18 @@ const Segments = () => {
                                                                         <CBadge className="mr-1 badge-status" block color="primary">{item.defaultSegment}</CBadge>
                                                                     </CTooltip>
                                                                 )
-                                                            })} */}
+                                                            })}
                                                         </div>
-                                                        <small className="mt-0">Create Date: {item.createDate}</small>
-                                                    </CCol>
-                                                    <CCol className="p-0 pt-2 d-flex flex-column bd-highlight">
+                                                    </div>
+                                                    <div className="pt-1 small text-muted">
+                                                        <span>Create Date: {item.createDate}</span>
+                                                    </div>
+                                                    <div className=" pl-0 pt-2 d-flex flex-column bd-highlight">
                                                         {item.filter.includes("ageRange") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</span>}
                                                         {item.filter.includes("channelsType") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</span>}
                                                         {item.filter.includes("gender") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</span>}
-                                                    </CCol>
+                                                    </div>
                                                 </CCol>
-
                                             </td>
                                         ),
                                     //create by
@@ -164,12 +167,15 @@ const Segments = () => {
                                             <td>
                                                 <CDropdown className="m-1 d-flex justify-content-center">
                                                     <CDropdownToggle color="ghost">
-                                                        <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12 }} />
+                                                        <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12,}} />
                                                     </CDropdownToggle>
                                                     <CDropdownMenu className="mt-2">
-                                                        <CDropdownItem><FontAwesomeIcon icon={faEye} className="mr-2" />View users</CDropdownItem>
+                                                        <CDropdownItem>
+                                                        <CLink to="/contacts"><FontAwesomeIcon icon={faEye} className="mr-2" />View users</CLink>
+                                                        </CDropdownItem>
                                                         <CDropdownItem><FontAwesomeIcon icon={faPen} className="mr-2" />Edit</CDropdownItem>
                                                         <CDropdownItem><FontAwesomeIcon icon={faPause} className="mr-2" />Pause</CDropdownItem>
+                                                        <CDropdownItem><FontAwesomeIcon icon={faAsterisk} className="mr-2" />Set default</CDropdownItem>
                                                         <CDropdownItem><FontAwesomeIcon icon={faClone} className="mr-2" />Duplicate</CDropdownItem>
                                                         <CDropdownDivider />
                                                         <CDropdownItem className="danger-color"><FontAwesomeIcon icon={faTrash} className="mr-2" />Delete</CDropdownItem>
@@ -206,11 +212,11 @@ const Segments = () => {
                                     <CInput id="name" placeholder="Enter your name" required />
                                 </CFormGroup>
                             </CCol>
-                            <CCol className="d-flex align-items-center">
-                                <CCol className="p-0">
-                                    <h6 className="d-flex justify-content-end light-color"><strong>Total users (estimate)</strong></h6>
-                                    <h3 className="d-flex justify-content-end">Pending</h3>
-                                </CCol>
+                            <CCol className="pr-0">
+                                {/* <CCol className="p-0"> */}
+                                <h6 className="d-flex justify-content-end light-color"><strong>Total users</strong></h6>
+                                <h3 className="d-flex justify-content-end">Pending</h3>
+                                {/* </CCol> */}
                             </CCol>
                         </CCol>
                         {/* Filter */}

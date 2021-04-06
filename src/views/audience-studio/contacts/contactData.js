@@ -112,13 +112,13 @@ function convert_hours_minute(global__date) {
 
 
 const contactData = [
-    { id: 0, name: 'Nguyễn Văn Nam', phonenumber: '09898887888',segments:'Độ tuổi từ 30 - 35 tuổi', channels: ['zalo','viber', 'telegram'], subscribed: true, activity: '10 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
-    { id: 0, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1', channels: ['viber', 'zalo', 'telegram'], subscribed: false, activity: '11 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
-    { id: 0, name: 'Nguyễn Văn Tư', phonenumber: '09898887888', segments: 'Segments 1',channels: ['zalo','telegram'], subscribed: false, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
-    { id: 0, name: 'Nguyễn Văn Năm', phonenumber: '09898887888',segments: 'Segments 1', channels: ['zalo' , 'viber','telegram'], subscribed: false, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
-    { id: 0, name: 'Nguyễn Văn Tám', phonenumber: '09898887888',segments: 'Segments 1', channels: ['zalo' , 'viber','telegram'], subscribed: false, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
-    { id: 0, name: 'Nguyễn Văn Tư', phonenumber: '09898887888', segments: 'Segments 1',channels: ['zalo'], subscribed: false, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
-    { id: 0, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1', channels: ['viber'], subscribed: false, activity: '11 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
+    { id: 0, name: 'Nguyễn Văn Nam', phonenumber: '09898887888',segments:'Độ tuổi từ 30 - 35 tuổi, helo tesolf team, hehe', channels: ['zalo','viber', 'telegram'], subscribed: true, activity: '10 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
+    { id: 0, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], subscribed: true, activity: '11 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
+    { id: 0, name: 'Nguyễn Văn Tư', phonenumber: '09898887888', segments: 'Segments 1',channels: ['zalo','telegram'], subscribed: true, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
+    { id: 0, name: 'Nguyễn Văn Năm', phonenumber: '09898887888',segments: 'Segments 1', channels: ['zalo' , 'viber','telegram'], subscribed: true, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
+    { id: 0, name: 'Nguyễn Văn Tám', phonenumber: '09898887888',segments: 'Segments 1', channels: ['zalo' , 'viber','telegram'], subscribed: true, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
+    { id: 0, name: 'Nguyễn Văn Tư', phonenumber: '09898887888', segments: 'Segments 1',channels: ['zalo'], subscribed: true, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
+    { id: 0, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1', channels: ['viber'], subscribed: true, activity: '11 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
     { id: 0, name: 'Nguyễn Văn Tư', phonenumber: '09898887888', segments: 'Segments 1',channels: ['zalo'], subscribed: false, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
     { id: 0, name: 'Nguyễn Văn Năm', phonenumber: '09898887888',segments: 'Segments 1', channels: ['zalo' , 'viber','telegram'], subscribed: false, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },
     { id: 0, name: 'Nguyễn Văn Tám', phonenumber: '09898887888',segments: 'Segments 1', channels: ['zalo' , 'viber','telegram'], subscribed: false, activity: '12 Minute agos', status: 'Active', createDate: convert_day(new Date()) },

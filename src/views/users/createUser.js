@@ -125,8 +125,8 @@ const CreateUser = () => {
                                         </CCol>
                                         <small className="text-discription">{t('create-user.subtt-role')}</small>
                                     </CCol>
-                                    <CCol className="pb-3 p-0">
-                                        <CFormGroup variant="custom-radio" inline>
+                                    <CCol className="pb-1 p-0">
+                                        <CFormGroup variant="custom-radio" inline className="pb-2">
                                             <CInputRadio custom id="inline-radio4" name="inline-radios" checked={role == 'Admin' ? true : false} onChange={() => { setRole("Admin") }} />
                                             <CLabel variant="custom-checkbox" htmlFor="inline-radio4" className="form-control-label">{t('create-user.lb-admin')}</CLabel>
                                         </CFormGroup>{' '}

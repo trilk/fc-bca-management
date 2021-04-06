@@ -40,6 +40,7 @@ const UserDetails = React.lazy(() => import('./views/users/UserDetails'));
 const CreateUser = React.lazy(() => import('./views/users/createUser'));
 const Segments = React.lazy(() => import('./views/audience-studio/segments/Segments'));
 const Contacts = React.lazy(() => import('./views/audience-studio/contacts/Contacts'));
+const contactDetails = React.lazy(() => import('./views/audience-studio/contacts/contactDetails'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -85,6 +86,7 @@ const routes = [
   { path: '/create-user', exact: true,  name: 'Create User', component: CreateUser },
   { path: '/segments', exact: true,  name: 'Segmnets', component: Segments },
   { path: '/contacts', exact: true,  name: 'Contacts', component: Contacts },
+  { path: '/contacts/contactDetails', exact: true,  name: 'Contact Details', component: contactDetails },
 ];
 
 export default routes;

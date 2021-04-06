@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 import './contacts.scss'
 import {
@@ -33,6 +33,7 @@ import {
     CInput,
     CRow,
     CDropdownDivider,
+    CLink,
 } from '@coreui/react'
 import contactData from './contactData'
 import { faTelegram, faViber } from '@fortawesome/free-brands-svg-icons'
@@ -75,59 +76,63 @@ const Contacts = () => {
         <>
             <CRow>
                 <CCol col="12" lg="12">
-                    <h3 className="pb-3"><FontAwesomeIcon icon={faUserFriends} className="mr-3" />All Contacts</h3>
-                    <CCol className="p-0 pb-3 d-flex align-content-start flex-wrap">
-                        <CCol lg="0" className="p-0 mr-3 pb-2">
-                            <CDropdown>
-                                <CDropdownToggle color="outline" className="d-flex align-items-center">
-                                    <span>Segments: Độ tuổi từ 30 - 35 tuổi</span>
-                                    <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-                                </CDropdownToggle>
-                                <CDropdownMenu className="mt-2">
-                                    <CDropdownItem checked><strong>All</strong></CDropdownItem>
-                                    <CDropdownItem><strong>Subscriber users</strong></CDropdownItem>
-                                    <CDropdownItem><strong>Độ tuổi từ 30 - 35 tuổi và nó dài</strong></CDropdownItem>
-                                    <CDropdownItem><strong>Segments 1</strong></CDropdownItem>
-                                    <CDropdownItem><strong>Segments 2</strong></CDropdownItem>
-                                    <CDropdownItem><strong>Segments 3</strong></CDropdownItem>
-                                    <CDropdownItem><strong>Segments 4</strong></CDropdownItem>
-                                </CDropdownMenu>
-                            </CDropdown>
-                        </CCol>
-                        <CCol lg="0" className="pr-3 pb-2">
-                            <CDropdown>
-                                <CDropdownToggle color="outline" className="d-flex align-items-center">
-                                    <span>Channels</span>
-                                    <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-                                </CDropdownToggle>
-                                <CDropdownMenu className="mt-2">
-                                    <CDropdownItem checked>All</CDropdownItem>
-                                    <CDropdownItem>Zalo</CDropdownItem>
-                                    <CDropdownItem>Viber</CDropdownItem>
-                                    <CDropdownItem>Telegram</CDropdownItem>
-                                </CDropdownMenu>
-                            </CDropdown>
-                        </CCol>
-                        <CCol lg="2" xs="6" sm="2" md="2" className="pl-0">
-                            <CInput name="input-search" placeholder="Search by name..."></CInput>
-                        </CCol>
-                    </CCol>
+                    <h4 className="pb-3"><FontAwesomeIcon icon={faUserFriends} className="mr-3" />All Contacts</h4>
+                </CCol>
+                <CCol className="d-flex bd-highlight flex-wrap pb-2">
+                    <div className="mr-auto pb-2">
+                        <CInput name="input-search" placeholder="Search by name..."></CInput>
+                    </div>
+                    <div className="order-2">
+                        <CDropdown>
+                            <CDropdownToggle color="outline" className="d-flex align-items-center">
+                                <span>Channels</span>
+                                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                            </CDropdownToggle>
+                            <CDropdownMenu className="mt-2">
+                                <CDropdownItem checked>All</CDropdownItem>
+                                <CDropdownItem>Zalo</CDropdownItem>
+                                <CDropdownItem>Viber</CDropdownItem>
+                                <CDropdownItem>Telegram</CDropdownItem>
+                            </CDropdownMenu>
+                        </CDropdown>
+                    </div>
+                    <div className="order-1 pr-2 pb-2">
+                        <CDropdown>
+                            <CDropdownToggle color="outline" className="d-flex align-items-center">
+                                <span>Segments: Độ tuổi từ 30 - 35 tuổi</span>
+                                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                            </CDropdownToggle>
+                            <CDropdownMenu className="mt-2">
+                                <CDropdownItem checked><strong>All</strong></CDropdownItem>
+                                <CDropdownItem><strong>Subscriber users</strong></CDropdownItem>
+                                <CDropdownItem><strong>Độ tuổi từ 30 - 35 tuổi và nó dài</strong></CDropdownItem>
+                                <CDropdownItem><strong>Segments 1</strong></CDropdownItem>
+                                <CDropdownItem><strong>Segments 2</strong></CDropdownItem>
+                                <CDropdownItem><strong>Segments 3</strong></CDropdownItem>
+                                <CDropdownItem><strong>Segments 4</strong></CDropdownItem>
+                            </CDropdownMenu>
+                        </CDropdown>
+                    </div>
+
+                </CCol>
+                <CCol col="12" lg="12">
                     <CCard>
-                        <CCardBody>
+                        <CCardBody className="pt-0">
                             <CDataTable
                                 items={contactData}
                                 fields={[
-                                    { key: 'name', label: 'name', _style: { width: '15%' } },
-                                    { key: 'phonenumber', label: 'Phone Number', _style: { width: '8%' } },
-                                    { key: 'segments', label: 'Segments', _style: { width: '8%' } },
-                                    { key: 'channels', label: 'channels', _style: { width: '5%' } },
-                                    { key: 'subscribed', label: 'subscribed', _style: { width: '5%' } },
-                                    { key: 'status', label: 'status', _style: { width: '3%' } },
-                                    { key: 'activity', label: 'activity', _style: { width: '8%' } },
+                                    { key: 'name', label: 'name', _style: { width: '10%' } },
+                                    { key: 'subscribed', label: 'subscribed', _style: { width: '2%' } },
+                                    { key: 'channels', label: 'channels', _style: { width: '2%' } },
+                                    { key: 'phonenumber', label: 'Phone Number', _style: { width: '5%' } },
+                                    { key: 'segments', label: 'Segments', _style: { width: '10%' } },
+                                    { key: 'status', label: 'status', _style: { width: '2%' } },
+                                    { key: 'activity', label: 'activity', _style: { width: '5%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
                                 hover
                                 bordered
+                                sorter
                                 striped
                                 itemsPerPage={8}
                                 activePage={page}
@@ -137,7 +142,7 @@ const Contacts = () => {
                                     'name':
                                         (item) => (
                                             <td>
-                                                <h6><strong>{item.name}</strong></h6>
+                                                <h6><strong>{item.name}</strong></h6    >
                                                 <div className="small text-muted">
                                                     <span>Registered: {item.createDate}</span>
                                                 </div>
@@ -151,8 +156,7 @@ const Contacts = () => {
                                                     {/* channels icon */}
                                                     {item.channels.includes("viber") && <FontAwesomeIcon icon={faViber} className="channel-icon mr-2" style={{ color: '#665CAC' }} />}
                                                     {item.channels.includes("zalo") && <CIcon name="zaloIcon" className="channel-icon mr-2 zalo-icon" />}
-                                                    {item.channels.includes("telegram") && <FontAwesomeIcon icon={faTelegram} className="channel-icon mr-2" style={{ color: '#665CAC' }} />}
-
+                                                    {item.channels.includes("telegram") && <FontAwesomeIcon icon={faTelegram} className="channel-icon mr-2" style={{ color: '#0088cc' }} />}
                                                 </CCol>
                                             </td>
                                         ),
@@ -188,17 +192,15 @@ const Contacts = () => {
                                     'action':
                                         (item) => (
                                             <td>
-                                                <CDropdown className="m-1 d-flex justify-content-center">
+                                                <CDropdown className="pr-2 d-flex justify-content-center">
                                                     <CDropdownToggle color="ghost">
                                                         <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12 }} />
                                                     </CDropdownToggle>
                                                     <CDropdownMenu className="mt-2">
-                                                        <CDropdownItem><FontAwesomeIcon icon={faEye} className="mr-2" />View users</CDropdownItem>
-                                                        <CDropdownItem><FontAwesomeIcon icon={faPen} className="mr-2" />Edit</CDropdownItem>
-                                                        <CDropdownItem><FontAwesomeIcon icon={faPause} className="mr-2" />Pause</CDropdownItem>
-                                                        <CDropdownItem><FontAwesomeIcon icon={faClone} className="mr-2" />Duplicate</CDropdownItem>
-                                                        <CDropdownDivider />
-                                                        <CDropdownItem className="danger-color"><FontAwesomeIcon icon={faTrash} className="mr-2" />Delete</CDropdownItem>
+                                                        <CDropdownItem>
+                                                            <CLink to="/contacts/contactDetails"><FontAwesomeIcon icon={faEye} className="mr-2" />View details</CLink>
+                                                        </CDropdownItem>
+                                                        <CDropdownItem><FontAwesomeIcon icon={faPen} className="mr-2" />Update Info</CDropdownItem>
                                                     </CDropdownMenu>
                                                 </CDropdown>
                                                 {' '}
@@ -216,6 +218,7 @@ const Contacts = () => {
                         </CCardBody>
                     </CCard>
                 </CCol>
+                {/* </CCol> */}
             </CRow>
         </>
     )

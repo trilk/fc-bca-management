@@ -8,3 +8,35 @@
 .dropdown-toggle::after{
     content: none !important;
 }
+.body-data{
+    border: 1px solid #E6E9ED !important;
+    border-radius: 4px;
+}
+.text-sub{
+    font-size: 14px;
+    font-weight: 600;
+}
+// .box-statistics{
+//     border-right: 1px solid;
+// }
+.c-avatar-img-bg {
+    height: 72px;
+    width: 72px;
+    border-radius: 50%;
+}
+.el-tag{
+        color: #007BFF  ;
+        border: none;
+        background-color: rgba(0, 123, 255, 0.1);
+        border-radius: 4px;
+        box-sizing: border-box;
+}
+.tags-text{
+    font-size: 14px;
+    font-weight: 600;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
