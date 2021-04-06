@@ -24,7 +24,6 @@ const TheSidebar = () => {
   const show = useSelector(state => state.auth.sidebarShow);
   const role = useSelector(state => state.auth.role);
   let menuItems = role === 'admin' ? navAdmin : navigation;
-  console.log(menuItems);
 
   return (
     <CSidebar
