@@ -1,4 +1,5 @@
 import React from 'react';
+import UpdateUser from './views/users/UpdateUser';
 
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
@@ -38,9 +39,13 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
 const UserDetails = React.lazy(() => import('./views/users/UserDetails'));
 const CreateUser = React.lazy(() => import('./views/users/createUser'));
+const userUpdate = React.lazy(() => import('./views/users/UpdateUser'));
 const Segments = React.lazy(() => import('./views/audience-studio/segments/Segments'));
 const Contacts = React.lazy(() => import('./views/audience-studio/contacts/Contacts'));
 const contactDetails = React.lazy(() => import('./views/audience-studio/contacts/contactDetails'));
+const updateContact = React.lazy(() => import('./views/audience-studio/contacts/updateContact'));
+const Messages = React.lazy(() => import('./views/messages/Messages'));
+const CreateMsg = React.lazy(() => import('./views/messages/CreateMsg'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -83,10 +88,14 @@ const routes = [
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: UserDetails },
+  { path: '/updateUser', exact: true, name: 'Update Info', component: UpdateUser },
   { path: '/create-user', exact: true,  name: 'Create User', component: CreateUser },
   { path: '/segments', exact: true,  name: 'Segmnets', component: Segments },
   { path: '/contacts', exact: true,  name: 'Contacts', component: Contacts },
   { path: '/contacts/contactDetails', exact: true,  name: 'Contact Details', component: contactDetails },
+  { path: '/contacts/contactDetails/updateContact', exact: true,  name: 'Update Contact', component: updateContact },
+  { path: '/messages', exact: true,  name: 'Messages', component: Messages },
+  { path: '/messages/CreateMsg', exact: true,  name: 'Create Message', component: CreateMsg },
 ];
 
 export default routes;

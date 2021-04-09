@@ -17,33 +17,18 @@ const _nav = [
   {
     _tag: 'CSidebarNavDropdown',
     name: i18n.t('left-menu.item-message'),
-    route: '/messages',
+    route: '',
     icon: 'cil-puzzle',
     _children: [
       {
         _tag: 'CSidebarNavItem',
         name: i18n.t('left-menu.item-allmessages'),
-        to: '/messages/all-messages',
+        to: '/messages',
       },
       {
         _tag: 'CSidebarNavItem',
         name: i18n.t('left-menu.item-createmessage'),
-        to: '/messages/create-message',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-schedule'),
-        to: '/messages/schedule',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-draft'),
-        to: '/messages/##',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: i18n.t('left-menu.item-template'),
-        to: '/messages/##',
+        to: '/create-message',
       },
     ]
   },

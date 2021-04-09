@@ -38,18 +38,18 @@ import {
 import contactData from './contactData'
 import { faTelegram, faViber } from '@fortawesome/free-brands-svg-icons'
 
-const getBadge = status => {
-    switch (status) {
-        case 'Active': return 'success'
-        case 'Inactive': return 'secondary'
-        case 'Pending': return 'warning'
-        case 'Banned': return 'danger'
-        default: return 'primary'
-    }
-}
+// const getBadge = status => {
+//     switch (status) {
+//         case 'Active': return 'success'
+//         case 'Inactive': return 'secondary'
+//         case 'Pending': return 'warning'
+//         case 'Banned': return 'danger'
+//         default: return 'primary'
+//     }
+// }
 
-const getSubscriber = Subscriber => {
-    switch (Subscriber) {
+const getStatus = status => {
+    switch (status) {
         case 'subscribed': return true
         case 'unsubscribed': return false
     }
@@ -122,11 +122,11 @@ const Contacts = () => {
                                 items={contactData}
                                 fields={[
                                     { key: 'name', label: 'name', _style: { width: '10%' } },
-                                    { key: 'subscribed', label: 'subscribed', _style: { width: '2%' } },
+                                    { key: 'status', label: 'status', _style: { width: '1%' } },
                                     { key: 'channels', label: 'channels', _style: { width: '2%' } },
                                     { key: 'phonenumber', label: 'Phone Number', _style: { width: '5%' } },
                                     { key: 'segments', label: 'Segments', _style: { width: '10%' } },
-                                    { key: 'status', label: 'status', _style: { width: '2%' } },
+                                    // { key: 'status', label: 'status', _style: { width: '2%' } },
                                     { key: 'activity', label: 'activity', _style: { width: '5%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
@@ -160,11 +160,11 @@ const Contacts = () => {
                                                 </CCol>
                                             </td>
                                         ),
-                                    'subscribed':
+                                    'status':
                                         (item) => (
                                             <td>
-                                                <CCol className="d-flex justify-content-center pr-5">
-                                                    <FontAwesomeIcon icon={item.subscribed ? faCheck : faTimes} />
+                                                <CCol className="pl-4">
+                                                    <FontAwesomeIcon icon={item.status ? faCheck : faTimes} />
                                                 </CCol>
                                             </td>
                                         ),
@@ -180,14 +180,14 @@ const Contacts = () => {
                                             </td>
                                         ),
                                     // Trạng thái
-                                    'status':
-                                        (item) => (
-                                            <td>
-                                                <CBadge className="badge-status" color={getBadge(item.status)}>
-                                                    {item.status}
-                                                </CBadge>
-                                            </td>
-                                        ),
+                                    // 'status':
+                                    //     (item) => (
+                                    //         <td>
+                                    //             <CBadge className="badge-status" color={getBadge(item.status)}>
+                                    //                 {item.status}
+                                    //             </CBadge>
+                                    //         </td>
+                                    //     ),
                                     //button action
                                     'action':
                                         (item) => (

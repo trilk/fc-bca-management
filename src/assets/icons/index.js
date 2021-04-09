@@ -5,6 +5,7 @@ import { msgPreview } from './message-preview'
 import { logoBg } from './logo-bg'
 import {zaloIcon} from './zalo-icon'
 import {femaleImg} from './female'
+import {phonePreview} from './phone-preview'
 
 import {
   cibSkype,
@@ -141,6 +142,7 @@ export const icons = Object.assign({}, {
   msgPreview,
   logoBg,
   femaleImg,
+  phonePreview,
   zaloIcon
 }, {
   cilAlignCenter,

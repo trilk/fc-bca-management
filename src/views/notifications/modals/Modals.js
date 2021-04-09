@@ -44,6 +44,7 @@ const Modals = () => {
             <CButton onClick={() => setSmall(!large)} className="mr-1">
               Launch small modal
             </CButton>
+
             <CModal 
               show={modal} 
               onClose={setModal}
