@@ -11,6 +11,7 @@ import {
   CButton,
   CCol,
   CDataTable,
+  CFormGroup,
   CLabel,
   CCard,
   CLink,
@@ -66,7 +67,7 @@ const Users = () => {
     <>
       <CRow>
         <CCol xl={12}>
-          <CCol lg="12" className="p-0 d-flex align-content-start flex-wrap ">
+          {/* <CCol lg="12" className="p-0 d-flex align-content-start flex-wrap ">
             <CCol xs="12" className="p-0 d-flex justify-content-start">
               <h3 className="pb-3"><FontAwesomeIcon icon={faUsersCog} className="mr-3" />List Users</h3>
             </CCol>
@@ -76,9 +77,27 @@ const Users = () => {
             <CCol lg="0" className="pl-3 pb-3 d-flex justify-content-end float-right">
               <CInput id="text-input" name="text-input" placeholder="Search by name" />
             </CCol>
+          </CCol> */}
+          <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
+            <div className="p-0 d-flex align-items-end">
+              <h4><FontAwesomeIcon icon={faUsersCog} className="mr-3" />List Users</h4>
+            </div>
+            <div className="p-0 ml-auto">
+              <CLink to="/template/new-template"><CButton color="primary"><FontAwesomeIcon icon={faPlusCircle} className="mr-2" /><span>New User</span></CButton></CLink>
+            </div>
           </CCol>
           <CCard>
-            <CCardBody className="pt-0">
+            <CCardBody>
+              <CRow>
+                <CCol lg="2" md="3" sm="3">
+                  <CFormGroup>
+                    <CInput id="" type="text" placeholder="Search" required />
+                    <div className="pl-1">
+                      <small className="form-text text-muted"><strong>Search</strong> in all fields</small>
+                    </div>
+                  </CFormGroup>
+                </CCol>
+              </CRow>
               <CDataTable
                 items={usersData}
                 fields={[
@@ -107,12 +126,12 @@ const Users = () => {
                             <CCol lg="0" className="p-0 pr-3 d-flex align-items-center">
                               <div className="c-avatar">
                                 {/* avatar */}
-                                {item.gender.includes("Female") && <img src={femaleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-male-default"/>}
-                                {item.gender.includes("Male") && <img src={maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default"/>}
+                                {item.gender.includes("Female") && <img src={femaleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-male-default" />}
+                                {item.gender.includes("Male") && <img src={maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default" />}
                                 {/* status */}
                                 {item.status.includes("Active") && <span className="c-avatar-status bg-success"></span>}
                                 {item.status.includes("Inactive") && <span className="c-avatar-status bg-secondary"></span>}
-                                {item.status.includes("Banned") && <span className="c-avatar-status bg-danger"></span>} 
+                                {item.status.includes("Banned") && <span className="c-avatar-status bg-danger"></span>}
                               </div>
                             </CCol>
                             <CCol className="p-0">

@@ -46,6 +46,11 @@ const contactDetails = React.lazy(() => import('./views/audience-studio/contacts
 const updateContact = React.lazy(() => import('./views/audience-studio/contacts/updateContact'));
 const Messages = React.lazy(() => import('./views/messages/Messages'));
 const CreateMsg = React.lazy(() => import('./views/messages/CreateMsg'));
+const MessageReport = React.lazy(() => import('./views/messages/MessageReport'));
+const EditMsg = React.lazy(() => import('./views/messages/EditMsg'));
+const Template = React.lazy(() => import('./views/messages/template/Template'));
+const NewTemplate = React.lazy(() => import('./views/messages/template/NewTemplate'));
+const TemplateDetails = React.lazy(() => import('./views/messages/template/TemplateDetails'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -96,6 +101,15 @@ const routes = [
   { path: '/contacts/contactDetails/updateContact', exact: true,  name: 'Update Contact', component: updateContact },
   { path: '/messages', exact: true,  name: 'Messages', component: Messages },
   { path: '/messages/CreateMsg', exact: true,  name: 'Create Message', component: CreateMsg },
+  { path: '/CreateMsg', exact: true,  name: 'Create Message', component: CreateMsg },
+  { path: '/messages/MessagesReport', exact: true,  name: 'Message Report', component: MessageReport },
+  { path: '/messages/EditMsg', exact: true,  name: 'Edit Message', component: EditMsg },
+  { path: '/template', exact: true,  name: 'Templates', component: Template },
+  { path: '/template/new-template', exact: true,  name: 'New Template', component: NewTemplate },
+  { path: '/template/new-template/template-details', exact: true,  name: 'Message Templates', component: TemplateDetails },
+  { path: '/template/template-details/new-template', exact: true,  name: 'Edit Template', component: NewTemplate },
+  { path: '/template/template-details', exact: true,  name: 'Message Templates', component: TemplateDetails },
+  // { path: '/messages/MessagesReport2', exact: true,  name: 'Message Report', component: MessageReport2 },
 ];
 
 export default routes;

@@ -46,7 +46,7 @@ const getBadge = status => {
         case 'Active': return 'success'
         case 'Inactive': return 'secondary'
         case 'Pending': return 'warning'
-        case 'Banned': return 'danger'
+        case 'Pause': return 'danger'
         default: return 'primary'
     }
 }
@@ -65,6 +65,10 @@ const Messages = () => {
     useEffect(() => {
         currentPage !== page && setPage(currentPage)
     }, [currentPage, page])
+
+    const pageChange = newPage => {
+        currentPage !== newPage && history.push(`/messages?page=${newPage}`)
+    }
 
     const placements = [
         'top'
@@ -87,8 +91,8 @@ const Messages = () => {
                             <CRow className="mt-2">
                                 <CCol lg="2" md="3" sm="3">
                                     <CDropdown>
-                                        <CDropdownToggle block variant="outline" color="light" className="d-flex align-items-center">
-                                            <span>All Messages</span>
+                                        <CDropdownToggle block color="outline" className="d-flex align-items-center">
+                                            <span>Messages</span>
                                             <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
                                         </CDropdownToggle>
                                         <CDropdownMenu className="mt-2" >
@@ -101,15 +105,15 @@ const Messages = () => {
                                         </div>
                                     </CDropdown>
                                 </CCol>
+                                {/* Filter */}
                                 <CCol lg="2" md="3" sm="3" >
                                     <CDropdown>
-                                        <CDropdownToggle block variant="outline" color="light" className="d-flex align-items-center">
+                                        <CDropdownToggle block color="outline" className="d-flex align-items-center">
                                             <span>Date Filter</span>
                                             <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
                                         </CDropdownToggle>
                                         <CDropdownMenu className="mt-2" >
                                             <CForm className="px-4 py-3" >
-
                                                 <CCol className="p-0">
                                                     <CFormGroup>
                                                         <CLabel htmlFor="exampleDropdownFormEmail1">Start Date</CLabel>
@@ -127,7 +131,6 @@ const Messages = () => {
                                                         <CButton color="primary" type="submit">Submit</CButton>
                                                     </CFormGroup>
                                                 </CCol>
-
                                             </CForm>
                                         </CDropdownMenu>
                                         <div className="pl-1">
@@ -143,7 +146,6 @@ const Messages = () => {
                                         </div>
                                     </CFormGroup>
                                 </CCol>
-
                             </CRow>
                             <CDataTable
                                 items={messageData}
@@ -175,10 +177,11 @@ const Messages = () => {
                                                 <div className="small text-muted">
                                                     <span>Create Date: {item.createDate}</span>
                                                 </div>
-                                                <div className="pt-2">
-                                                    <CBadge className="mr-1 badge-status" color="light">Draft</CBadge> 
+                                                {/* tags draf schedule */}
+                                                {/* <div className="pt-2">
+                                                    <CBadge className="mr-1 badge-status" color="light">Draft</CBadge>
                                                     <CBadge className="mr-1 badge-status" color="danger">Schedule</CBadge>
-                                                </div>
+                                                </div> */}
 
                                             </td>
                                         ),
@@ -187,7 +190,7 @@ const Messages = () => {
                                         (item) => (
                                             <td>
                                                 <div>
-                                                    <span className="font-weight-bold" style={{ fontSize: 16 }}>{item.sent}</span><br />
+                                                    <span className="font-weight-bold">{item.sent}</span><br />
                                                 </div>
                                                 <div className="small text-muted">
                                                     <span>Users recieved Message</span>
@@ -203,9 +206,9 @@ const Messages = () => {
                                                     {/* <div className="pb-1">
                                                         <small><strong>Success</strong></small>
                                                     </div>  */}
-                                                    {item.delivery.includes("sending") && <CProgress striped color="warning" value={75} className="delivery-progress" />}
-                                                    {item.delivery.includes("success") && <CProgress color="info" value={100} className="delivery-progress" />}
-                                                    {item.delivery.includes("pause") && <CProgress color="danger" value={10} className="delivery-progress" />}
+                                                    {item.delivery.includes("sending") && <CTooltip content={`Sending...20%`} placement="top"><CProgress striped color="warning" value={75} className="delivery-progress" /></CTooltip>}
+                                                    {item.delivery.includes("success") && <CTooltip content={`Delivered`} placement="top"><CProgress color="info" value={100} className="delivery-progress" /></CTooltip>}
+                                                    {item.delivery.includes("pause") && <CTooltip content={`Pause...`} placement="top"><CProgress color="danger" value={10} className="delivery-progress" /></CTooltip>}
                                                 </div>
 
                                             </td>
@@ -230,6 +233,14 @@ const Messages = () => {
                                                 </CCol>
                                             </td>
                                         ),
+                                    'segments':
+                                        (item) => (
+                                            <td>
+                                                <div>
+                                                    <span className="tags-text" maxLength={100}>{item.segments}</span>
+                                                </div>
+                                            </td>
+                                        ),
                                     //button action
                                     'action':
                                         (item) => (
@@ -238,16 +249,20 @@ const Messages = () => {
                                                     <CDropdownToggle color="ghost">
                                                         <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12 }} />
                                                     </CDropdownToggle>
-                                                    <CDropdownMenu className="mt-2">
+                                                    <CDropdownMenu>
                                                         <CDropdownItem>
-                                                            <CLink to="/contacts/contactDetails"><FontAwesomeIcon icon={faEye} className="mr-2" />View details</CLink>
+                                                            <CLink to="/messages/MessagesReport"><FontAwesomeIcon icon={faEye} className="mr-2" />View details</CLink>
+                                                        </CDropdownItem>
+                                                        <CDropdownItem>
+                                                            {/* Edit message wwith message draft and schedule */}
+                                                            <CLink to="/messages/EditMsg"><FontAwesomeIcon icon={faPen} className="mr-2" />Edit</CLink>
                                                         </CDropdownItem>
                                                         <CDropdownItem>
                                                             <FontAwesomeIcon icon={faCopy} className="mr-2" />Duplicate
                                                         </CDropdownItem>
                                                         <CDropdownDivider />
                                                         <CDropdownItem className="danger-color">
-                                                            <FontAwesomeIcon icon={faTrash} className="mr-2" />Delete 
+                                                            <FontAwesomeIcon icon={faTrash} className="mr-2" />Delete
                                                         </CDropdownItem>
                                                     </CDropdownMenu>
                                                 </CDropdown>
@@ -257,7 +272,13 @@ const Messages = () => {
                                 }}
                             />
 
-
+                            <CPagination
+                                className="pt-4 d-flex flex-wrap py-2 mr-3 "
+                                activePage={page}
+                                onActivePageChange={pageChange}
+                                doubleArrows={false}
+                                align="center"
+                            />
                         </CCardBody>
                     </CCard>
                 </CCol>

@@ -18,7 +18,7 @@
 .btn {
     display: inline-block;
     font-weight: 600;
-    font-size: 0.813rem;
+    font-size: 0.875rem !important;
     color: #3f4254;
     text-align: center;
     -webkit-user-select: none;
@@ -87,7 +87,7 @@
 // button outline dropdown
 .btn-outline{
     background-color: #fff !important;
-    border-color: rgba(0, 123, 255, 0.3) !important;
+    border-color: rgba(0, 123, 255, 0.4) !important;
     color:#007BFF !important;
     &:hover{
         background-color: #007BFF !important;
@@ -237,6 +237,8 @@ a:hover {
     background: rgba(0, 123, 255, 0.1) !important;
 }
 .dropdown-menu{
+    // position: fixed;
+    // top: 100%;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     border: none !important;
 }
@@ -274,9 +276,18 @@ a:hover {
     display: flex;
     justify-content: center !important;
 }
+.page-item{
+    padding: 0.2rem !important;
+}
 .page-link{
-    color: #292642 !important;
-    border-color: #E6E9ED !important;
+    background-color: #f3f6f9 !important;
+    border-color: #f3f6f9 !important;
+    color: #7e8299 !important;
+    font-size: 0.875rem !important;
+    border-radius: .42rem !important;
+    &:hover{
+        background-color: #E7E7EA !important;
+    }
 
 }
 .page-item.active .page-link {
@@ -294,8 +305,9 @@ a:hover {
 
 // status
 .badge-status {
-    padding: 0.5rem 0.5rem;
+    padding: 0.4rem 0.5rem;
     font-size: 10px;
+    font-weight: 500;
 }
 .badge-success{
     color: #28A745;
@@ -323,6 +335,18 @@ a:hover {
 .primary-color{
     color: #007bff !important;
 }
+.warning-color{
+    color: rgba(255, 193, 7, 1);
+}
+.success-color{
+    color: #28A745;
+}
+.read-color{
+    color: #BB6BD9
+}
+.bg-read{
+    color: #BB6BD9 !important;
+}
 //end
 //
 //tag segmnets other
@@ -337,3 +361,20 @@ a:hover {
     border-color: rgba(0, 123, 255, 0.1);
 
 }
+// .c-header-nav .c-header-nav-link, .c-header-nav .c-header-nav-btn{
+//     border-radius: 8px !important;
+//     height: 48px;
+//     cursor: pointer;
+//     &:hover{
+//         background-color: rgba(0, 123, 255, 0.1) !important;
+//     }
+// }
+.drop-down{
+    border-radius: 8px !important;
+    height: 44px !important;
+    cursor: pointer;
+    &:hover{
+        background-color: rgba(0, 123, 255, 0.1) !important;
+    }
+}
+// style toolpit

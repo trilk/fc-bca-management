@@ -95,3 +95,21 @@ input .file-upload-button{
 .custom-file-input:lang(en) ~ .custom-file-label::after {
     content: "Upload";
 }
+.box-review{
+    border-radius: .42rem !important;
+    border: 1px solid #e4e6ef;
+}
+// .progress-bar {
+//     background-color:#BB6BD9 !important ;
+// }
+// .open>.dropdown-menu {
+//     display: block;
+// }
+// .dropdown-menu-right {
+//     left: auto;
+//     right: 0;
+// }
+// .dropdown-menu {
+//     position: absolute;
+//     top: 100%;
+// 

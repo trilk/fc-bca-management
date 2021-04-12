@@ -8,24 +8,40 @@ import {
   CDropdownMenu,
   CDropdownToggle,
   CLink,
-  CProgress
+  CProgress,
+  CTooltip
 } from '@coreui/react'
+import { getIconsView } from '../views/icons/flags/Flags'
+import { flagSet } from '@coreui/icons'
+import { Flags } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 const TheHeaderDropDownLanguage = () => {
+  const placements = [
+    'top'
+  ]
   const itemsCount = 5
   return (
-    <CDropdown className="pr-2 d-flex justify-content-center">
-      <CDropdownToggle color="ghost">
-        <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12 }} />
-      </CDropdownToggle>
-      <CDropdownMenu className="mt-2">
+    <CDropdown className="d-flex justify-content-center">
+      <CTooltip 
+      content={`Select Language`}
+      placement="bottom">
+        <CDropdownToggle color="ghost" className=" rounder py-1 px-2">
+          <CIcon style={{ height: 24, width: 24 }} name="cif-us" title="us" id="us" className="p-0" />
+        </CDropdownToggle>
+      </CTooltip>
+      <CDropdownMenu className="mt-2" placement="bottom-end">
         <CDropdownItem>
-          <CLink to="/contacts/contactDetails"><FontAwesomeIcon icon={faEye} className="mr-2" />View details</CLink>
+          <CIcon style={{ height: 24, width: 24 }} name="cif-us" title="us" id="us" className="mr-2" />English
         </CDropdownItem>
-        <CDropdownItem><FontAwesomeIcon icon={faPen} className="mr-2" />Update Info</CDropdownItem>
+        <CDropdownItem>
+          <CIcon height={25} name="cif-vn" title="vn" id="vn" />Vietnamese
+        </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
+
+
+
   )
 }
 

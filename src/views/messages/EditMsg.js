@@ -44,7 +44,7 @@ import { phonePreview } from 'src/assets/icons/phone-preview'
 import CIcon from '@coreui/icons-react'
 
 
-const CreateMsg = () => {
+const EditMsg = () => {
     //Modal
     const [modal, setModal] = useState(true)
     const [large, setLarge] = useState(false)
@@ -372,4 +372,4 @@ const CreateMsg = () => {
     )
 }
 
-export default CreateMsg
+export default EditMsg

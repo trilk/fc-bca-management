@@ -65,29 +65,34 @@ const Segments = () => {
         <>
             <CRow>
                 <CCol>
-                    <CCol xs="12" className="p-0 d-flex justify-content-start">
-                        <h3 className="pb-3"><FontAwesomeIcon icon={faChartPie} className="mr-3" />Segments</h3>
-                    </CCol>
-                    <CCol className="pb-3 d-flex bd-highlight pl-0">
-                        <CCol lg="0" className="p-0 pl-0">
+                    <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
+                        <div className="p-0 d-flex align-items-end">
+                            <h4><FontAwesomeIcon icon={faChartPie} className="mr-3" />Segments</h4>
+                        </div>
+                        <div className="p-0 ml-auto">
                             <CButton color="primary" onClick={() => setLarge(!large)}><FontAwesomeIcon icon={faPlusCircle} className="mr-2" /><span>Create segment</span></CButton>
-                        </CCol>
-                        <CCol className="p-0">
-                            <CDropdown className="ml-3">
-                                <CDropdownToggle color="outline" className="d-flex align-items-center">
-                                    <span>Filter</span>
-                                    <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-                                </CDropdownToggle>
-                                <CDropdownMenu className="mt-2">
-                                    <CDropdownItem checked><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#007BFF', width: 10, height: 10 }} />All</CDropdownItem>
-                                    <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#28A745', width: 10, height: 10 }} />Active</CDropdownItem>
-                                    <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#9492A0', width: 10, height: 10 }} />Pause</CDropdownItem>
-                                </CDropdownMenu>
-                            </CDropdown>
-                        </CCol>
+                        </div>
                     </CCol>
                     <CCard>
-                        <CCardBody className="pt-0">
+                        <CCardBody>
+                            <CRow className="py-2">
+                                <CCol lg="2" md="3" sm="3">
+                                    <CDropdown>
+                                        <CDropdownToggle block color="outline" className="d-flex align-items-center">
+                                            <span>Filter</span>
+                                            <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
+                                        </CDropdownToggle>
+                                        <CDropdownMenu className="mt-2" >
+                                            <CDropdownItem checked><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#007BFF', width: 10, height: 10 }} />All</CDropdownItem>
+                                            <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#28A745', width: 10, height: 10 }} />Active</CDropdownItem>
+                                            <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#9492A0', width: 10, height: 10 }} />Pause</CDropdownItem>
+                                        </CDropdownMenu>
+                                        <div className="pl-1">
+                                            <small className="form-text text-muted"><strong>Filter</strong> by Status</small>
+                                        </div>
+                                    </CDropdown>
+                                </CCol>
+                            </CRow>
                             <CDataTable
                                 items={segmentData}
                                 fields={[
@@ -167,11 +172,11 @@ const Segments = () => {
                                             <td>
                                                 <CDropdown className="m-1 d-flex justify-content-center">
                                                     <CDropdownToggle color="ghost">
-                                                        <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12,}} />
+                                                        <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12, }} />
                                                     </CDropdownToggle>
-                                                    <CDropdownMenu className="mt-2">
+                                                    <CDropdownMenu className="">
                                                         <CDropdownItem>
-                                                        <CLink to="/contacts"><FontAwesomeIcon icon={faEye} className="mr-2" />View users</CLink>
+                                                            <CLink to="/contacts"><FontAwesomeIcon icon={faEye} className="mr-2" />View users</CLink>
                                                         </CDropdownItem>
                                                         <CDropdownItem><FontAwesomeIcon icon={faPen} className="mr-2" />Edit</CDropdownItem>
                                                         <CDropdownItem><FontAwesomeIcon icon={faPause} className="mr-2" />Pause</CDropdownItem>
@@ -197,7 +202,7 @@ const Segments = () => {
                 size="lg"
             >
                 <CModalHeader closeButton>
-                    <CModalTitle>Modal title</CModalTitle>
+                    <CModalTitle>Create Segment</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                     <CRow>

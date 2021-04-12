@@ -110,18 +110,11 @@ function convert_hours_minute(global__date) {
     return format;
 }
 
+const templateData = [
+    { id: 0, name: 'This is name of Template', content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', status: 'Success', delivery: 'success', lastupdate: '3/21/21, 3:11:46 pm 18 days, 8 hours ago', sent: '100.000.000', segments: 'Segment 1 team hola', type: '', createDate: convert_day(new Date()) },
+    { id: 0, name: 'This is name of Template', content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', status: 'Success', delivery: 'success', lastupdate: '3/21/21, 3:11:46 pm 18 days, 8 hours ago', sent: '100.000.000', segments: 'Segment 1 team hola', type: '', createDate: convert_day(new Date()) },
+    { id: 0, name: 'This is name of Template', content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', status: 'Success', delivery: 'success', lastupdate: '3/21/21, 3:11:46 pm 18 days, 8 hours ago', sent: '100.000.000', segments: 'Segment 1 team hola', type: '', createDate: convert_day(new Date()) },
+    { id: 0, name: 'This is name of Template', content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', status: 'Success', delivery: 'success', lastupdate: '3/21/21, 3:11:46 pm 18 days, 8 hours ago', sent: '100.000.000', segments: 'Segment 1 team hola', type: '', createDate: convert_day(new Date()) },
 
-const contactData = [
-    { id: 0, name: 'Nguyễn Văn Nam', phonenumber: '09898887888',segments:'Độ tuổi từ 30 - 35 tuổi, helo tesolf team, hehe', channels: ['zalo','viber', 'telegram'], status: true, activity: '10 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
-    { id: 1, name: 'Nguyễn Văn Ba', phonenumber: '09898887888',segments: 'Segments 1, Nữ 24 tuổi đến 30 tuổi dài xíu coi nó ra sao nha ae', channels: ['viber', 'zalo', 'telegram'], status: true, activity: '11 Minute agos', createDate: convert_day(new Date()) },
 ]
-
-export default contactData
+export default templateData
