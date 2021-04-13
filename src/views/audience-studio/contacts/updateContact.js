@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faIndent, faMailBulk, faAt, faMapMarkedAlt, faAddressBook, faAddressCard, faGlobeAsia, faCalendarCheck, faIdCard, faMapMarkerAlt, faHistory, faEnvelopeOpenText, faPoll, faChartPie, faCheckCircle, faCalendarPlus, faDotCircle, faWindowClose, faChargingStation, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
-import femaleimg from '/Users/hauxuan/Desktop/pvoil-ott-platform-client/src/views/users/avatar/female.jpg'
+import femaleimg from '../../users/avatar/female.jpg'
 import './contacts.scss'
 import imgblank from '../img/blank.png'
 import {
