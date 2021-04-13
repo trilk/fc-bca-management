@@ -78,29 +78,6 @@ import _ from "lodash";
 import { convert_day_hours_minute } from "../../../helpers/convertdate";
 // api service
 import AudienceService from "../../../services/audience.service";
-const getBadge = (status) => {
-  switch (status) {
-    case "Active":
-      return "success";
-    case "Inactive":
-      return "secondary";
-    case "Pending":
-      return "warning";
-    case "Banned":
-      return "danger";
-    default:
-      return "primary";
-  }
-};
-
-const getSubscriber = (Subscriber) => {
-  switch (Subscriber) {
-    case "subscribed":
-      return true;
-    case "unsubscribed":
-      return false;
-  }
-};
 
 const Contacts = () => {
   const limitpage = 15;
@@ -268,7 +245,10 @@ const Contacts = () => {
                         <strong>{item.ChatName}</strong>
                       </h6>
                       <div className="small text-muted">
-                        <span>Registered: {item.CreateDate}</span>
+                        <span>
+                          Registered:{" "}
+                          {convert_day_hours_minute(item.CreateDate)}
+                        </span>
                       </div>
                     </td>
                   ),
@@ -277,20 +257,20 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.ChannelType.includes("viber") && (
+                        {item.ChannelType === "Viber" && (
                           <FontAwesomeIcon
                             icon={faViber}
                             className="channel-icon mr-2"
                             style={{ color: "#665CAC" }}
                           />
                         )}
-                        {item.ChannelType.includes("zalo") && (
+                        {item.ChannelType === "Zalo" && (
                           <CIcon
                             name="zaloIcon"
                             className="channel-icon mr-2 zalo-icon"
                           />
                         )}
-                        {item.ChannelType.includes("telegram") && (
+                        {item.ChannelType === "Telegram" && (
                           <FontAwesomeIcon
                             icon={faTelegram}
                             className="channel-icon mr-2"
