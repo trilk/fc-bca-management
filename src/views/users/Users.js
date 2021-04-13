@@ -112,7 +112,7 @@ const Users = () => {
                   { key: 'phone', label: 'phone no.', _style: { width: '10%' } },
                   { key: 'role', label: 'role', _style: { width: '8%' } },
                   { key: 'gender', label: 'gender', _style: { width: '5%' } },
-                  { key: 'address', label: 'address', _style: { width: '15%' } },
+                  // { key: 'address', label: 'address', _style: { width: '15%' } },
                   { key: 'lastupdate', label: 'last update', _style: { width: '10%' } },
                   { key: 'status', label: 'status', _style: { width: '5%' } },
                   { key: 'action', label: 'action', _style: { width: '1%' } },
