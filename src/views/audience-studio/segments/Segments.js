@@ -114,28 +114,23 @@ const Segments = () => {
                                                 <CCol className="p-0">
                                                     <div className="d-flex flex-row align-items-center">
                                                         <div className="p-0">
-                                                            <h5 className="mb-1 pr-2" ><strong>{item.name}</strong></h5>
+                                                            <h5 className="mb-1 pr-2" style={{ fontWeight: 600 }}>{item.name}</h5>
                                                         </div>
                                                         <div>
-                                                            {placements.map(placement => {
-                                                                return (
-                                                                    <CTooltip
-                                                                        content={`Default segment is used as first or default option when sending messages`}
-                                                                        placement={placement}
-                                                                    >
-                                                                        <CBadge className="mr-1 badge-status" block color="primary">{item.defaultSegment}</CBadge>
-                                                                    </CTooltip>
-                                                                )
-                                                            })}
+                                                            <CTooltip
+                                                                content={`Default segment is used as first or default option when sending messages`}
+                                                            >
+                                                                <CBadge className="mr-1 badge-status" block color="primary">{item.type}</CBadge>
+                                                            </CTooltip>
                                                         </div>
                                                     </div>
-                                                    <div className="pt-1 small text-muted">
+                                                    <div className="pt-1 small light-color">
                                                         <span>Create Date: {item.createDate}</span>
                                                     </div>
                                                     <div className=" pl-0 pt-2 d-flex flex-column bd-highlight">
-                                                        {item.filter.includes("ageRange") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</span>}
-                                                        {item.filter.includes("channelsType") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</span>}
-                                                        {item.filter.includes("gender") && <span className="segment-lb pb-1"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</span>}
+                                                        {item.filter.includes("ageRange") && <span className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</span>}
+                                                        {item.filter.includes("channelsType") && <span className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</span>}
+                                                        {item.filter.includes("gender") && <span className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</span>}
                                                     </div>
                                                 </CCol>
                                             </td>

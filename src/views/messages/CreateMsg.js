@@ -88,7 +88,7 @@ const CreateMsg = () => {
                         <CCardHeader className="text-muted font-weight-bold">1. Audience</CCardHeader>
                         <CCardBody>
                             <CCol className="p-0" lg="3" md="3">
-                                <CLabel htmlFor="district" className="text-muted">Channel<span className="danger-color pl-1">*</span></CLabel>
+                                <CLabel htmlFor="channel">Channel<span className="danger-color pl-1">*</span></CLabel>
                                 <CSelect custom name="select" id="select">
                                     <option>select..</option>
                                     <option value="1">Zalo</option>
@@ -97,7 +97,7 @@ const CreateMsg = () => {
                                 <small className="form-text text-muted"><strong>Select</strong> a Channel to send message</small>
                             </CCol>
                             <CCol className="p-0 pt-3" lg="2">
-                                <CLabel htmlFor="segments" className="text-muted">Segments <span className="danger-color pl-1">*</span></CLabel>
+                                <CLabel htmlFor="segments">Segments <span className="danger-color pl-1">*</span></CLabel>
                             </CCol>
                             <CCol className="p-0 d-flex flex-column bd-highlight pb-2">
                                 <CFormGroup variant="custom-radio" inline className="pb-1">
@@ -209,7 +209,7 @@ const CreateMsg = () => {
                             <CRow>
                                 <CCol col="6" lg="6" md="6">
                                     <CCol className="p-0 pb-4">
-                                        <CLabel htmlFor="district" className="text-muted">Template</CLabel>
+                                        <CLabel htmlFor="select-template">Template</CLabel>
                                         <CSelect custom name="select" id="select">
                                             <option>select..</option>
                                             <option value="1">Template 1</option>
@@ -219,7 +219,7 @@ const CreateMsg = () => {
                                     </CCol>
                                     <CCol className="p-0 pb-2">
                                         <CFormGroup>
-                                            <CLabel htmlFor="district" className="text-muted">Message<span className="danger-color pl-1">*</span></CLabel>
+                                            <CLabel htmlFor="message">Message<span className="danger-color pl-1">*</span></CLabel>
                                             <CTextarea
                                                 name="textarea-input"
                                                 id="textarea-input"
@@ -231,7 +231,7 @@ const CreateMsg = () => {
                                     </CCol>
                                     <CCol className="p-0 pb-2">
                                         <CFormGroup>
-                                            <CLabel htmlFor="file-input" className="text-muted">File input</CLabel>
+                                            <CLabel htmlFor="file-input">Image</CLabel>
                                             <CCol>
                                                 <CInputFile
                                                     id="file-multiple-input"
@@ -247,7 +247,7 @@ const CreateMsg = () => {
                                     </CCol>
                                     <CCol className="p-0">
                                         <CFormGroup>
-                                            <CLabel htmlFor="file-input" className="text-muted">Launch URL</CLabel>
+                                            <CLabel htmlFor="file-input">Launch URL</CLabel>
                                             <CInput id="name" placeholder="http://bit.ly/abc" required />
                                         </CFormGroup>
                                     </CCol>
