@@ -35,21 +35,7 @@ const UserDetails = ({ match }) => {
     [['id', (<span><CIcon className="text-muted" name="cui-icon-ban" />No data</span>)]]
 
   return (
-
-
-
     <CRow>
-      {/* <span>Avatar</span>
-                <div className="">
-                  <div className="image-input image-input-outline">
-                    <div>
-                      <CImg src={imgblank} className="image-input-wrapper" />
-                    </div>
-                    <div className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove">
-                      <FontAwesomeIcon icon={faPen} style={{ height: 9, width: 9 }} />
-                    </div>
-                  </div>
-                </div> */}
       <CCol lg="12">
         <CCard>
           <CCardBody>
@@ -72,7 +58,7 @@ const UserDetails = ({ match }) => {
                     <small className="light-color"><strong>Online 10 minutes ago</strong></small>
                   </div>
                   <div className="ml-auto">
-                    <CLink to="/updateUser"><CButton color="primary"><FontAwesomeIcon icon={faPen} className="mr-2" />Update Info</CButton></CLink>
+                    <CLink to="/users/:id/user-update"><CButton color="primary"><FontAwesomeIcon icon={faPen} className="mr-2" />Update Info</CButton></CLink>
                   </div>
                 </CCol>
                 <hr />

@@ -75,7 +75,7 @@ const TemplateDetails = () => {
                                         <CCol lg="3" className="text-muted" >
                                             Name Segmnet
                                         </CCol>
-                                        <CCol className="font-weight-bold" style={{fontSize: 16}}>Tin nhắn mẫu ngày cá tháng 4 nha</CCol>
+                                        <CCol className="font-weight-bold" style={{ fontSize: 16 }}>Tin nhắn mẫu ngày cá tháng 4 nha</CCol>
                                     </CCol>
                                 </CCol>
                                 <CCol className="p-0 py-3">
@@ -160,6 +160,9 @@ const TemplateDetails = () => {
                             <CCol col="6" className="d-flex justify-content-center flex-column">
                                 <CIcon name="phonePreview" height="700" alt="Logo" />
                             </CCol>
+                        </CCol>
+                        <CCol  className="d-inline-flex">
+                            <CButton color="primary">Edit Template</CButton>
                         </CCol>
                     </CCardBody>
 

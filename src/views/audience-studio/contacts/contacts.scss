@@ -5,9 +5,6 @@
 .zalo-icon{
     border-radius: 50% !important;
 }
-.dropdown-toggle::after{
-    content: none !important;
-}
 .body-data{
     border: 1px solid #E6E9ED !important;
     border-radius: 4px;
@@ -32,11 +29,9 @@
         box-sizing: border-box;
 }
 .tags-text{
-    font-size: 14px;
-    font-weight: 600;
     overflow: hidden;
    text-overflow: ellipsis;
    display: -webkit-box;
-   -webkit-line-clamp: 1; /* number of lines to show */
+   -webkit-line-clamp: 2; /* number of lines to show */
    -webkit-box-orient: vertical;
 }

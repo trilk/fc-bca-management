@@ -3,17 +3,25 @@ import {
   CBadge,
   CButton,
   CButtonGroup,
+  CWidgetProgress,
   CCard,
   CCardBody,
   CCardFooter,
   CCardHeader,
+  CWidgetDropdown,
+  CDropdown,
+  CDropdownMenu,
+  CDropdownItem,
+  CDropdownToggle,
   CCol,
+  CWidgetIcon,
   CProgress,
   CRow,
   CCallout
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import * as Icon from 'react-bootstrap-icons';
+import ChartLineSimple from '../charts/ChartLineSimple'
 
 import MainChartExample from '../charts/MainChartExample.js'
 import { useTranslation } from 'react-i18next';
@@ -25,7 +33,72 @@ const Dashboard = () => {
   const { t, i18n } = useTranslation();
   return (
     <>
-      <WidgetsDropdown />
+      <CRow>
+        <CCol sm="6" lg="3">
+          <CWidgetDropdown
+          className=""
+            color="gradient-primary"
+            header="9.823"
+            text="Members online"
+            footerSlot={
+              <ChartLineSimple
+                pointed
+                className="c-chart-wrapper mt-3 mx-3"
+                style={{ height: '70px' }}
+                dataPoints={[65, 59, 84, 84, 51, 55, 40]}
+                pointHoverBackgroundColor="primary"
+                label="Members"
+                labels="months"
+              />
+            }
+          >
+            <CDropdown>
+              <CDropdownToggle color="transparent">
+                <CIcon name="cil-settings" />
+              </CDropdownToggle>
+              <CDropdownMenu className="pt-0" placement="bottom-end">
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Another action</CDropdownItem>
+                <CDropdownItem>Something else here...</CDropdownItem>
+                <CDropdownItem disabled>Disabled action</CDropdownItem>
+              </CDropdownMenu>
+            </CDropdown>
+          </CWidgetDropdown>
+        </CCol>
+
+
+
+      </CRow>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <WidgetsDropdown />
       <CCard>
         <CCardBody>
           <CRow>
@@ -36,7 +109,7 @@ const Dashboard = () => {
             <CCol sm="7" className="d-none d-md-block">
               <CButton color="primary" className="float-right">
                 <Icon.ArrowRight />
-                {/* <CIcon name="cil-cloud-download" /> */}
+              
               </CButton>
               <CButtonGroup className="float-right mr-3">
                 {
@@ -553,7 +626,7 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow>
+      </CRow> */}
     </>
   )
 }

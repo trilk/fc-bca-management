@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './createUser.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faPen, faFileSignature, faUsers, faEye, faBan, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faPen, faFileSignature, faUsers, faEye, faBan, faCheck, faInfo, faInfoCircle, faMapMarkedAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import {
     CButton,
     CCardHeader,
@@ -17,7 +17,7 @@ import {
     CCardFooter,
 } from '@coreui/react'
 import { useTranslation } from 'react-i18next'
-const UpdateUser = () => {
+const UserUpdate = () => {
 
     //role admin or moderator
     const [role, setRole] = useState("Admin");
@@ -29,56 +29,59 @@ const UpdateUser = () => {
                 <CCol xs={12}>
                     <CCard>
                         <CCardHeader>
-                            <h5 className="pt-2 tt-header">{t('create-user.tt-header')}</h5>
+                            <h5 className="pt-2 tt-header">Update Info</h5>
                         </CCardHeader>
                         <CCardBody>
                             <CRow className="pb-5">
                                 {/* Left content */}
                                 <CCol col="6" xs="12" lg="6" className="p-0">
                                     <CCol>
+                                        <CCol className="mb-2 p-0">
+                                            <FontAwesomeIcon icon={faInfoCircle} style={{ height: 15, width: 15 }} className="mr-2" />
+                                            <CLabel htmlFor="name" className="form-control-label mb-0">
+                                                <h5 htmlFor="info">Thông tin</h5>
+                                            </CLabel>
+                                        </CCol>
                                         <CCol className="p-0 pb-3">
                                             <CFormGroup row className="my-0">
                                                 <CCol className="pr-1">
-                                                    <CLabel htmlFor="first-name" className="form-control-label">{t('create-user.lb-fr-name')}</CLabel>
+                                                    <CLabel htmlFor="first-name">{t('create-user.lb-fr-name')}</CLabel>
                                                     <CInput id="first-name" placeholder="" />
                                                 </CCol>
                                                 <CCol>
-                                                    <CLabel htmlFor="last-name" className="form-control-label">{t('create-user.lb-lastname')}</CLabel>
+                                                    <CLabel htmlFor="last-name">{t('create-user.lb-lastname')}</CLabel>
                                                     <CInput id="last-name" placeholder="" />
                                                 </CCol>
                                             </CFormGroup>
                                         </CCol>
-                                        {/* phone */}
-                                        <CCol className="p-0">
-                                            <CFormGroup>
-                                                <CLabel htmlFor="phone-number" className="form-control-label">{t('create-user.lb-phone')}</CLabel>
-                                                <CInput id="phone-number" placeholder={t('create-user.pl-phone')} required />
+                                        {/* phone and gender */}
+                                        <CCol className="p-0 pb-3">
+                                            <CFormGroup row className="my-0">
+                                                <CCol className="pr-1">
+                                                    <CLabel htmlFor="first-name">{t('create-user.lb-phone')}</CLabel>
+                                                    <CInput id="first-name" placeholder="Enter your phone number" />
+                                                </CCol>
+                                                <CCol>
+                                                    <CLabel htmlFor="last-name">{t('create-user.lb-gender')}</CLabel>
+                                                    <CSelect custom name="select" id="select">
+                                                        <option value="0">select..</option>
+                                                        <option value="1">Male</option>
+                                                        <option value="2">Female</option>
+                                                        <option value="3">Other</option>
+                                                    </CSelect>
+                                                </CCol>
                                             </CFormGroup>
                                         </CCol>
-                                        {/* gender */}
-                                        <CCol className="p-0">
-                                            <CLabel htmlFor="gender" className="form-control-label">{t('create-user.lb-gender')}</CLabel>
-                                            <CCol className="d-flex justify-content-start pl-0">
-                                                <CFormGroup variant="custom-radio" inline>
-                                                    <CInputRadio custom id="inline-radio1" name="inline-radios" value="option1" />
-                                                    <CLabel variant="custom-checkbox" htmlFor="inline-radio1">{t('create-user.lb-male')}</CLabel>
-                                                </CFormGroup>
-                                                <CFormGroup variant="custom-radio" inline>
-                                                    <CInputRadio custom id="inline-radio2" name="inline-radios" value="option1" />
-                                                    <CLabel variant="custom-checkbox" htmlFor="inline-radio2">{t('create-user.lb-female')}</CLabel>
-                                                </CFormGroup>
-                                                <CFormGroup variant="custom-radio" inline>
-                                                    <CInputRadio custom id="inline-radio3" name="inline-radios" value="option1" />
-                                                    <CLabel variant="custom-checkbox" htmlFor="inline-radio3">{t('create-user.lb-other')}</CLabel>
-                                                </CFormGroup>
-                                            </CCol>
+                                        <CCol className="mb-2 p-0 pt-2">
+                                            <FontAwesomeIcon icon={faMapMarkerAlt} style={{ height: 15, width: 15 }} className="mr-2" />
+                                            <CLabel htmlFor="name" className="form-control-label mb-0">
+                                                <h5 htmlFor="info">Địa chỉ</h5>
+                                            </CLabel>
                                         </CCol>
-                                        <hr />
-                                        <CCol className="p-0 pb-2"><h5 htmlFor="address">{t('create-user.lb-address')}</h5></CCol>
                                         <CCol className="p-0">
                                             <CFormGroup row>
-                                                <CCol xs="12" className="pb-3">
-                                                    <CLabel htmlFor="city-province" className="form-control-label">{t('create-user.lb-city')}</CLabel>
+                                                <CCol className="pb-3">
+                                                    <CLabel htmlFor="city-province">{t('create-user.lb-city')}</CLabel>
                                                     <CSelect custom name="select" id="select">
                                                         <option value="0">select..</option>
                                                         <option value="1">Option #1</option>
@@ -87,7 +90,7 @@ const UpdateUser = () => {
                                                     </CSelect>
                                                 </CCol>
                                                 <CCol>
-                                                    <CLabel htmlFor="district" className="form-control-label">{t('create-user.lb-district')}</CLabel>
+                                                    <CLabel htmlFor="district">{t('create-user.lb-district')}</CLabel>
                                                     <CSelect custom name="select" id="select">
                                                         <option value="0">select..</option>
                                                         <option value="1">Option #1</option>
@@ -96,7 +99,7 @@ const UpdateUser = () => {
                                                     </CSelect>
                                                 </CCol>
                                                 <CCol>
-                                                    <CLabel htmlFor="ward" className="form-control-label">{t('create-user.lb-ward')}</CLabel>
+                                                    <CLabel htmlFor="ward">{t('create-user.lb-ward')}</CLabel>
                                                     <CSelect custom name="select" id="select">
                                                         <option value="0">select..</option>
                                                         <option value="1">Option #1</option>
@@ -108,8 +111,8 @@ const UpdateUser = () => {
                                         </CCol>
                                         <CCol className="p-0">
                                             <CFormGroup>
-                                                <CLabel htmlFor="street" className="form-control-label">{t('create-user.lb-street')}</CLabel>
-                                                <CInput id="name" placeholder="" required />
+                                                <CLabel htmlFor="street">{t('create-user.lb-street')}</CLabel>
+                                                <CInput id="name" placeholder="Nhập số đường" required />
                                             </CFormGroup>
                                         </CCol>
                                     </CCol>
@@ -136,11 +139,11 @@ const UpdateUser = () => {
                                         </CFormGroup>
                                     </CCol>
                                     <CRow className="d-flex flex-column">
-                                        <CCol className="mb-2"><span className="text-discription" htmlFor="title-authority-option">{t('create-user.tt-table')}</span></CCol>
+                                        <CCol className="mb-3"><span className="text-discription" htmlFor="title-authority-option">{t('create-user.tt-table')}</span></CCol>
                                         <CCol>
-                                            <CCol className="tb-explan p-0">
-                                                <table className="table table-hover table-outline mb-0 table-responsive">
-                                                    <thead className="thead-light">
+                                            <CCol className="p-0">
+                                                <table className="table table-outline mb-0 table-responsive">
+                                                    <thead className="thead-light border">
                                                         <tr>
                                                             <th className="text-center" htmlFor="">{t('create-user.th-classification')}</th>
                                                             <th className="text-center" htmlFor="message">{t('create-user.th-message')}</th>
@@ -150,7 +153,7 @@ const UpdateUser = () => {
                                                             <th className="text-center" htmlFor="segment">{t('create-user.th-segment')}</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody className="border">
                                                         <tr>
                                                             <td className="text-left">
                                                                 <span><FontAwesomeIcon icon={faEye} style={{ height: 12, width: 12 }} className="mr-2" /><strong>{t('create-user.td-read')}</strong></span>
@@ -243,4 +246,4 @@ const UpdateUser = () => {
     )
 }
 
-export default UpdateUser
+export default UserUpdate

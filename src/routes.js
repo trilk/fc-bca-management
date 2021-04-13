@@ -1,5 +1,5 @@
 import React from 'react';
-import UpdateUser from './views/users/UpdateUser';
+import UpdateUser from './views/users/userUpdate';
 
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
@@ -39,7 +39,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
 const UserDetails = React.lazy(() => import('./views/users/UserDetails'));
 const CreateUser = React.lazy(() => import('./views/users/createUser'));
-const userUpdate = React.lazy(() => import('./views/users/UpdateUser'));
+const UserUpdate = React.lazy(() => import('./views/users/userUpdate'));
 const Segments = React.lazy(() => import('./views/audience-studio/segments/Segments'));
 const Contacts = React.lazy(() => import('./views/audience-studio/contacts/Contacts'));
 const contactDetails = React.lazy(() => import('./views/audience-studio/contacts/contactDetails'));
@@ -92,16 +92,22 @@ const routes = [
   { path: '/notifications/toaster', name: 'Toaster', component: Toaster },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/users', exact: true, name: 'Users', component: Users },
+  { path: '/users/create-user', exact: true, name: 'Create User', component: CreateUser },
   { path: '/users/:id', exact: true, name: 'User Details', component: UserDetails },
-  { path: '/updateUser', exact: true, name: 'Update Info', component: UpdateUser },
-  { path: '/create-user', exact: true,  name: 'Create User', component: CreateUser },
+  { path: '/users/:id/user-update', exact: true, name: 'User Update', component: UserUpdate },
+
+
+  // { path: '/users/:id/updateUser', exact: true, name: 'Update Info', component: UpdateUser },
+  // { path: '/updateUser', exact: true, name: 'Update Info', component: UpdateUser },
+
   { path: '/segments', exact: true,  name: 'Segmnets', component: Segments },
   { path: '/contacts', exact: true,  name: 'Contacts', component: Contacts },
   { path: '/contacts/contactDetails', exact: true,  name: 'Contact Details', component: contactDetails },
   { path: '/contacts/contactDetails/updateContact', exact: true,  name: 'Update Contact', component: updateContact },
+  //messages
   { path: '/messages', exact: true,  name: 'Messages', component: Messages },
-  { path: '/messages/CreateMsg', exact: true,  name: 'Create Message', component: CreateMsg },
-  { path: '/CreateMsg', exact: true,  name: 'Create Message', component: CreateMsg },
+  { path: '/messages/CreateMsg', exact: true,  name: 'New Message', component: CreateMsg },
+  { path: '/CreateMsg', exact: true,  name: 'New Message', component: CreateMsg },
   { path: '/messages/MessagesReport', exact: true,  name: 'Message Report', component: MessageReport },
   { path: '/messages/EditMsg', exact: true,  name: 'Edit Message', component: EditMsg },
   { path: '/template', exact: true,  name: 'Templates', component: Template },
@@ -109,7 +115,6 @@ const routes = [
   { path: '/template/new-template/template-details', exact: true,  name: 'Message Templates', component: TemplateDetails },
   { path: '/template/template-details/new-template', exact: true,  name: 'Edit Template', component: NewTemplate },
   { path: '/template/template-details', exact: true,  name: 'Message Templates', component: TemplateDetails },
-  // { path: '/messages/MessagesReport2', exact: true,  name: 'Message Report', component: MessageReport2 },
 ];
 
 export default routes;

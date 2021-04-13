@@ -37,6 +37,7 @@ import {
     CRow,
     CDropdownDivider,
     CLink,
+    CAlert,
 } from '@coreui/react'
 import templateData from './templateData'
 import { faTelegram, faViber } from '@fortawesome/free-brands-svg-icons'
@@ -65,10 +66,24 @@ const Template = () => {
     useEffect(() => {
         currentPage !== page && setPage(currentPage)
     }, [currentPage, page])
+    //Modal
+    const [danger, setDanger] = useState(false)
+    //Arlets
+    const [visible, setVisible] = React.useState(10)
     return (
         <>
             <CRow>
-                <CCol>
+                <CCol className="position-relative">
+                    {/* Arlets delete succes */}
+                    {/* <CCol className="position-absolute d-flex justify-content-center">
+                        <CAlert
+                            color="info"
+                            closeButton
+                            onShowChange={setVisible}
+                        >
+                            Delete Success!
+                        </CAlert>
+                    </CCol> */}
                     <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
                         <div className="p-0 d-flex align-items-end">
                             <h4><FontAwesomeIcon icon={faEnvelope} className="mr-3" />Message Template</h4>
@@ -188,13 +203,13 @@ const Template = () => {
                                                         </CDropdownItem>
                                                         <CDropdownItem>
                                                             {/* Edit message wwith message draft and schedule */}
-                                                            <CLink to="/messages/EditMsg"><FontAwesomeIcon icon={faCommentDots} className="mr-2" />Use Template</CLink>
+                                                            <CLink to="/CreateMsg"><FontAwesomeIcon icon={faCommentDots} className="mr-2" />Use Template</CLink>
                                                         </CDropdownItem>
                                                         <CDropdownItem>
                                                             <FontAwesomeIcon icon={faClone} className="mr-2" />Create Duplicate
                                                         </CDropdownItem>
                                                         <CDropdownDivider />
-                                                        <CDropdownItem>
+                                                        <CDropdownItem onClick={() => setDanger(!danger)}>
                                                             <FontAwesomeIcon icon={faTrash} className="mr-2" />Delete
                                                         </CDropdownItem>
                                                     </CDropdownMenu>
@@ -213,7 +228,23 @@ const Template = () => {
                             />
                         </CCardBody>
                     </CCard>
-                </CCol>
+                    {/* Modal delete */}
+                    <CModal
+                        show={danger}
+                        onClose={() => setDanger(!danger)}
+                    >
+                        <CModalHeader closeButton>
+                            <CModalTitle>Template Delete</CModalTitle>
+                        </CModalHeader>
+                        <CModalBody>
+                            Are you want delete this Template?
+                        </CModalBody>
+                        <CModalFooter>
+                            <CButton color="outline">Cancel</CButton>
+                            <CButton color="primary">Delete</CButton>
+                        </CModalFooter>
+                    </CModal>
+                </CCol> 
             </CRow>
 
         </>

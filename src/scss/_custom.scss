@@ -148,7 +148,6 @@
     display: block;
     width: 100%;
     height: calc(1.2em + 1.3rem + 2px);
-    // padding: .50rem 1rem;
     font-size: 0.813rem;
     font-weight: 400;
     line-height: 1.5;
@@ -192,7 +191,6 @@
     border-color: #f3f6f9;
     color: #3f4254;
     height: calc(1.2em + 1.3rem + 2px);
-    // padding: .50rem 1rem;
     font-size: 0.813rem;
     font-weight: 400;
     line-height: 1.5;
@@ -237,8 +235,6 @@ a:hover {
     background: rgba(0, 123, 255, 0.1) !important;
 }
 .dropdown-menu{
-    // position: fixed;
-    // top: 100%;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     border: none !important;
 }
@@ -258,7 +254,7 @@ a:hover {
     vertical-align: middle !important;
     border-bottom: 1px solid #E6E9ED  !important ;
     border-top: 1px solid #E6E9ED  !important;
-    color: #768192;
+    // color: #768192;
 }
 // Style for Card
 .card-header{
@@ -327,7 +323,7 @@ a:hover {
 }
 //color
 .light-color{
-    color: rgb(149, 161, 172);
+    color: rgb(149, 161, 172) !important;
 }
 .danger-color{
     color: #DC3545 !important;
@@ -361,14 +357,6 @@ a:hover {
     border-color: rgba(0, 123, 255, 0.1);
 
 }
-// .c-header-nav .c-header-nav-link, .c-header-nav .c-header-nav-btn{
-//     border-radius: 8px !important;
-//     height: 48px;
-//     cursor: pointer;
-//     &:hover{
-//         background-color: rgba(0, 123, 255, 0.1) !important;
-//     }
-// }
 .drop-down{
     border-radius: 8px !important;
     height: 44px !important;
@@ -377,4 +365,15 @@ a:hover {
         background-color: rgba(0, 123, 255, 0.1) !important;
     }
 }
-// style toolpit
+.text-muted {
+    color: rgb(149, 161, 172) !important;
+}
+
+///@at-root
+.dropdown-toggle::after{
+    content: none !important;
+}
+//modal
+.modal-header{
+    background-color: #f8f9fa !important;
+}
