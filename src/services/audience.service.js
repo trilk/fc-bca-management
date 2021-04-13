@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./authToken";
 
-const API_URL = "http://localhost:5000/api/contact/";
+const API_URL = process.env.REACT_APP_API_URL + "api/contact/";
 
 class AudienceService {
   getAllAudience(page, limit) {
