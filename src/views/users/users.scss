@@ -42,3 +42,63 @@
     text-transform: uppercase;
 }
 
+.image-input .image-input .image-input-wrapper {
+    border-radius: .42rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.image-input {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.image-input.image-input-outline .image-input-wrapper {
+    border: 3px solid #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.image-input .image-input-wrapper {
+    width: 120px;
+    height: 120px;
+}
+.btn.btn-white.btn-shadow {
+    box-shadow: 0 9px 16px 0 rgba(24,28,50,.25)!important;
+}
+.btn.btn-icon.btn-circle {
+    border-radius: 50%;
+    bottom: -5px;
+}
+.btn.btn-icon.btn-xs {
+    height: 24px;
+    width: 24px;
+}
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.btn.btn-icon {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: 0;
+    height: calc(1.5em + 1.3rem + 2px);
+    width: calc(1.5em + 1.3rem + 2px);
+}
+.image-input [data-action=remove] {
+    position: absolute;
+    right: -10px;
+    bottom: -5px;
+}
+.btn.btn-white {
+    color: #3f4254;
+    background-color: #fff;
+    border-color: #fff;
+}
+//@at-root
+// avatar
+.c-avatar-img-bg{
+    height: 100px;
+    width: 100px;
+    border-radius: 4px;
+}

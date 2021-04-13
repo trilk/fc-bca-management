@@ -36,7 +36,10 @@ const TheHeaderDropdown = () => {
       className="c-header-nav-items mx-2"
       direction="down"
     >
-      <CDropdownToggle className="c-header-nav-link" caret={false}>
+      <CDropdownToggle className="c-header-nav-link drop-down" caret={false}>
+        <div className="pr-2">
+          <span className="text-muted">Hi: <strong>Admin</strong></span>
+        </div>
         <div className="c-avatar">
           <CImg
             src={'avatars/6.jpg'}
@@ -45,10 +48,7 @@ const TheHeaderDropdown = () => {
           />
         </div>
       </CDropdownToggle>
-      <CDropdownMenu className="pt-2" placement="bottom-end">
-        {/* <CDropdownItem onClick={() => pageNavigate("profile-info")}>
-          <CIcon name="cil-user" className="mfe-2" />{t('user-topmenu.item-profile-info')}
-        <CDropdownItem> */}
+      <CDropdownMenu className="pt-2 mt-2" placement="bottom-end">
         <CDropdownItem>
           <CLink to="/users/:id"><CIcon name="cil-user" className="mfe-2" />{t('user-topmenu.item-profile-info')}</CLink>
         </CDropdownItem>

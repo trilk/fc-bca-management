@@ -1,7 +1,8 @@
 // Here you can add other styles
 .card {
     border: 1px solid #E6E9ED !important;
-    box-shadow: 0 0 4px #dde1e4;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: .42rem !important;
 }
 //@at-root
 //button checkbox custom control label
@@ -14,9 +15,38 @@
 }
 // Button
 //Primary Button
-.btn{
-    font-weight: 500;
-    font-size: 0.875rem;
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 0.875rem !important;
+    color: #3f4254;
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .50rem 1rem;
+    line-height: 1.5;
+    border-radius: .42rem;
+    transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out,box-shadow .3s ease-in-out;
+}
+.btn-outline-light{
+    border: 1px solid #e4e6ef;
+    &:hover{
+        border-color: #007BFF !important;
+        color: #007bff;
+        background-color: rgba(0, 123, 255, 0.1) !important; 
+    }
+
+}
+
+.btn-outline-light:focus{
+    outline: 1px auto -webkit-focus-ring-color #007BFF!important;
+    color:  #292642 !important;
+    border-color: #007BFF !important;
+    background-color: rgba(0, 123, 255, 0.1) !important; 
+    box-shadow: 0 0 0 2px rgba(21, 156, 228, 0.4);
 }
 .btn-primary {
     color: #fff;
@@ -27,6 +57,7 @@
         background-color: darken($color: #007BFF, $amount: 10%)!important;
     }
 }
+
 .btn-primary:focus{
     outline: none;
     box-shadow: 0 0 0 2px rgba(21, 156, 228, 0.4);
@@ -43,6 +74,10 @@
 .btn-ghost {
     color:#007BFF !important;
 }
+.btn-ghost:hover {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff !important;
+}
 .btn-ghost:focus{
     outline: 1px auto -webkit-focus-ring-color #007BFF!important;
     border-color: #007BFF !important;
@@ -52,8 +87,7 @@
 // button outline dropdown
 .btn-outline{
     background-color: #fff !important;
-    border-radius: 4px !important;
-    border-color: #007BFF !important;
+    border-color: rgba(0, 123, 255, 0.4) !important;
     color:#007BFF !important;
     &:hover{
         background-color: #007BFF !important;
@@ -69,7 +103,6 @@
 // button outline
 .btn-outline-primary{
     background-color: #fff !important;
-    border-radius: 4px !important;
     border-color: #007BFF !important;
     color:#007BFF !important;
     &:hover{
@@ -112,8 +145,20 @@
 //@at-root
 // Form Input
 .form-control {
-    border-color: #ced4da !important;
-    font-weight: 500;
+    display: block;
+    width: 100%;
+    height: calc(1.2em + 1.3rem + 2px);
+    // padding: .50rem 1rem;
+    font-size: 0.813rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3f4254;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #e4e6ef;
+    border-radius: .42rem;
+    box-shadow: none;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 //label
 .form-control-label{
@@ -133,7 +178,6 @@
 //style placeholder 
 ::-webkit-input-placeholder {
     color: #B0B7C0 !important;
-    font-weight: 500;
     font-size: 0.875rem;
 }
 
@@ -144,7 +188,17 @@
 }
 //
 .custom-select {
-    border-color:  #ced4da  !important;
+    background-color: #f3f6f9;
+    border-color: #f3f6f9;
+    color: #3f4254;
+    height: calc(1.2em + 1.3rem + 2px);
+    // padding: .50rem 1rem;
+    font-size: 0.813rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border-radius: .42rem;
+    box-shadow: none;
+    transition: color .15s ease,background-color .15s ease,border-color .15s ease,box-shadow .15s ease;
     &:hover{
         border-color: #007BFF !important;
     }
@@ -183,16 +237,21 @@ a:hover {
     background: rgba(0, 123, 255, 0.1) !important;
 }
 .dropdown-menu{
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+    // position: fixed;
+    // top: 100%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    border: none !important;
 }
 // tabel header
 .table thead th {
     padding: 1rem !important;
     border-top: 0px !important;
     border-bottom: #E6E9ED !important ;
-    font-size: 12px;
-    text-transform: uppercase;
     padding-bottom: 1rem !important;
+    font-weight: 600;
+    color: #b5b5c3!important;
+    font-size: 0.75rem;
+    text-transform: uppercase;
 }
 //style table
 .table td{  
@@ -217,9 +276,18 @@ a:hover {
     display: flex;
     justify-content: center !important;
 }
+.page-item{
+    padding: 0.2rem !important;
+}
 .page-link{
-    color: #292642 !important;
-    border-color: #E6E9ED !important;
+    background-color: #f3f6f9 !important;
+    border-color: #f3f6f9 !important;
+    color: #7e8299 !important;
+    font-size: 0.875rem !important;
+    border-radius: .42rem !important;
+    &:hover{
+        background-color: #E7E7EA !important;
+    }
 
 }
 .page-item.active .page-link {
@@ -237,12 +305,21 @@ a:hover {
 
 // status
 .badge-status {
-    padding: 0.5rem 0.5rem;
+    padding: 0.4rem 0.5rem;
     font-size: 10px;
+    font-weight: 500;
 }
 .badge-success{
     color: #28A745;
     background: rgba(40, 167, 69, 0.2);
+}
+.badge-warning{
+    background: rgba(255, 248, 226, 1);
+    color: rgba(255, 193, 7, 1);
+}
+.badge-danger {
+    background: rgba(220, 53, 69, 0.2);
+    color: rgba(220, 53, 69, 1);
 }
 .badge-primary{
     color: #007BFF;
@@ -258,6 +335,46 @@ a:hover {
 .primary-color{
     color: #007bff !important;
 }
+.warning-color{
+    color: rgba(255, 193, 7, 1);
+}
+.success-color{
+    color: #28A745;
+}
+.read-color{
+    color: #BB6BD9
+}
+.bg-read{
+    color: #BB6BD9 !important;
+}
 //end
 //
-//avatar 
+//tag segmnets other
+.el-tag{
+    border-radius: .42rem;
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+    border: 1px solid rgb(229, 242, 252);
+    cursor: pointer;
+}
+.el-tag:hover {
+    border-color: rgba(0, 123, 255, 0.1);
+
+}
+// .c-header-nav .c-header-nav-link, .c-header-nav .c-header-nav-btn{
+//     border-radius: 8px !important;
+//     height: 48px;
+//     cursor: pointer;
+//     &:hover{
+//         background-color: rgba(0, 123, 255, 0.1) !important;
+//     }
+// }
+.drop-down{
+    border-radius: 8px !important;
+    height: 44px !important;
+    cursor: pointer;
+    &:hover{
+        background-color: rgba(0, 123, 255, 0.1) !important;
+    }
+}
+// style toolpit

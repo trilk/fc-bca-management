@@ -7,6 +7,7 @@ import './users.scss'
 import { useTranslation } from 'react-i18next'
 import { faUsersCog, faUsers, faPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import imgblank from './avatar/male.jpg'
 
 
 import usersData from './UsersData'
@@ -34,46 +35,50 @@ const UserDetails = ({ match }) => {
     [['id', (<span><CIcon className="text-muted" name="cui-icon-ban" />No data</span>)]]
 
   return (
+
+
+
     <CRow>
-      <CCol lg={12}>
+      {/* <span>Avatar</span>
+                <div className="">
+                  <div className="image-input image-input-outline">
+                    <div>
+                      <CImg src={imgblank} className="image-input-wrapper" />
+                    </div>
+                    <div className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove">
+                      <FontAwesomeIcon icon={faPen} style={{ height: 9, width: 9 }} />
+                    </div>
+                  </div>
+                </div> */}
+      <CCol lg="12">
         <CCard>
-          <CCardHeader>
-            <CCol className="d-flex bd-highlight p-0">
-              <CCol className="pt-2 pl-0">
-                <h4 className="label-tmd mb-1">{t('personal-info.lb-detail')}</h4>
-                <small className="text-discription">{t('personal-info.lb-last-update')}</small>
-              </CCol>
-              <CCol col="2" lg="0" className="d-flex align-items-center">
-                <CLink to="/create-user"><CButton color="primary">{t('personal-info.btn-update-info')}</CButton></CLink>
-              </CCol>
-            </CCol>
-          </CCardHeader>
           <CCardBody>
             <table className="table">
               <tbody>
-                {/* {
-                  userDetails.map(([label, value], index) => {
-                    return (
-                      <tr key={index.toString()}>
-                        <td>{`${label}:`}</td>
-                        <td><strong>{value}</strong></td>
-                      </tr>
-                    )
-                  })
-                } */}
-                <CRow>
-                  <CCol col="3" xs="12" sm="2" lg="2" className="title-left d-flex align-items-center" ><small>{t('personal-info.lb-photo')}</small></CCol>
-                  <CCol col="6" className="tr-tt mt-1">
-                    <div className="c-avatar">
-                      {/* avatar */}
-                      <img src={femaleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-male-default" />
+                <CCol col="12" className="d-flex flex-row bd-highlight p-0 pb-4">
+                  <div>
+                    <img src={femaleimg} className="c-avatar-img-bg" alt="admin@bootstrapmaster.com" name="avatar-male-default" />
+                  </div>
+                  <div className="pl-4">
+                    <div>
+                      <h4>Nguyễn Văn Nam</h4>
                     </div>
-                  </CCol>
-                </CRow>
+                    <div col="6" className="tr-tt pb-2">
+                      <CBadge className="role-tag-inner" color={getRole(item.role)}>
+                        <FontAwesomeIcon icon={faUsers} style={{ height: 16, width: 16 }} className="mr-1" />
+                          Super Admin
+                        </CBadge>
+                    </div>
+                    <small className="light-color"><strong>Online 10 minutes ago</strong></small>
+                  </div>
+                  <div className="ml-auto">
+                    <CLink to="/updateUser"><CButton color="primary"><FontAwesomeIcon icon={faPen} className="mr-2" />Update Info</CButton></CLink>
+                  </div>
+                </CCol>
                 <hr />
                 <CRow>
-                  <CCol col="3" xs="12" sm="2" lg="2" className="title-left"><small>{t('personal-info.lb-name')}</small></CCol>
-                  <CCol col="6" className="tr-tt">Nguyễn Văn Nam</CCol>
+                  <CCol col="3" xs="12" sm="2" lg="2" className="title-left"><small>{t('personal-info.lb-phone')}</small></CCol>
+                  <CCol col="6" className="tr-tt">+84 989 767 77</CCol>
                 </CRow>
                 <hr />
                 <CRow>
@@ -83,24 +88,6 @@ const UserDetails = ({ match }) => {
                       Đang hoạt động
               </CBadge>
                   </CCol>
-                </CRow>
-                <hr />
-                <CRow className="d-flex align-items-center">
-                  <CCol col="3" xs="12" sm="2" lg="2" className="title-left"><small>{t('personal-info.lb-role')}</small></CCol>
-                  <CCol col="6" className="tr-tt">
-                    <CBadge className="role-tag-inner" color={getRole(item.role)}>
-                      <FontAwesomeIcon icon={faUsers} style={{ height: 16, width: 16 }} className="mr-1" />
-                  Admin
-                </CBadge>
-                  </CCol>
-                  <CCol className="d-flex justify-content-end ">
-                    <CButton color="outline" size="sm"><FontAwesomeIcon icon={faPen} size="xs" className="ml-0" /><span className="mfs-2"><small>Sửa</small></span></CButton>
-                  </CCol>
-                </CRow>
-                <hr />
-                <CRow>
-                  <CCol col="3" xs="12" sm="2" lg="2" className="title-left"><small>{t('personal-info.lb-phone')}</small></CCol>
-                  <CCol col="6" className="tr-tt">+84 989 767 77</CCol>
                 </CRow>
                 <hr />
                 <CRow>

@@ -1,0 +1,115 @@
+.dropdown-toggle::after{
+    content: none !important;
+}
+.delivery-progress{
+    width: 90%;
+    border-radius: 24px;
+}
+.tags-text{
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+.el-tag-bg{
+    margin-bottom: 0.5rem;
+    max-width: 100rem;
+    height: 3.25rem;
+    border: 0px;
+    display: grid;
+    grid-template-columns: 3.125rem auto;
+    text-align: left;
+    cursor: pointer;
+    :hover{
+        background: rgb(235, 237, 239);
+    }
+}
+.icon-left{
+    display: grid;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 100%;
+    background: rgb(235, 237, 239);
+    color: rgb(149, 161, 172);
+    border-radius: 0.25rem 0px 0px 0.25rem;
+}
+.content-segments{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgb(248, 249, 250);
+    border-radius: 0px 0.25rem 0.25rem 0px;
+    
+}
+.text-tag{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    font-weight: bold;
+    height: 100%;
+    flex: 2 0 0px;
+    margin: 0px;
+    padding-left: 0.625rem;
+    color: rgb(5, 27, 44);
+}
+.icon-right{
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex: 1 0 0px;
+    max-width: 2.5rem;
+    margin: 0px;
+    color: rgb(31, 143, 235);
+    border-radius: 8px;
+}
+
+//@at-root
+.form-control-file{
+    height: 2.5rem;
+    align-items: center;
+    border: 1px solid #E6E9ED !important;
+    padding: .4rem;
+    border-radius: .42rem !important;
+}
+input .file-upload-button{
+    color: #E6E9ED;
+    background: #E6E9ED;
+}
+.custom-file-label{
+    height: calc(1.2em + 1.3rem + 2px);
+    border-radius: .42rem !important;
+}
+.custom-file-label::after {
+    height: calc(1.8em + 0.75rem);
+    // border-radius: .42rem !important;
+}
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "Upload";
+}
+.box-review{
+    border-radius: .42rem !important;
+    border: 1px solid #e4e6ef;
+}
+// .progress-bar {
+//     background-color:#BB6BD9 !important ;
+// }
+// .open>.dropdown-menu {
+//     display: block;
+// }
+// .dropdown-menu-right {
+//     left: auto;
+//     right: 0;
+// }
+// .dropdown-menu {
+//     position: absolute;
+//     top: 100%;
+// 

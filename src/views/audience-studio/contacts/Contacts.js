@@ -229,11 +229,7 @@ const Contacts = () => {
                 items={data}
                 fields={[
                   { key: "name", label: "name", _style: { width: "10%" } },
-                  {
-                    key: "subscribed",
-                    label: "subscribed",
-                    _style: { width: "2%" },
-                  },
+                  { key: "status", label: "status", _style: { width: "1%" } },
                   {
                     key: "channels",
                     label: "channels",
@@ -249,7 +245,7 @@ const Contacts = () => {
                     label: "Segments",
                     _style: { width: "10%" },
                   },
-                  { key: "status", label: "status", _style: { width: "2%" } },
+                  // { key: 'status', label: 'status', _style: { width: '2%' } },
                   {
                     key: "activity",
                     label: "activity",
@@ -261,7 +257,7 @@ const Contacts = () => {
                 bordered
                 sorter
                 striped
-                itemsPerPage={15}
+                itemsPerPage={8}
                 activePage={page}
                 clickableRows
                 scopedSlots={{
@@ -272,10 +268,7 @@ const Contacts = () => {
                         <strong>{item.ChatName}</strong>
                       </h6>
                       <div className="small text-muted">
-                        <span>
-                          Registered:{" "}
-                          {convert_day_hours_minute(item.CreateDate)}
-                        </span>
+                        <span>Registered: {item.CreateDate}</span>
                       </div>
                     </td>
                   ),
@@ -284,20 +277,20 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.ChannelType == "Viber" && (
+                        {item.ChannelType.includes("viber") && (
                           <FontAwesomeIcon
                             icon={faViber}
                             className="channel-icon mr-2"
                             style={{ color: "#665CAC" }}
                           />
                         )}
-                        {item.ChannelType == "Zalo" && (
+                        {item.ChannelType.includes("zalo") && (
                           <CIcon
                             name="zaloIcon"
                             className="channel-icon mr-2 zalo-icon"
                           />
                         )}
-                        {item.ChannelType == "Telegram" && (
+                        {item.ChannelType.includes("telegram") && (
                           <FontAwesomeIcon
                             icon={faTelegram}
                             className="channel-icon mr-2"
@@ -307,9 +300,9 @@ const Contacts = () => {
                       </CCol>
                     </td>
                   ),
-                  subscribed: (item) => (
+                  status: (item) => (
                     <td>
-                      <CCol className="d-flex justify-content-center pr-5">
+                      <CCol className="pl-4">
                         <FontAwesomeIcon
                           icon={item.ChatStatus ? faCheck : faTimes}
                         />
@@ -326,16 +319,14 @@ const Contacts = () => {
                     </td>
                   ),
                   // Trạng thái
-                  status: (item) => (
-                    <td>
-                      <CBadge
-                        className="badge-status"
-                        color={getBadge(item.status)}
-                      >
-                        {item.status}
-                      </CBadge>
-                    </td>
-                  ),
+                  // 'status':
+                  //     (item) => (
+                  //         <td>
+                  //             <CBadge className="badge-status" color={getBadge(item.status)}>
+                  //                 {item.status}
+                  //             </CBadge>
+                  //         </td>
+                  //     ),
                   //button action
                   action: (item) => (
                     <td>
@@ -373,7 +364,6 @@ const Contacts = () => {
             </CCardBody>
           </CCard>
         </CCol>
-        {/* </CCol> */}
       </CRow>
     </>
   );

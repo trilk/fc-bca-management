@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -62,7 +62,10 @@ import "./contacts.scss";
 import {
   CBadge,
   CButton,
+  CInvalidFeedback,
+  CValidFeedback,
   CImg,
+  CForm,
   CCol,
   CDataTable,
   CPagination,
@@ -74,6 +77,7 @@ import {
   CModalTitle,
   CModalBody,
   CModalFooter,
+  CLink,
   CInputCheckbox,
   CCallout,
   CCard,
@@ -110,23 +114,17 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const contactDetails = () => {
+const ContactDetails = () => {
+  const [modal, setModal] = useState(true);
+  const [large, setLarge] = useState(false);
+  const [small, setSmall] = useState(false);
+  const [primary, setPrimary] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [warning, setWarning] = useState(false);
+  const [danger, setDanger] = useState(false);
+  const [info, setInfo] = useState(false);
   return (
     <>
-      <CCol xs="12" className="p-0 d-flex bd-highlight">
-        <div>
-          <h4 className="pb-3">
-            <FontAwesomeIcon icon={faIndent} className="mr-3" />
-            Contact Details
-          </h4>
-        </div>
-        <div className="ml-auto">
-          <CButton color="primary">
-            <FontAwesomeIcon icon={faPen} className="mr-2" />
-            Update Info
-          </CButton>
-        </div>
-      </CCol>
       <CCol lg="12" className="p-0">
         <CCard>
           <CCardBody>
@@ -162,6 +160,12 @@ const contactDetails = () => {
                     <small className="pt-0 light-color">
                       <strong>Online 10 minutes ago</strong>
                     </small>
+                  </div>
+                  <div className="ml-auto">
+                    <CButton color="primary" onClick={() => setLarge(!large)}>
+                      <FontAwesomeIcon icon={faPen} className="mr-2" />
+                      Update Info
+                    </CButton>
                   </div>
                 </CCol>
 
@@ -602,9 +606,160 @@ const contactDetails = () => {
             </table>
           </CCardBody>
         </CCard>
+
+        <CModal show={large} onClose={() => setLarge(!large)} size="lg">
+          <CModalHeader closeButton>
+            <CModalTitle>Edit Contact 'Hola'</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <CCol className="py-2 p-0">
+              <h5>
+                <strong>Basic info</strong>
+              </h5>
+            </CCol>
+            <CRow>
+              <CCol>
+                <CForm className="was-validated">
+                  <CFormGroup>
+                    <CLabel htmlFor="inputWarning2i">Enter First Name</CLabel>
+                    <CInput
+                      className="form-control-warning"
+                      id="inputWarning2i"
+                      required
+                    />
+                    <CInvalidFeedback className="help-block">
+                      Please provide a valid information
+                    </CInvalidFeedback>
+                    <CValidFeedback className="help-block">
+                      Lastname is required
+                    </CValidFeedback>
+                  </CFormGroup>
+                </CForm>
+              </CCol>
+              <CCol>
+                <CForm className="was-validated">
+                  <CFormGroup>
+                    <CLabel htmlFor="inputSuccess2i">Enter Last Name</CLabel>
+                    <CInput
+                      className="form-control-success"
+                      id="inputSuccess2i"
+                    />
+                    <CValidFeedback>Non-required</CValidFeedback>
+                  </CFormGroup>
+                </CForm>
+              </CCol>
+              <CCol>
+                <CForm className="was-validated">
+                  <CFormGroup>
+                    <CLabel htmlFor="inputWarning2i">Enter Email</CLabel>
+                    <CInput
+                      className="form-control-warning"
+                      id="inputWarning2i"
+                      required
+                    />
+                    <CInvalidFeedback className="help-block">
+                      Please provide a valid information
+                    </CInvalidFeedback>
+                    <CValidFeedback className="help-block">
+                      Email is required
+                    </CValidFeedback>
+                  </CFormGroup>
+                </CForm>
+              </CCol>
+            </CRow>
+            <CRow>
+              <CCol>
+                <CLabel htmlFor="inputWarning2i">Gender</CLabel>
+                <CSelect custom name="select" id="select">
+                  <option value="0">select..</option>
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                  <option value="3">Other</option>
+                </CSelect>
+              </CCol>
+              <CCol>
+                <CFormGroup>
+                  <CLabel htmlFor="phone-number">Date of Birth</CLabel>
+                  <CInput id="" type="date" placeholder="Name" required />
+                </CFormGroup>
+              </CCol>
+              <CCol>
+                <CLabel htmlFor="inputWarning2i">Country</CLabel>
+                <CSelect custom name="select" id="select">
+                  <option value="0">select..</option>
+                  <option value="1">1</option>
+                  <option value="2">1</option>
+                  <option value="3">1</option>
+                </CSelect>
+              </CCol>
+            </CRow>
+            <CCol className="py-2 p-0">
+              <h5>
+                <strong>Address</strong>
+              </h5>
+            </CCol>
+            <CRow>
+              <CCol>
+                <CLabel htmlFor="inputWarning2i">City</CLabel>
+                <CSelect custom name="select" id="select">
+                  <option value="0">select..</option>
+                  <option value="1">1</option>
+                  <option value="2">1</option>
+                  <option value="3">1</option>
+                </CSelect>
+              </CCol>
+              <CCol>
+                <CLabel htmlFor="inputWarning2i">District</CLabel>
+                <CSelect custom name="select" id="select">
+                  <option value="0">select..</option>
+                  <option value="1">1</option>
+                  <option value="2">1</option>
+                  <option value="3">1</option>
+                </CSelect>
+              </CCol>
+              <CCol>
+                <CLabel htmlFor="inputWarning2i">Ward</CLabel>
+                <CSelect custom name="select" id="select">
+                  <option value="0">select..</option>
+                  <option value="1">1</option>
+                  <option value="2">1</option>
+                  <option value="3">1</option>
+                </CSelect>
+              </CCol>
+            </CRow>
+            <CRow>
+              <CCol col="4" lg="4" className="pt-4">
+                <CForm className="was-validated">
+                  <CFormGroup>
+                    <CLabel htmlFor="inputWarning2i">Enter IP Address</CLabel>
+                    <CInput
+                      className="form-control-warning"
+                      id="inputWarning2i"
+                      required
+                    />
+                    <CInvalidFeedback className="help-block">
+                      Please provide a valid information
+                    </CInvalidFeedback>
+                    <CValidFeedback className="help-block">
+                      Email is required
+                    </CValidFeedback>
+                  </CFormGroup>
+                </CForm>
+              </CCol>
+            </CRow>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="light" onClick={() => setLarge(!large)}>
+              Cancel
+            </CButton>
+            <CButton color="primary" onClick={() => setLarge(!large)}>
+              Save
+            </CButton>{" "}
+          </CModalFooter>
+        </CModal>
       </CCol>
     </>
   );
 };
 
-export default contactDetails;
+export default ContactDetails;
