@@ -12,7 +12,7 @@ const initialState = {
   sidebarShow: 'responsive',
   isAuthenticated: false,
   user: {},
-  role: 'user',
+  role: 'admin',
   lang: 'vi',
   loading: false
 };

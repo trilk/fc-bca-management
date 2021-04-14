@@ -23,13 +23,14 @@
         "item-createmessage": "Create Message",
         "item-schedule": "Schedule",
         "item-draft": "Drafts",
-        "item-template": "Template",
+        "item-template": "Message Template",
         "item-audience": "Audience Studio",
         "item-segments": "Segments",
         "item-customers": "Customers",
-        "item-user-management": "User Management",
+        "admin-title": "System Admin",
+        "admin-user-mng": "User Management",
         "item-account-info": "Personal info",
-        "item-users": "All Users",
+        "admin-settings": "Settings",
         "item-roles": "Roles"
     },
     "personal-info": {

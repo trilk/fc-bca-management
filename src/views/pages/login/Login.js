@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useHistory, Redirect } from 'react-router-dom'
-import * as Icon from 'react-bootstrap-icons'
+import { Redirect, Link } from 'react-router-dom'
 import "./login.scss"
 import {
   CButton,

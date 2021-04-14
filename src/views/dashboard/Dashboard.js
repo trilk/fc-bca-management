@@ -20,7 +20,6 @@ import {
   CCallout
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import * as Icon from 'react-bootstrap-icons';
 import ChartLineSimple from '../charts/ChartLineSimple'
 
 import MainChartExample from '../charts/MainChartExample.js'
@@ -36,7 +35,7 @@ const Dashboard = () => {
       <CRow>
         <CCol sm="6" lg="3">
           <CWidgetDropdown
-          className=""
+            className=""
             color="gradient-primary"
             header="9.823"
             text="Members online"
@@ -423,7 +422,7 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td className="text-center">
-                      <CIcon height={25} name="cif-us" title="us" id="us" />
+                      <CIcon height={25} name="cif-vn" title="us" id="us" />
                     </td>
                     <td>
                       <div className="clearfix">
@@ -459,7 +458,7 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td className="text-center">
-                      <CIcon height={25} name="cif-br" title="br" id="br" />
+                      <CIcon height={25} name="cif-us" title="br" id="br" />
                     </td>
                     <td>
                       <div className="clearfix">
@@ -494,7 +493,7 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td className="text-center">
-                      <CIcon height={25} name="cif-in" title="in" id="in" />
+                      <CIcon height={25} name="cif-vn" title="in" id="in" />
                     </td>
                     <td>
                       <div className="clearfix">
@@ -529,7 +528,7 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td className="text-center">
-                      <CIcon height={25} name="cif-fr" title="fr" id="fr" />
+                      <CIcon height={25} name="cif-us" title="fr" id="fr" />
                     </td>
                     <td>
                       <div className="clearfix">
@@ -564,7 +563,7 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td className="text-center">
-                      <CIcon height={25} name="cif-es" title="es" id="es" />
+                      <CIcon height={25} name="cif-vn" title="es" id="es" />
                     </td>
                     <td>
                       <div className="clearfix">
@@ -599,7 +598,7 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td className="text-center">
-                      <CIcon height={25} name="cif-pl" title="pl" id="pl" />
+                      <CIcon height={25} name="cif-us" title="pl" id="pl" />
                     </td>
                     <td>
                       <div className="clearfix">

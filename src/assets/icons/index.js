@@ -3,10 +3,10 @@ import { logo } from './logo'
 // import { logoNegative } from './logo-negativedefaul'
 import { msgPreview } from './message-preview'
 import { logoBg } from './logo-bg'
-import {zaloIcon} from './zalo-icon'
-import {femaleImg} from './female'
-import {phonePreview} from './phone-preview'
-import {logoNegative} from './logo-negative'
+import { zaloIcon } from './zalo-icon'
+import { femaleImg } from './female'
+import { phonePreview } from './phone-preview'
+import { logoNegative } from './logo-negative'
 
 import {
   cibSkype,
@@ -36,13 +36,10 @@ import {
 } from '@coreui/icons'
 import {
   cifUs,
-  cifBr,
-  cifIn,
-  cifFr,
-  cifEs,
-  cifPl
+  cifVn
 } from '@coreui/icons'
 import {
+  cilAccountLogout,
   cilAlignCenter,
   cilAlignLeft,
   cilAlignRight,
@@ -146,6 +143,7 @@ export const icons = Object.assign({}, {
   phonePreview,
   zaloIcon
 }, {
+  cilAccountLogout,
   cilAlignCenter,
   cilAlignLeft,
   cilAlignRight,
@@ -239,11 +237,7 @@ export const icons = Object.assign({}, {
   cilWarning
 }, {
   cifUs,
-  cifBr,
-  cifIn,
-  cifFr,
-  cifEs,
-  cifPl
+  cifVn
 }, {
   cibSkype,
   cibFacebook,
