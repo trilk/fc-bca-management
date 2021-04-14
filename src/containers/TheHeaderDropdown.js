@@ -1,5 +1,4 @@
 import React from 'react'
-import * as Icon from 'react-bootstrap-icons'
 import {
   CBadge,
   CDropdown,
@@ -38,7 +37,7 @@ const TheHeaderDropdown = () => {
     >
       <CDropdownToggle className="c-header-nav-link drop-down" caret={false}>
         <div className="pr-2">
-          <span className="text-muted">Hi: <strong>Admin</strong></span>
+          <span className="text-muted"><strong>Admin</strong></span>
         </div>
         <div className="c-avatar">
           <CImg
@@ -58,7 +57,7 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownItem divider />
         <CDropdownItem onClick={userLogout}>
-          <Icon.BoxArrowRight className="mfe-2" />
+          <CIcon name="cil-account-logout" className="mfe-2" />
           {t('user-topmenu.item-logout')}
         </CDropdownItem>
       </CDropdownMenu>

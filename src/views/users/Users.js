@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom'
 import femaleimg from './avatar/female.jpg'
 import maleimg from './avatar/male.jpg'
 import './users.scss'
-import * as Icon from 'react-bootstrap-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersCog, faUsers, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import {
