@@ -1,5 +1,5 @@
 import _ from "lodash";
-function convert_day_hours_minute(global__date) {
+export function convert_day_hours_minute(global__date) {
     if (_.isEmpty(global__date)) {
         return "Ngày giờ không phù hợp , vui lòng sửa lại";
     }
@@ -50,7 +50,7 @@ function convert_day_hours_minute(global__date) {
     return format;
 }
 
-function convert_day(global__date) {
+export function convert_day(global__date) {
     const time = new Date(Date.parse(global__date));
     const localDate = time.toString();
     const split__localDate = localDate.substring(0, 3);
@@ -96,7 +96,7 @@ function convert_day(global__date) {
     return format;
 }
 
-function convert_hours_minute(global__date) {
+export function convert_hours_minute(global__date) {
     const time = new Date(Date.parse(global__date));
     const timestamp = time.getTime();
 
@@ -109,13 +109,3 @@ function convert_hours_minute(global__date) {
 
     return format;
 }
-
-
-const segmentData = [
-    { id: 0, name: 'Subscibed Users', status: 'Active', users: '123.08080', filter: [], type: 'Default', createDate: convert_day(new Date())},
-    { id: 1, name: 'khu vực quận 2, giới tính nam và nó dài hơn 1 xíu nha', status: 'Active', users: '123.080.800',filter: ['ageRange','channelsType','gender'], defaultSegment: false,  createDate: convert_day(new Date())},
-    { id: 1, name: 'Channels Zalo segments 20102', status: 'Pause', users: '12.000.000', filter: ['ageRange'], createDate: convert_day(new Date())},
-    { id: 1, name: 'Segments Độ tuổi từ 30 - 35', status: 'Pause', users: '123.080', filter: ['channelsType','gender'], createDate: convert_day(new Date())}
-
-]
-export default segmentData

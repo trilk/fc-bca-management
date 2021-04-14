@@ -73,7 +73,8 @@ const Messages = () => {
     const placements = [
         'top'
     ]
-
+    //Modal
+    const [danger, setDanger] = useState(false)
     return (
         <>
             <CRow>
@@ -88,63 +89,69 @@ const Messages = () => {
                     </CCol>
                     <CCard>
                         <CCardBody>
-                            <CRow className="mt-2">
-                                <CCol lg="2" md="3" sm="3">
-                                    <CDropdown>
-                                        <CDropdownToggle block color="outline" className="d-flex align-items-center">
-                                            <span>Messages</span>
-                                            <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
-                                        </CDropdownToggle>
-                                        <CDropdownMenu className="mt-2" >
-                                            <CDropdownItem checked><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#007BFF', width: 10, height: 10 }} />Messages</CDropdownItem>
-                                            <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#28A745', width: 10, height: 10 }} />Draft</CDropdownItem>
-                                            <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#9492A0', width: 10, height: 10 }} />Schedule</CDropdownItem>
-                                        </CDropdownMenu>
+                            <CRow>
+                                <CCol className="d-flex bd-highlight">
+                                    <div className="pr-3">
+                                        <CDropdown>
+                                            <CDropdownToggle color="outline" className="d-flex align-items-center">
+                                                <span>Type: Messages</span>
+                                                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                                            </CDropdownToggle>
+                                            <CDropdownMenu className="mt-2">
+                                                <CDropdownItem checked>Messages</CDropdownItem>
+                                                <CDropdownItem>Draft</CDropdownItem>
+                                                <CDropdownItem>Schedule</CDropdownItem>
+                                            </CDropdownMenu>
+                                        </CDropdown>
                                         <div className="pl-1">
-                                            <small className="form-text text-muted"><strong>Filter</strong> by Type</small>
+                                            <small className="form-text text-muted"><strong>Filter</strong> by Channels</small>
                                         </div>
-                                    </CDropdown>
-                                </CCol>
-                                {/* Filter */}
-                                <CCol lg="2" md="3" sm="3" >
-                                    <CDropdown>
-                                        <CDropdownToggle block color="outline" className="d-flex align-items-center">
-                                            <span>Date Filter</span>
-                                            <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
-                                        </CDropdownToggle>
-                                        <CDropdownMenu className="mt-2" >
-                                            <CForm className="px-4 py-3" >
-                                                <CCol className="p-0">
-                                                    <CFormGroup>
-                                                        <CLabel htmlFor="exampleDropdownFormEmail1">Start Date</CLabel>
-                                                        <CInput className="form-control" id="exampleDropdownFormEmail1" type="date" placeholder="email@example.com" autoComplete="email" />
-                                                    </CFormGroup>
-                                                </CCol>
-                                                <CCol className="p-0">
-                                                    <CFormGroup>
-                                                        <CLabel htmlFor="exampleDropdownFormEmail1">End Date</CLabel>
-                                                        <CInput className="form-control" id="exampleDropdownFormEmail1" type="date" placeholder="email@example.com" autoComplete="email" />
-                                                    </CFormGroup>
-                                                </CCol>
-                                                <CCol className="p-0">
-                                                    <CFormGroup className="mt-2">
-                                                        <CButton color="primary" type="submit">Submit</CButton>
-                                                    </CFormGroup>
-                                                </CCol>
-                                            </CForm>
-                                        </CDropdownMenu>
-                                        <div className="pl-1">
-                                            <small className="form-text text-muted"><strong>Filter</strong> by Date</small>
-                                        </div>
-                                    </CDropdown>
-                                </CCol>
-                                <CCol lg="2" md="3" sm="3">
-                                    <CFormGroup>
-                                        <CInput id="" type="text" placeholder="Search" required />
-                                        <div className="pl-1">
-                                            <small className="form-text text-muted"><strong>Search</strong> in all fields</small>
-                                        </div>
-                                    </CFormGroup>
+                                    </div>
+                                    {/* Filter */}
+                                    <div className="pr-3">
+                                        <CDropdown>
+                                            <CDropdownToggle color="outline" className="d-flex align-items-center">
+                                                <span>Date Filter</span>
+                                                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                                            </CDropdownToggle>
+                                            <CDropdownMenu className="mt-2" >
+                                                <CForm className="px-4 py-3" >
+                                                    <CCol className="p-0">
+                                                        <CFormGroup>
+                                                            <CLabel htmlFor="exampleDropdownFormEmail1">Start Date</CLabel>
+                                                            <CInput className="form-control" id="exampleDropdownFormEmail1" type="date" placeholder="email@example.com" autoComplete="email" />
+                                                        </CFormGroup>
+                                                    </CCol>
+                                                    <CCol className="p-0">
+                                                        <CFormGroup>
+                                                            <CLabel htmlFor="exampleDropdownFormEmail1">End Date</CLabel>
+                                                            <CInput className="form-control" id="exampleDropdownFormEmail1" type="date" placeholder="email@example.com" autoComplete="email" />
+                                                        </CFormGroup>
+                                                    </CCol>
+                                                    <CCol className="p-0">
+                                                        <CFormGroup className="mt-2">
+                                                            <CButton color="primary" type="submit">Submit</CButton>
+                                                        </CFormGroup>
+                                                    </CCol>
+                                                </CForm>
+                                            </CDropdownMenu>
+                                            <div className="pl-1">
+                                                <small className="form-text text-muted"><strong>Filter</strong> by Date</small>
+                                            </div>
+                                        </CDropdown>
+                                    </div>
+                                    <div>
+                                        <CFormGroup>
+                                            <CInput id="" type="text" placeholder="Search" required />
+                                            <div className="pl-1">
+                                                <small className="form-text text-muted"><strong>Search</strong> in all fields</small>
+                                            </div>
+                                        </CFormGroup>
+                                    </div>
+                                    <div className="ml-auto d-flex flex-column">
+                                        <span className="small text-muted d-flex justify-content-end">Messages Total</span>
+                                        <span style={{ fontSize: 20, fontWeight: 600 }}>100.000.000</span>
+                                    </div>
                                 </CCol>
                             </CRow>
                             <CDataTable
@@ -172,7 +179,7 @@ const Messages = () => {
                                         (item) => (
                                             <td>
                                                 <div className="pb-2">
-                                                    <span className="tags-text" maxLength={100}><strong>{item.content}</strong></span>
+                                                    <span className="tags-text" style={{fontWeight:600}} maxLength={100}>{item.content}</span>
                                                 </div>
                                                 <div className="small text-muted">
                                                     <span>Create Date: {item.createDate}</span>
@@ -261,7 +268,7 @@ const Messages = () => {
                                                             <FontAwesomeIcon icon={faCopy} className="mr-2" />Duplicate
                                                         </CDropdownItem>
                                                         <CDropdownDivider />
-                                                        <CDropdownItem className="danger-color">
+                                                        <CDropdownItem className="danger-color" onClick={() => setDanger(!danger)}>
                                                             <FontAwesomeIcon icon={faTrash} className="mr-2" />Delete
                                                         </CDropdownItem>
                                                     </CDropdownMenu>
@@ -281,6 +288,22 @@ const Messages = () => {
                             />
                         </CCardBody>
                     </CCard>
+                    {/* Modal delete */}
+                    <CModal
+                        show={danger}
+                        onClose={() => setDanger(!danger)}
+                    >
+                        <CModalHeader closeButton>
+                            <CModalTitle>Message Delete</CModalTitle>
+                        </CModalHeader>
+                        <CModalBody>
+                            Are you want delete this Message?
+                        </CModalBody>
+                        <CModalFooter>
+                            <CButton color="outline">Cancel</CButton>
+                            <CButton color="primary">Delete</CButton>
+                        </CModalFooter>
+                    </CModal>
                 </CCol>
             </CRow>
 

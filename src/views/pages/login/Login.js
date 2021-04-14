@@ -137,7 +137,7 @@ const Login = () => {
                           <CLabel className="check-label-custom" variant="custom-checkbox" htmlFor="inline-checkbox1"><p>{t('login.lb-check-login')}</p></CLabel>
                         </CFormGroup>
                       </CCol>
-                      <CCol col="3" className="pt-0 pb-4"> <a href="##" className="text-ps d-inline-block float-right">{t('login.bt-forget-password')}</a></CCol>
+                      <CCol col="3" className="pt-0 pb-4"> <Link to="##" className="text-ps d-inline-block float-right">{t('login.bt-forget-password')}</Link></CCol>
                     </CRow>
                     {/* button login  */}
                     <CCol col="6" lg="0" className="pt-2 pb-2">
