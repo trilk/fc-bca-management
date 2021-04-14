@@ -6,11 +6,10 @@ import {
   CDropdownMenu,
   CDropdownToggle,
   CLink,
-  CLabel,
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
 import { logout } from 'src/actions/auth'
 import { useHistory } from 'react-router-dom';
@@ -18,6 +17,7 @@ import { useHistory } from 'react-router-dom';
 const TheHeaderDropdown = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
+  const userName = useSelector(state => state.auth.user.data.name);
   const history = useHistory();
 
   const userLogout = () => {
@@ -37,7 +37,7 @@ const TheHeaderDropdown = () => {
     >
       <CDropdownToggle className="c-header-nav-link drop-down" caret={false}>
         <div className="pr-2">
-          <span className="text-muted"><strong>Admin</strong></span>
+          <span className="text-muted"><strong>{userName}</strong></span>
         </div>
         <div className="c-avatar">
           <CImg

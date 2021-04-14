@@ -1,9 +1,10 @@
-import { faCommentDots, faTachometerAlt, faUsers, faUserShield } from '@fortawesome/free-solid-svg-icons'
+import { faCommentDots, faTachometerAlt, faUsers, faUserShield, faSitemap, faCommentMedical, faCog, faInbox } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import i18n from './../i18n'
 
 export const getNavs = (role) => {
+  const isAdmin = role === 'admin';
 
   const _nav = [
     {
@@ -17,54 +18,61 @@ export const getNavs = (role) => {
       }
     },
     {
-      _tag: 'CSidebarNavDropdown',
-      name: i18n.t('left-menu.item-message'),
-      route: '',
-      icon: <FontAwesomeIcon icon={faCommentDots} size="lg" className="mr-4" />,
-      _children: [
-        {
-          _tag: 'CSidebarNavItem',
-          name: i18n.t('left-menu.item-allmessages'),
-          to: '/messages'
-        },
-        {
-          _tag: 'CSidebarNavItem',
-          name: i18n.t('left-menu.item-createmessage'),
-          to: '/CreateMsg'
-        },
-        {
-          _tag: 'CSidebarNavItem',
-          name: i18n.t('left-menu.item-template'),
-          to: '/template'
-        }
-      ]
-    },
-
-
-    {
-      _tag: 'CSidebarNavDropdown',
-      name: i18n.t('left-menu.item-audience'),
-      route: '',
-      icon: <FontAwesomeIcon icon={faUsers} size="lg" className="mr-4" />,
-      _children: [
-        {
-          _tag: 'CSidebarNavItem',
-          name: i18n.t('left-menu.item-segments'),
-          to: '/segments'
-        },
-        {
-          _tag: 'CSidebarNavItem',
-          name: i18n.t('left-menu.item-customers'),
-          to: '/contacts'
-        }
-      ]
+      _tag: 'CSidebarNavTitle',
+      _children: [i18n.t('left-menu.item-message')]
     },
     {
       _tag: 'CSidebarNavItem',
-      name: i18n.t('left-menu.item-users'),
-      icon: <FontAwesomeIcon icon={faUserShield} size="lg" className="mr-4" />,
-      to: '/users'
-    }
+      name: i18n.t('left-menu.item-allmessages'),
+      icon: <FontAwesomeIcon icon={faCommentDots} size="lg" className="mr-4" />,
+      to: '/messages'
+    },
+    {
+      _tag: 'CSidebarNavItem',
+      name: i18n.t('left-menu.item-createmessage'),
+      icon: <FontAwesomeIcon icon={faCommentMedical} size="lg" className="mr-4" />,
+      to: '/CreateMsg'
+    },
+    {
+      _tag: 'CSidebarNavItem',
+      name: i18n.t('left-menu.item-template'),
+      icon: <FontAwesomeIcon icon={faInbox} size="lg" className="mr-4" />,
+      to: '/template'
+    },
+    {
+      _tag: 'CSidebarNavTitle',
+      _children: [i18n.t('left-menu.item-audience')]
+    },
+    {
+      _tag: 'CSidebarNavItem',
+      name: i18n.t('left-menu.item-segments'),
+      icon: <FontAwesomeIcon icon={faSitemap} size="lg" className="mr-4" />,
+      to: '/segments'
+    },
+    {
+      _tag: 'CSidebarNavItem',
+      name: i18n.t('left-menu.item-customers'),
+      icon: <FontAwesomeIcon icon={faUsers} size="lg" className="mr-4" />,
+      to: '/contacts'
+    },
+    ...isAdmin ? [
+      {
+        _tag: 'CSidebarNavTitle',
+        _children: [i18n.t('left-menu.admin-title')]
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.admin-user-mng'),
+        icon: <FontAwesomeIcon icon={faUserShield} size="lg" className="mr-3" />,
+        to: '/users'
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: i18n.t('left-menu.admin-settings'),
+        icon: <FontAwesomeIcon icon={faCog} size="lg" className="mr-4" />,
+        to: '/'
+      }
+    ] : [],
   ];
   return _nav;
 }

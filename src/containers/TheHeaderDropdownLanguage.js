@@ -31,11 +31,11 @@ const TheHeaderDropDownLanguage = () => {
       <CTooltip
         content={`Select Language`}
         placement="bottom">
-        <CDropdownToggle color="ghost" className="c-header-nav-link drop-down">
+        <CDropdownToggle color="ghost" caret className="c-header-nav-link drop-down">
           <CIcon name={iconName} size="2xl" />
         </CDropdownToggle>
       </CTooltip>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
+      <CDropdownMenu className="pt-0 pb-0" placement="bottom-end">
         <CDropdownItem onClick={() => onLanguageChanged("en")}>
           <CIcon name="cif-us" size="2xl" className="mr-2" /> English
         </CDropdownItem>
