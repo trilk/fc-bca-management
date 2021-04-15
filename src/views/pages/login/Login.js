@@ -104,7 +104,7 @@ const Login = () => {
                     </CRow>
                     <CRow className="d-flex justify-content-center">
                       <CCol col="6" lg="0" className=" mt-2 pb-2 ">
-                        <h1 className="title-login mb-3 d-flex justify-content-center ">{t('login.title')}</h1>
+                        <h2 className="title-login mb-3 d-flex justify-content-center ">{t('login.title')}</h2>
                         <h6 className="description mb-4  d-flex justify-content-center">{t('login.description')}</h6>
                       </CCol>
                     </CRow>
