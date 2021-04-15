@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
@@ -15,7 +14,7 @@ import { logout } from 'src/actions/auth'
 import { useHistory } from 'react-router-dom';
 
 const TheHeaderDropdown = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userName = useSelector(state => state.auth.user.data.name);
   const history = useHistory();

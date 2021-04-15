@@ -11,6 +11,10 @@
         "lb-check-login": "Ghi nhớ đăng nhập",
         "bt-forget-password": "Quên mật khẩu"
     },
+    "top-menu": {
+        "tooltip-lang": "Chọn ngôn ngữ",
+        "tooltip-notify": "Thông báo"
+    },
     "user-topmenu": {
         "item-profile-info": "Thông tin cá nhân",
         "item-setting": "Cài đặt",

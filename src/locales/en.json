@@ -11,6 +11,10 @@
         "lb-check-login": "Remember login",
         "bt-forget-password": "Forget password"
     },
+    "top-menu": {
+        "tooltip-lang": "Select language",
+        "tooltip-notify": "Notification"
+    },
     "user-topmenu": {
         "item-profile-info": "Personal info",
         "item-setting": "Setting",
