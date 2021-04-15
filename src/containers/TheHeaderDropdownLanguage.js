@@ -10,9 +10,11 @@ import CIcon from '@coreui/icons-react'
 import { CHANGE_LANGUAGE } from "./../actions/types";
 
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 
 const TheHeaderDropDownLanguage = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const language = useSelector(state => state.auth.lang);
   const iconName = language === 'en' ? "cif-us" : "cif-vn";
@@ -29,7 +31,7 @@ const TheHeaderDropDownLanguage = () => {
     <CDropdown className="mx-2"
       direction="down">
       <CTooltip
-        content={`Select Language`}
+        content={t('top-menu.tooltip-lang')}
         placement="bottom">
         <CDropdownToggle color="ghost" caret className="c-header-nav-link drop-down">
           <CIcon name={iconName} size="2xl" />

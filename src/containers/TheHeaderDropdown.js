@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-  CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
@@ -28,7 +27,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faSearch, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 
 const TheHeaderDropdown = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userName = useSelector(state => state.auth.user.data.name);
   const history = useHistory();
