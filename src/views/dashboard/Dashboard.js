@@ -1,4 +1,5 @@
 import React, { lazy } from 'react'
+import './dashboard.scss'
 import {
   CBadge,
   CButton,
@@ -19,53 +20,157 @@ import {
   CRow,
   CCallout
 } from '@coreui/react'
+import {
+  CChartBar,
+  CChartLine,
+  CChartDoughnut,
+  CChartRadar,
+  CChartPie,
+  CChartPolarArea
+} from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import ChartLineSimple from '../charts/ChartLineSimple'
 
 import MainChartExample from '../charts/MainChartExample.js'
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCommentSlash, faCompressAlt, faEnvelopeOpenText, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
+
 const Dashboard = () => {
+
   const { t, i18n } = useTranslation();
   return (
     <>
       <CRow>
-        <CCol sm="6" lg="3">
-          <CWidgetDropdown
-            className=""
-            color="gradient-primary"
-            header="9.823"
-            text="Members online"
-            footerSlot={
-              <ChartLineSimple
-                pointed
-                className="c-chart-wrapper mt-3 mx-3"
-                style={{ height: '70px' }}
-                dataPoints={[65, 59, 84, 84, 51, 55, 40]}
-                pointHoverBackgroundColor="primary"
-                label="Members"
-                labels="months"
-              />
-            }
-          >
-            <CDropdown>
-              <CDropdownToggle color="transparent">
-                <CIcon name="cil-settings" />
-              </CDropdownToggle>
-              <CDropdownMenu className="pt-0" placement="bottom-end">
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          </CWidgetDropdown>
+        <CCol className="d-flex bd-highlight p-0" xs="12">
+          <CCol>
+            <CWidgetDropdown
+              className="widget p-0"
+            >
+              <CCol className="d-flex flex-column pb-4 p-0">
+                <div>
+                  <FontAwesomeIcon icon={faPaperPlane} style={{ color: '#009ef7', height: 40, width: 40 }} />
+                </div>
+                <div className="pt-1">
+                  <span className="widget-header">120.000.298</span>
+                </div>
+                <div className="pt-1">
+                  <span className="light-color">Total Messages Sent</span>
+                </div>
+              </CCol>
+            </CWidgetDropdown>
+          </CCol>
+          <CCol>
+            <CWidgetDropdown
+              className="widget p-0"
+            >
+              <CCol className="d-flex flex-column pb-4 p-0">
+                <div>
+                  <FontAwesomeIcon icon={faEnvelopeOpenText} style={{ color: '#009ef7', height: 40, width: 40 }} />
+                </div>
+                <div className="pt-1">
+                  <span className="widget-header">120.000.298</span>
+                </div>
+                <div className="pt-1">
+                  <span className="light-color">Total Messages Delivered</span>
+                </div>
+              </CCol>
+            </CWidgetDropdown>
+          </CCol>
+          <CCol>
+            <CWidgetDropdown
+              className="widget p-0"
+            >
+              <CCol className="d-flex flex-column pb-4 p-0">
+                <div>
+                  <FontAwesomeIcon icon={faCommentSlash} style={{ color: '#f1416c', height: 40, width: 40 }} />
+                </div>
+                <div className="pt-1">
+                  <span className="widget-header">298</span>
+                </div>
+                <div className="pt-1">
+                  <span className="light-color">Total Messages sent Failed</span>
+                </div>
+              </CCol>
+            </CWidgetDropdown>
+          </CCol>
         </CCol>
+        <CCol>
+          <CCard>
+            <CCardBody>
+              <CCol className="p-0">
+                <CCol className="p-0 d-flex flex-column">
+                  <span style={{fontSize: 20, fontWeight: 700}}>Messages Statistics</span>
+                  <strong className="text-muted small">More than 4000 new Messages Sent </strong>
+                </CCol>
+                <CCol lg="12" className="p-0 pt-4">
+                  <CChartBar
+                    className="fixed-height-chart"
+                    datasets={[
+                      {
+                        label: 'GitHub Commits',
+                        backgroundColor: '#ECF8FF',
+                        data: [100, 200, 200, 100, 300, 100, 100, 200, 100, 300, 200, 100],
+                        barThickness: 20,
+                      },
+                      {
+                        label: 'GitHub Commits',
+                        backgroundColor: '#009ef7',
+                        data: [0, 100, 100, 200, 100, 200, 100, 200, 0, 100, 200, 100],
+                        barThickness: 20,
+                        borderSkipped: false,
 
 
+                      }
+                    ]}
+                    labels="months"
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      legend: {
+                        display: false
+                      },
+                      tooltips: {
+                        enabled: true
+                      },
+                      // scales: {
+                      //   xAxes: [{
+                      //     display: false
+                      //   }],
+                      //   yAxes: [{
+                      //     gridLines: {
+                      //       display: true,
+                      //       color: '#e4e6ef',
+                      //       borderDash: [4]
+                      //     }
+                      //   }]
+                      // },
+                      scales: {
+                        xAxes: [{
+                          gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                          }
+                        }],
+                        yAxes: [{
+                          gridLines: {
+                            display: true,
+                            color: '#e4e6ef',
+                            borderDash: [4]
+                          }
+                        }]
+                      }
+                    }}
+                  />
+                </CCol>
+              </CCol>
+
+            </CCardBody>
+          </CCard>
+        </CCol>
 
       </CRow>
 

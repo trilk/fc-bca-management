@@ -82,13 +82,14 @@
     -webkit-justify-content: center;
     justify-content: center;
     padding: 0;
-    height: calc(1.5em + 1.3rem + 2px);
-    width: calc(1.5em + 1.3rem + 2px);
+    height: calc(0.867em + 0.867rem + 1px);
+    width: calc(0.867em + 0.867rem + 1px);
 }
-.image-input [data-action=remove] {
+.image-input [data-kt-image-input-action=change] {
+    cursor: pointer;
     position: absolute;
     right: -10px;
-    bottom: -5px;
+    top: -10px;
 }
 .btn.btn-white {
     color: #3f4254;
@@ -128,7 +129,49 @@
     right: 0;
     margin-bottom: 30px;
 }
-// .box-user{
-//     border-radius: .43rem !important;
-    
-// }
+.nav-tabs .nav-link.active {
+    color: #009ef7!important;
+    background-color: transparent;
+    border-bottom: 3px solid #009ef7 !important;
+    transition: color .2s ease,background-color .2s ease;
+}
+.nav-tabs .nav-link {
+    border: 0px solid transparent !important;
+    border-top-left-radius: 0rem !important;
+    border-top-right-radius: 0rem !important; 
+    font-size: 0.938rem !important;
+    font-weight: 700 !important;
+}
+.nav-tabs .nav-link:hover{
+    border-bottom: 3px solid #009ef7 !important;
+}
+
+.nav-tabs {
+    border-bottom: 0px solid !important;
+    border-color: #c4c9d0;
+}
+.nav-link{
+    padding-bottom: 1rem !important;
+}
+// edit profile
+.image-input {
+    position: relative;
+    background-image: url(./avatar/blank.png);
+    display: inline-block;
+    border-radius: .475rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.image-input.image-input-outline .image-input-wrapper {
+    border: 3px solid #fff;
+    border-radius: .475rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.box-phone{
+    border-bottom:  1px solid #eff2f5 !important;
+    border-style: dashed!important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+
+} 
