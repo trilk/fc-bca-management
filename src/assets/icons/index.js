@@ -6,6 +6,7 @@ import { logoBg } from './logo-bg'
 import { zaloIcon } from './zalo-icon'
 import { femaleImg } from './female'
 import { phonePreview } from './phone-preview'
+import {enFlat} from './en-flat'
 import { logoNegative } from './logo-negative'
 
 import {
@@ -141,6 +142,7 @@ export const icons = Object.assign({}, {
   logoBg,
   femaleImg,
   phonePreview,
+  enFlat,
   zaloIcon
 }, {
   cilAccountLogout,

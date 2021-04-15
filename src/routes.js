@@ -37,6 +37,7 @@ const Colors = React.lazy(() => import('./views/theme/colors/Colors'));
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'));
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
+const Profile = React.lazy(() => import('./views/users/Profile'));
 const UserDetails = React.lazy(() => import('./views/users/UserDetails'));
 const CreateUser = React.lazy(() => import('./views/users/createUser'));
 const UserUpdate = React.lazy(() => import('./views/users/userUpdate'));
@@ -95,11 +96,7 @@ const routes = [
   { path: '/users/create-user', exact: true, name: 'Create User', component: CreateUser },
   { path: '/users/:id', exact: true, name: 'User Details', component: UserDetails },
   { path: '/users/:id/user-update', exact: true, name: 'User Update', component: UserUpdate },
-
-
-  // { path: '/users/:id/updateUser', exact: true, name: 'Update Info', component: UpdateUser },
-  // { path: '/updateUser', exact: true, name: 'Update Info', component: UpdateUser },
-
+  { path: '/profile', exact: true, name: 'User Profile', component: Profile },
   { path: '/segments', exact: true,  name: 'Segmnets', component: Segments },
   { path: '/contacts', exact: true,  name: 'Contacts', component: Contacts },
   { path: '/contacts/contactDetails', exact: true,  name: 'Contact Details', component: contactDetails },
