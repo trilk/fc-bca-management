@@ -6,6 +6,7 @@ import {
   CDropdownToggle,
   CCol,
   CButton,
+  CBadge,
   CModal,
   CModalBody,
   CModalFooter,

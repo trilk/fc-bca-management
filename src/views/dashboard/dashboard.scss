@@ -11,3 +11,45 @@
 .fixed-height-chart{
     height: 350px !important;
 }
+.tags-text{
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+.bx-last-mess{
+    background-color: aqua;
+}
+
+/// icon box
+.symbol{
+    display: inline-block;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: .475rem !important;
+}
+.symbol.symbol-45px .symbol-label{
+    height: 45px;
+    width: 45px;
+}
+.symbol .symbol-label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f4254;
+    background-color: #f5f8fa;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: .475rem;
+}
+.w-50px {
+    width: 60px!important;
+}
+.min-w-800px {
+    min-width: 800px !important;
+}
+.min-w-140px{
+    min-width: 200px !important;
+}

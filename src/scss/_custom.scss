@@ -56,6 +56,12 @@
     }
 
 }
+.btn-outline-secondary{
+    background-color: #fff !important;
+    border-color: rgba(0, 123, 255, 0.4) !important;
+    color:#009ef7 !important;
+
+}
 .btn-light{
     color: #7e8299 !important;
     background-color: #f5f8fa !important;
@@ -497,3 +503,10 @@ a:hover {
     min-width: 125px!important;
 }
 //@at-root
+
+//label form input
+.col-form-label {
+        padding-top: calc(.75rem + 1px);
+        padding-bottom: calc(.75rem + 1px);
+        margin-bottom: 0;
+}
