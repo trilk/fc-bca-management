@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faCompressAlt, faCommentDots, } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faCompressAlt, faCommentDots, faInbox, faUserEdit, faSearch, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 import '../messages.scss'
 // import femaleimg from '../users/avatar/female.jpg'
@@ -74,44 +74,40 @@ const Template = () => {
         <>
             <CRow>
                 <CCol className="position-relative">
-                    {/* Arlets delete succes */}
-                    {/* <CCol className="position-absolute d-flex justify-content-center">
-                        <CAlert
-                            color="info"
-                            closeButton
-                            onShowChange={setVisible}
-                        >
-                            Delete Success!
-                        </CAlert>
-                    </CCol> */}
                     <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
                         <div className="p-0 d-flex align-items-end">
                             <h4><FontAwesomeIcon icon={faEnvelope} className="mr-3" />Message Template</h4>
-                        </div>
-                        <div className="p-0 ml-auto">
-                            <CLink to="/template/new-template"><CButton color="primary"><FontAwesomeIcon icon={faPlusCircle} className="mr-2" /><span>New Template</span></CButton></CLink>
                         </div>
                     </CCol>
                     <CCard>
                         <CCardBody>
                             <CRow>
-                                <CCol lg="2" md="3" sm="3">
-                                    <CFormGroup>
-                                        <CInput id="" type="text" placeholder="Search" required />
-                                        <div className="pl-1">
-                                            <small className="form-text text-muted"><strong>Search</strong> in all fields</small>
-                                        </div>
-                                    </CFormGroup>
+                                <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column">
+                                    {/* search */}
+                                    <CCol className="p-0" lg="2" md="4" sm="4">
+                                        <CFormGroup className="form-group2 has-search">
+                                            <span className="form-control-feedback mt-1 ml-2">
+                                                <FontAwesomeIcon icon={faSearch} style={{ height: 18, width: 18 }} />
+                                            </span>
+                                            <CInput id="" type="text" size="lg" placeholder="Search" required className="form-control2" />
+                                        </CFormGroup>
+                                    </CCol>
+                                    {/* End Search */}
+                                    {/* Start Create */}
+                                    <div className="p-0 ml-auto">
+                                        <CLink to="/template/new-template"><CButton size="lg" color="primary"><FontAwesomeIcon icon={faPlusCircle} className="mr-2" /><span>New Template</span></CButton></CLink>
+                                    </div>
+                                    {/* End */}
                                 </CCol>
                             </CRow>
                             <CDataTable
                                 items={templateData}
                                 fields={[
+                                    { key: 'type', label: '', _style: { width: '1%' } },
                                     { key: 'content', label: 'content', _style: { width: '20%' } },
-                                    // { key: 'open', label: 'open', _style: { width: '2%' } },
-                                    { key: 'sent', label: 'sent', _style: { width: '3%' } },
+                                    { key: 'sent', label: 'sent/open', _style: { width: '3%' } },
                                     { key: 'lastupdate', label: 'last update', _style: { width: '4%' } },
-                                    { key: 'createBy', label: 'createby', _style: { width: '4%' } },
+                                    { key: 'createDate', label: 'Create Date', _style: { width: '4%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
                                 hover
@@ -122,6 +118,12 @@ const Template = () => {
                                 activePage={page}
                                 clickableRows
                                 scopedSlots={{
+                                    'type':
+                                        (item) => (
+                                            <td className="p-0">
+                                                <FontAwesomeIcon icon={faInbox} className="text-gray-400" />
+                                            </td>
+                                        ),
                                     //name
                                     'content':
                                         (item) => (
@@ -129,13 +131,15 @@ const Template = () => {
                                                 <div className="pb-1">
                                                     <span style={{ fontSize: 16 }}><strong>{item.name}</strong></span>
                                                 </div>
-                                                <div className="pb-2">
+                                                <div className="pb-1">
                                                     <span className="tags-text" maxLength={50}>{item.content}</span>
                                                 </div>
-                                                <div className="small text-muted">
-                                                    <span>Create Date: {item.createDate}</span>
+                                                <div className="pb-2">
+                                                    <CTooltip content={`User Create message`}><span className="small font-weight-bold text-gray-400">
+                                                        <FontAwesomeIcon icon={faUserEdit} className="mr-2" />NGUYEN VAN BA</span>
+                                                    </CTooltip>
                                                 </div>
-                                                <div className="pt-2">
+                                                <div className="pb-1">
                                                     <CBadge className="mr-1 badge-status" color="light">Template</CBadge>
                                                 </div>
                                             </td>
@@ -244,7 +248,7 @@ const Template = () => {
                             <CButton color="primary">Delete</CButton>
                         </CModalFooter>
                     </CModal>
-                </CCol> 
+                </CCol>
             </CRow>
 
         </>

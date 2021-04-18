@@ -96,7 +96,7 @@ const Segments = () => {
                             <CDataTable
                                 items={segmentData}
                                 fields={[
-                                    { key: 'name', label: 'name', _style: { width: '50%' } },
+                                    { key: 'segments', label: 'segments', _style: { width: '50%' } },
                                     { key: 'status', label: 'status', _style: { width: '5%' } },
                                     { key: 'users', label: 'Users in segment', _style: { width: '10%' } },
                                     { key: 'createby', label: 'create by', _style: { width: '3%' } },
@@ -108,13 +108,13 @@ const Segments = () => {
                                 pagination
                                 scopedSlots={{
                                     // name
-                                    'name':
+                                    'segments':
                                         (item) => (
                                             <td>
                                                 <CCol className="p-0">
                                                     <div className="d-flex flex-row align-items-center">
                                                         <div className="p-0">
-                                                            <h5 className="mb-1 pr-2" style={{ fontWeight: 600 }}>{item.name}</h5>
+                                                            <h5 className="mb-1 pr-2 text-dark" style={{ fontWeight: 700 }}>{item.segments}</h5>
                                                         </div>
                                                         <div>
                                                             <CTooltip

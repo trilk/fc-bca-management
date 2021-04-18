@@ -51,9 +51,6 @@ const TheHeaderDropdown = () => {
       direction="down"
     >
       <CDropdownToggle className="c-header-nav-link" caret={false}>
-        {/* <div className="pr-2">
-          <span className="text-muted"><strong>{userName}</strong></span>
-        </div> */}
         <div className="c-avatar">
           <CImg
             src={'avatars/6.jpg'}

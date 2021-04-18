@@ -2,9 +2,9 @@ import React from 'react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 
-const brandSent = getStyle('sent') || '#009ef7'
-const brandDelivered = getStyle('delivered') || '#4dbd74'
-const brandFailed = getStyle('failed') || '#f86c6b'
+// const brandSent = getStyle('sent') || '#009ef7'
+// const brandDelivered = getStyle('delivered') || '#4dbd74'
+const brandUsers = getStyle('totalUser') || '#4dbd74'
 
 const MainChartExample = attributes => {
   const random = (min, max) => {
@@ -22,29 +22,28 @@ const MainChartExample = attributes => {
       data3.push(65)
     }
     return [
+      // {
+      //   label: 'Sent',
+      //   backgroundColor: hexToRgba(brandSent, 4),
+      //   borderColor: brandSent,
+      //   pointHoverBackgroundColor: brandSent,
+      //   borderWidth: 1.5,
+      //   data: data1
+      // },
+      // {
+      //   label: 'Delivery',
+      //   backgroundColor: 'transparent',
+      //   borderColor: brandDelivered,
+      //   pointHoverBackgroundColor: brandDelivered,
+      //   borderWidth: 1.5,
+      //   data: data2
+      // },
       {
-        label: 'Sent',
-        backgroundColor: hexToRgba(brandSent, 4),
-        borderColor: brandSent,
-        pointHoverBackgroundColor: brandSent,
-        borderWidth: 1.5,
-        data: data1
-      },
-      {
-        label: 'Delivery',
-        backgroundColor: 'transparent',
-        borderColor: brandDelivered,
-        pointHoverBackgroundColor: brandDelivered,
-        borderWidth: 1.5,
-        data: data2
-      },
-      {
-        label: 'Failed(Cancel)',
-        backgroundColor: 'transparent',
-        borderColor: brandFailed,
-        pointHoverBackgroundColor: brandFailed,
-        borderWidth: 0.5,
-        // borderDash: [8, 5],
+        label: 'TotalUsers',
+        backgroundColor: hexToRgba(brandUsers, 6),
+        borderColor: brandUsers,
+        pointHoverBackgroundColor: brandUsers,
+        borderWidth: 1,
         data: data3 
       }
     ]

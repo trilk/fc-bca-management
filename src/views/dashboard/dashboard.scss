@@ -1,8 +1,7 @@
 .widget-header{
-    
-    color: #7e8299!important;
+    color: #181C32 !important;
     font-size: 1.5rem!important;
-    font-weight: 700 !important;
+    font-weight: 600 !important;
 }
 .widget{
     cursor: pointer;
@@ -10,13 +9,6 @@
 }
 .fixed-height-chart{
     height: 350px !important;
-}
-.tags-text{
-    overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 1; /* number of lines to show */
-   -webkit-box-orient: vertical;
 }
 .bx-last-mess{
     background-color: aqua;
@@ -52,4 +44,7 @@
 }
 .min-w-140px{
     min-width: 200px !important;
+}
+.min-w-160px{
+    min-width: 800px !important;
 }
