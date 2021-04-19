@@ -155,7 +155,7 @@ const Profile = () => {
         {/* tab overview */}
         <CCol xs="12" >
           <CTabContent>
-            <CTabPane active={activeTab === 0} data-tab="overview" activeTab="overview">
+            <CTabPane active={activeTab === 0} data-tab="overview">
               <CCard>
                 <CCardHeader className="">
                   <CCol className="d-flex align-items-center p-0">

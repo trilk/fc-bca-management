@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faCommentDots, faUserEdit, faSearch, faLock, } from '@fortawesome/free-solid-svg-icons'
 import "./login.scss"
 import {
   CButton,
@@ -28,6 +30,7 @@ import { CHANGE_LANGUAGE } from "../../../actions/types";
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
 import i18n from './../../../i18n';
+import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 const Login = () => {
@@ -107,23 +110,19 @@ const Login = () => {
                         <h2 className="title-login mb-3 d-flex justify-content-center ">{t('login.title')}</h2>
                         <h6 className="description mb-4  d-flex justify-content-center">{t('login.description')}</h6>
                       </CCol>
-                    </CRow>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <CIcon name="cil-user" />
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput type="text" placeholder={t('login.ph-username')} autoComplete="username" name="phone" onChange={value => onChange(value)} />
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <CIcon name="cil-lock-locked" />
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput type="password" placeholder={t('login.ph-password')} autoComplete="current-password" name="password" onChange={value => onChange(value)} />
-                    </CInputGroup>
+                    </CRow>                    
+                      <CFormGroup className="form-group2 has-search pb-1">
+                        <span className="form-control-feedback mt-1 ml-2">
+                          <FontAwesomeIcon icon={faPhoneAlt} style={{ height: 18, width: 18 }} />
+                        </span>
+                        <CInput id="" type="text" size="lg" placeholder={t('login.ph-username')} required autoComplete="username" name="phone" className="form-control2" onChange={value => onChange(value)} />
+                      </CFormGroup>
+                      <CFormGroup className="form-group2 has-search pb-2">
+                        <span className="form-control-feedback mt-1 ml-2">
+                          <FontAwesomeIcon icon={faLock} style={{ height: 18, width: 18 }} />
+                        </span>
+                        <CInput id="" type="password" size="lg" placeholder={t('login.ph-password')} required autoComplete="current-password" name="password" className="form-control2" onChange={value => onChange(value)} />
+                      </CFormGroup>
                     {/* check login */}
                     <CRow>
                       <CCol col="3" lg="0" className="pt-0 pr-0 pl-3">

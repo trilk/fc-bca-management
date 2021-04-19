@@ -65,41 +65,39 @@ const Segments = () => {
         <>
             <CRow>
                 <CCol>
-                    <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
+                    {/* <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
                         <div className="p-0 d-flex align-items-end">
                             <h4><FontAwesomeIcon icon={faChartPie} className="mr-3" />Segments</h4>
                         </div>
-                        <div className="p-0 ml-auto">
-                            <CButton color="primary" onClick={() => setLarge(!large)}><FontAwesomeIcon icon={faPlusCircle} className="mr-2" /><span>Create segment</span></CButton>
-                        </div>
-                    </CCol>
+                    </CCol> */}
                     <CCard>
                         <CCardBody>
-                            <CRow className="py-2">
-                                <CCol lg="2" md="3" sm="3">
-                                    <CDropdown>
-                                        <CDropdownToggle block color="outline" className="d-flex align-items-center">
-                                            <span>Filter</span>
-                                            <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
-                                        </CDropdownToggle>
-                                        <CDropdownMenu className="mt-2" >
-                                            <CDropdownItem checked><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#007BFF', width: 10, height: 10 }} />All</CDropdownItem>
-                                            <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#28A745', width: 10, height: 10 }} />Active</CDropdownItem>
-                                            <CDropdownItem><FontAwesomeIcon icon={faCircle} className="mr-2" style={{ color: '#9492A0', width: 10, height: 10 }} />Pause</CDropdownItem>
-                                        </CDropdownMenu>
-                                        <div className="pl-1">
-                                            <small className="form-text text-muted"><strong>Filter</strong> by Status</small>
-                                        </div>
-                                    </CDropdown>
-                                </CCol>
-                            </CRow>
+                            <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column pb-4 p-0">
+                                <div className="d-flex flex-row pb-3">
+                                    <div className="filter">
+                                        <div className="line-active"></div>
+                                        <CButton variant="ghost">All</CButton>
+                                    </div>
+                                    <div className="filter">
+                                        {/* <div className="line-active"></div> */}
+                                        <CButton variant="ghost">Active</CButton>
+                                    </div>
+                                    <div className="filter">
+                                        {/* <div className="line-active"></div> */}
+                                        <CButton variant="ghost">Paused</CButton>
+                                    </div>
+                                </div>
+                                <div className="p-0 ml-lg-auto ml-md-auto ml-sm-auto">
+                                    <CButton color="primary" size="lg" onClick={() => setLarge(!large)}><FontAwesomeIcon icon={faPlusCircle} className="mr-2" /><span>Create segment</span></CButton>
+                                </div>
+                            </CCol>
                             <CDataTable
                                 items={segmentData}
                                 fields={[
-                                    { key: 'segments', label: 'segments', _style: { width: '50%' } },
+                                    { key: 'segments', label: 'segments', _style: { width: '35%' } },
                                     { key: 'status', label: 'status', _style: { width: '5%' } },
                                     { key: 'users', label: 'Users in segment', _style: { width: '10%' } },
-                                    { key: 'createby', label: 'create by', _style: { width: '3%' } },
+                                    { key: 'createby', label: 'create by', _style: { width: '10%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
                                 itemsPerPage={5}
@@ -124,13 +122,13 @@ const Segments = () => {
                                                             </CTooltip>
                                                         </div>
                                                     </div>
-                                                    <div className="pt-1 small light-color">
+                                                    <div className="pt-1 light-color">
                                                         <span>Create Date: {item.createDate}</span>
                                                     </div>
                                                     <div className=" pl-0 pt-2 d-flex flex-column bd-highlight">
-                                                        {item.filter.includes("ageRange") && <span className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</span>}
-                                                        {item.filter.includes("channelsType") && <span className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</span>}
-                                                        {item.filter.includes("gender") && <span className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</span>}
+                                                        {item.filter.includes("ageRange") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</strong>}
+                                                        {item.filter.includes("channelsType") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</strong>}
+                                                        {item.filter.includes("gender") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</strong>}
                                                     </div>
                                                 </CCol>
                                             </td>
@@ -139,7 +137,7 @@ const Segments = () => {
                                     'createby':
                                         (item) => (
                                             <td>
-                                                <CCol className="pl-4">
+                                                {/* <CCol className="pl-4">
                                                     <div className="c-avatar d-flex justify-content-center">
                                                         <CImg
                                                             src={'avatars/6.jpg'}
@@ -147,7 +145,8 @@ const Segments = () => {
                                                             alt="admin@bootstrapmaster.com"
                                                         />
                                                     </div>
-                                                </CCol>
+                                                </CCol> */}
+                                                <span>{item.createby}</span>
                                             </td>
                                         ),
                                     //status

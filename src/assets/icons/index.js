@@ -8,6 +8,7 @@ import { femaleImg } from './female'
 import { phonePreview } from './phone-preview'
 import {enFlat} from './en-flat'
 import { logoNegative } from './logo-negative'
+import {viFlat} from './vi-flat'
 
 import {
   cibSkype,
@@ -143,7 +144,8 @@ export const icons = Object.assign({}, {
   femaleImg,
   phonePreview,
   enFlat,
-  zaloIcon
+  zaloIcon,
+  viFlat
 }, {
   cilAccountLogout,
   cilAlignCenter,
