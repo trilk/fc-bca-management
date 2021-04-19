@@ -1,0 +1,50 @@
+.widget-header{
+    color: #181C32 !important;
+    font-size: 1.5rem!important;
+    font-weight: 600 !important;
+}
+.widget{
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 12px;
+}
+.fixed-height-chart{
+    height: 350px !important;
+}
+.bx-last-mess{
+    background-color: aqua;
+}
+
+/// icon box
+.symbol{
+    display: inline-block;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: .475rem !important;
+}
+.symbol.symbol-45px .symbol-label{
+    height: 45px;
+    width: 45px;
+}
+.symbol .symbol-label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f4254;
+    background-color: #f5f8fa;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: .475rem;
+}
+.w-50px {
+    width: 60px!important;
+}
+.min-w-800px {
+    min-width: 800px !important;
+}
+.min-w-140px{
+    min-width: 200px !important;
+}
+.min-w-160px{
+    min-width: 800px !important;
+}

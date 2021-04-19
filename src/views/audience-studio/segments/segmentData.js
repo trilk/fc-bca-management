@@ -112,10 +112,10 @@ function convert_hours_minute(global__date) {
 
 
 const segmentData = [
-    { id: 0, name: 'Subscibed Users', status: 'Active', users: '123.08080', filter: [], type: 'Default', createDate: convert_day(new Date())},
-    { id: 1, name: 'khu vực quận 2, giới tính nam và nó dài hơn 1 xíu nha', status: 'Active', users: '123.080.800',filter: ['ageRange','channelsType','gender'], defaultSegment: false,  createDate: convert_day(new Date())},
-    { id: 1, name: 'Channels Zalo segments 20102', status: 'Pause', users: '12.000.000', filter: ['ageRange'], createDate: convert_day(new Date())},
-    { id: 1, name: 'Segments Độ tuổi từ 30 - 35', status: 'Pause', users: '123.080', filter: ['channelsType','gender'], createDate: convert_day(new Date())}
+    { id: 0, segments: 'Subscibed Users', status: 'Active', users: '123.08080', filter: [],createby: 'Nguyen Van Nam', type: 'Default', createDate: convert_day(new Date())},
+    { id: 1, segments: 'khu vực quận 2, giới tính nam và nó dài hơn 1 xíu nha', status: 'Active', users: '123.080.800',createby: 'Nguyen Van Nam',filter: ['ageRange','channelsType','gender'], defaultSegment: false,  createDate: convert_day(new Date())},
+    { id: 1, segments: 'Channels Zalo segments 20102', status: 'Pause', users: '12.000.000', filter: ['ageRange'],createby: 'Nguyen Van Nam',    createDate: convert_day(new Date())},
+    { id: 1, segments: 'Segments Độ tuổi từ 30 - 35', status: 'Pause', users: '123.080', filter: ['channelsType','gender'], createby: 'Nguyen Van Nam',createDate: convert_day(new Date())}
 
 ]
 export default segmentData

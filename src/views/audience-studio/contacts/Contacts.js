@@ -40,6 +40,7 @@ import {
   faCalendarCheck,
   faCheckCircle,
   faTimesCircle,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./contacts.scss";
@@ -51,6 +52,8 @@ import {
   CImg,
   CCol,
   CDataTable,
+  CDropdownHeader,
+  CForm,
   CPagination,
   CLabel,
   CTooltip,
@@ -133,56 +136,90 @@ const Contacts = () => {
     <>
       <CRow>
         <CCol col="12" lg="12">
-          <h4 className="pb-3">
-            <FontAwesomeIcon icon={faUserFriends} className="mr-3" />
-            All Contacts
-          </h4>
-        </CCol>
-        <CCol col="12" lg="12">
           <CCard>
             <CCardBody>
               <CRow>
-                <CCol className="d-flex bd-highlight">
-                  <div className="pr-3">
-                    <CDropdown>
-                      <CDropdownToggle
-                        color="outline"
-                        className="d-flex align-items-center"
-                      >
-                        <span>Channel: {channelDropdown}</span>
-                        <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-                      </CDropdownToggle>
-                      <CDropdownMenu className="mt-2" placement="bottom-start">
-                        <CDropdownItem onClick={() => setChannelDropdown("All")}>
-                          All
-                        </CDropdownItem>
-                        <CDropdownItem onClick={() => setChannelDropdown("Zalo")}>
-                          Zalo
-                          </CDropdownItem>
-                        <CDropdownItem onClick={() => setChannelDropdown("Viber")}>
-                          Viber
-                        </CDropdownItem>
-                        <CDropdownItem onClick={() => setChannelDropdown("Telegram")}>
-                          Telegram
-                        </CDropdownItem>
-                      </CDropdownMenu>
-                    </CDropdown>
-                    <div className="pl-1">
-                      <small className="form-text text-muted"><strong>Filter</strong> by Channels</small>
-                    </div>
-                  </div>
-                  <div>
-                    <CFormGroup>
-                      <CInput id="" type="text" placeholder="Search" required />
-                      <div className="pl-1">
-                        <small className="form-text text-muted"><strong>Search</strong> in all fields</small>
-                      </div>
+                <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column">
+                  {/* search */}
+                  <CCol className="p-0" lg="2" md="4" sm="4">
+                    <CFormGroup className="form-group2 has-search">
+                      <span className="form-control-feedback mt-1 ml-2">
+                        <FontAwesomeIcon icon={faSearch} style={{ height: 18, width: 18 }} />
+                      </span>
+                      <CInput id="" type="text" size="lg" placeholder="Search" required className="form-control2" />
                     </CFormGroup>
-                  </div>
-                  <div className="ml-auto d-flex flex-column">
-                    <span className="small text-muted d-flex justify-content-end">Contacts Total</span>
-                    <span style={{ fontSize: 20, fontWeight: 600,}} className="d-flex justify-content-end">12</span>
-                  </div>
+                  </CCol>
+                  {/* End Search */}
+                  {/* Start Filter */}
+                  <CCol className="d-flex flex-row p-0">
+                    <div className="ml-lg-auto ml-sm-auto ml-md-auto d-inline">
+                      <CDropdown>
+                        <CDropdownToggle color="secondary" size="lg" className="d-flex align-items-center">
+                          <FontAwesomeIcon icon={faFilter} className="mr-2" />
+                          <span>Filter</span>
+                        </CDropdownToggle>
+                        <CDropdownMenu className="mt-2" placement="bottom-end" >
+                          <CDropdownHeader className="pr-5">
+                            <span style={{ fontSize: 16, fontWeight: 600, color: '#181c32' }} className="pr-5">Filter Options</span>
+                          </CDropdownHeader>
+                          <CDropdownDivider />
+                          <CForm className="px-3 py-2" >
+                            <CCol className="p-0 pb-3" col="6">
+                              <CLabel htmlFor="exampleDropdownFormEmail1">
+                                <span style={{ fontSize: 14, fontWeight: 700 }}>Status</span>
+                              </CLabel>
+                              <CDropdown>
+                                <CDropdownToggle color="light" size="lg" block className="d-flex align-items-center">
+                                  <span className="d-flex justify-content-start">Filter</span>
+                                  <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
+                                </CDropdownToggle>
+                                <CForm>
+                                  <CDropdownMenu className="mt-2" placement="bottom-end" block>
+                                    <CDropdownItem>All Channels</CDropdownItem>
+                                    <CDropdownItem>Zalo</CDropdownItem>
+                                    <CDropdownItem>Viber</CDropdownItem>
+                                  </CDropdownMenu>
+                                </CForm>
+                              </CDropdown>
+                            </CCol>
+                            {/* Filter Channels type */}
+                            <CCol className="p-0 pt-3 d-flex flex-column pb-3">
+                              <CLabel htmlFor="exampleDropdownFormEmail1">
+                                <span style={{ fontSize: 14, fontWeight: 700 }}>Channels Type:</span>
+                              </CLabel>
+                              <CCol className="p-0 pt-1 d-flex flex-row">
+                                <CFormGroup variant="custom-checkbox" inline>
+                                  <CInputCheckbox
+                                    custom
+                                    id="inline-checkbox1"
+                                    name="inline-checkbox1"
+                                    value="option1"
+                                  />
+                                  <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1" >Zalo</CLabel>
+                                </CFormGroup>
+                                <CFormGroup variant="custom-checkbox" inline>
+                                  <CInputCheckbox
+                                    custom
+                                    id="inline-checkbox1"
+                                    name="inline-checkbox1"
+                                    value="option1"
+                                  />
+                                  <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1">Viber</CLabel>
+                                </CFormGroup>
+                              </CCol>
+                            </CCol>
+                            <CCol className="p-0 py-2">
+                              <CFormGroup className="mt-2 float-right">
+                                <CButton color="ghost" size="lg" className="mr-2">Reset</CButton>
+                                <CButton color="primary" size="lg" type="submit">Submit</CButton>
+                              </CFormGroup>
+                            </CCol>
+                          </CForm>
+                        </CDropdownMenu>
+                      </CDropdown>
+                    </div>
+                    {/* End Filter */}
+                  </CCol>
                 </CCol>
               </CRow>
               <CDataTable

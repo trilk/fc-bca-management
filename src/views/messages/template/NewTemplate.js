@@ -56,7 +56,7 @@ const NewTemplate = () => {
                 <CCard>
                     <CCardHeader>
                         <CCol lg="12" className="p-0 d-flex flex-row bd-highlight align-items-center">
-                            <div className="text-muted font-weight-bold">
+                            <div className="font-weight-bold">
                                 <span>Message Template</span>
                             </div>
                             {/* <div className="ml-auto">
@@ -114,8 +114,8 @@ const NewTemplate = () => {
                         </CRow>
                     </CCardBody>
                 </CCard>
-                <CLink to="/template/new-template/template-details"><CButton color="primary">Save</CButton></CLink>
-                <CAlert
+                <CLink to="/template/new-template/template-details"><CButton size="lg" color="primary">Save</CButton></CLink>
+                {/* <CAlert
                     color="warning"
                     show={visible}
                     closeButton
@@ -132,7 +132,7 @@ const NewTemplate = () => {
                 </CAlert>
                 <CButton color="primary" onClick={() => setVisible(10)}>
                     Reset timer
-              </CButton>
+              </CButton> */}
             </CCol>
 
 

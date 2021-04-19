@@ -144,7 +144,7 @@ const CreateMsg = () => {
       <CRow className="d-flex flex-column bd-highlight">
         <CCol>
           <CCard>
-            <CCardHeader className="text-muted font-weight-bold">
+            <CCardHeader className="font-weight-bold">
               1. Audience
             </CCardHeader>
             <CCardBody>
@@ -341,7 +341,7 @@ const CreateMsg = () => {
                 lg="12"
                 className="p-0 d-flex flex-row bd-highlight align-items-center"
               >
-                <div className="text-muted font-weight-bold">
+                <div className="font-weight-bold">
                   <span>2. Message</span>
                 </div>
                 {/* <div className="ml-auto">
@@ -427,7 +427,7 @@ const CreateMsg = () => {
         <CCol>
           <CCard>
             <CCardHeader>
-              <div className="text-muted font-weight-bold">
+              <div className="font-weight-bold">
                 <span>3. Schedule</span>
               </div>
             </CCardHeader>
