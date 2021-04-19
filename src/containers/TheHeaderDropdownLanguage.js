@@ -28,21 +28,21 @@ const TheHeaderDropDownLanguage = () => {
   };
 
   return (
-    <CDropdown className="mx-2"
+    <CDropdown inNav className="c-header-nav-item mx-2"
       direction="down">
       <CTooltip
         content={t('top-menu.tooltip-lang')}
         placement="bottom">
-        <CDropdownToggle color="ghost" caret className="c-header-nav-link drop-down">
+        <CDropdownToggle caret={false} className="c-header-nav-link">
           <CIcon name={iconName} size="2xl" />
         </CDropdownToggle>
       </CTooltip>
       <CDropdownMenu className="pt-0 pb-0" placement="bottom-end">
         <CDropdownItem onClick={() => onLanguageChanged("en")}>
-          <CIcon name="cif-us" size="2xl" className="mr-2" /> English
+          <CIcon name="cif-us" size="xl" className="mr-2" /> English
         </CDropdownItem>
         <CDropdownItem onClick={() => onLanguageChanged("vi")}>
-          <CIcon name="cif-vn" size="2xl" className="mr-2" /> Tiếng Việt
+          <CIcon name="cif-vn" size="xl" className="mr-2" /> Tiếng Việt
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
