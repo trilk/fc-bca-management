@@ -27,7 +27,6 @@ import {
 
   CPagination
 } from '@coreui/react'
-import ModalCreateUser from './ModalCreateUser'
 
 import usersData from './UsersData'
 
@@ -35,9 +34,6 @@ const getBadge = status => {
   switch (status) {
     case 'Active': return 'success'
     case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
-    default: return 'primary'
   }
 }
 const getRole = role => {
@@ -76,7 +72,7 @@ const Users = () => {
                 <CCol className="d-flex flex-lg-row flex-column">
                   <CCol className="p-0">
                     <div className="d-flex align-items-center">
-                      <span style={{ fontSize: '1.875rem', fontWeight: 600 }} className="pr-2">Poviol Gruop</span>
+                      <span style={{ fontSize: '1.875rem', fontWeight: 600 }} className="pr-2">PVOil Group</span>
                       <CBadge color="success" className="badge-status font-weight-bold">in Progress</CBadge>
                     </div>
                     <CCol className="p-0 pt-3 d-flex flex-lg-row">
@@ -158,15 +154,13 @@ const Users = () => {
                 items={usersData}
                 fields={[
                   { key: 'name', label: 'name', _style: { width: '20%' } },
-                  { key: 'phone', label: 'phone no.', _style: { width: '10%' } },
                   { key: 'role', label: 'role', _style: { width: '8%' } },
+                  { key: 'phone', label: 'phone no.', _style: { width: '10%' } },
                   { key: 'gender', label: 'gender', _style: { width: '5%' } },
-                  // { key: 'address', label: 'address', _style: { width: '15%' } },
-                  { key: 'lastupdate', label: 'last update', _style: { width: '10%' } },
+                  { key: 'segments', label: 'Manage Segments', _style: { width: '15%' } },
+                  { key: 'lastupdate', label: 'last update', _style: { width: '8%' } },
                   { key: 'status', label: 'status', _style: { width: '5%' } },
-                  { key: 'action', label: 'action', _style: { width: '1%' } },
                 ]}
-                hover
                 bordered
                 striped
                 itemsPerPage={10}
@@ -214,8 +208,13 @@ const Users = () => {
                   'role':
                     (item) => (
                       <td>
-                        <CBadge className="role-tag-inner" color={getRole(item.role)}>
+                        {/* <CBadge className="role-tag-inner" color={getRole(item.role)}>
                           <FontAwesomeIcon icon={faUsers} style={{ height: 16, width: 16 }} className="mr-1" />
+                          {item.role}
+                        </CBadge> */}
+                        <CBadge color="light" className="badge-status border">
+                          {item.role.includes("Admin") && <FontAwesomeIcon icon={faUserShield} className="mr-2" />}
+                          {item.role.includes("Moderator") && <FontAwesomeIcon icon={faUserEdit} className="mr-2" />}
                           {item.role}
                         </CBadge>
                       </td>

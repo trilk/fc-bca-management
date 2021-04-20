@@ -2,46 +2,12 @@ import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUsersCog,
-  faUsers,
-  fabViber,
-  faChessQueen,
-  faFacebookMessenger,
-  faEye,
-  faEdit,
   faPen,
-  faPause,
-  faCopy,
-  faEllipsisV,
-  faPlus,
-  faPlusCircle,
-  faChevronCircleDown,
-  faSortDown,
-  faClone,
-  faCircle,
-  faTag,
-  faFilter,
   faUserCircle,
   faUser,
-  faDatabase,
-  faHamburger,
   faVenusMars,
-  faIdBadge,
-  faMinus,
-  faExchangeAlt,
-  faTrash,
-  faUserTag,
-  faCheck,
   faTimes,
-  faUserFriends,
-  faFileImport,
-  faUserPlus,
-  faIndent,
-  faMailBulk,
   faAt,
-  faMapMarkedAlt,
-  faAddressBook,
-  faAddressCard,
   faGlobeAsia,
   faCalendarCheck,
   faIdCard,
@@ -53,8 +19,12 @@ import {
   faCheckCircle,
   faCalendarPlus,
   faDotCircle,
-  faWindowClose,
-  faChargingStation,
+  faArrowUp,
+  faArrowDown,
+  faPhoneAlt,
+  faCalendarDay,
+  faTrash,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
 import femaleimg from "../../users/avatar/female.jpg";
@@ -115,16 +85,227 @@ const getBadge = (status) => {
   }
 };
 const ContactDetails = () => {
-  const [modal, setModal] = useState(true);
   const [large, setLarge] = useState(false);
-  const [small, setSmall] = useState(false);
-  const [primary, setPrimary] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [warning, setWarning] = useState(false);
-  const [danger, setDanger] = useState(false);
-  const [info, setInfo] = useState(false);
   return (
     <>
+      <CRow>
+        <CCol className="d-flex flex-lg-row flex-column">
+          <CCol lg="5" className="p-0">
+            <CCard>
+              <CCardBody>
+                <CCol className="pb-4">
+                  <CCol className="p-0">
+                    <CCol className="p-0">
+                      <CCol className="pt-3 d-flex justify-content-center p-0">
+                        {/* avatar */}
+                        <img
+                          src={femaleimg}
+                          style={{ height: 120, width: 120 }}
+                          className="c-avatar-img-bg"
+                          alt="admin@bootstrapmaster.com"
+                          name="avatar-male-default"
+                        />
+                      </CCol>
+                      <CCol className="d-flex flex-column pt-3">
+                        <h4 className="d-flex justify-content-center align-items-center">Nguyen Van Nam <CTooltip content={`Subscribed`} placement="top"><FontAwesomeIcon icon={faCheckCircle} style={{ height: 12, width: 12 }} className="ml-2 success-color" /></CTooltip></h4>
+                        {/* <div className="d-flex justify-content-center pt-1 pb-3">
+                          <CBadge color="success" className="badge-status text-uppercase">Subscribed
+                        <FontAwesomeIcon icon={faCheckCircle} className="ml-2" />
+                          </CBadge>
+                        </div> */}
+                      </CCol>
+                      <CCol className="d-flex flex-wrap p-0 pt-1 pb-3 justify-content-center">
+                        <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
+                          <FontAwesomeIcon icon={faPhoneAlt} className="mr-2" /><span style={{ fontWeight: 600 }}>0987 8878 88</span>
+                        </div>
+                        <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
+                          <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" /><span style={{ fontWeight: 600 }}>HCM, District 2</span>
+                        </div>
+                      </CCol>
+                    </CCol>
+                    <CCol className="d-flex flex-lg-row pt-3 p-0">
+                      <CCol className="border rounded border-dashed mr-lg-3 p-0">
+                        <CCol className="d-flex flex-column py-2">
+                          <span style={{ fontSize: 18, fontWeight: 700 }} className="d-flex align-items-center">1.009.000 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
+                          <span className="text-muted">Messages </span>
+                        </CCol>
+                      </CCol>
+                      <CCol className="border rounded border-dashed mr-lg-3 p-0">
+                        <CCol className="d-flex flex-column py-2">
+                          <span style={{ fontSize: 18, fontWeight: 700 }} className="d-flex align-items-center">1.009.000 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
+                          <span className="text-muted">Delivered</span>
+                        </CCol>
+                      </CCol>
+                      <CCol className="border rounded border-dashed p-0">
+                        <CCol className="d-flex flex-column py-2">
+                          <span style={{ fontSize: 18, fontWeight: 700 }} className="d-flex align-items-center">12.009 <FontAwesomeIcon style={{ height: 10, width: 10, }} icon={faArrowDown} className="ml-auto danger-color" /></span>
+                          <span className="text-muted">Failed</span>
+                        </CCol>
+                      </CCol>
+                    </CCol>
+                  </CCol>
+                  {/* end user avatar and more */}
+                  <CCol className="pt-5 p-0">
+                    <CCol className="p-0">
+                      <CCol className="p-0 pt-2 d-flex align-items-center">
+                        <span style={{ fontSize: 16, fontWeight: 700 }}>Details</span>
+                        <div className="ml-auto">
+                          <CButton size="sm" color="secondary" >Update Info</CButton>
+                        </div>
+                      </CCol>
+                      <hr />
+                    </CCol>
+                  </CCol>
+                  <CCol className="p-0"> 
+                    {/* label */}
+                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                      <CCol lg="3" className="p-0">
+                        <span className="text-muted">Contact ID</span>
+                      </CCol>
+                      <CCol>
+                        <span className="font-weight-bold">ID-97868677</span>
+                      </CCol>
+                    </CCol>
+                    {/* Endlabel */}
+                    {/* label */}
+                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column align-items-center">
+                      <CCol lg="3" className="p-0">
+                        <span className="text-muted">Channels</span>
+                      </CCol>
+                      <CCol>
+                        <CTooltip content={`Zalo`} placement="top">
+                          <CIcon
+                            name="zaloIcon"
+                            style={{ height: 24, width: 24, }}
+                          />
+                        </CTooltip>
+                      </CCol>
+                    </CCol>
+                    {/* Endlabel */}
+                    {/* label */}
+                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                      <CCol lg="3" className="p-0">
+                        <span className="text-muted">Email</span>
+                      </CCol>
+                      <CCol>
+                        <span className="font-weight-bold">jshgjhsadgj@gmail.com</span>
+                      </CCol>
+                    </CCol>
+                    {/* Endlabel */}
+                    {/* label */}
+                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                      <CCol lg="3" className="p-0">
+                        <span className="text-muted">Gender</span>
+                      </CCol>
+                      <CCol>
+                        <span className="font-weight-bold">Male</span>
+                      </CCol>
+                    </CCol>
+                    {/* Endlabel */}
+                    {/* label */}
+                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                      <CCol lg="3" className="p-0">
+                        <span className="text-muted">Date Of Birth</span>
+                      </CCol>
+                      <CCol>
+                        <span className="font-weight-bold">20, july, 1994</span>
+                      </CCol>
+                    </CCol>
+                    {/* Endlabel */}
+                    {/* label */}
+                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                      <CCol lg="3" className="p-0">
+                        <span className="text-muted">Address</span>
+                      </CCol>
+                      <CCol>
+                        <span className="font-weight-bold">101 Collin Street, Melbourne 3000 VIC Australia</span>
+                      </CCol>
+                    </CCol>
+                    {/* Endlabel */}
+                    {/* label */}
+                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                      <CCol lg="3" className="p-0">
+                        <span className="text-muted">Last Update</span>
+                      </CCol>
+                      <CCol>
+                        <span className="font-weight-bold">20, july, 2021</span>
+                      </CCol>
+                    </CCol>
+                    {/* Endlabel */}
+                  </CCol>
+                </CCol>
+              </CCardBody>
+            </CCard>
+          </CCol>
+          <CCol>
+            <CCard>
+              <CCardBody>
+                <CCol className="p-0">
+                  <CCol className="p-0 pb-3">
+                    <h4><strong>Segmnets this contact</strong></h4>
+                  </CCol>
+                  {/* Segment */}
+                  <CCol className="d-flex flex-row align-items-center p-0">
+                    <div className="icon-drop mr-3 ml-0 mt-1">
+                      <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
+                    </div>
+                    <CCol className="p-0 d-flex flex-column">
+                      <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
+                       <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
+                    </CCol>
+                    <div className="float-right">
+                      <CButton color="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton>
+                    </div>
+                  </CCol>
+                  <hr />
+                  {/* Segment */}
+                  <CCol className="d-flex flex-row align-items-center p-0">
+                    <div className="icon-drop mr-3 ml-0 mt-1">
+                      <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
+                    </div>
+                    <CCol className="p-0 d-flex flex-column">
+                      <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
+                      <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
+                    </CCol>
+                    <div className="float-right">
+                      <CButton color="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton>
+                    </div>
+                  </CCol>
+                  <hr />
+
+                </CCol>
+
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CCol>
+      </CRow>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <CCol lg="12" className="p-0">
         <CCard>
           <CCardBody>

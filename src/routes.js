@@ -38,8 +38,10 @@ const Typography = React.lazy(() => import('./views/theme/typography/Typography'
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
 const Profile = React.lazy(() => import('./views/users/Profile'));
+const updateProfile = React.lazy(() => import('./views/users/updateProfile'));
 const UserDetails = React.lazy(() => import('./views/users/UserDetails'));
 const CreateUser = React.lazy(() => import('./views/users/createUser'));
+const EditUser = React.lazy(() => import('./views/users/editUser'));
 const UserUpdate = React.lazy(() => import('./views/users/userUpdate'));
 const Segments = React.lazy(() => import('./views/audience-studio/segments/Segments'));
 const Contacts = React.lazy(() => import('./views/audience-studio/contacts/Contacts'));
@@ -95,8 +97,10 @@ const routes = [
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/create-user', exact: true, name: 'Create User', component: CreateUser },
   { path: '/users/:id', exact: true, name: 'User Details', component: UserDetails },
+  { path: '/users/:id/edit-user', exact: true, name: 'Edit User', component: EditUser },
   { path: '/users/:id/user-update', exact: true, name: 'User Update', component: UserUpdate },
   { path: '/profile', exact: true, name: 'User Profile', component: Profile },
+  { path: '/profile/update-profile', exact: true, name: 'Update Profile', component: updateProfile },
   { path: '/segments', exact: true,  name: 'Segmnets', component: Segments },
   { path: '/contacts', exact: true,  name: 'Contacts', component: Contacts },
   { path: '/contacts/contactDetails', exact: true,  name: 'Contact Details', component: contactDetails },

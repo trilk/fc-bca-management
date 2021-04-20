@@ -26,7 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { logout } from 'src/actions/auth'
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faSearch, faSortDown, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faSearch, faSortDown, faTimesCircle, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons'
 
 const TheHeaderDropdown = () => {
   const { t } = useTranslation();
@@ -74,7 +74,10 @@ const TheHeaderDropdown = () => {
               <div className="d-flex flex-column bd-highlight">
                 <span style={{ fontSize: 16 }}>
                   <strong>{userName}</strong>
-                  <CBadge color="primary" className="small ml-2">Admin</CBadge>
+                  <CBadge color="light" className="badge-status">
+                    <FontAwesomeIcon icon={faUserShield} className="mr-2" />
+                    <strong>Administration</strong>
+                  </CBadge>
                 </span>
                 <span className="light-color font-weight-bold">admin@gmail.com</span>
               </div>
@@ -118,8 +121,8 @@ const TheHeaderDropdown = () => {
           </CDropdownToggle>
           <CForm>
             <CDropdownMenu className="mt-2" placement="left-start" block>
-              <CDropdownItem><CIcon name="enFlat" className="flat-lang mr-3"/>English</CDropdownItem>
-              <CDropdownItem><CIcon name="viFlat" className="flat-lang mr-3"/>Vietnamese</CDropdownItem>
+              <CDropdownItem><CIcon name="enFlat" className="flat-lang mr-3" />English</CDropdownItem>
+              <CDropdownItem><CIcon name="viFlat" className="flat-lang mr-3" />Vietnamese</CDropdownItem>
             </CDropdownMenu>
           </CForm>
         </CDropdown>

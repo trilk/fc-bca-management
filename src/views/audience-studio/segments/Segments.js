@@ -65,19 +65,14 @@ const Segments = () => {
         <>
             <CRow>
                 <CCol>
-                    {/* <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
-                        <div className="p-0 d-flex align-items-end">
-                            <h4><FontAwesomeIcon icon={faChartPie} className="mr-3" />Segments</h4>
-                        </div>
-                    </CCol> */}
                     <CCard>
                         <CCardBody>
                             <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column pb-4 p-0">
                                 <div className="d-flex flex-row pb-3">
-                                    <div className="filter">
-                                        <div className="line-active"></div>
-                                        <CButton variant="ghost">All</CButton>
-                                    </div>
+                                        <div className="filter">
+                                            <div className="line-active"></div>
+                                            <CButton variant="ghost">All</CButton>
+                                        </div>
                                     <div className="filter">
                                         {/* <div className="line-active"></div> */}
                                         <CButton variant="ghost">Active</CButton>

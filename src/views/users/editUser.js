@@ -19,7 +19,7 @@ import {
     CCardFooter,
 } from '@coreui/react'
 import { useTranslation } from 'react-i18next'
-const CreateUser = () => {
+const EditUser = () => {
 
     //role admin or moderator
     const [role, setRole] = useState("Admin");
@@ -31,7 +31,7 @@ const CreateUser = () => {
                 <CCol xs={12}>
                     <CCard>
                         <CCardHeader>
-                            <span style={{ fontSize: 18, fontWeight: 700 }}>{t('create-user.tt-header')}</span>
+                            <span style={{ fontSize: 18, fontWeight: 700 }}>Edit User</span>
                         </CCardHeader>
                         <CCardBody>
                             <CRow className="p-lg-3 px-lg-4">
@@ -276,4 +276,4 @@ const CreateUser = () => {
     )
 }
 
-export default CreateUser
+export default EditUser

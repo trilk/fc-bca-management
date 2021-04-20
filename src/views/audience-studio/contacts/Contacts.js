@@ -267,7 +267,6 @@ const Contacts = () => {
                     _style: { width: "1%" }
                   },
                 ]}
-                hover
                 bordered
                 sorter
                 striped
