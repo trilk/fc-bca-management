@@ -62,55 +62,64 @@ const Users = () => {
   return (
     <>
       <CRow>
-        <CCol className="" xl={12}>
+        <CCol className="pb-3" xl={12}>
           <CCard>
             <CCardBody>
-              <CCol className="p-0 d-flex flex-lg-row flex-column">
+              {/* begin Main Card */}
+              <CCol className="p-0 d-flex flex-lg-row flex-md-row flex-sm-row flex-column p-lg-2">
                 <div className="d-flex flex-shrink-0 rounded bg-light w-lg-150px h-lg-150px me-7 mb-4 justify-content-center align-items-center">
                   <FontAwesomeIcon icon={faLungsVirus} />
                 </div>
-                <CCol className="d-flex flex-lg-row flex-column">
+                {/* right content */}
+                <CCol className="d-flex flex-lg-row flex-column p-0 pl-lg-3 pl-md-3 pl-sm-3">
                   <CCol className="p-0">
                     <div className="d-flex align-items-center">
                       <span style={{ fontSize: '1.875rem', fontWeight: 600 }} className="pr-2">PVOil Group</span>
                       <CBadge color="success" className="badge-status font-weight-bold">in Progress</CBadge>
                     </div>
-                    <CCol className="p-0 pt-3 d-flex flex-lg-row">
-                      <CCol className="border rounded border-dashed mr-3" lg="2">
+                    <CCol className="p-0 d-flex flex-lg-row flex-md-row flex-column">
+                      <CCol className="border rounded border-dashed mr-3 my-3" lg="2">
                         <div className="d-flex flex-column p-2">
                           <span className="text-gray-400 pb-1" style={{ fontWeight: 600 }}>Total Users</span>
                           <span style={{ fontSize: 24, fontWeight: 700 }}>100</span>
                         </div>
                       </CCol>
-                      <CCol className="border rounded border-dashed mr-3" lg="2">
+                      <CCol className="border rounded border-dashed mr-3 my-3" lg="2">
                         <div className="d-flex flex-column p-2">
-                          <span className="text-gray-400 pb-1" style={{ fontWeight: 600 }}><FontAwesomeIcon icon={faUserShield} className="mr-2" />Admin</span>
+                          <div className="d-flex flex-row">
+                            <span className="text-gray-400 pb-1" style={{ fontWeight: 600 }} ><FontAwesomeIcon icon={faUserShield} className="mr-2" />Admin</span>
+                          </div>
                           <span style={{ fontSize: 24, fontWeight: 700 }}>10</span>
                         </div>
                       </CCol>
-                      <CCol className="border rounded border-dashed" lg="2">
+                      <CCol className="border rounded border-dashed my-3" lg="2">
                         <div className="d-flex flex-column p-2">
-                          <span className="text-gray-400 pb-1" style={{ fontWeight: 600 }}><FontAwesomeIcon icon={faUserEdit} className="mr-2" />Moderator</span>
+                          <div className="d-flex flex-row">
+                            <span className="text-gray-400 pb-1" style={{ fontWeight: 600 }}><FontAwesomeIcon icon={faUserEdit} className="mr-2" />Moderator</span>
+                          </div>
                           <span style={{ fontSize: 24, fontWeight: 700 }}>90</span>
                         </div>
                       </CCol>
                     </CCol>
                   </CCol>
-                  <div className="ml-auto">
+                  <CCol className="ml-lg-auto p-0" lg="0">
                     <CLink to="/users/create-user">
                       <CButton size="lg" color="primary">
                         <FontAwesomeIcon icon={faPlusCircle} className="mr-2" />
                         <span>New User</span>
                       </CButton>
                     </CLink>
-                  </div>
+                  </CCol>
                 </CCol>
+                {/* end right */}
               </CCol>
             </CCardBody>
           </CCard>
         </CCol>
-        <CCol className="pt-2 d-flex flex-lg-row flex-column pr-0" lg="12">
-          <CCol lg="2" className="p-0">
+        {/* End Main Card */}
+        {/* buttons */}
+        <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column pr-0" lg="12" md="12" sm="12" xs="12">
+          <CCol lg="2" md="4" sm="4" xs="12" className="pl-0 ">
             <CFormGroup className="form-group2 has-search ">
               <span className="form-control-feedback mt-1 ml-2">
                 <FontAwesomeIcon icon={faSearch} style={{ height: 18, width: 18 }} />
@@ -119,35 +128,37 @@ const Users = () => {
             </CFormGroup>
           </CCol>
           {/* Right */}
-          <div className="pr-3 ml-lg-auto">
-            <CDropdown>
-              <CDropdownToggle color="outline" size="lg" className="d-flex align-items-center">
-                <span>Recently Update</span>
-                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-              </CDropdownToggle>
-              <CDropdownMenu className="mt-2">
-                <CDropdownItem>Recently Updated</CDropdownItem>
-                <CDropdownItem>Last Month</CDropdownItem>
-                <CDropdownItem>Last Quarter</CDropdownItem>
-                <CDropdownItem>Last Year</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          </div>
-          <div className="pr-3">
-            <CDropdown>
-              <CDropdownToggle color="outline" size="lg" className="d-flex align-items-center">
-                <span>Status</span>
-                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-              </CDropdownToggle>
-              <CDropdownMenu className="mt-2">
-                <CDropdownItem>Active</CDropdownItem>
-                <CDropdownItem>Banned</CDropdownItem>
-                <CDropdownItem>Inaactive</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
+          <div className="d-flex flex-row pr-3 ml-lg-auto ml-md-auto ml-sm-auto">
+            <div className="mr-2">
+              <CDropdown>
+                <CDropdownToggle color="outline" size="lg" className="d-flex align-items-center">
+                  <span>Recently Update</span>
+                  <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                </CDropdownToggle>
+                <CDropdownMenu className="mt-2">
+                  <CDropdownItem>Recently Updated</CDropdownItem>
+                  <CDropdownItem>Last Month</CDropdownItem>
+                  <CDropdownItem>Last Quarter</CDropdownItem>
+                  <CDropdownItem>Last Year</CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
+            </div>
+            <div className="pr-3">
+              <CDropdown>
+                <CDropdownToggle color="outline" size="lg" className="d-flex align-items-center">
+                  <span>Status</span>
+                  <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                </CDropdownToggle>
+                <CDropdownMenu className="mt-2">
+                  <CDropdownItem>Active</CDropdownItem>
+                  <CDropdownItem>Banned</CDropdownItem>
+                  <CDropdownItem>Inaactive</CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
+            </div>
           </div>
         </CCol>
-        <CCol xl={12}>
+        <CCol xl={12} className="pt-2">
           <CCard>
             <CCardBody className="pt-0">
               <CDataTable
@@ -174,7 +185,7 @@ const Users = () => {
                       <td>
                         <CRow>
                           <CCol className="d-flex flex-row bd-highlight">
-                            <CCol lg="0" className="p-0 pr-3 d-flex align-items-center">
+                            <CCol lg="0" className="p-0 pr-3 d-flex align-items-center pl-2">
                               <div className="c-avatar">
                                 {/* avatar */}
                                 {item.gender.includes("Female") && <img src={femaleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-male-default" />}

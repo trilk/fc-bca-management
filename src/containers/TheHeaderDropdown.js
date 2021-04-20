@@ -8,7 +8,6 @@ import {
   CForm,
   CCol,
   CButton,
-  CBadge,
   CModal,
   CModalBody,
   CModalFooter,

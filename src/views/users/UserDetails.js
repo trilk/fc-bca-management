@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { CCard, CCardBody, CCardHeader, CCol, CBadge, CRow, CLink, CImg, CButton, CDropdown, CDropdownToggle, CDropdownItem, CDropdownMenu, CDropdownHeader, CDropdownDivider } from '@coreui/react'
+import {
+  CCard, CCardBody, CModal, CModalHeader, CModalTitle, CModalBody, CInput, CModalFooter,
+  CCardHeader, CCol, CBadge, CRow, CLink, CImg, CButton, CDropdown, CDropdownToggle, CDropdownItem, CDropdownMenu, CDropdownHeader, CDropdownDivider
+} from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import femaleimg from './avatar/female.jpg'
 import maleimg from './avatar/male.jpg'
@@ -12,7 +15,10 @@ import imgblank from './avatar/male.jpg'
 
 import usersData from './UsersData'
 
+
 const UserDetails = ({ match }) => {
+  const [small, setSmall] = useState(false)
+  const [large, setLarge] = useState(false)
   const getBadge = status => {
     switch (status) {
       case 'Active': return 'success'
@@ -31,7 +37,7 @@ const UserDetails = ({ match }) => {
       <CCol>
         <CCard>
           <CCardBody>
-            <CCol className="p-0 d-flex flex-lg-row flex-column pt-lg-3 px-lg-3">
+            <CCol className="p-0 d-flex flex-lg-row  flex-md-row flex-column pt-lg-3 px-lg-3">
               <div className="mb-2 pr-2">
                 <div className="c-avatar-lg position-relative">
                   <CImg
@@ -42,9 +48,8 @@ const UserDetails = ({ match }) => {
                   <span className="c-status bg-success"></span>
                 </div>
               </div>
-
               <CCol className="p-0">
-                <CCol className="p-0 d-flex flex-lg-row flex-column">
+                <CCol className="p-0 pb-2 d-flex flex-lg-row flex-column">
                   <CCol className="p-0">
                     <CCol className="d-flex flex-row align-items-center p-0">
                       <div className="mr-2 p-0">
@@ -97,8 +102,7 @@ const UserDetails = ({ match }) => {
                   </div>
                   {/* end icon right */}
                 </CCol>
-                <CCol className="d-flex flex-lg-row flex-column align-items-end p-0 pt-2">
-                  <CCol className="pt-2 d-flex flex-lg-row flex-column p-0">
+                  <CCol className="pt-2 d-flex flex-lg-row flex-md-row flex-column p-0">
                     <CCol lg="2" className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-2 me-6 mb-3 mr-3" >
                       <div className="d-flex bd-highlight align-items-center">
                         <FontAwesomeIcon icon={faArrowUp} style={{ height: 10, width: 10, color: '#50cd89' }} className="mr-2" />
@@ -121,9 +125,7 @@ const UserDetails = ({ match }) => {
                       <span className="text-muted small">Send Failed</span>
                     </CCol>
                   </CCol>
-                </CCol>
               </CCol>
-
             </CCol>
           </CCardBody>
         </CCard>
@@ -202,14 +204,53 @@ const UserDetails = ({ match }) => {
                   <span className="light-color  pt-1"><em> Last Update 10:00 20/11/2021</em></span>
                 </CCol>
                 <div className="mr-auto pt-2 pt-lg-0">
-                  <CButton color="light" > Change Password</CButton>
+                  <CButton color="light" onClick={() => setSmall(!large)}> Reset Password</CButton>
                 </div>
               </CCol>
             </CCol>
           </CCardBody>
         </CCard>
       </CCol>
-      {/* Modal Upadate profile */}
+      {/* Modal change password */}
+      <CModal
+        show={small}
+        onClose={() => setSmall(!small)}
+        size="md"
+      >
+        <CModalHeader closeButton>
+          <CModalTitle><h4 className="font-weight-bold">Change Password</h4></CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CCol className="d-flex flex-column p-0 p-lg-4 p-md-4">
+            <CCol col="6" className="d-flex flex-column p-0 pb-2">
+              <CCol className="p-0">
+                <span style={{ fontWeight: 600, fontSize: 14 }}>Current password</span></CCol>
+              <CCol className="p-0 mr-3 py-2">
+                <CInput htmlFor="Phone" placeholder="" />
+              </CCol>
+            </CCol>
+            <CCol col="6" className="d-flex flex-column p-0 pb-2">
+              <CCol className="p-0">
+                <span style={{ fontWeight: 600, fontSize: 14 }}>New password</span></CCol>
+              <CCol className="p-0 mr-3 py-2">
+                <CInput htmlFor="Phone" placeholder="" />
+                <small className="text-muted">Password must be at least 8 character and contain symbols</small>
+              </CCol>
+            </CCol>
+            <CCol col="6" className="d-flex flex-column p-0">
+              <CCol className="p-0">
+                <span style={{ fontWeight: 600, fontSize: 14 }}>Confirm New password</span></CCol>
+              <CCol className="p-0 mr-3 py-2">
+                <CInput htmlFor="Phone" placeholder="" />
+              </CCol>
+            </CCol>
+          </CCol>
+        </CModalBody>
+        <CModalFooter className="d-flex justify-content-center">
+          <CButton color="ghost" variant="ghost" onClick={() => setSmall(!small)}>Cancel</CButton>
+          <CButton color="primary" onClick={() => setSmall(!small)}>Update Password</CButton>{' '}
+        </CModalFooter>
+      </CModal>
 
     </CRow>
   )

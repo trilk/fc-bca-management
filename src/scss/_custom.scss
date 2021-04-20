@@ -87,7 +87,9 @@
         background-color: darken($color: #009ef7, $amount: 10%)!important;
     }
 }
-
+.btn-ghost-light{
+    color: #a1a5b7;
+}
 .btn-primary:focus{
     outline: none;
     box-shadow: 0 0 0 2px rgba(21, 156, 228, 0.4);
@@ -182,10 +184,8 @@
     padding: 1.3rem 1rem !important;
     font-weight: 600;
     line-height: 1.8rem !important;
-    background-clip: padding-box;
     border: 1px solid #e4e6ef;
     font-size: 0.875rem !important;
-    appearance: none;
     border-radius: .475rem;
     display: flex;
     align-items: center !important;
@@ -323,10 +323,12 @@ color: #009ef7 !important;
 }
 // tabel header
 .table thead th {
-    padding: 1rem !important;
+    padding-left: 0rem !important;
+    // padding: 1rem !important;
     border-top: 0px !important;
     border-bottom: #eff2f5 !important ;
     padding-bottom: 1rem !important;
+    padding-top: 1rem !important;
     font-weight: 700;
     color: #b5b5c3 !important;
     font-size: 0.75rem;
@@ -335,7 +337,7 @@ color: #009ef7 !important;
 }
 //style table
 .table td{  
-    padding-left: 1rem !important;
+    padding-left: 0rem !important;
     vertical-align: middle !important;
     border-bottom: 1px solid #eff2f5  !important ;
     border-top: 1px solid #eff2f5 !important;
@@ -566,35 +568,6 @@ color: #009ef7 !important;
 .text-gray-300{
     color: #E4E6EF !important;
 }
-//@at-root
-
-// --bs-light-primary: #ECF8FF;
-//     --bs-active-primary: #0095E8;
-//     --bs-light-success: #E8FFF3;
-//     --bs-active-success: #47BE7D;
-//     --bs-light-info: #F8F5FF;
-//     --bs-active-info: #5014D0;
-//     --bs-light-warning: #FFF8DD;
-//     --bs-active-warning: #F1BC00;
-//     --bs-light-danger: #FFF5F8;
-//     --bs-active-danger: #D9214E;
-//     --bs-light-dark: #EFF2F5;
-//     --bs-active-dark: #131628;
-//     --bs-gray-100: #F5F8FA;
-//     --bs-gray-200: #EFF2F5;
-//     --bs-gray-300: #E4E6EF;
-//     --bs-gray-400: #B5B5C3;
-//     --bs-gray-500: #A1A5B7;
-//     --bs-gray-600: #7E8299;
-//     --bs-gray-700: #5E6278;
-//     --bs-gray-800: #3F4254;
-//     --bs-gray-900: #181C32;
-//     --bs-xs: 0;
-//     --bs-sm: 576px;
-//     --bs-md: 768px;
-//     --bs-lg: 992px;
-//     --bs-xl: 1200px;
-//     --bs-xxl: 1400px;
 //end
 .c-subheader-nav{
     font-weight: 600 !important;

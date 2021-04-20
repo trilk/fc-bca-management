@@ -103,6 +103,7 @@ const routes = [
   { path: '/profile/update-profile', exact: true, name: 'Update Profile', component: updateProfile },
   { path: '/segments', exact: true,  name: 'Segmnets', component: Segments },
   { path: '/contacts', exact: true,  name: 'Contacts', component: Contacts },
+  { path: '/contacts/:id', exact: true,  name: 'Contact Details', component: contactDetails },
   { path: '/contacts/contactDetails', exact: true,  name: 'Contact Details', component: contactDetails },
   { path: '/contacts/contactDetails/updateContact', exact: true,  name: 'Update Contact', component: updateContact },
   //messages

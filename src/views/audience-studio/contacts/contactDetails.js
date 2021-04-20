@@ -25,9 +25,11 @@ import {
   faCalendarDay,
   faTrash,
   faTrashAlt,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
 import femaleimg from "../../users/avatar/female.jpg";
+import MsgOfContact from "./msgOfContact"
 import "./contacts.scss";
 import {
   CBadge,
@@ -85,15 +87,16 @@ const getBadge = (status) => {
   }
 };
 const ContactDetails = () => {
-  const [large, setLarge] = useState(false);
+  const [large, setLarge] = useState(false)
+  const [small, setSmall] = useState(false)
   return (
     <>
       <CRow>
         <CCol className="d-flex flex-lg-row flex-column">
-          <CCol lg="5" className="p-0">
+          <CCol lg="5" xl="4" md="12" className="p-0">
             <CCard>
               <CCardBody>
-                <CCol className="pb-4">
+                <CCol className="pb-4 p-0 p-lg-2 p-md-2 p-sm-2">
                   <CCol className="p-0">
                     <CCol className="p-0">
                       <CCol className="pt-3 d-flex justify-content-center p-0">
@@ -108,11 +111,7 @@ const ContactDetails = () => {
                       </CCol>
                       <CCol className="d-flex flex-column pt-3">
                         <h4 className="d-flex justify-content-center align-items-center">Nguyen Van Nam <CTooltip content={`Subscribed`} placement="top"><FontAwesomeIcon icon={faCheckCircle} style={{ height: 12, width: 12 }} className="ml-2 success-color" /></CTooltip></h4>
-                        {/* <div className="d-flex justify-content-center pt-1 pb-3">
-                          <CBadge color="success" className="badge-status text-uppercase">Subscribed
-                        <FontAwesomeIcon icon={faCheckCircle} className="ml-2" />
-                          </CBadge>
-                        </div> */}
+
                       </CCol>
                       <CCol className="d-flex flex-wrap p-0 pt-1 pb-3 justify-content-center">
                         <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
@@ -123,112 +122,97 @@ const ContactDetails = () => {
                         </div>
                       </CCol>
                     </CCol>
-                    <CCol className="d-flex flex-lg-row pt-3 p-0">
-                      <CCol className="border rounded border-dashed mr-lg-3 p-0">
+                    <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column pt-2 p-0">
+                      <CCol className="border rounded border-dashed mr-lg-2 mr-md-3 mr-sm-3 p-0 mb-3">
                         <CCol className="d-flex flex-column py-2">
-                          <span style={{ fontSize: 18, fontWeight: 700 }} className="d-flex align-items-center">1.009.000 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
-                          <span className="text-muted">Messages </span>
+                          <span style={{ fontSize: 16, fontWeight: 700 }} className="d-flex align-items-center">1.009 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
+                          <span className="text-muted small">Messages </span>
                         </CCol>
                       </CCol>
-                      <CCol className="border rounded border-dashed mr-lg-3 p-0">
+                      <CCol className="border rounded border-dashed mr-lg-2 mr-md-3 mr-sm-3 p-0 mb-3">
                         <CCol className="d-flex flex-column py-2">
-                          <span style={{ fontSize: 18, fontWeight: 700 }} className="d-flex align-items-center">1.009.000 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
-                          <span className="text-muted">Delivered</span>
+                          <span style={{ fontSize: 16, fontWeight: 700 }} className="d-flex align-items-center">1.009 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
+                          <span className="text-muted small">Delivered</span>
                         </CCol>
                       </CCol>
-                      <CCol className="border rounded border-dashed p-0">
+                      <CCol className="border rounded border-dashed p-0 mb-3">
                         <CCol className="d-flex flex-column py-2">
-                          <span style={{ fontSize: 18, fontWeight: 700 }} className="d-flex align-items-center">12.009 <FontAwesomeIcon style={{ height: 10, width: 10, }} icon={faArrowDown} className="ml-auto danger-color" /></span>
-                          <span className="text-muted">Failed</span>
+                          <span style={{ fontSize: 16, fontWeight: 700 }} className="d-flex align-items-center">12 <FontAwesomeIcon style={{ height: 10, width: 10, }} icon={faArrowDown} className="ml-auto danger-color" /></span>
+                          <span className="text-muted small">Failed</span>
                         </CCol>
                       </CCol>
                     </CCol>
                   </CCol>
                   {/* end user avatar and more */}
-                  <CCol className="pt-5 p-0">
+                  <CCol className="pt-3 p-0">
                     <CCol className="p-0">
                       <CCol className="p-0 pt-2 d-flex align-items-center">
-                        <span style={{ fontSize: 16, fontWeight: 700 }}>Details</span>
+                        <span style={{ fontSize: 16, fontWeight: 600 }}>Details</span>
                         <div className="ml-auto">
-                          <CButton size="sm" color="secondary" >Update Info</CButton>
+                          <CButton size="sm" color="secondary" className="d-flex align-items-center" onClick={() => setLarge(!large)}><FontAwesomeIcon icon={faPen} style={{ height: 10, width: 10 }} className="mr-2" />Update Info</CButton>
                         </div>
                       </CCol>
-                      <hr />
+                      <hr className="border-dashed" />
                     </CCol>
                   </CCol>
-                  <CCol className="p-0"> 
+                  <CCol className="p-0">
                     {/* label */}
-                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                    <CCol className="p-0  py-2 d-flex flex-column">
                       <CCol lg="3" className="p-0">
-                        <span className="text-muted">Contact ID</span>
+                        <span className="text-muted" style={{ fontWeight: 500 }}>Contact ID</span>
                       </CCol>
-                      <CCol>
-                        <span className="font-weight-bold">ID-97868677</span>
+                      <CCol className="p-0 py-1">
+                        <span style={{ fontWeight: 600 }}>ID-97868677</span>
                       </CCol>
                     </CCol>
                     {/* Endlabel */}
                     {/* label */}
-                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column align-items-center">
+                    <CCol className="p-0  py-2 d-flex flex-column">
                       <CCol lg="3" className="p-0">
-                        <span className="text-muted">Channels</span>
+                        <span className="text-muted" style={{ fontWeight: 500 }}>Email</span>
                       </CCol>
-                      <CCol>
-                        <CTooltip content={`Zalo`} placement="top">
-                          <CIcon
-                            name="zaloIcon"
-                            style={{ height: 24, width: 24, }}
-                          />
-                        </CTooltip>
+                      <CCol className="p-0 py-1">
+                        <span style={{ fontWeight: 600 }}>xuanhauholo@gmail.com</span>
                       </CCol>
                     </CCol>
                     {/* Endlabel */}
                     {/* label */}
-                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                    <CCol className="p-0  py-2 d-flex flex-column">
                       <CCol lg="3" className="p-0">
-                        <span className="text-muted">Email</span>
+                        <span className="text-muted" style={{ fontWeight: 500 }}>Gender</span>
                       </CCol>
-                      <CCol>
-                        <span className="font-weight-bold">jshgjhsadgj@gmail.com</span>
+                      <CCol className="p-0 py-1">
+                        <span style={{ fontWeight: 600 }}>Male</span>
                       </CCol>
                     </CCol>
                     {/* Endlabel */}
                     {/* label */}
-                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                    <CCol className="p-0  py-2 d-flex flex-column">
                       <CCol lg="3" className="p-0">
-                        <span className="text-muted">Gender</span>
+                        <span className="text-muted" style={{ fontWeight: 500 }}>Date Of Birth</span>
                       </CCol>
-                      <CCol>
-                        <span className="font-weight-bold">Male</span>
+                      <CCol className="p-0 py-1">
+                        <span style={{ fontWeight: 600 }}>20, july, 1994</span>
                       </CCol>
                     </CCol>
                     {/* Endlabel */}
                     {/* label */}
-                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                    <CCol className="p-0  py-2 d-flex flex-column">
                       <CCol lg="3" className="p-0">
-                        <span className="text-muted">Date Of Birth</span>
+                        <span className="text-muted" style={{ fontWeight: 500 }}>Address</span>
                       </CCol>
-                      <CCol>
-                        <span className="font-weight-bold">20, july, 1994</span>
+                      <CCol className="p-0 py-1">
+                        <span style={{ fontWeight: 600 }}>101 Collin Street, Melbourne 3000 VIC Australia</span>
                       </CCol>
                     </CCol>
                     {/* Endlabel */}
                     {/* label */}
-                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
+                    <CCol className="p-0  py-2 d-flex flex-column">
                       <CCol lg="3" className="p-0">
-                        <span className="text-muted">Address</span>
+                        <span className="text-muted" style={{ fontWeight: 500 }}>Last Update</span>
                       </CCol>
-                      <CCol>
-                        <span className="font-weight-bold">101 Collin Street, Melbourne 3000 VIC Australia</span>
-                      </CCol>
-                    </CCol>
-                    {/* Endlabel */}
-                    {/* label */}
-                    <CCol className="p-0  py-2 d-flex flex-lg-row flex-column">
-                      <CCol lg="3" className="p-0">
-                        <span className="text-muted">Last Update</span>
-                      </CCol>
-                      <CCol>
-                        <span className="font-weight-bold">20, july, 2021</span>
+                      <CCol className="py-1 p-0">
+                        <span style={{ fontWeight: 600 }}>20, july, 2021</span>
                       </CCol>
                     </CCol>
                     {/* Endlabel */}
@@ -237,708 +221,276 @@ const ContactDetails = () => {
               </CCardBody>
             </CCard>
           </CCol>
-          <CCol>
-            <CCard>
-              <CCardBody>
-                <CCol className="p-0">
-                  <CCol className="p-0 pb-3">
-                    <h4><strong>Segmnets this contact</strong></h4>
-                  </CCol>
-                  {/* Segment */}
-                  <CCol className="d-flex flex-row align-items-center p-0">
-                    <div className="icon-drop mr-3 ml-0 mt-1">
-                      <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
-                    </div>
-                    <CCol className="p-0 d-flex flex-column">
-                      <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
-                       <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
+          {/* End card left */}
+          {/* right content */}
+          <CCol className="p-0 pl-lg-4">
+            {/* begin card channels Subscribed */}
+            <CCol className="p-0">
+              <CCard>
+                <CCardBody>
+                  <CCol className="p-0 px-lg-3 px-md-3 px-sm-3 p-0 py-3">
+                    <CCol className="p-0">
+                      <h4><strong>Subscribed Channels</strong></h4>
                     </CCol>
-                    <div className="float-right">
-                      <CButton color="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton>
-                    </div>
-                  </CCol>
-                  <hr />
-                  {/* Segment */}
-                  <CCol className="d-flex flex-row align-items-center p-0">
-                    <div className="icon-drop mr-3 ml-0 mt-1">
-                      <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
-                    </div>
-                    <CCol className="p-0 d-flex flex-column">
-                      <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
-                      <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
-                    </CCol>
-                    <div className="float-right">
-                      <CButton color="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton>
-                    </div>
-                  </CCol>
-                  <hr />
-
-                </CCol>
-
-              </CCardBody>
-            </CCard>
-          </CCol>
-        </CCol>
-      </CRow>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <CCol lg="12" className="p-0">
-        <CCard>
-          <CCardBody>
-            <table className="table">
-              <tbody>
-                <CCol
-                  col="12"
-                  className="d-flex flex-row bd-highlight p-0 pb-4 d-flex align-items-center"
-                >
-                  <div>
-                    {/* avatar */}
-                    <img
-                      src={femaleimg}
-                      className="c-avatar-img-bg "
-                      alt="admin@bootstrapmaster.com"
-                      name="avatar-male-default"
-                    />
-                  </div>
-                  <div className="pl-4">
-                    <div className="d-flex align-items-center">
-                      <h4>Nguyễn Văn Nam</h4>
-                      {placements.map((placement) => {
-                        return (
-                          <CTooltip content={`Subcribed`} placement={placement}>
-                            <FontAwesomeIcon
-                              icon={faCheckCircle}
-                              className="mb-2 ml-2 primary-color"
-                            />
-                          </CTooltip>
-                        );
-                      })}
-                    </div>
-                    <small className="pt-0 light-color">
-                      <strong>Online 10 minutes ago</strong>
-                    </small>
-                  </div>
-                  <div className="ml-auto">
-                    <CButton color="primary" onClick={() => setLarge(!large)}>
-                      <FontAwesomeIcon icon={faPen} className="mr-2" />
-                      Update Info
-                    </CButton>
-                  </div>
-                </CCol>
-
-                <CRow>
-                  <CCol col="6" lg="6" className="pb-4">
-                    <CCol className="p-0 pl-0">
-                      <FontAwesomeIcon
-                        icon={faUserCircle}
-                        style={{ height: 16, width: 16 }}
-                        className="mr-3 primary-color"
-                      />
-                      <CLabel
-                        htmlFor="name"
-                        className="form-control-label mb-0"
-                      >
-                        <h5 htmlFor="role">Basic Info</h5>
-                      </CLabel>
-                    </CCol>
-                    <CCol col="6" className="body-data mt-3 pt-4 p-3 pl-4">
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faAt}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Email</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub pb-2">
-                          laxuanhau1995@gmail.com
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Name</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub">
-                          Nguyễn Văn Nam
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-3">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faDotCircle}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Status</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub mt-2">
-                          <CBadge className="badge-status" color="success">
-                            Active
-                          </CBadge>
-                        </CCol>
-                      </CRow>
-                      {/* channels */}
-                      <CRow className="pb-3">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Channels</span>
-                        </CCol>
-                        <CCol className="mt-2 d-flex flex-row bd-highlight">
-                          {/* channels icon */}
-                          {/* viber icon */}
-                          {placements.map((placement) => {
-                            return (
-                              <CTooltip content={`Viber`} placement={placement}>
-                                <FontAwesomeIcon
-                                  icon={faViber}
-                                  className="channel-icon mr-2"
-                                  style={{ color: "#665CAC" }}
-                                />
-                              </CTooltip>
-                            );
-                          })}
-                          {/* zalo icon */}
-                          {placements.map((placement) => {
-                            return (
-                              <CTooltip content={`Zalo`} placement={placement}>
+                    <CCol className="overflow-auto p-0 ">
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th>
+                              Channels
+                           </th>
+                            <th>
+                              Status
+                           </th>
+                            <th>
+                              Started
+                           </th>
+                          </tr>
+                        </thead>
+                        <tr>
+                          <td className="pl-0">
+                            <CCol className="d-flex flex-row align-items-center p-0">
+                              <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
                                 <CIcon
                                   name="zaloIcon"
-                                  className="channel-icon mr-2"
+                                  style={{ height: 24, width: 24, }}
                                 />
-                              </CTooltip>
-                            );
-                          })}
-                          {/* telegram icon */}
-                          {placements.map((placement) => {
-                            return (
-                              <CTooltip
-                                content={`Telegram`}
-                                placement={placement}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faTelegram}
-                                  className="channel-icon mr-2"
-                                  style={{ color: "#0088cc" }}
-                                />
-                              </CTooltip>
-                            );
-                          })}
-                        </CCol>
-                      </CRow>
-
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faUserCircle}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Avatar</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub light-color">
-                          No data
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faVenusMars}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Gender</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub">
-                          Male
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Age</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub">
-                          35 Years old
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faMapMarkerAlt}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Address</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub light-color">
-                          No data
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faGlobeAsia}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">Country</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub">
-                          Viet Nam
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faCalendarPlus}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">
-                            CreateDate
-                          </span>
-                        </CCol>
-                        <CCol col="6" className="text-sub">
-                          10:00, 20/10/2021
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faCalendarCheck}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">
-                            LastUpdate
-                          </span>
-                        </CCol>
-                        <CCol col="6" className="text-sub">
-                          12:00, 20/10/2021
-                        </CCol>
-                      </CRow>
-                      <CRow className="pb-2">
-                        <CCol
-                          col="3"
-                          xs="12"
-                          sm="3"
-                          md="3"
-                          lg="4"
-                          className="pb-2 d-flex flex-row bd-highlight d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faIdCard}
-                            className="mr-3 primary-color"
-                          />
-                          <span className="text-sub light-color">UserID</span>
-                        </CCol>
-                        <CCol col="6" className="text-sub">
-                          40a4314f-4355-4281-81a6-da0e6d884cca
-                        </CCol>
-                      </CRow>
+                              </div>
+                              <CCol className="p-0 d-flex flex-column">
+                                <span style={{ fontSize: 14, fontWeight: 700 }}>Zalo</span>
+                                <span className="text-muted small pt-1"><strong>Name:</strong> Nguyen Van C</span>
+                              </CCol>
+                            </CCol>
+                          </td>
+                          <td>
+                            <div>
+                              <CBadge color="success" className="badge-status text-uppercase">Subscribed
+                              <FontAwesomeIcon icon={faCheckCircle} className="ml-2" />
+                              </CBadge>
+                            </div>
+                          </td>
+                          <td>
+                            15 Apr 2021
+                        </td>
+                        </tr>
+                        <tr>
+                          <td className="pl-0">
+                            <CCol className="d-flex flex-row align-items-center p-0">
+                              <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
+                                <FontAwesomeIcon icon={faViber} style={{ height: 24, width: 24, color: '#665CAC' }} />
+                              </div>
+                              <CCol className="p-0 d-flex flex-column">
+                                <span style={{ fontSize: 14, fontWeight: 700 }}>Viber</span>
+                                <span className="text-muted small pt-1"><strong>Name:</strong> Nguyen Van C</span>
+                              </CCol>
+                            </CCol>
+                          </td>
+                          <td>
+                            <div>
+                              <CBadge color="danger" className="badge-status text-uppercase">Unsubscribed
+                              <FontAwesomeIcon icon={faTimesCircle} className="ml-2" />
+                              </CBadge>
+                            </div>
+                          </td>
+                          <td>
+                            15 Apr 2021
+                        </td>
+                        </tr>
+                      </table>
                     </CCol>
                   </CCol>
-                  {/* right */}
-                  <CCol col="6" lg="6">
-                    {/* segments */}
-                    <CCol className="p-0 pb-0 pl-0">
-                      <FontAwesomeIcon
-                        icon={faChartPie}
-                        style={{ height: 16, width: 16 }}
-                        className="mr-3 primary-color"
-                      />
-                      <CLabel
-                        htmlFor="name"
-                        className="form-control-label mb-0"
-                      >
-                        <h5 htmlFor="role">Segments of user</h5>
-                      </CLabel>
+                </CCardBody>
+              </CCard>
+            </CCol>
+            {/* End Card Subscribed Channels */}
+            {/* card segments */}
+            <CCol className="p-0">
+              <CCard>
+                <CCardBody className="overflow-auto">
+                  <CCol className="p-0 px-lg-3 px-md-3 px-sm-3 py-3">
+                    <CCol className="p-0 pb-4">
+                      <h4><strong>Segmnets this contact</strong></h4>
+                      <span className="text-muted small">All Segments of this contact</span>
                     </CCol>
-                    <CCol col="12" className="body-data  mt-3 pt-4 p-3 pl-4">
-                      <div className="el-tag d-inline-flex p-2 bd-highlight d-flex align-items-center m-2">
-                        <span className="tags-text pr-2 ml-2" maxLength={20}>
-                          {" "}
-                          User details such as first name, last name, email
-                          address, phone number and password{" "}
-                        </span>
-                        <FontAwesomeIcon
-                          icon={faTimes}
-                          style={{ height: 16, width: 16 }}
-                          className="mr-2"
-                        />
+                    {/* Segment */}
+                    <CCol className="d-flex flex-row align-items-center p-0">
+                      <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
+                        <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
                       </div>
-                      <div className="el-tag d-inline-flex p-2 bd-highlight d-flex align-items-center m-2">
-                        <span className="tags-text pr-2 ml-2">
-                          {" "}
-                          Segment Name 2 dài hơn chút xíu
-                        </span>
-                        <FontAwesomeIcon
-                          icon={faTimes}
-                          style={{ height: 16, width: 16 }}
-                          className="mr-2"
-                        />
-                      </div>
-                      <div className="el-tag d-inline-flex p-2 bd-highlight d-flex align-items-center m-2">
-                        <span className="tags-text pr-2 ml-2">
-                          {" "}
-                          Segment Name 3
-                        </span>
-                        <FontAwesomeIcon
-                          icon={faTimes}
-                          style={{ height: 16, width: 16 }}
-                          className="mr-2"
-                        />
+                      <CCol className="p-0 d-flex flex-column">
+                        <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
+                        <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
+                      </CCol>
+                      <div className="float-right">
+                        <CTooltip content={`Delete`}><CButton color="light" variant="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton></CTooltip>
                       </div>
                     </CCol>
-                    {/* last message sent */}
-                    <CCol className="p-0 pb-0 pl-0 pt-4">
-                      <FontAwesomeIcon
-                        icon={faHistory}
-                        style={{ height: 16, width: 16 }}
-                        className="mr-3 primary-color"
-                      />
-                      <CLabel
-                        htmlFor="name"
-                        className="form-control-label mb-0"
-                      >
-                        <h5 htmlFor="role">Last message sent</h5>
-                      </CLabel>
-                    </CCol>
-                    <CCol col="6" className="body-data mt-3 p-3 pl-4">
-                      <CCol
-                        col="12"
-                        className="d-flex flex-row bd-highlight p-2"
-                      >
-                        <div className="c-avatar">
-                          {/* avatar */}
-                          <img
-                            src={femaleimg}
-                            className="c-avatar-img"
-                            alt="admin@bootstrapmaster.com"
-                            height="72"
-                            width="72"
-                            name="avatar-male-default"
-                          />
-                        </div>
-                        <div className="pl-4">
-                          <h6>
-                            <strong>Nguyễn Văn Nam</strong>
-                          </h6>
-                          <span className="light-color">
-                            Conent message holoa holoa tesolf team
-                          </span>
-                        </div>
-                        <div className="ml-auto light-color">
-                          <span>
-                            <strong>10 minutes agos</strong>
-                          </span>
-                        </div>
+                    <hr className="border-dashed" />
+                    {/* Segment */}
+                    <CCol className="d-flex flex-row align-items-center p-0">
+                      <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
+                        <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
+                      </div>
+                      <CCol className="p-0 d-flex flex-column">
+                        <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
+                        <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
                       </CCol>
+                      <div className="float-right">
+                        <CTooltip content={`Delete`}><CButton color="light" variant="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton></CTooltip>
+                      </div>
                     </CCol>
-                    <CCol className="p-0 pb-0 pl-0 pt-4">
-                      <FontAwesomeIcon
-                        icon={faEnvelopeOpenText}
-                        style={{ height: 16, width: 16 }}
-                        className="mr-3 primary-color"
-                      />
-                      <CLabel
-                        htmlFor="name"
-                        className="form-control-label mb-0"
-                      >
-                        <h5 htmlFor="role">Message Statistics</h5>
-                      </CLabel>
+                    <hr className="border-dashed" />
+                    {/* Segment */}
+                    <CCol className="d-flex flex-row align-items-center p-0">
+                      <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
+                        <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
+                      </div>
+                      <CCol className="p-0 d-flex flex-column">
+                        <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
+                        <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
+                      </CCol>
+                      <div className="float-right">
+                        <CTooltip content={`Delete`}><CButton color="light" variant="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton></CTooltip>
+                      </div>
                     </CCol>
-                    <CCol
-                      col="12"
-                      className="body-data d-flex flex-row bd-highlight pl-0 py-4 mt-3"
-                    >
-                      <CCol className="box-statistics border-right d-flex flex-column">
-                        <CLabel className="d-flex justify-content-center light-color">
-                          <strong>Messages sent</strong>
-                        </CLabel>
-                        <h5 className="d-flex justify-content-center">
-                          <strong>100.000</strong>
-                        </h5>
-                      </CCol>
-                      <CCol className="box-statistics border-right d-flex flex-column">
-                        <CLabel className="d-flex justify-content-center light-color">
-                          <strong>Pending</strong>
-                        </CLabel>
-                        <h5 className="d-flex justify-content-center">
-                          <strong>100</strong>
-                        </h5>
-                      </CCol>
-                      <CCol className="box-statistics d-flex flex-column">
-                        <CLabel className="d-flex justify-content-center light-color">
-                          <strong>Failed</strong>
-                        </CLabel>
-                        <h5 className="d-flex justify-content-center">
-                          <strong>0</strong>
-                        </h5>
-                      </CCol>
-                    </CCol>
+                    <hr className="border-dashed" />
                   </CCol>
-                </CRow>
-              </tbody>
-            </table>
-          </CCardBody>
-        </CCard>
+                </CCardBody>
+              </CCard>
+            </CCol>
+            {/* End  */}
+            {/* begin card message list newest */}
+            {/* messages list */}
+            <MsgOfContact />
+            {/* End  */}
+          </CCol>
+        </CCol>
 
-        <CModal show={large} onClose={() => setLarge(!large)} size="lg">
+        {/* Modal Upadate profile */}
+        <CModal
+          show={large}
+          onClose={() => setLarge(!large)}
+          size="lg"
+          className="custom-modal"
+        >
           <CModalHeader closeButton>
-            <CModalTitle>Edit Contact 'Hola'</CModalTitle>
+            <CModalTitle><h4 className="font-weight-bold">Update Contact</h4></CModalTitle>
           </CModalHeader>
-          <CModalBody>
-            <CCol className="py-2 p-0">
-              <h5>
-                <strong>Basic info</strong>
-              </h5>
+          <CModalBody className="p-3" style={{ height: '80vh', overflow: 'auto' }}>
+            <CCol lg="12" className="p-lg-4 px-lg-5 p-0 ">
+              {/* Name */}
+              <CCol className="pb-2 p-0 d-flex flex-lg-row flex-column ">
+                <CCol className="p-0 pr-lg-4">
+                  <CCol className="p-0 d-flex align-items-center">
+                    <span style={{ fontWeight: 600, fontSize: 14 }}>First Name<span className="danger-color pl-2">*</span>
+                    </span>
+                  </CCol>
+                  <CCol className="p-0 py-2 me-6">
+                    <CInput htmlFor="First-name" placeholder="First Name" />
+                  </CCol>
+                </CCol>
+                <CCol className="p-0">
+                  <CCol className="p-0 d-flex align-items-center">
+                    <span style={{ fontWeight: 600, fontSize: 14 }}>Last Name <span className="danger-color pl-2">*</span>
+                    </span>
+                  </CCol>
+                  <CCol className="p-0 py-2 me-6">
+                    <CInput htmlFor="First-name" placeholder="First Name" />
+                  </CCol>
+                </CCol>
+              </CCol>
+              {/* email and gender */}
+              <CCol className="pb-2 p-0 d-flex flex-lg-row flex-column">
+                <CCol className="p-0 pr-lg-4">
+                  <CCol className="p-0 d-flex align-items-center">
+                    <span style={{ fontWeight: 600, fontSize: 14 }}>Email <span className="danger-color pl-2">*</span>
+                    </span>
+                  </CCol>
+                  <CCol className="p-0 py-2 me-6">
+                    <CInput htmlFor="First-name" placeholder="First Name" />
+                  </CCol>
+                </CCol>
+                <CCol className="p-0">
+                  <CCol className="p-0">
+                    <span style={{ fontWeight: 600, fontSize: 14 }}>Gender</span></CCol>
+                  <CCol col="6" className="py-2 p-0">
+                    <CSelect custom name="select" id="select">
+                      <option value="0">select..</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                      <option value="3">Other</option>
+                    </CSelect>
+                  </CCol>
+                </CCol>
+              </CCol>
+              <CCol className="p-0 pb-2">
+                <CCol className="p-0 d-flex align-items-center">
+                  <span style={{ fontWeight: 600, fontSize: 14 }}>Day of birth</span>
+                </CCol>
+                <CCol className="p-0 py-2 me-6">
+                  <CInput htmlFor="date" type="date" placeholder="" />
+                </CCol>
+              </CCol>
+              {/* Address */}
+              <CCol className="p-0 pt-4 pb-2"><h5><strong>Addres Info</strong></h5></CCol>
+              <CCol col="6" className="d-flex flex-column p-0">
+                <CCol className="p-0">
+                  <span style={{ fontWeight: 600, fontSize: 14 }}>Adress</span></CCol>
+                <CCol className="p-0 mr-3 py-2">
+                  <CInput htmlFor="Phone" placeholder="" />
+                  <small className="text-muted"><strong>Enter</strong> the address</small>
+                </CCol>
+              </CCol>
+              <CCol col="6" className="d-flex flex-column p-0 pt-2 pr-0">
+                <CCol className="p-0">
+                  <span style={{ fontWeight: 600, fontSize: 14 }}>City/Provincial</span></CCol>
+                <CCol className="p-0 py-2">
+                  <CSelect custom name="select" id="select">
+                    <option value="0">select..</option>
+                    <option value="1">Vietnam</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </CSelect>
+                  <small className="text-muted"><strong>Select</strong> the Provincial/City</small>
+                </CCol>
+              </CCol>
+              <CCol className="pt-2 p-0 d-flex flex-lg-row flex-column">
+                <CCol col="6" className="d-flex flex-column p-0 pr-lg-4">
+                  <CCol className="p-0">
+                    <span style={{ fontWeight: 600, fontSize: 14 }}>City/Provincial</span></CCol>
+                  <CCol className="p-0 py-2">
+                    <CSelect custom name="select" id="select">
+                      <option value="0">select..</option>
+                      <option value="1">Vietnam</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </CSelect>
+                    <small className="text-muted"><strong>Select</strong> the Provincial/City</small>
+                  </CCol>
+                </CCol>
+                <CCol col="6" className="d-flex flex-column p-0">
+                  <CCol className="p-0">
+                    <span style={{ fontWeight: 600, fontSize: 14 }}>District</span></CCol>
+                  <CCol className="p-0 py-2">
+                    <CSelect custom name="select" id="select">
+                      <option value="0">select..</option>
+                      <option value="1">Vietnam</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </CSelect>
+                    <small className="text-muted"><strong>Select</strong> the district</small>
+                  </CCol>
+                </CCol>
+              </CCol>
+              {/* street */}
             </CCol>
-            <CRow>
-              <CCol>
-                <CForm className="was-validated">
-                  <CFormGroup>
-                    <CLabel htmlFor="inputWarning2i">Enter First Name</CLabel>
-                    <CInput
-                      className="form-control-warning"
-                      id="inputWarning2i"
-                      required
-                    />
-                    <CInvalidFeedback className="help-block">
-                      Please provide a valid information
-                    </CInvalidFeedback>
-                    <CValidFeedback className="help-block">
-                      Lastname is required
-                    </CValidFeedback>
-                  </CFormGroup>
-                </CForm>
-              </CCol>
-              <CCol>
-                <CForm className="was-validated">
-                  <CFormGroup>
-                    <CLabel htmlFor="inputSuccess2i">Enter Last Name</CLabel>
-                    <CInput
-                      className="form-control-success"
-                      id="inputSuccess2i"
-                    />
-                    <CValidFeedback>Non-required</CValidFeedback>
-                  </CFormGroup>
-                </CForm>
-              </CCol>
-              <CCol>
-                <CForm className="was-validated">
-                  <CFormGroup>
-                    <CLabel htmlFor="inputWarning2i">Enter Email</CLabel>
-                    <CInput
-                      className="form-control-warning"
-                      id="inputWarning2i"
-                      required
-                    />
-                    <CInvalidFeedback className="help-block">
-                      Please provide a valid information
-                    </CInvalidFeedback>
-                    <CValidFeedback className="help-block">
-                      Email is required
-                    </CValidFeedback>
-                  </CFormGroup>
-                </CForm>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol>
-                <CLabel htmlFor="inputWarning2i">Gender</CLabel>
-                <CSelect custom name="select" id="select">
-                  <option value="0">select..</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                  <option value="3">Other</option>
-                </CSelect>
-              </CCol>
-              <CCol>
-                <CFormGroup>
-                  <CLabel htmlFor="phone-number">Date of Birth</CLabel>
-                  <CInput id="" type="date" placeholder="Name" required />
-                </CFormGroup>
-              </CCol>
-              <CCol>
-                <CLabel htmlFor="inputWarning2i">Country</CLabel>
-                <CSelect custom name="select" id="select">
-                  <option value="0">select..</option>
-                  <option value="1">1</option>
-                  <option value="2">1</option>
-                  <option value="3">1</option>
-                </CSelect>
-              </CCol>
-            </CRow>
-            <CCol className="py-2 p-0">
-              <h5>
-                <strong>Address</strong>
-              </h5>
-            </CCol>
-            <CRow>
-              <CCol>
-                <CLabel htmlFor="inputWarning2i">City</CLabel>
-                <CSelect custom name="select" id="select">
-                  <option value="0">select..</option>
-                  <option value="1">1</option>
-                  <option value="2">1</option>
-                  <option value="3">1</option>
-                </CSelect>
-              </CCol>
-              <CCol>
-                <CLabel htmlFor="inputWarning2i">District</CLabel>
-                <CSelect custom name="select" id="select">
-                  <option value="0">select..</option>
-                  <option value="1">1</option>
-                  <option value="2">1</option>
-                  <option value="3">1</option>
-                </CSelect>
-              </CCol>
-              <CCol>
-                <CLabel htmlFor="inputWarning2i">Ward</CLabel>
-                <CSelect custom name="select" id="select">
-                  <option value="0">select..</option>
-                  <option value="1">1</option>
-                  <option value="2">1</option>
-                  <option value="3">1</option>
-                </CSelect>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol col="4" lg="4" className="pt-4">
-                <CForm className="was-validated">
-                  <CFormGroup>
-                    <CLabel htmlFor="inputWarning2i">Enter IP Address</CLabel>
-                    <CInput
-                      className="form-control-warning"
-                      id="inputWarning2i"
-                      required
-                    />
-                    <CInvalidFeedback className="help-block">
-                      Please provide a valid information
-                    </CInvalidFeedback>
-                    <CValidFeedback className="help-block">
-                      Email is required
-                    </CValidFeedback>
-                  </CFormGroup>
-                </CForm>
-              </CCol>
-            </CRow>
           </CModalBody>
-          <CModalFooter>
-            <CButton color="light" onClick={() => setLarge(!large)}>
-              Cancel
-            </CButton>
-            <CButton color="primary" onClick={() => setLarge(!large)}>
-              Save
-            </CButton>{" "}
+          <CModalFooter className="d-flex justify-content-center">
+            <CButton color="ghost" variant="light" onClick={() => setLarge(!large)}>Cancel</CButton>
+            <CButton color="primary" onClick={() => setLarge(!large)}>Save Changes</CButton>{' '}
           </CModalFooter>
         </CModal>
-      </CCol>
+      </CRow>
     </>
   );
 };

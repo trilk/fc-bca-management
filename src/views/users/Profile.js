@@ -313,8 +313,8 @@ const Profile = () => {
               {/* street */}
             </CCol>
           </CModalBody>
-          <CModalFooter>
-            <CButton color="secondary" onClick={() => setLarge(!large)}>Cancel</CButton>
+          <CModalFooter className="d-flex justify-content-center py-3">
+            <CButton color="ghost" variant="light" onClick={() => setLarge(!large)}>Cancel</CButton>
             <CButton color="primary" onClick={() => setLarge(!large)}>Save Changes</CButton>{' '}
           </CModalFooter>
         </CModal>
@@ -353,8 +353,8 @@ const Profile = () => {
               </CCol>
             </CCol>
           </CModalBody>
-          <CModalFooter>
-            <CButton color="ghost" onClick={() => setSmall(!small)}>Cancel</CButton>
+          <CModalFooter className="d-flex justify-content-center py-3">
+            <CButton color="ghost" variant="light" onClick={() => setSmall(!small)}>Cancel</CButton>
             <CButton color="primary" onClick={() => setSmall(!small)}>Update Password</CButton>{' '}
           </CModalFooter>
         </CModal>

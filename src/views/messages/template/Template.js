@@ -121,7 +121,9 @@ const Template = () => {
                                     'type':
                                         (item) => (
                                             <td className="p-0">
-                                                <FontAwesomeIcon icon={faInbox} className="text-gray-400" />
+                                                <div className="pl-3">
+                                                    <FontAwesomeIcon icon={faInbox} className="text-gray-400" />
+                                                </div>
                                             </td>
                                         ),
                                     //name

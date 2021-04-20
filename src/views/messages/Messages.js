@@ -8,7 +8,6 @@ import femaleimg from '../users/avatar/female.jpg'
 import {
     CBadge,
     CButton,
-    CImg,
     CCol,
     CProgress,
     CDataTable,
@@ -18,19 +17,11 @@ import {
     CTooltip,
     CModal,
     CModalHeader,
-    CInputGroup,
-    CInputGroupText,
-    CInputGroupPrepend,
-    CInputGroupAppend,
-    CSelect,
     CModalTitle,
     CModalBody,
     CModalFooter,
-    CInputCheckbox,
-    CCallout,
     CCard,
     CCardBody,
-    CPopover,
     CDropdownItem,
     CFormGroup,
     CDropdown,
@@ -48,9 +39,8 @@ import { faTelegram, faViber } from '@fortawesome/free-brands-svg-icons'
 
 const getBadge = status => {
     switch (status) {
-        case 'Active': return 'success'
-        case 'Inactive': return 'secondary'
-        case 'Pending': return 'warning'
+        case 'Delivered': return 'primary'
+        case 'Sending': return 'warning'
         case 'Pause': return 'danger'
         default: return 'primary'
     }
@@ -106,7 +96,7 @@ const Messages = () => {
                                                     <FontAwesomeIcon icon={faFilter} className="mr-2" />
                                                     <span>Filter</span>
                                                 </CDropdownToggle>
-                                                <CDropdownMenu className="mt-2" placement="bottom-end" >
+                                                <CDropdownMenu className="mt-2" >
                                                     <CDropdownHeader className="mr-5">
                                                         <span style={{ fontSize: 16, fontWeight: 600, color: '#181c32' }} className="mr-5">Filter Options</span>
                                                     </CDropdownHeader>
@@ -211,7 +201,9 @@ const Messages = () => {
                                     'type':
                                         (item) => (
                                             <td className="p-0">
-                                                <FontAwesomeIcon icon={faCommentDots} className="text-gray-400" />
+                                                <CCol className="d-flex justify-content-center">
+                                                    <FontAwesomeIcon icon={faCommentDots} className="text-gray-400" />
+                                                </CCol>
                                             </td>
                                         ),
                                     //name

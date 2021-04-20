@@ -139,9 +139,9 @@ const Contacts = () => {
           <CCard>
             <CCardBody>
               <CRow>
-                <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column">
+                <CCol className="d-flex flex-row">
                   {/* search */}
-                  <CCol className="p-0" lg="2" md="4" sm="4">
+                  <CCol className="p-0" lg="2" md="4" sm="4" xs="8">
                     <CFormGroup className="form-group2 has-search">
                       <span className="form-control-feedback mt-1 ml-2">
                         <FontAwesomeIcon icon={faSearch} style={{ height: 18, width: 18 }} />
@@ -151,9 +151,9 @@ const Contacts = () => {
                   </CCol>
                   {/* End Search */}
                   {/* Start Filter */}
-                  <CCol className="d-flex flex-row p-0">
-                    <div className="ml-lg-auto ml-sm-auto ml-md-auto d-inline">
-                      <CDropdown>
+                  <CCol className="d-flex p-0 ml-auto">
+                    {/* <div className="ml-auto d-inline"> */}
+                      <CDropdown className="ml-auto">
                         <CDropdownToggle color="secondary" size="lg" className="d-flex align-items-center">
                           <FontAwesomeIcon icon={faFilter} className="mr-2" />
                           <span>Filter</span>
@@ -217,7 +217,7 @@ const Contacts = () => {
                           </CForm>
                         </CDropdownMenu>
                       </CDropdown>
-                    </div>
+                    
                     {/* End Filter */}
                   </CCol>
                 </CCol>
@@ -261,17 +261,19 @@ const Contacts = () => {
                     label: "status",
                     _style: { width: "1%" }
                   },
-                  {
-                    key: "action",
-                    label: "action",
-                    _style: { width: "1%" }
-                  },
+                  // {
+                  //   key: "action",
+                  //   label: "action",
+                  //   _style: { width: "1%" }
+                  // },
                 ]}
                 bordered
                 sorter
                 striped
                 itemsPerPage={8}
                 activePage={page}
+                onRowClick={
+                  (item) => history.push(`/contacts/${item.id}`)}
                 clickableRows
                 scopedSlots={{
                   //name
@@ -279,7 +281,7 @@ const Contacts = () => {
                     <td>
                       <CRow>
                         <CCol className="d-flex flex-row bd-highlight">
-                          <CCol lg="0" className="p-0 pr-3 d-flex align-items-center">
+                          <CCol lg="0" className="p-0 pr-3 d-flex align-items-center pl-2" >
                             <div className="c-avatar ">
                               {/* avatar */}
                               <img src={item.ZaloAccount?.avatar || item.ViberAccount?.avatar || maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default" />

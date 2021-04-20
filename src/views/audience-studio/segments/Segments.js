@@ -104,7 +104,7 @@ const Segments = () => {
                                     'segments':
                                         (item) => (
                                             <td>
-                                                <CCol className="p-0">
+                                                <CCol className="p-0 pl-2">
                                                     <div className="d-flex flex-row align-items-center">
                                                         <div className="p-0">
                                                             <h5 className="mb-1 pr-2 text-dark" style={{ fontWeight: 700 }}>{item.segments}</h5>
