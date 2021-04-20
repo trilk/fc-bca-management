@@ -4,7 +4,6 @@ import femaleimg from './avatar/female.jpg'
 import maleimg from './avatar/male.jpg'
 import avatarBlank from './avatar/blank.png'
 import './users.scss'
-import * as Icon from 'react-bootstrap-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersCog, faUsers, faPlusCircle, faEllipsisV, faEye, faPen, faSortDown, faChessQueen, faUser, faMapMarkerAlt, faAt, faArrowUp, faArrowDown, faUserShield, faInfo, faQuestionCircle, faCheckCircle, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 import {
