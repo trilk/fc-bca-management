@@ -1,72 +1,18 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Imagedemo from './photo/demo.jpeg'
 import {
-  faUsersCog,
-  faUsers,
-  fabViber,
-  faChessQueen,
-  faFacebookMessenger,
-  faEye,
-  faEdit,
-  faPen,
-  faPause,
-  faCopy,
-  faEllipsisV,
   faPlus,
   faPlusCircle,
-  faChevronCircleDown,
-  faSortDown,
-  faClone,
-  faCircle,
-  faTag,
-  faFilter,
-  faUserCircle,
-  faUser,
-  faDatabase,
-  faHamburger,
-  faVenusMars,
-  faIdBadge,
-  faMinus,
-  faExchangeAlt,
-  faTrash,
-  faUserTag,
-  faCheck,
   faTimes,
-  faUserFriends,
-  faFileImport,
-  faUserPlus,
-  faIndent,
-  faMailBulk,
-  faAt,
-  faMapMarkedAlt,
-  faAddressBook,
-  faAddressCard,
-  faGlobeAsia,
-  faCalendarCheck,
-  faIdCard,
-  faMapMarkerAlt,
-  faHistory,
-  faEnvelopeOpenText,
-  faPoll,
   faChartPie,
-  faCheckCircle,
-  faCalendarPlus,
-  faDotCircle,
-  faWindowClose,
-  faChargingStation,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  CBadge,
   CButton,
   CImg,
   CCol,
-  CProgress,
-  CDataTable,
-  CForm,
-  CPagination,
   CLabel,
-  CTooltip,
   CModal,
   CModalHeader,
   CSelect,
@@ -75,27 +21,20 @@ import {
   CModalFooter,
   CInputFile,
   CTextarea,
-  CInputCheckbox,
-  CCallout,
   CCard,
   CCollapse,
   CCardBody,
-  CPopover,
-  CDropdownItem,
   CFormGroup,
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
   CInputRadio,
   CInput,
   CRow,
-  CDropdownDivider,
   CLink,
   CCardHeader,
 } from "@coreui/react";
 import "./messages.scss";
 import { useState } from "react";
 import { phonePreview } from "src/assets/icons/phone-preview";
+import ReviewMsg from './ModalReview'
 import CIcon from "@coreui/icons-react";
 
 import ChannelService from "../../services/channel.service";
@@ -144,13 +83,13 @@ const CreateMsg = () => {
       <CRow className="d-flex flex-column bd-highlight">
         <CCol>
           <CCard>
-            <CCardHeader className="font-weight-bold">
+            <CCardHeader className="font-weight-bold text-muted">
               1. Audience
             </CCardHeader>
             <CCardBody>
               <CCol className="p-0" lg="3" md="3">
-                <CLabel htmlFor="district" className="text-muted">
-                  Channel<span className="danger-color pl-1">*</span>
+                <CLabel htmlFor="">
+                  <span style={{ fontWeight: 600, fontSize: 14 }}>Channels Type</span><span className="danger-color pl-1">*</span>
                 </CLabel>
                 <CSelect
                   custom
@@ -169,8 +108,8 @@ const CreateMsg = () => {
                 </small>
               </CCol>
               <CCol className="p-0 pt-3" lg="2">
-                <CLabel htmlFor="segments" className="text-muted">
-                  Segments <span className="danger-color pl-1">*</span>
+                <CLabel htmlFor="segments">
+                  <span style={{ fontWeight: 600, fontSize: 14 }}>Template</span> <span className="danger-color pl-1">*</span>
                 </CLabel>
               </CCol>
               <CCol className="p-0 d-flex flex-column bd-highlight pb-2">
@@ -342,19 +281,19 @@ const CreateMsg = () => {
                 className="p-0 d-flex flex-row bd-highlight align-items-center"
               >
                 <div className="font-weight-bold">
-                  <span>2. Message</span>
+                  <span className="text-muted">2. Message</span>
                 </div>
-                {/* <div className="ml-auto">
-                                    <CButton color="outline">Preview</CButton>
-                                </div> */}
+                <div className="ml-auto d-md-none d-lg-none">
+                  <CButton color="secondary">Preview</CButton>
+                </div>
               </CCol>
             </CCardHeader>
             <CCardBody>
               <CRow>
                 <CCol col="6" lg="6" md="6">
                   <CCol className="p-0 pb-4">
-                    <CLabel htmlFor="district" className="text-muted">
-                      Template
+                    <CLabel htmlFor="district">
+                      <span style={{ fontWeight: 600, fontSize: 14 }}>Template</span>
                     </CLabel>
                     <CSelect custom name="select" id="select">
                       <option>select..</option>
@@ -365,10 +304,22 @@ const CreateMsg = () => {
                       <strong>Select</strong> your Template
                     </small>
                   </CCol>
+                  <CCol className="p-0">
+                    <CFormGroup>
+                      <CLabel htmlFor="">
+                        <span style={{ fontWeight: 600, fontSize: 14 }}>Title</span><span className="danger-color pl-1">*</span>
+                      </CLabel>
+                      <CInput
+                        id="name"
+                        placeholder="Title"
+                        required
+                      />
+                    </CFormGroup>
+                  </CCol>
                   <CCol className="p-0 pb-2">
                     <CFormGroup>
-                      <CLabel htmlFor="district" className="text-muted">
-                        Message<span className="danger-color pl-1">*</span>
+                      <CLabel htmlFor="district">
+                        <span style={{ fontWeight: 600, fontSize: 14 }}>Content</span><span className="danger-color pl-1">*</span>
                       </CLabel>
                       <CTextarea
                         name="textarea-input"
@@ -381,8 +332,8 @@ const CreateMsg = () => {
                   </CCol>
                   <CCol className="p-0 pb-2">
                     <CFormGroup>
-                      <CLabel htmlFor="file-input" className="text-muted">
-                        File input
+                      <CLabel htmlFor="file-input">
+                        <span style={{ fontWeight: 600, fontSize: 14 }}>Image</span>
                       </CLabel>
                       <CCol>
                         <CInputFile
@@ -402,8 +353,8 @@ const CreateMsg = () => {
                   </CCol>
                   <CCol className="p-0">
                     <CFormGroup>
-                      <CLabel htmlFor="file-input" className="text-muted">
-                        Launch URL
+                      <CLabel htmlFor="file-input">
+                        <span style={{ fontWeight: 600, fontSize: 14 }}>Launch URL</span>
                       </CLabel>
                       <CInput
                         id="name"
@@ -413,11 +364,10 @@ const CreateMsg = () => {
                     </CFormGroup>
                   </CCol>
                 </CCol>
-                <CCol
-                  col="6"
-                  className="d-flex justify-content-center flex-column"
-                >
-                  <CIcon name="phonePreview" height="600" alt="phonePreview" />
+                <CCol col="6" className="d-none d-lg-block d-md-block">
+                  <CCol className="d-flex justify-content-center align-items-start">
+                    <CIcon name="phonePreview" height="600" alt="phonePreview" />
+                  </CCol>
                 </CCol>
               </CRow>
             </CCardBody>
@@ -480,7 +430,8 @@ const CreateMsg = () => {
             </CCardBody>
           </CCard>
         </CCol>
-        <CCol className="pb-5">
+        <ReviewMsg />
+        {/* <CCol className="pb-5">
           <CButton
             color="primary"
             className="mr-2"
@@ -490,79 +441,79 @@ const CreateMsg = () => {
             Review and Send
           </CButton>
           <CButton color="outline">Save as Draft</CButton>
-        </CCol>
+        </CCol> */}
         {/* Collapse review */}
         <CModal show={large} onClose={() => setLarge(!large)} size="lg">
           <CModalHeader closeButton>
             <CModalTitle>Review Your Message</CModalTitle>
           </CModalHeader>
-          <CModalBody>
-            <CCol className="p-0">
+          <CModalBody style={{ height: '80vh', overflow: 'auto' }}>
+            <CCol className="p-0 p-lg-3">
+              {/* form Audience */}
               <CCol className="p-0">
-                <CLabel>
-                  <strong>Audience</strong>
-                </CLabel>
-                <CCol className="box-review p-0 py-4">
-                  <CCol className="d-flex bd-highlight pl-2">
-                    <CCol lg="3" className="text-muted">
+                <CLabel><h4>Audience</h4></CLabel>
+                <CCol className="border rounded-lg p-0 py-4">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column">
+                    <CCol lg="3" md="3" sm="3" xs="12" className="text-muted py-1">
                       Channel
-                    </CCol>
-                    <CCol className="font-weight-bold">Zalo</CCol>
-                  </CCol>
-                  <hr />
-                  <CCol className="d-flex bd-highlight pl-2">
-                    <CCol lg="3" className="text-muted">
+                                            </CCol>
+                    <CCol className="font-weight-bold">Zalo
+                                        </CCol>
+                  </CCol><hr />
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                    <CCol lg="3" md="3" sm="3" xs="12" className="text-muted py-1">
+                      Included segments
+                                        </CCol>
+                    <CCol className="font-weight-bold">Subscribed Users, Segment 2 Holoa</CCol>
+                  </CCol><hr />
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                    <CCol lg="3" md="3" sm="3" xs="12" className="text-muted py-1">
                       Estimated recipients
-                    </CCol>
+                                        </CCol>
                     <CCol className="font-weight-bold">100.000.000 Users</CCol>
                   </CCol>
-                  <hr />
-                  <CCol className="d-flex bd-highlight pl-2">
-                    <CCol lg="3" className="text-muted">
-                      Included segments
-                    </CCol>
-                    <CCol className="font-weight-bold">Subscribed Users</CCol>
-                  </CCol>
                 </CCol>
               </CCol>
-              <CCol className="p-0 py-3">
-                <CLabel>
-                  <strong>Message</strong>
-                </CLabel>
-                <CCol className="box-review p-0 py-4">
-                  <CCol className="d-flex bd-highlight pl-2">
-                    <CCol lg="3" className="text-muted">
+              {/* End */}
+              {/* Content */}
+              <CCol className="p-0 py-4">
+                <CLabel><h4>Messages</h4></CLabel>
+                <CCol className="border rounded p-0 py-4">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
+                    <CCol lg="3" className="text-muted" >
+                      <span>Title</span>
+                    </CCol>
+                    <CCol className="font-weight-bold">Lorem Ipsum is simply dummy text of the printing
+                                        </CCol>
+                  </CCol><hr />
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
+                    <CCol lg="3" className="text-muted" >
                       Content
-                    </CCol>
+                                        </CCol>
+                    <CCol className="font-weight-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </CCol>
+                  </CCol><hr />
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
+                    <CCol lg="3" className="text-muted" >
+                      Image
+                                        </CCol>
                     <CCol className="font-weight-bold">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book.
+                      <CImg src={Imagedemo} height="80" width="80" className="rounded" />
                     </CCol>
-                  </CCol>
-                  <hr />
-                  <CCol className="d-flex bd-highlight pl-2">
-                    <CCol lg="3" className="text-muted">
+                  </CCol><hr />
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
+                    <CCol lg="3" className="text-muted" >
                       Launch URL
-                    </CCol>
-                    <CCol
-                      className="font-weight-bold"
-                      style={{ cursor: "pointer", color: "#007BFF" }}
-                    >
-                      https://fontawesome.com/icons?d=gallery&p=2&q=send
-                    </CCol>
+                                        </CCol>
+                    <CCol className="font-weight-bold" style={{ cursor: 'pointer', color: '#007BFF' }}>https://fontawesome.com/icons?d=gallery&p=2&q=send</CCol>
                   </CCol>
                 </CCol>
               </CCol>
-              <CCol className="p-0 pb-3">
-                <CLabel>
-                  <strong>Schedule</strong>
-                </CLabel>
-                <CCol className="box-review p-0 py-4">
-                  <CCol className="d-flex bd-highlight pl-2">
-                    <CCol lg="3" className="text-muted">
+              <CCol className="p-0">
+                <CLabel><h4>Schedule</h4></CLabel>
+                <CCol className="border rounded p-0 py-4">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
+                    <CCol lg="3" className="text-muted" >
                       Start sending
                     </CCol>
                     <CCol className="font-weight-bold">
@@ -575,6 +526,7 @@ const CreateMsg = () => {
           </CModalBody>
           <CModalFooter>
             <CButton color="outline" onClick={() => setLarge(!large)}>
+
               Make changes
             </CButton>{" "}
             <CLink to="/messages/MessagesReport">

@@ -94,7 +94,7 @@ const UserDetails = ({ match }) => {
                         <CDropdownToggle color="light">
                           <FontAwesomeIcon icon={faEllipsisH} />
                         </CDropdownToggle>
-                        <CDropdownMenu className="mt-2" placement="bottom-end">
+                        <CDropdownMenu className="mt-2">
                           <CDropdownItem><span className="danger-color">Delete User</span></CDropdownItem>
                         </CDropdownMenu>
                       </CDropdown>
@@ -195,13 +195,13 @@ const UserDetails = ({ match }) => {
               <CCol className="p-0 pb-3 box-phone">
                 <div className="d-flex flex-column float-left">
                   <span> <strong>Phone Number</strong></span>
-                  <span className="light-color  pt-1">+84 987 567 678</span>
+                  <span className="text-muted pt-1">+84 987 567 678</span>
                 </div>
               </CCol>
               <CCol className="p-0 d-flex flex-lg-row flex-column align-items-center pt-3">
                 <CCol className="d-flex flex-column float-left p-0">
                   <span> <strong>Password</strong></span>
-                  <span className="light-color  pt-1"><em> Last Update 10:00 20/11/2021</em></span>
+                  <span className="text-muted pt-1"><em> Last Update 10:00 20/11/2021</em></span>
                 </CCol>
                 <div className="mr-auto pt-2 pt-lg-0">
                   <CButton color="light" onClick={() => setSmall(!large)}> Reset Password</CButton>

@@ -2,42 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUsersCog,
-  faUsers,
-  fabViber,
-  faChessQueen,
-  faFacebookMessenger,
   faEye,
-  faEdit,
   faPen,
-  faPause,
-  faCopy,
   faEllipsisV,
-  faPlus,
-  faPlusCircle,
-  faChevronCircleDown,
   faSortDown,
-  faClone,
-  faCircle,
-  faTag,
   faFilter,
-  faUserCircle,
-  faUser,
-  faDatabase,
-  faHamburger,
-  faVenusMars,
-  faIdBadge,
-  faMinus,
-  faExchangeAlt,
-  faTrash,
-  faUserTag,
-  faCheck,
-  faTimes,
-  faUserFriends,
-  faFileImport,
-  faUserPlus,
-  faPhone,
-  faCalendarCheck,
   faCheckCircle,
   faTimesCircle,
   faSearch,
@@ -56,13 +25,6 @@ import {
   CForm,
   CPagination,
   CLabel,
-  CTooltip,
-  CModal,
-  CModalHeader,
-  CSelect,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
   CInputCheckbox,
   CCallout,
   CCard,
@@ -337,21 +299,21 @@ const Contacts = () => {
                   gender: (item) => (
                     <td>
                       <CCol className="pl-1">
-                        <span className="text-muted">no data</span>
+                        <span className="text-muted">_</span>
                       </CCol>
                     </td>
                   ),
                   phonenumber: (item) => (
                     <td>
                       <CCol className="pl-1">
-                        <span className="text-muted">no data</span>
+                        <span className="text-muted">_</span>
                       </CCol>
                     </td>
                   ),
                   email: (item) => (
                     <td>
                       <CCol className="pl-1">
-                        <span className="text-muted">no data</span>
+                        <span className="text-muted">_</span>
                       </CCol>
                     </td>
                   ),

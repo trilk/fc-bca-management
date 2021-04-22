@@ -121,9 +121,9 @@ const Template = () => {
                                     'type':
                                         (item) => (
                                             <td className="p-0">
-                                                <div className="pl-3">
+                                                <CCol className="d-flex justify-content-center">
                                                     <FontAwesomeIcon icon={faInbox} className="text-gray-400" />
-                                                </div>
+                                                </CCol>
                                             </td>
                                         ),
                                     //name

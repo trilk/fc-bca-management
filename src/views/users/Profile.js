@@ -187,7 +187,6 @@ const Profile = () => {
           show={large}
           onClose={() => setLarge(!large)}
           size="lg"
-          className="custom-modal"
         >
           <CModalHeader closeButton>
             <CModalTitle><h4 className="font-weight-bold">Update Profile</h4></CModalTitle>

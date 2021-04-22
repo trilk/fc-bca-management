@@ -184,11 +184,10 @@ const Messages = () => {
                                 fields={[
                                     { key: 'type', label: '', _style: { width: '1%' } },
                                     { key: 'content', label: 'content', _style: { width: '15%' } },
-                                    { key: 'status', label: 'status', _style: { width: '2%' } },
-                                    { key: 'sentAt', label: 'sent at', _style: { width: '3%' } },
+                                    { key: 'status', label: 'status', _style: { width: '1%' } },
                                     { key: 'delivery', label: 'delivery', _style: { width: '1%' } },
                                     { key: 'sent', label: 'sent', _style: { width: '3%' } },
-                                    { key: 'createDate', label: 'Create Date', _style: { width: '3%' } },
+                                    { key: 'sentAt', label: 'sent at', _style: { width: '4%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
                                 // hover
@@ -210,7 +209,7 @@ const Messages = () => {
                                     'content':
                                         (item) => (
                                             <td>
-                                                <span htmlFor="titleMessage" className="text-gray-800" style={{ fontSize: 16, fontWeight: 600, }}>Title Of Message</span>
+                                                <span htmlFor="titleMessage" className="text-gray-800 tags-text" style={{ fontSize: 15, fontWeight: 700, }}>Title Of Messages</span>
                                                 <div className="py-2">
                                                     <span className="tags-text text-gray-800" style={{ fontWeight: 600 }} maxLength={100}>{item.content}</span>
                                                 </div>
@@ -264,16 +263,6 @@ const Messages = () => {
                                                 <CBadge className="badge-status" color={getBadge(item.status)}>
                                                     {item.status}
                                                 </CBadge>
-                                            </td>
-                                        ),
-                                    // user create message
-                                    'createBy':
-                                        (item) => (
-                                            <td>
-                                                <CCol className="c-avatar">
-                                                    {/* <img src={femaleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" style={{ height: 30, width: 30 }} name="avatar-male-default" /><br /> */}
-                                                    {/* <span>Nguyen Van Ba</span> */}
-                                                </CCol>
                                             </td>
                                         ),
                                     'segments':
