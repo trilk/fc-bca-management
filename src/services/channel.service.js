@@ -1,10 +1,11 @@
-import axios from "axios";
-
-const API_URL = process.env.REACT_APP_API_URL + "api/channel/";
+import { axiosInstance } from "./axios";
 
 class ChannelService {
   checkChannelExist(type) {
-    return axios.get(API_URL + `channel-exist?type=${type}`);
+    return axiosInstance.get(`/api/channel/channel-exist?type=${type}`);
+  }
+  uploadFile(formData) {
+    return axiosInstance.post("/upload", formData);
   }
 }
 

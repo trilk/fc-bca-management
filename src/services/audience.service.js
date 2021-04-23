@@ -1,15 +1,11 @@
-import axios from "axios";
-import authHeader from "./authToken";
-
-const API_URL = process.env.REACT_APP_API_URL + "api/contact/";
-
+import { axiosInstance } from "./axios";
 class AudienceService {
   getAllAudience(page, limit) {
-    return axios.get(API_URL + `list?page=${page}&limit=${limit}`);
+    return axiosInstance.get(`/api/contact/list?page=${page}&limit=${limit}`);
   }
   getAudienceByChannelType(page, limit, type) {
-    return axios.get(
-      API_URL + `list-by-channel-type?page=${page}&limit=${limit}&type=${type}`
+    return axiosInstance.get(
+      `/api/contact/list-by-channel-type?page=${page}&limit=${limit}&type=${type}`
     );
   }
 }

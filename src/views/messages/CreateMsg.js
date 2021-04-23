@@ -1,72 +1,16 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUsersCog,
-  faUsers,
-  fabViber,
-  faChessQueen,
-  faFacebookMessenger,
-  faEye,
-  faEdit,
-  faPen,
-  faPause,
-  faCopy,
-  faEllipsisV,
   faPlus,
   faPlusCircle,
-  faChevronCircleDown,
-  faSortDown,
-  faClone,
-  faCircle,
-  faTag,
-  faFilter,
-  faUserCircle,
-  faUser,
-  faDatabase,
-  faHamburger,
-  faVenusMars,
-  faIdBadge,
-  faMinus,
-  faExchangeAlt,
-  faTrash,
-  faUserTag,
-  faCheck,
   faTimes,
-  faUserFriends,
-  faFileImport,
-  faUserPlus,
-  faIndent,
-  faMailBulk,
-  faAt,
-  faMapMarkedAlt,
-  faAddressBook,
-  faAddressCard,
-  faGlobeAsia,
-  faCalendarCheck,
-  faIdCard,
-  faMapMarkerAlt,
-  faHistory,
-  faEnvelopeOpenText,
-  faPoll,
   faChartPie,
-  faCheckCircle,
-  faCalendarPlus,
-  faDotCircle,
-  faWindowClose,
-  faChargingStation,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  CBadge,
   CButton,
-  CImg,
   CCol,
-  CProgress,
-  CDataTable,
-  CForm,
-  CPagination,
   CLabel,
-  CTooltip,
   CModal,
   CModalHeader,
   CSelect,
@@ -75,47 +19,41 @@ import {
   CModalFooter,
   CInputFile,
   CTextarea,
-  CInputCheckbox,
-  CCallout,
   CCard,
   CCollapse,
   CCardBody,
-  CPopover,
-  CDropdownItem,
   CFormGroup,
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
   CInputRadio,
   CInput,
   CRow,
-  CDropdownDivider,
   CLink,
   CCardHeader,
+  CAlert,
 } from "@coreui/react";
 import "./messages.scss";
 import { useState } from "react";
-import { phonePreview } from "src/assets/icons/phone-preview";
 import CIcon from "@coreui/icons-react";
 
 import ChannelService from "../../services/channel.service";
 
 const CreateMsg = () => {
-  //Modal
-  const [modal, setModal] = useState(true);
   const [large, setLarge] = useState(false);
   const [small, setSmall] = useState(false);
-  const [success, setSuccess] = useState(false);
-  //collapse
-  const [collapse, setCollapse] = useState(false);
-  const [collapseMulti, setCollapseMulti] = useState([false, false]);
-  const [accordion, setAccordion] = useState(1);
-  const [fade, setFade] = useState(true);
 
-  const toggle = (e) => {
-    setCollapse(!collapse);
-    e.preventDefault();
-  };
+  const [collapseMulti, setCollapseMulti] = useState([false, false]);
+
+  const [error, setError] = useState("");
+
+  const [message, setMessage] = useState({
+    channel: null,
+    segment: { check: true, filter: ["all"] },
+    template: null,
+    message: null,
+    link: null,
+    fileName: null,
+    filePath: null,
+    schedule: { check: true, filter: ["now"] },
+  });
 
   const toggleMulti = (type) => {
     let newCollapse = collapseMulti.slice();
@@ -131,16 +69,71 @@ const CreateMsg = () => {
         newCollapse[1] = !collapseMulti[1];
         break;
       default:
+        newCollapse[0] = false;
+        newCollapse[1] = false;
     }
     setCollapseMulti(newCollapse);
   };
 
-  const checkExistChannel = async (type) => {
-    const response = await ChannelService.checkChannelExist(type);
-    console.log(response);
+  const onValueChange = async (event) => {
+    const target = event.target;
+    const name = target.name;
+    setMessage({ ...message, [name]: target.value });
+
+    if (name === "channel" && target.value !== "") {
+      const response = await ChannelService.checkChannelExist(target.value);
+      if (response.data.errorCode === -102) {
+        setError(
+          `Kênh ${target.value} không có trong danh sách kênh của bạn, vui lòng chọn kênh khác hoặc liên hệ đến admin để thêm kênh`
+        );
+      } else {
+        console.log("response", response);
+        setError("");
+      }
+    }
+    if (target.files && target.files[0]) {
+      const formData = new FormData();
+      formData.append("picture", target.files[0], target.files[0].name);
+      const response = await ChannelService.uploadFile(formData);
+      if (response.data.status === "OKE") {
+        setMessage({
+          ...message,
+          [name]: target.files[0].name,
+          filePath: response.data.filePath,
+        });
+      }
+    }
+    if (name === "segment") {
+      const array = [];
+      array.push(target.value);
+      setMessage({
+        ...message,
+        segment: {
+          check: !message.segment.check,
+          filter: array,
+        },
+      });
+    }
+    if (name === "schedule") {
+      setMessage({
+        ...message,
+        schedule: {
+          check: !message.schedule.check,
+          filter: target.value,
+        },
+      });
+    }
+  };
+  const onSubmit = () => {
+    console.log("messages", message);
   };
   return (
     <>
+      {error && (
+        <CAlert color="warning" closeButton>
+          {error}
+        </CAlert>
+      )}
       <CRow className="d-flex flex-column bd-highlight">
         <CCol>
           <CCard>
@@ -154,15 +147,16 @@ const CreateMsg = () => {
                 </CLabel>
                 <CSelect
                   custom
-                  name="select"
+                  name="channel"
                   id="select"
                   onChange={(value) => {
-                    checkExistChannel(value);
+                    onValueChange(value);
                   }}
                 >
-                  <option>select..</option>
+                  <option value="">Select..</option>
                   <option value="Zalo">Zalo</option>
                   <option value="Viber">Viber</option>
+                  <option value="Telegram">Telegram</option>
                 </CSelect>
                 <small className="form-text text-muted">
                   <strong>Select</strong> a Channel to send message
@@ -178,8 +172,12 @@ const CreateMsg = () => {
                   <CInputRadio
                     custom
                     id="inline-radio1"
-                    name="inline-radios"
-                    value="option1"
+                    name="segment"
+                    value="all"
+                    checked={message.segment.check}
+                    onChange={(value) =>
+                      onValueChange(value) && toggleMulti("left")
+                    }
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio1">
                     <strong>Send to Subscribed Users</strong>
@@ -189,10 +187,11 @@ const CreateMsg = () => {
                   <CInputRadio
                     custom
                     id="inline-radio2"
-                    name="inline-radios"
-                    value="option2"
-                    onClick={() => {
-                      toggleMulti("left");
+                    name="segment"
+                    value="custom"
+                    checked={!message.segment.check}
+                    onChange={(value) => {
+                      onValueChange(value) && toggleMulti("left");
                     }}
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio2">
@@ -356,8 +355,13 @@ const CreateMsg = () => {
                     <CLabel htmlFor="district" className="text-muted">
                       Template
                     </CLabel>
-                    <CSelect custom name="select" id="select">
-                      <option>select..</option>
+                    <CSelect
+                      custom
+                      name="select"
+                      id="select"
+                      onChange={(value) => onValueChange(value)}
+                    >
+                      <option value="">Select..</option>
                       <option value="1">Template 1</option>
                       <option value="2">Template 2</option>
                     </CSelect>
@@ -371,11 +375,12 @@ const CreateMsg = () => {
                         Message<span className="danger-color pl-1">*</span>
                       </CLabel>
                       <CTextarea
-                        name="textarea-input"
+                        name="message"
                         id="textarea-input"
                         rows="4"
                         placeholder="Message..."
                         maxLength="1000"
+                        onChange={(value) => onValueChange(value)}
                       />
                     </CFormGroup>
                   </CCol>
@@ -387,15 +392,18 @@ const CreateMsg = () => {
                       <CCol>
                         <CInputFile
                           id="file-multiple-input"
-                          name="file-multiple-input"
+                          name="fileName"
                           multiple
                           custom
+                          onChange={(value) => onValueChange(value)}
                         />
                         <CLabel
                           htmlFor="file-multiple-input"
                           variant="custom-file"
                         >
-                          Choose Files...
+                          {message.fileName
+                            ? message.fileName
+                            : "Choose Files..."}
                         </CLabel>
                       </CCol>
                     </CFormGroup>
@@ -408,7 +416,8 @@ const CreateMsg = () => {
                       <CInput
                         id="name"
                         placeholder="http://bit.ly/abc"
-                        required
+                        name="link"
+                        onChange={(value) => onValueChange(value)}
                       />
                     </CFormGroup>
                   </CCol>
@@ -440,8 +449,12 @@ const CreateMsg = () => {
                   <CInputRadio
                     custom
                     id="inline-radio3"
-                    name="inline-radios"
-                    value="option1"
+                    name="schedule"
+                    value="now"
+                    checked={message.schedule.check}
+                    onChange={(value) =>
+                      onValueChange(value) && toggleMulti("right")
+                    }
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio3">
                     <strong>Message will send right away</strong>
@@ -451,11 +464,12 @@ const CreateMsg = () => {
                   <CInputRadio
                     custom
                     id="inline-radio4"
-                    name="inline-radios"
-                    value="option2"
-                    onClick={() => {
-                      toggleMulti("right");
-                    }}
+                    name="schedule"
+                    value="specific"
+                    checked={!message.schedule.check}
+                    onChange={(value) =>
+                      onValueChange(value) && toggleMulti("right")
+                    }
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio4">
                     <strong>Specific Time</strong>
@@ -489,7 +503,9 @@ const CreateMsg = () => {
             <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
             Review and Send
           </CButton>
-          <CButton color="outline">Save as Draft</CButton>
+          <CButton color="outline" onClick={onSubmit}>
+            Save as Draft
+          </CButton>
         </CCol>
         {/* Collapse review */}
         <CModal show={large} onClose={() => setLarge(!large)} size="lg">
