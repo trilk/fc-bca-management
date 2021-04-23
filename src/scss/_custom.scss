@@ -605,3 +605,11 @@ color: #009ef7 !important;
 .dropleft .dropdown-toggle::before{
     content: none !important;
 }
+// text limit 
+.tags-text{
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}

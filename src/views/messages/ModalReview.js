@@ -29,7 +29,7 @@ const ReviewMsg = () => {
     return (
         <>
             <CCol className="d-flex bd-highlight">
-                <CCol className="pb-5 p-0 d-flex justify-content-lg-start justify-content-center">
+                <CCol className="pb-5 p-0">
                     <CButton
                         color="primary"
                         className="mr-3"
@@ -43,13 +43,13 @@ const ReviewMsg = () => {
                 {/* Collapse review */}
                 <CModal show={large} onClose={() => setLarge(!large)} size="lg">
                     <CModalHeader closeButton>
-                        <CModalTitle>Review Your Message</CModalTitle>
+                        <CModalTitle><h4>Review Your Message</h4></CModalTitle>
                     </CModalHeader>
                     <CModalBody style={{ height: '80vh', overflow: 'auto' }}>
                         <CCol className="p-0 p-lg-3">
                             {/* form Audience */}
                             <CCol className="p-0">
-                                <CLabel><h4>Audience</h4></CLabel>
+                                <CLabel><h5>Audience</h5></CLabel>
                                 <CCol className="border rounded-lg p-0 py-4">
                                     <CCol className="d-flex flex-lg-row flex-md-row flex-column">
                                         <CCol lg="3" md="3" sm="3" xs="12" className="text-muted py-1">
@@ -75,7 +75,7 @@ const ReviewMsg = () => {
                             {/* End */}
                             {/* Content */}
                             <CCol className="p-0 py-4">
-                                <CLabel><h4>Messages</h4></CLabel>
+                                <CLabel><h5>Messages</h5></CLabel>
                                 <CCol className="border rounded p-0 py-4">
                                     <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
                                         <CCol lg="3" className="text-muted" >
@@ -108,7 +108,7 @@ const ReviewMsg = () => {
                                 </CCol>
                             </CCol>
                             <CCol className="p-0">
-                                <CLabel><h4>Schedule</h4></CLabel>
+                                <CLabel><h5>Schedule</h5></CLabel>
                                 <CCol className="border rounded p-0 py-4">
                                     <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
                                         <CCol lg="3" className="text-muted" >
@@ -122,10 +122,10 @@ const ReviewMsg = () => {
                             </CCol>
                         </CCol>
                     </CModalBody>
-                    <CModalFooter>
-                        <CButton color="outline" onClick={() => setLarge(!large)}>
+                    <CModalFooter className="d-flex justify-content-center">
+                        <CButton color="ghost" onClick={() => setLarge(!large)}>
                             Make changes
-            </CButton>{" "}
+                        </CButton>
                         <CLink to="/messages/MessagesReport">
                             <CButton color="primary">Send Message</CButton>
                         </CLink>

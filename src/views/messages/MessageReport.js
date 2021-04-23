@@ -6,20 +6,12 @@ import { CCardBody, CRow, CAlert, CDropdown, CProgress, CDropdownToggle, CBadge,
 import React from 'react'
 import Imagedemo from './photo/demo.jpeg'
 import {
-    CChartBar,
-    CChartLine,
-    CChartDoughnut,
-    CChartRadar,
     CChartPie,
-    CChartPolarArea
-
 } from '@coreui/react-chartjs'
 
 
 const MessageReport = () => {
     const [visible, setVisible] = React.useState(10)
-    //     chart.canvas.parentNode.style.height = '128px';
-    // chart.canvas.parentNode.style.width = '128px';
 
     return (
         <CRow>
@@ -118,7 +110,7 @@ const MessageReport = () => {
             {/* Chart pie deliver Statistics */}
             <CCol className="d-flex flex-lg-row flex-column flex-wrap" lg="12">
                 <CCol className="p-0 ">
-                    <CCard style={{minHeight: 300}}>
+                    <CCard style={{ minHeight: 300 }}>
                         <CCardBody>
                             <CCol className="p-0">
                                 <CLabel><h5 className="font-weight-bold">Delivery Statistics</h5></CLabel>
@@ -206,7 +198,7 @@ const MessageReport = () => {
                 {/* End */}
                 {/* Chart pie deliver Statistics */}
                 <CCol className="p-0 pl-lg-4" >
-                    <CCard style={{minHeight: 300}}>
+                    <CCard style={{ minHeight: 300 }}>
                         <CCardBody>
                             <CCol className="p-0">
                                 <CLabel><h5 className="font-weight-bold">Channels Statistics</h5></CLabel>
@@ -283,7 +275,12 @@ const MessageReport = () => {
                             <CCol col="6" lg="6" md="12" className="p-0">
                                 {/* form Audience */}
                                 <CCol className="p-0 py-4">
-                                    <CLabel><h4>Info</h4></CLabel>
+                                    <CLabel className="d-flex flex-row">
+                                        <h4>Info</h4>
+                                        <div className="ml-auto d-block d-sm-none">
+                                            <CButton color="secondary">Preview</CButton>
+                                        </div>
+                                    </CLabel>
                                     <CCol className="border rounded-lg p-0 py-4">
                                         <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
                                             <CCol lg="3" md="3" sm="3" xs="12" className="text-muted py-1">
@@ -376,8 +373,11 @@ const MessageReport = () => {
                                     </CCol>
                                 </CCol>
                             </CCol>
-                            <CCol col="6" className="d-flex justify-content-center">
-                                <CIcon name="phonePreview" height="700" alt="Logo" />
+                            <CCol col="6" className="d-lg-block d-ms-block d-none">
+                                <div className="d-flex justify-content-center pt-5 flex-column">
+                                    <strong className="pb-3 d-flex justify-content-center primary-color">Preview Message</strong>
+                                    <CIcon name="phonePreview" height="700" alt="Logo" />
+                                </div>
                             </CCol>
                         </CCol>
                     </CCardBody>

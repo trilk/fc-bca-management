@@ -3,13 +3,6 @@
     width: 90%;
     border-radius: 24px;
 }
-.tags-text{
-        overflow: hidden;
-       text-overflow: ellipsis;
-       display: -webkit-box;
-       -webkit-line-clamp: 2; /* number of lines to show */
-       -webkit-box-orient: vertical;
-    }
 .el-tag-bg{
     margin-bottom: 0.5rem;
     max-width: 100rem;

@@ -335,19 +335,8 @@ const CreateMsg = () => {
                       <CLabel htmlFor="file-input">
                         <span style={{ fontWeight: 600, fontSize: 14 }}>Image</span>
                       </CLabel>
-                      <CCol>
-                        <CInputFile
-                          id="file-multiple-input"
-                          name="file-multiple-input"
-                          multiple
-                          custom
-                        />
-                        <CLabel
-                          htmlFor="file-multiple-input"
-                          variant="custom-file"
-                        >
-                          Choose Files...
-                        </CLabel>
+                      <CCol className="p-0">
+                        <CInputFile id="file-input" name="file-input" />
                       </CCol>
                     </CFormGroup>
                   </CCol>
@@ -430,19 +419,8 @@ const CreateMsg = () => {
             </CCardBody>
           </CCard>
         </CCol>
+        {/* Modal Review Msg to sending */}
         <ReviewMsg />
-        {/* <CCol className="pb-5">
-          <CButton
-            color="primary"
-            className="mr-2"
-            onClick={() => setLarge(!large)}
-          >
-            <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-            Review and Send
-          </CButton>
-          <CButton color="outline">Save as Draft</CButton>
-        </CCol> */}
-        {/* Collapse review */}
         <CModal show={large} onClose={() => setLarge(!large)} size="lg">
           <CModalHeader closeButton>
             <CModalTitle>Review Your Message</CModalTitle>

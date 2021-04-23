@@ -10,67 +10,12 @@ const TemplateDetails = () => {
 
     return (
         <CRow>
-            {/* <CCol lg="12">
-                <CCol lg="12" className="p-0  pb-3 d-flex bd-highlight ">
-                    <div className="p-0 d-flex align-items-end">
-                        <h4><FontAwesomeIcon icon={faEnvelopeOpenText} className="mr-3" />Message Template</h4>
-                    </div>
-                    <div className="p-0 ml-auto">
-                        <CLink to="/template/template-details/new-template"><CButton color="primary"><FontAwesomeIcon icon={faPen} className="mr-2" /> Edit Template</CButton></CLink>
-                    </div>
-                </CCol>
-                <CCard>
-                    <CCardBody>
-                        <CCol className="p-0 d-flex bd-highlight pb-2">
-                            <CCol col="6" lg="6">
-                                <CLabel><strong>Basic info</strong></CLabel>
-                                <CCol className="p-0 py-3 box-review">
-                                    <CCol className="d-flex bd-highlight pl-0" >
-                                        <CCol lg="3" className="text-muted" >
-                                            Status
-                                    </CCol>
-                                        <CCol className="font-weight-bold">
-                                            <CBadge className="mr-1 badge-status" color="light">Template</CBadge>
-                                            
-                                        </CCol>
-                                    </CCol><hr />
-                                    <CCol className="d-flex bd-highlight pl-0">
-                                        <CCol lg="3" className="text-muted" >
-                                            Create By
-                                    </CCol>
-                                        <CCol className="font-weight-bold">Nguyen Van Nam
-                                        </CCol>
-                                    </CCol><hr />
-                                    <CCol className="d-flex bd-highlight pl-0">
-                                        <CCol lg="3" className="text-muted" >
-                                            Create Date
-                                        </CCol>
-                                        <CCol className="font-weight-bold">10/08/20, 4:28:02 pm. 17 hours, 45 minutes ago</CCol>
-                                    </CCol><hr />
-                                    <CCol className="d-flex bd-highlight pl-0">
-                                        <CCol lg="3" className="text-muted" >
-                                            Last update
-                                        </CCol>
-                                        <CCol className="font-weight-bold">Started sending at: October 8th 2020, 7:30:57 am UTC +07:00 (Completed in: 0.51 seconds)</CCol>
-                                    </CCol><hr />
-                                    <CCol className="d-flex bd-highlight pl-0">
-                                        <CCol lg="3" className="text-muted" >
-                                            Sent
-                                        </CCol>
-                                        <CCol className="font-weight-bold">100.000.000 Messages</CCol>
-                                    </CCol>
-                                </CCol>
-                            </CCol>
-                        </CCol>
-                    </CCardBody>
-                </CCard>
-            </CCol> */}
             <CCol col="12" lg="12">
                 <CCard>
                     <CCardBody>
                         <CCol className="p-0 pt-3 d-flex bd-highlight">
                             <CCol col="6" lg="6">
-                                <CCol className="box-review p-0 py-4">
+                                <CCol className="border rounded-lg p-0 py-4">
                                     <CCol className="d-flex bd-highlight pl-2 d-flex align-items-center">
                                         <CCol lg="3" className="text-muted" >
                                             Name Segmnet
@@ -80,11 +25,11 @@ const TemplateDetails = () => {
                                 </CCol>
                                 <CCol className="p-0 py-3">
                                     <CLabel><strong>Basic info</strong></CLabel>
-                                    <CCol className="p-0 py-3 box-review">
+                                    <CCol className="p-0 py-3 border rounded-lg">
                                         <CCol className="d-flex bd-highlight pl-0" >
                                             <CCol lg="3" className="text-muted" >
                                                 Status
-                                    </CCol>
+                                            </CCol>
                                             <CCol className="font-weight-bold">
                                                 <CBadge className="mr-1 badge-status" color="light">Template</CBadge>
                                                 {/* <CBadge className="mr-1 badge-status" color="danger">Schedule</CBadge> */}
@@ -93,7 +38,7 @@ const TemplateDetails = () => {
                                         <CCol className="d-flex bd-highlight pl-0">
                                             <CCol lg="3" className="text-muted" >
                                                 Create By
-                                    </CCol>
+                                            </CCol>
                                             <CCol className="font-weight-bold">Nguyen Van Nam
                                         </CCol>
                                         </CCol><hr />
@@ -119,7 +64,7 @@ const TemplateDetails = () => {
                                 </CCol>
                                 <CCol className="p-0 py-1">
                                     <CLabel><strong>Message</strong></CLabel>
-                                    <CCol className="box-review p-0 py-4">
+                                    <CCol className="border rounded-lg p-0 py-4">
                                         <CCol className="d-flex bd-highlight pl-2">
                                             <CCol lg="3" className="text-muted" >
                                                 Content
@@ -145,7 +90,7 @@ const TemplateDetails = () => {
                                 </CCol>
                                 <CCol className="p-0 py-3">
                                     <CLabel><strong>Schedule</strong></CLabel>
-                                    <CCol className="box-review p-0 py-4">
+                                    <CCol className="border rounded-lg p-0 py-4">
                                         <CCol className="d-flex bd-highlight pl-2">
                                             <CCol lg="3" className="text-muted" >
                                                 Start sending
@@ -161,7 +106,7 @@ const TemplateDetails = () => {
                                 <CIcon name="phonePreview" height="700" alt="Logo" />
                             </CCol>
                         </CCol>
-                        <CCol  className="d-inline-flex">
+                        <CCol className="d-inline-flex pt-3">
                             <CButton color="primary">Edit Template</CButton>
                         </CCol>
                     </CCardBody>

@@ -22,17 +22,11 @@ import {
   CTooltip,
   CPopover
 } from '@coreui/react'
-import {
-  CChartBar,
-  CChartLine,
-  CChartDoughnut,
-  CChartRadar,
-  CChartPie,
-  CChartPolarArea
-} from '@coreui/react-chartjs'
+import LastMsg from './lastMsg'
+import MsgOfContact from "../audience-studio/contacts/msgOfContact"
+
 
 import CIcon from '@coreui/icons-react'
-import ChartLineSimple from '../charts/ChartLineSimple'
 
 import MainChartExample from '../charts/MainChartExample.js'
 import MainChartUsersTrend from '../charts/MainChartUsersTrend.js'
@@ -148,89 +142,24 @@ const Dashboard = () => {
           </CCard>
         </CCol>
         {/* lasst message */}
-        {/* <CCol lg="12">
-          <CCard>
-            <CCardHeader>
-              <CCol className="d-flex flex-column p-0">
-                <span style={{ fontSize: 18, }}>Lastest Messages</span>
-                <strong className="text-muted small">More than 400 new messages sent</strong>
-              </CCol>
-            </CCardHeader>
-            <CCardBody className="overflow-auto">
-              <table className="">
-                <CCol className="p-0 d-flex flex-row overflow-auto align-items-center" lg="12">
-                  <div className="symbol symbol-45px me-2 p-0 mr-3">
-                    <div className="symbol-label">
-                      <FontAwesomeIcon icon={faCommentDots} style={{ color: '#009ef7' }} />
-                    </div>
-                  </div>
-                  <div className="p-0 d-flex flex-column">
-                    <span className="font-weight-bold">Title Messages</span>
-                    <span className="opacity-0-hover"> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
-                  </div>
-                  <div className="p-0">
-                    <span className="font-weight-bold text-gray-400"><FontAwesomeIcon icon={faUserEdit} className="mr-2" />NGUYEN VAN BA</span>
-                  </div>
-                  <div className="p-0" style={{width:600}}>
-                    <div className="clearfix">
-                      <div className="float-left">
-                        <strong>50%</strong>
-                      </div>
-                      <div className="">
-                        <small className="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                      </div>
-                    </div>
-                    <CProgress className="progress-xs" color="success" value="50" />
-                  </div>
-                  <div className="p-0 mr-auto w-100px">
-                    <CButton color="secondary"><FontAwesomeIcon icon={faArrowRight} /></CButton>
-                  </div>
+        {/* <CCol className="d-flex flex-lg-row flex-column p-0" lg={12}>
+          <CCol lg={4}>
+            <CCard>
+              <CCardBody>
+                <CCol className="px-lg-3 px-md-3 px-sm-3 p-0 py-3">
+                  <CCol className="p-0 pb-3">
+                    <h4><strong>Channels</strong></h4>
+                    <span className="text-muted small">Lastest trends</span>
+                  </CCol>
                 </CCol>
+              </CCardBody>
+            </CCard>
+          </CCol> */}
+          <CCol lg={12}>
+            <LastMsg />
+          </CCol>
+        {/* </CCol> */}
 
-                <thead className="thead-light">
-                  <tr>
-                    <th className="p-0 w-50px"></th>
-                    <th className="p-0 min-w-800px"></th>
-                    <th className="p-0 min-w-140px"></th>
-                    <th className="p-0 min-w-160px"></th>
-                    <th className="p-0 min-w-50px"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div className="symbol symbol-45px me-2">
-                        <div className="symbol-label">
-                          <FontAwesomeIcon icon={faCommentDots} style={{ color: '#009ef7' }} />
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="d-flex flex-column">
-                        <span className="font-weight-bold">Title Messages</span>
-                        <span className="text-muted"> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="d-flex flex-column">
-
-                        <span className="text-muted pt-1" style={{ fontWeight: 700 }}>Nguyen Van Nam</span>
-                      </div>
-                    </td>
-                    <td>
-                      <CBadge color="primary" className="badge-status">Delivered</CBadge>
-                    </td>
-                    <td>
-                      <div className="float-right">
-                        <CButton color="secondary"><FontAwesomeIcon icon={faArrowRight} /></CButton>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </CCardBody>
-          </CCard>
-        </CCol> */}
         <CCol className="pb-2 pt-3">
           <CCol className="p-0 pt-2 pb-4">
             <span style={{ fontSize: 20, fontWeight: 700 }}>Subscriber Trends</span>

@@ -107,12 +107,9 @@ const Template = () => {
                                     { key: 'content', label: 'content', _style: { width: '20%' } },
                                     { key: 'sent', label: 'sent/open', _style: { width: '3%' } },
                                     { key: 'lastupdate', label: 'last update', _style: { width: '4%' } },
-                                    { key: 'createDate', label: 'Create Date', _style: { width: '4%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
-                                hover
                                 bordered
-                                // sorter
                                 striped
                                 itemsPerPage={8}
                                 activePage={page}

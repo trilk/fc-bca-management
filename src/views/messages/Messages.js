@@ -19,6 +19,7 @@ import {
     CModalHeader,
     CModalTitle,
     CModalBody,
+    CProgressBar,
     CModalFooter,
     CCard,
     CCardBody,
@@ -186,7 +187,7 @@ const Messages = () => {
                                     { key: 'content', label: 'content', _style: { width: '15%' } },
                                     { key: 'status', label: 'status', _style: { width: '1%' } },
                                     { key: 'delivery', label: 'delivery', _style: { width: '1%' } },
-                                    { key: 'sent', label: 'sent', _style: { width: '3%' } },
+                                    { key: 'sent', label: 'sent', _style: { width: '2%' } },
                                     { key: 'sentAt', label: 'sent at', _style: { width: '4%' } },
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
@@ -224,7 +225,6 @@ const Messages = () => {
                                                     <CBadge className="mr-1 badge-status" color="light">Messages</CBadge>
                                                     <CBadge className="mr-1 badge-status" color="danger">Schedule</CBadge>
                                                 </div> */}
-
                                             </td>
                                         ),
                                     //sent
@@ -232,9 +232,9 @@ const Messages = () => {
                                         (item) => (
                                             <td>
                                                 <div>
-                                                    <span className="font-weight-bold">{item.sent}</span><br />
+                                                    <span>{item.sent}</span><br />
                                                 </div>
-                                                <div className="small text-gray-600">
+                                                <div className="small text-muted">
                                                     <span>Users recieved Message</span>
                                                 </div>
                                             </td>
@@ -243,16 +243,23 @@ const Messages = () => {
                                     'delivery':
                                         (item) => (
                                             <td>
-
-                                                <div className="d-flex align-items-center">
-                                                    {/* <div className="pb-1">
-                                                        <small><strong>Success</strong></small>
-                                                    </div>  */}
-                                                    {item.delivery.includes("sending") && <CTooltip content={`Sending...20%`} placement="top"><CProgress striped color="warning" value={75} className="delivery-progress" /></CTooltip>}
-                                                    {item.delivery.includes("success") && <CTooltip content={`Delivered`} placement="top"><CProgress color="info" value={100} className="delivery-progress" /></CTooltip>}
-                                                    {item.delivery.includes("pause") && <CTooltip content={`Pause...`} placement="top"><CProgress color="danger" value={10} className="delivery-progress" /></CTooltip>}
-                                                </div>
-
+                                                <CCol className="p-0">
+                                                    {item.delivery.includes("delivered") &&
+                                                        <div className="d-flex flex-column">
+                                                            <span className="pb-1">100%</span>
+                                                            <CProgress color="info" value={100} className="delivery-progress" size="sm" />
+                                                        </div>}
+                                                    {item.delivery.includes("sending") &&
+                                                        <div className="d-flex flex-column">
+                                                            <span className="pb-1">90%</span>
+                                                            <CProgress animated color="warning" value={90} className="delivery-progress" size="sm" />
+                                                        </div>}
+                                                    {item.delivery.includes("pause") &&
+                                                        <div className="d-flex flex-column">
+                                                            <span className="pb-1">10%</span>
+                                                            <CProgress color="danger" value={10} size="sm" className="delivery-progress" />
+                                                        </div>}
+                                                </CCol>
                                             </td>
                                         ),
                                     //
@@ -260,9 +267,11 @@ const Messages = () => {
                                     'status':
                                         (item) => (
                                             <td>
-                                                <CBadge className="badge-status" color={getBadge(item.status)}>
-                                                    {item.status}
-                                                </CBadge>
+                                                <CCol className="p-0">
+                                                    <CBadge className="badge-status mt-2" color={getBadge(item.status)}>
+                                                        {item.status}
+                                                    </CBadge>
+                                                </CCol>
                                             </td>
                                         ),
                                     'segments':
@@ -317,6 +326,7 @@ const Messages = () => {
                     <CModal
                         show={danger}
                         onClose={() => setDanger(!danger)}
+                        alignment="center"
                     >
                         <CModalHeader closeButton>
                             <CModalTitle>Message Delete</CModalTitle>

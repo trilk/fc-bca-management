@@ -195,7 +195,7 @@ const Contacts = () => {
                   },
                   {
                     key: "phonenumber",
-                    label: "phone number",
+                    label: "phone",
                     _style: { width: "4%" }
                   },
                   {
@@ -215,7 +215,7 @@ const Contacts = () => {
                   },
                   {
                     key: 'lastUpdate',
-                    label: 'last update',
+                    label: 'lastupdate',
                     _style: { width: '4%' }
                   },
                   {

@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faCommentDots, faUserEdit, faSearch, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
-import '../../messages/messages.scss'
+import '../messages/messages.scss'
 // import femaleimg from '../users/avatar/female.jpg'
 import {
     CBadge,
@@ -34,7 +34,7 @@ import {
     CLink,
     CDropdownHeader,
 } from '@coreui/react'
-import messageData from '../../messages/messageData'
+import messageData from '../messages/messageData'
 import { faTelegram, faViber } from '@fortawesome/free-brands-svg-icons'
 
 const getBadge = status => {
@@ -73,9 +73,14 @@ const Messages = () => {
                     <CCard>
                         <CCardBody>
                             <CCol className="px-lg-3 px-md-3 px-sm-3 p-0 py-3">
-                                <CCol className="p-0 pb-3">
-                                    <h4><strong>Messages</strong></h4>
-                                    <span className="text-muted small">Lastest messages of contact</span>
+                                <CCol className="p-0 pb-3 d-flex flex-row">
+                                    <div>
+                                        <h4><strong>Messages</strong></h4>
+                                        <span className="text-muted small">Lastest 3 Messages </span>
+                                    </div>
+                                    <div className="ml-auto">
+                                        <CButton color="secondary">All Messages</CButton>
+                                    </div>
                                 </CCol>
                                 <CDataTable
                                     items={messageData}
@@ -96,7 +101,7 @@ const Messages = () => {
                                         'type':
                                             (item) => (
                                                 <td className="p-0">
-                                                    <CCol className="d-flex justify-content-center">
+                                                    <CCol className="d-flex justify-content-center p-lg-1 p-md-1">
                                                         <FontAwesomeIcon icon={faCommentDots} className="text-gray-400" />
                                                     </CCol>
                                                 </td>
@@ -162,13 +167,6 @@ const Messages = () => {
                                                 </td>
                                             ),
                                     }}
-                                />
-                                <CPagination
-                                    className="pt-4 d-flex flex-wrap py-2 mr-3 "
-                                    activePage={page}
-                                    onActivePageChange={pageChange}
-                                    doubleArrows={false}
-                                    align="center"
                                 />
                             </CCol>
                         </CCardBody>
