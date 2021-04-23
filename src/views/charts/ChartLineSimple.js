@@ -15,7 +15,7 @@ const ChartLineSimple = props => {
     ...attributes
   } = props
 
-  const pointHoverColor = (()=>{
+  const pointHoverColor = (() => {
     if (pointHoverBackgroundColor) {
       return pointHoverBackgroundColor
     } else if (backgroundColor !== 'transparent') {
@@ -24,7 +24,7 @@ const ChartLineSimple = props => {
     return borderColor
   })()
 
-  const defaultDatasets = (()=>{
+  const defaultDatasets = (() => {
     return [
       {
         data: dataPoints,
@@ -37,7 +37,7 @@ const ChartLineSimple = props => {
     ]
   })()
 
-  const pointedOptions = (()=>{
+  const pointedOptions = (() => {
     return {
       scales: {
         xAxes: [
@@ -61,15 +61,17 @@ const ChartLineSimple = props => {
               min: Math.min.apply(Math, dataPoints) - 5,
               max: Math.max.apply(Math, dataPoints) + 5
             }
+            
           }
+          
         ]
       },
       elements: {
         line: {
-          borderWidth: 1
+          borderWidth: 5
         },
         point: {
-          radius: 4,
+          radius: 10,
           hitRadius: 10,
           hoverRadius: 4
         }
@@ -77,7 +79,7 @@ const ChartLineSimple = props => {
     }
   })()
 
-  const straightOptions = (()=>{
+  const straightOptions = (() => {
     return {
       scales: {
         xAxes: [{
@@ -100,14 +102,14 @@ const ChartLineSimple = props => {
     }
   })()
 
-  const defaultOptions = (()=>{
+  const defaultOptions = (() => {
     const options = pointed ? pointedOptions : straightOptions
-      return Object.assign({}, options, {
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        }
-      })
+    return Object.assign({}, options, {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      }
+    })
   })()
 
   const computedDatasets = (() => {

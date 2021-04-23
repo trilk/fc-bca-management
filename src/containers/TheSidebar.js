@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  CCreateElement,
   CSidebar,
   CSidebarBrand,
   CSidebarNav,
@@ -11,19 +10,24 @@ import {
   CSidebarNavDropdown,
   CSidebarNavItem,
 } from '@coreui/react'
+import CreateElement from './../helpers/CreateElement'
 
 import CIcon from '@coreui/icons-react'
 import { SIDEBAR_SHOW } from './../actions/types'
 
 // sidebar nav config
-import navigation from './_nav'
-import navAdmin from './_navAdmin'
+import { getNavs } from './_nav'
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
   const show = useSelector(state => state.auth.sidebarShow);
   const role = useSelector(state => state.auth.role);
-  let menuItems = role === 'admin' ? navAdmin : navigation;
+  const language = useSelector(state => state.auth.lang);
+  const [menuItems, setMenuItems] = useState(getNavs(role));
+
+  useEffect(() => {
+    setMenuItems(getNavs(role));
+  }, [language]);
 
   return (
     <CSidebar
@@ -43,8 +47,7 @@ const TheSidebar = () => {
         />
       </CSidebarBrand>
       <CSidebarNav>
-
-        <CCreateElement
+        <CreateElement
           items={menuItems}
           components={{
             CSidebarNavDivider,

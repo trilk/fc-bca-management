@@ -2,58 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUsersCog,
-  faUsers,
-  fabViber,
-  faChessQueen,
-  faFacebookMessenger,
   faEye,
-  faEdit,
   faPen,
-  faPause,
-  faCopy,
   faEllipsisV,
-  faPlus,
-  faPlusCircle,
-  faChevronCircleDown,
   faSortDown,
-  faClone,
-  faCircle,
-  faTag,
   faFilter,
-  faUserCircle,
-  faUser,
-  faDatabase,
-  faHamburger,
-  faVenusMars,
-  faIdBadge,
-  faMinus,
-  faExchangeAlt,
-  faTrash,
-  faUserTag,
-  faCheck,
-  faTimes,
-  faUserFriends,
-  faFileImport,
-  faUserPlus,
+  faCheckCircle,
+  faTimesCircle,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./contacts.scss";
+import femaleimg from '../../users/avatar/female.jpg'
+import maleimg from '../../users/avatar/male.jpg'
 import {
   CBadge,
   CButton,
   CImg,
   CCol,
   CDataTable,
+  CDropdownHeader,
+  CForm,
   CPagination,
   CLabel,
-  CTooltip,
-  CModal,
-  CModalHeader,
-  CSelect,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
   CInputCheckbox,
   CCallout,
   CCard,
@@ -127,129 +98,165 @@ const Contacts = () => {
     <>
       <CRow>
         <CCol col="12" lg="12">
-          <h4 className="pb-3">
-            <FontAwesomeIcon icon={faUserFriends} className="mr-3" />
-            All Contacts
-          </h4>
-        </CCol>
-        <CCol className="d-flex bd-highlight flex-wrap pb-2">
-          <div className="mr-auto pb-2">
-            <CInput
-              name="input-search"
-              placeholder="Search by name..."
-            ></CInput>
-          </div>
-          <div className="order-2">
-            <CDropdown>
-              <CDropdownToggle
-                color="outline"
-                className="d-flex align-items-center"
-              >
-                <span>{channelDropdown}</span>
-                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-              </CDropdownToggle>
-              <CDropdownMenu className="" placement="bottom-end">
-                <CDropdownItem onClick={() => setChannelDropdown("All")}>
-                  All
-                </CDropdownItem>
-                <CDropdownItem onClick={() => setChannelDropdown("Zalo")}>
-                  Zalo
-                </CDropdownItem>
-                <CDropdownItem onClick={() => setChannelDropdown("Viber")}>
-                  Viber
-                </CDropdownItem>
-                <CDropdownItem onClick={() => setChannelDropdown("Telegram")}>
-                  Telegram
-                </CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          </div>
-          <div className="order-1 pr-2 pb-2">
-            <CDropdown>
-              <CDropdownToggle
-                color="outline"
-                className="d-flex align-items-center"
-              >
-                <span>Segments: Độ tuổi từ 30 - 35 tuổi</span>
-                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
-              </CDropdownToggle>
-              <CDropdownMenu className="mt-2">
-                <CDropdownItem checked value="all">
-                  <strong>All</strong>
-                </CDropdownItem>
-                <CDropdownItem>
-                  <strong>Subscriber users</strong>
-                </CDropdownItem>
-                <CDropdownItem value="30-35">
-                  <strong>Độ tuổi từ 30 - 35 tuổi và nó dài</strong>
-                </CDropdownItem>
-                <CDropdownItem>
-                  <strong>Segments 1</strong>
-                </CDropdownItem>
-                <CDropdownItem>
-                  <strong>Segments 2</strong>
-                </CDropdownItem>
-                <CDropdownItem>
-                  <strong>Segments 3</strong>
-                </CDropdownItem>
-                <CDropdownItem>
-                  <strong>Segments 4</strong>
-                </CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          </div>
-        </CCol>
-        <CCol col="12" lg="12">
           <CCard>
-            <CCardBody className="pt-0">
+            <CCardBody>
+              <CRow>
+                <CCol className="d-flex flex-row">
+                  {/* search */}
+                  <CCol className="p-0" lg="2" md="4" sm="4" xs="8">
+                    <CFormGroup className="form-group2 has-search">
+                      <span className="form-control-feedback mt-1 ml-2">
+                        <FontAwesomeIcon icon={faSearch} style={{ height: 18, width: 18 }} />
+                      </span>
+                      <CInput id="" type="text" size="lg" placeholder="Search" required className="form-control2" />
+                    </CFormGroup>
+                  </CCol>
+                  {/* End Search */}
+                  {/* Start Filter */}
+                  <CCol className="d-flex p-0 ml-auto">
+                    {/* <div className="ml-auto d-inline"> */}
+                      <CDropdown className="ml-auto">
+                        <CDropdownToggle color="secondary" size="lg" className="d-flex align-items-center">
+                          <FontAwesomeIcon icon={faFilter} className="mr-2" />
+                          <span>Filter</span>
+                        </CDropdownToggle>
+                        <CDropdownMenu className="mt-2" placement="bottom-end" >
+                          <CDropdownHeader className="pr-5">
+                            <span style={{ fontSize: 16, fontWeight: 600, color: '#181c32' }} className="pr-5">Filter Options</span>
+                          </CDropdownHeader>
+                          <CDropdownDivider />
+                          <CForm className="px-3 py-2" >
+                            <CCol className="p-0 pb-3" col="6">
+                              <CLabel htmlFor="exampleDropdownFormEmail1">
+                                <span style={{ fontSize: 14, fontWeight: 700 }}>Status</span>
+                              </CLabel>
+                              <CDropdown>
+                                <CDropdownToggle color="light" size="lg" block className="d-flex align-items-center">
+                                  <span className="d-flex justify-content-start">Filter</span>
+                                  <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
+                                </CDropdownToggle>
+                                <CForm>
+                                  <CDropdownMenu className="mt-2" placement="bottom-end" block>
+                                    <CDropdownItem>All Channels</CDropdownItem>
+                                    <CDropdownItem>Zalo</CDropdownItem>
+                                    <CDropdownItem>Viber</CDropdownItem>
+                                  </CDropdownMenu>
+                                </CForm>
+                              </CDropdown>
+                            </CCol>
+                            {/* Filter Channels type */}
+                            <CCol className="p-0 pt-3 d-flex flex-column pb-3">
+                              <CLabel htmlFor="exampleDropdownFormEmail1">
+                                <span style={{ fontSize: 14, fontWeight: 700 }}>Channels Type:</span>
+                              </CLabel>
+                              <CCol className="p-0 pt-1 d-flex flex-row">
+                                <CFormGroup variant="custom-checkbox" inline>
+                                  <CInputCheckbox
+                                    custom
+                                    id="inline-checkbox1"
+                                    name="inline-checkbox1"
+                                    value="option1"
+                                  />
+                                  <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1" >Zalo</CLabel>
+                                </CFormGroup>
+                                <CFormGroup variant="custom-checkbox" inline>
+                                  <CInputCheckbox
+                                    custom
+                                    id="inline-checkbox1"
+                                    name="inline-checkbox1"
+                                    value="option1"
+                                  />
+                                  <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1">Viber</CLabel>
+                                </CFormGroup>
+                              </CCol>
+                            </CCol>
+                            <CCol className="p-0 py-2">
+                              <CFormGroup className="mt-2 float-right">
+                                <CButton color="ghost" size="lg" className="mr-2">Reset</CButton>
+                                <CButton color="primary" size="lg" type="submit">Submit</CButton>
+                              </CFormGroup>
+                            </CCol>
+                          </CForm>
+                        </CDropdownMenu>
+                      </CDropdown>
+                    
+                    {/* End Filter */}
+                  </CCol>
+                </CCol>
+              </CRow>
               <CDataTable
                 items={data}
                 fields={[
-                  { key: "name", label: "name", _style: { width: "10%" } },
-                  { key: "status", label: "status", _style: { width: "1%" } },
+                  // { key: 'id', _style: { width: '1%' } },
+                  {
+                    key: "name",
+                    label: "name",
+                    _style: { width: "10%" }
+                  },
+                  {
+                    key: "phonenumber",
+                    label: "phone",
+                    _style: { width: "4%" }
+                  },
                   {
                     key: "channels",
                     label: "channels",
                     _style: { width: "2%" },
                   },
                   {
-                    key: "phonenumber",
-                    label: "Phone Number",
-                    _style: { width: "5%" },
+                    key: 'email',
+                    label: 'email',
+                    _style: { width: '4%' }
                   },
                   {
-                    key: "segments",
-                    label: "Segments",
-                    _style: { width: "10%" },
+                    key: 'gender',
+                    label: 'gender',
+                    _style: { width: '1%' }
                   },
-                  // { key: 'status', label: 'status', _style: { width: '2%' } },
                   {
-                    key: "activity",
-                    label: "activity",
-                    _style: { width: "5%" },
+                    key: 'lastUpdate',
+                    label: 'lastupdate',
+                    _style: { width: '4%' }
                   },
-                  { key: "action", label: "action", _style: { width: "1%" } },
+                  {
+                    key: "status",
+                    label: "status",
+                    _style: { width: "1%" }
+                  },
+                  // {
+                  //   key: "action",
+                  //   label: "action",
+                  //   _style: { width: "1%" }
+                  // },
                 ]}
-                hover
                 bordered
                 sorter
                 striped
                 itemsPerPage={8}
                 activePage={page}
+                onRowClick={
+                  (item) => history.push(`/contacts/${item.id}`)}
                 clickableRows
                 scopedSlots={{
                   //name
                   name: (item) => (
                     <td>
-                      <h6>
-                        <strong>{item.ChatName}</strong>
-                      </h6>
-                      <div className="small text-muted">
-                        <span>
-                          Registered:{" "}
-                          {convert_day_hours_minute(item.CreateDate)}
-                        </span>
-                      </div>
+                      <CRow>
+                        <CCol className="d-flex flex-row bd-highlight">
+                          <CCol lg="0" className="p-0 pr-3 d-flex align-items-center pl-2" >
+                            <div className="c-avatar ">
+                              {/* avatar */}
+                              <img src={item.ZaloAccount?.avatar || item.ViberAccount?.avatar || maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default" />
+                            </div>
+                          </CCol>
+                          <CCol className="p-0 d-flex flex-column">
+                            <span style={{ fontWeight: 600 }} className="pb-1">
+                              {item.ChatName}
+                            </span>
+                            <span className="small text-muted" style={{ fontWeight: 500 }}>Registered{''}: {convert_day_hours_minute(item.CreateDate)}</span>
+                          </CCol>
+                        </CCol>
+                      </CRow>
                     </td>
                   ),
                   //channels
@@ -282,35 +289,44 @@ const Contacts = () => {
                   ),
                   status: (item) => (
                     <td>
-                      <CCol className="pl-4">
-                        <FontAwesomeIcon
-                          icon={item.ChatStatus ? faCheck : faTimes}
-                        />
+                      <CCol className="p-0">
+                        <CBadge color={item.ChatStatus ? "success" : "danger"} className="badge-status text-uppercase">{item.ChatStatus ? "Subscribed" : "UnSubcribe"}
+                          <FontAwesomeIcon icon={item.ChatStatus ? faCheckCircle : faTimesCircle} className="ml-2" />
+                        </CBadge>
                       </CCol>
                     </td>
                   ),
-                  //last login
-                  activity: (item) => (
+                  gender: (item) => (
                     <td>
-                      <CCol className="pl-2">
-                        <div className="small mb-1">Last login</div>
-                        <strong>{item.activity}</strong>
+                      <CCol className="pl-1">
+                        <span className="text-muted">_</span>
                       </CCol>
                     </td>
                   ),
-                  // Trạng thái
-                  // 'status':
-                  //     (item) => (
-                  //         <td>
-                  //             <CBadge className="badge-status" color={getBadge(item.status)}>
-                  //                 {item.status}
-                  //             </CBadge>
-                  //         </td>
-                  //     ),
-                  //button action
+                  phonenumber: (item) => (
+                    <td>
+                      <CCol className="pl-1">
+                        <span className="text-muted">_</span>
+                      </CCol>
+                    </td>
+                  ),
+                  email: (item) => (
+                    <td>
+                      <CCol className="pl-1">
+                        <span className="text-muted">_</span>
+                      </CCol>
+                    </td>
+                  ),
+                  lastUpdate: (item) => (
+                    <td>
+                      <CCol className="pl-1">
+                        <span className="">{convert_day_hours_minute(item.CreateDate)}</span>
+                      </CCol>
+                    </td>
+                  ),
                   action: (item) => (
                     <td>
-                      <CDropdown className="pr-2 d-flex justify-content-center">
+                      <CDropdown className="pr-1 d-flex justify-content-center">
                         <CDropdownToggle color="ghost">
                           <FontAwesomeIcon
                             icon={faEllipsisV}
@@ -329,13 +345,13 @@ const Contacts = () => {
                             Update Info
                           </CDropdownItem>
                         </CDropdownMenu>
-                      </CDropdown>{" "}
+                      </CDropdown>
                     </td>
                   ),
                 }}
               />
               <CPagination
-                className="pt-4"
+                className="pt-2"
                 activePage={page}
                 onActivePageChange={pageChange}
                 doubleArrows={false}

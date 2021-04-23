@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './createUser.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faPen, faFileSignature, faUsers, faEye, faBan, faCheck, faUserShield, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faPen, faFileSignature, faUsers, faEye, faBan, faCheck, faUserShield } from '@fortawesome/free-solid-svg-icons'
 import {
     CButton,
     CCardHeader,
@@ -19,7 +19,7 @@ import {
     CCardFooter,
 } from '@coreui/react'
 import { useTranslation } from 'react-i18next'
-const CreateUser = () => {
+const EditUser = () => {
 
     //role admin or moderator
     const [role, setRole] = useState("Admin");
@@ -31,7 +31,7 @@ const CreateUser = () => {
                 <CCol xs={12}>
                     <CCard>
                         <CCardHeader>
-                            <span style={{ fontSize: 18, fontWeight: 700 }}>{t('create-user.tt-header')}</span>
+                            <span style={{ fontSize: 18, fontWeight: 700 }}>Edit User</span>
                         </CCardHeader>
                         <CCardBody>
                             <CRow className="p-lg-3 px-lg-4">
@@ -83,9 +83,7 @@ const CreateUser = () => {
                                         </CCol>
                                     </CCol>
                                     {/* Address */}
-                                    <CCol className="p-0 pt-4 pb-3 d-flex flex-row align-items-center">
-                                        <FontAwesomeIcon icon={faMapMarkerAlt}/><span style={{fontSize: 18}} className="pl-2">Address Info</span>
-                                    </CCol>
+                                    <CCol className="p-0 pt-4 pb-2"><h5><strong>Addres Info</strong></h5></CCol>
                                     <CCol col="6" className="d-flex flex-column p-0">
                                         <CCol className="p-0">
                                             <span style={{ fontWeight: 600, fontSize: 14 }}>Adress</span></CCol>
@@ -142,7 +140,9 @@ const CreateUser = () => {
                                     <CCol className="mb-3 p-0 ">
                                         <CCol className="p-0 pb-0">
                                             <FontAwesomeIcon icon={faUsers} style={{ height: 16, width: 16 }} className="mr-2" />
-                                                <span style={{fontSize: 18}}>Role</span>
+                                            <CLabel htmlFor="name" className="mb-0">
+                                                <h5><strong>Role</strong></h5>
+                                            </CLabel>
                                         </CCol>
                                         <small className="text-discription">{t('create-user.subtt-role')}</small>
                                     </CCol>
@@ -162,7 +162,7 @@ const CreateUser = () => {
                                                 <table className="table table-outline mb-0 border">
                                                     <thead className="bg-light">
                                                         <tr>
-                                                            <th></th>
+                                                            <th className="text-center" htmlFor=""></th>
                                                             <th className="text-center" htmlFor=""><FontAwesomeIcon icon={faEye} style={{ height: 12, width: 12 }} className="mr-2" />Read</th>
                                                             <th className="text-center" htmlFor="message"><FontAwesomeIcon icon={faPen} style={{ height: 10, width: 10 }} className="mr-2" />Create</th>
                                                             <th className="text-center" htmlFor="template"><FontAwesomeIcon icon={faFileSignature} style={{ height: 12, width: 12 }} className="mr-2" />Edit</th>
@@ -170,8 +170,8 @@ const CreateUser = () => {
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td className="pr-0">
-                                                                <strong className="pl-3">Messages</strong>
+                                                            <td>
+                                                                <strong>Messages</strong>
                                                             </td>
                                                             <td className="text-center">
                                                                 <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
@@ -187,7 +187,7 @@ const CreateUser = () => {
                                                         </tr>
                                                         <tr>
                                                             <td className="bg-light">
-                                                                <strong className="pl-3">Template</strong>
+                                                                <strong>Template</strong>
                                                             </td>
                                                             {/* read */}
                                                             <td className="text-center bg-light">
@@ -206,7 +206,7 @@ const CreateUser = () => {
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <strong className="pl-3">Users</strong>
+                                                                <strong>Users</strong>
                                                             </td>
                                                             <td className="text-center">
                                                                 <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
@@ -222,7 +222,7 @@ const CreateUser = () => {
                                                         </tr>
                                                         <tr>
                                                             <td className="bg-light">
-                                                                <strong className="pl-3">Segments</strong>
+                                                                <strong>Segments</strong>
                                                             </td>
                                                             {/* read */}
                                                             <td className="text-center bg-light">
@@ -241,7 +241,7 @@ const CreateUser = () => {
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <strong className="pl-3">Contacts</strong>
+                                                                <strong>Contacts</strong>
                                                             </td>
                                                             <td className="text-center">
                                                                 <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
@@ -276,4 +276,4 @@ const CreateUser = () => {
     )
 }
 
-export default CreateUser
+export default EditUser

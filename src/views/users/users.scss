@@ -1,15 +1,14 @@
-.role-tag-inner{
-    display: inline-flex;
-    align-items: center;
-    min-height: 30px;
-    padding: 3px 13px;
-    border-radius: 3px;
-    background-color: #adb5bd;
-    border: 1px solid #868e96;
-    color: #fff;
-    transition: opacity .2s;
-    font-size: 10px;
-}
+// .role-tag-inner{
+//     display: inline-flex;
+//     align-items: center;
+//     min-height: 30px;
+//     padding: 3px 13px;
+//     border-radius: 3px;
+//     background-color: #adb5bd;
+//     color: #fff;
+//     transition: opacity .2s;
+//     font-size: 10px;
+// }
 // nút status
 .badge-status{
     display: inline-block !important;
@@ -17,16 +16,16 @@
     border-radius: 4px !important;
 }
 // custom nút warring pending
-.badge-warning {
-    color: #FFC107;
-    background-color: #FFF8E2;
-    border: 0.2px solid #EADEB8;
-}
+// .badge-warning {
+//     color: #FFC107;
+//     background-color: #FFF8E2;
+//     border: 0.2px solid #EADEB8;
+// }
 // custom nút đã gửi thành công 
-.badge-success {
-    color: #28A745;
-    background-color: rgba(40, 167, 69, 0.2);
-}
+// .badge-success {
+//     color: #28A745;
+//     background-color: rgba(40, 167, 69, 0.2);
+// }
 /// progress cho delivery
 .progress-delivery{
     height: 1rem !important;
@@ -34,9 +33,9 @@
     border: 0.1px solid  #E6E9EB !important;
     border-radius: 10rem !important;
 }
-.hr{
-    padding-bottom: 0rem !important;
-}
+// .hr{
+//     padding-bottom: 0rem !important;
+// }
 .title-left{
     color: #9492A0 !important;
     text-transform: uppercase;
@@ -82,13 +81,14 @@
     -webkit-justify-content: center;
     justify-content: center;
     padding: 0;
-    height: calc(1.5em + 1.3rem + 2px);
-    width: calc(1.5em + 1.3rem + 2px);
+    height: calc(0.867em + 0.900rem + 6px);
+    width: calc(0.867em + 0.867rem + 1px);
 }
-.image-input [data-action=remove] {
+.image-input [data-kt-image-input-action=change] {
+    cursor: pointer;
     position: absolute;
     right: -10px;
-    bottom: -5px;
+    top: -10px;
 }
 .btn.btn-white {
     color: #3f4254;
@@ -97,8 +97,107 @@
 }
 //@at-root
 // avatar
-.c-avatar-img-bg{
-    height: 100px;
-    width: 100px;
-    border-radius: 4px;
+// .c-avatar-img-bg{
+//     height: 100px;
+//     width: 100px;
+//     border-radius: 4px;
+// }
+//avatar inside profifle
+.c-avatar-lg{
+    width: 170px;
+    height: 160px;
+    display: inline-block;
+    flex-shrink: 0;
 }
+.avatar-lg{
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+    display: inline-block;
+    border-radius: .475rem;
+}
+// status
+.c-status{
+    position: absolute;
+    bottom: 0;
+    display: block;
+    border: 4px solid #fff;
+    border-radius: 50em;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    margin-bottom: 30px;
+}
+.nav-tabs .nav-link.active {
+    color: #009ef7!important;
+    background-color: transparent;
+    border-bottom: 3px solid #009ef7 !important;
+    transition: color .2s ease,background-color .2s ease;
+}
+.nav-tabs .nav-link {
+    border: 0px solid transparent !important;
+    border-top-left-radius: 0rem !important;
+    border-top-right-radius: 0rem !important; 
+    font-size: 0.938rem !important;
+    font-weight: 700 !important;
+}
+.nav-tabs .nav-link:hover{
+    border-bottom: 3px solid #009ef7 !important;
+}
+
+.nav-tabs {
+    border-bottom: 0px solid !important;
+    border-color: #c4c9d0;
+}
+.nav-link{
+    padding-bottom: 1rem !important;
+}
+// edit profile
+.image-input {
+    position: relative;
+    background-image: url(./avatar/blank.png);
+    display: inline-block;
+    border-radius: .475rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.image-input.image-input-outline .image-input-wrapper {
+    border: 3px solid #fff;
+    border-radius: .475rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.box-phone{
+    border-bottom:  1px solid #eff2f5 !important;
+    border-style: dashed!important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+
+} 
+// .custom-modal{
+//     display: block !important;
+// }
+// .custom-modal:hover{
+//     overflow-y: auto;
+// }
+// .hola-demo{
+//     height: 80vh;
+//     overflow-y: auto;
+// }
+// .modal-dialog{
+//     overflow-y: initial !important
+// }
+// ::-webkit-scrollbar {
+//     width: 4px;
+//     border: 1px solid #fff;
+//     overflow: hidden;
+//   }
+  
+//   ::-webkit-scrollbar-track {
+//     border-radius: 1rem;
+//   }
+  
+//   ::-webkit-scrollbar-thumb {
+//     border-radius: 1rem;
+//     background: #C1C1C1;
+//   }

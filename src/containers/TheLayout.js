@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import {
   TheContent,
@@ -11,12 +11,10 @@ import {
 import { useSelector } from 'react-redux'
 
 const TheLayout = () => {
-  // const history = useHistory();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   if (!isAuthenticated) {
-    //return <Redirect to="/login" />;
-    //history.push('/login');
+    return <Redirect to="/login" />;
   }
 
   return (

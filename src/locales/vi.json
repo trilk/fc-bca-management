@@ -11,13 +11,17 @@
         "lb-check-login": "Ghi nhớ đăng nhập",
         "bt-forget-password": "Quên mật khẩu"
     },
+    "top-menu": {
+        "tooltip-lang": "Chọn ngôn ngữ",
+        "tooltip-notify": "Thông báo"
+    },
     "user-topmenu": {
         "item-profile-info": "Thông tin cá nhân",
         "item-setting": "Cài đặt",
         "item-logout": "Đăng xuất"
     },
     "left-menu": {
-        "item-dashboard": "Bảng điều khiển",
+        "item-dashboard": "Trang Chủ",
         "item-message": "Tin nhắn",
         "item-allmessages": "Tất cả tin nhắn",
         "item-createmessage": "Tạo tin nhắn",
@@ -27,9 +31,10 @@
         "item-audience": "Khách hàng",
         "item-segments": "Nhóm khách hàng",
         "item-customers": "Tất cả khách hàng",
-        "item-user-management": "Người dùng",
+        "admin-title": "Quản trị hệ thống",
+        "admin-user-mng": "Người dùng",
         "item-account-info": "Thông tin cá nhân",
-        "item-users": "Người dùng",
+        "admin-settings": "Cài đặt",
         "item-roles": "Các quyền"
     },
     "personal-info": {

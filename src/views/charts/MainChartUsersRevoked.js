@@ -2,9 +2,8 @@ import React from 'react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 
-const brandSent = getStyle('sent') || '#009ef7'
-const brandDelivered = getStyle('delivered') || '#4dbd74'
-const brandFailed = getStyle('failed') || '#f86c6b'
+
+const brandUsersRevoked = getStyle('totalUser') || '#f1416c'
 
 const MainChartExample = attributes => {
   const random = (min, max) => {
@@ -23,28 +22,11 @@ const MainChartExample = attributes => {
     }
     return [
       {
-        label: 'Sent',
-        backgroundColor: hexToRgba(brandSent, 4),
-        borderColor: brandSent,
-        pointHoverBackgroundColor: brandSent,
-        borderWidth: 1.5,
-        data: data1
-      },
-      {
-        label: 'Delivery',
-        backgroundColor: 'transparent',
-        borderColor: brandDelivered,
-        pointHoverBackgroundColor: brandDelivered,
-        borderWidth: 1.5,
-        data: data2
-      },
-      {
-        label: 'Failed(Cancel)',
-        backgroundColor: 'transparent',
-        borderColor: brandFailed,
-        pointHoverBackgroundColor: brandFailed,
-        borderWidth: 0.5,
-        // borderDash: [8, 5],
+        label: 'TotalUsers',
+        backgroundColor: hexToRgba(brandUsersRevoked, 6),
+        borderColor: brandUsersRevoked,
+        pointHoverBackgroundColor: brandUsersRevoked,
+        borderWidth: 1,
         data: data3 
       }
     ]
