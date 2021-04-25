@@ -1,8 +1,8 @@
 import { axiosInstance } from "./axios";
 
 class ChannelService {
-  checkChannelExist(type) {
-    return axiosInstance.get(`/api/channel/channel-exist?type=${type}`);
+  listChannelExist() {
+    return axiosInstance.get(`/api/channel/channel-exist`);
   }
   uploadFile(formData) {
     return axiosInstance.post("/upload", formData);
