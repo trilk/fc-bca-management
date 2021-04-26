@@ -181,7 +181,7 @@ const Dashboard = () => {
                     <span className="widget-header">120.000.298</span>
                   </div>
                   <div className="pt-1">
-                    <span className="light-color">Subscribed Users</span>
+                    <span className="light-color">Subscribed Contacts</span>
                   </div>
                 </CCol>
               </CWidgetDropdown>
@@ -202,7 +202,7 @@ const Dashboard = () => {
                     <span className="widget-header">120</span>
                   </div>
                   <div className="pt-1">
-                    <span className="light-color">Monthly Active Users</span>
+                    <span className="light-color">Monthly Active Contacts</span>
                   </div>
                 </CCol>
               </CWidgetDropdown>
@@ -222,7 +222,7 @@ const Dashboard = () => {
                     <span className="widget-header">120.908.888</span>
                   </div>
                   <div className="pt-1">
-                    <span className="light-color">Total Users</span>
+                    <span className="light-color">Total Contacts</span>
                   </div>
                 </CCol>
               </CWidgetDropdown>
@@ -265,7 +265,7 @@ const Dashboard = () => {
           <CCard>
             <CCardBody>
               <CCol className="p-0">
-                <span className="light-color">Total Users</span>
+                <span className="light-color">Total Contact</span>
                 <div className="d-flex flex-row d-flex align-items-end pt-2">
                   <span className="mr-2" style={{ fontSize: 28, fontWeight: 500 }}>123.090.998</span>
                   <span className="text-success mb-2" style={{ fontWeight: 600 }}>+0.00% (0)</span>
@@ -274,12 +274,12 @@ const Dashboard = () => {
               <MainChartUsersTrend style={{ height: '300px', marginTop: '40px' }} />
             </CCardBody>
           </CCard>
-          {/* Chart User Revoked */}
+          {/* Chart User Unsubscribed */}
           <CCol className="p-0">
             <CCard>
               <CCardBody>
                 <CCol className="p-0">
-                  <span className="light-color">Revoked</span>
+                  <span className="light-color">Unsubscribed</span>
                   <div className="d-flex flex-row d-flex align-items-end pt-2">
                     <span className="mr-2" style={{ fontSize: 28, fontWeight: 500 }}>18</span>
                     <span className="text-success mb-2" style={{ fontWeight: 600 }}>+0.00% (0)</span>

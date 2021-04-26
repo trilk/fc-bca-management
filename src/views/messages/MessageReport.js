@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faChartLine, faPaperPlane, faEnvelopeOpenText, faCommentSlash, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 import './messages.scss'
-import { CCardBody, CRow, CAlert, CDropdown, CProgress, CDropdownToggle, CBadge, CDropdownMenu, CDropdownItem, CButton, CCol, CCard, CLabel, CImg, CDropdownDivider } from '@coreui/react'
+import { CCardBody, CRow, CCardHeader, CAlert, CDropdown, CProgress, CDropdownToggle, CBadge, CDropdownMenu, CDropdownItem, CButton, CCol, CCard, CLabel, CImg, CDropdownDivider } from '@coreui/react'
 import React from 'react'
 import Imagedemo from './photo/demo.jpeg'
 import {
-    CChartPie,
+    CChartPie, CChartBar
 } from '@coreui/react-chartjs'
 
 
@@ -44,68 +44,86 @@ const MessageReport = () => {
                 {/* Messages Statistics */}
                 <CCol className="d-flex flex-lg-row flex-wrap flex-column p-0">
                     {/* Begin Totals Messages */}
-                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 my-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
-                        <CCol className="d-flex flex-column p-4 d-flex justify-content-start">
+                    <CCol className="rounded-lg bg-white p-0 mr-lg-4" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="d-flex flex-column py-3 d-flex justify-content-start">
                             <div className="pb-1 d-flex flex-row">
                                 <div className="d-flex flex-column">
                                     <span className="text-muted pb-1">Total Messages</span>
                                     <span style={{ fontSize: 24, fontWeight: 700 }}>1.097.099</span>
                                 </div>
                                 <div className="ml-auto">
-                                    <FontAwesomeIcon icon={faPaperPlane} style={{ height: 24, width: 24 }} className="light-color" />
+                                    <FontAwesomeIcon icon={faPaperPlane} style={{ height: 14, width: 14 }} className="light-color" />
                                 </div>
                             </div>
                             <div>
                                 <div className="d-flex flex-row small align-items-end pb-2">
                                     <span className="text-muted">Progress</span>
-                                    <span className="ml-auto text-muted" style={{ fontSize: 14, fontWeight: 600 }}>90%</span>
+                                    <span className="ml-auto text-muted" style={{ fontSize: 14, fontWeight: 400 }}>90%</span>
                                 </div>
-                                <CProgress color="primary" value="90" style={{ height: 4 }} />
+                                <CProgress color="primary" value="90" size="xs" />
                             </div>
                         </CCol>
                     </CCol>
                     {/* End total Messages */}
-                    {/* Begin Delivered Messages */}
-                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 my-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
-                        <CCol className="d-flex flex-column p-4 d-flex justify-content-start">
-                            <div className="pb-1 d-flex flex-row">
-                                <div className="d-flex flex-column">
-                                    <span className="text-muted pb-1">Delivered</span>
-                                    <div className="d-flex flex-row">
-                                        <span style={{ fontSize: 30, fontWeight: 700 }}>90.09% <span className="text-muted" style={{ fontSize: 14, fontWeight: 600 }}>1.090.000</span></span>
-
-                                    </div>
-                                </div>
-                                <div className="ml-auto">
-                                    <FontAwesomeIcon icon={faEnvelopeOpenText} style={{ height: 24, width: 24 }} className="light-color" />
-                                </div>
+                    {/* Begin Totals Messages */}
+                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 d-flex align-items-center" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="py-3 d-flex justify-content-center">
+                            <div className="d-flex flex-column">
+                                <span className="text-muted pb-2 d-flex justify-content-center">Messages Sent</span>
+                                <span className="d-flex flex-row align-items-center">
+                                    <span style={{ fontSize: 26, fontWeight: 700 }}>1.200.000</span><span className="ml-2 text-muted" style={{ fontSize: 14, fontWeight: 400 }}>(90%)</span>
+                                </span>
                             </div>
                         </CCol>
                     </CCol>
-                    {/* End Delivered Messages */}
-                    {/* Begin Failed Messages */}
-                    <CCol className="rounded-lg bg-white p-0 my-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
-                        <CCol className="d-flex flex-column p-4 d-flex justify-content-start">
-                            <div className="pb-1 d-flex flex-row">
-                                <div className="d-flex flex-column">
-                                    <span className="text-muted pb-1">Delivered Failed</span>
-                                    <span style={{ fontSize: 24, fontWeight: 700 }}>9.09%</span>
-                                </div>
-                                <div className="ml-auto">
-                                    <FontAwesomeIcon icon={faCommentSlash} style={{ height: 24, width: 24 }} className="light-color" />
-                                </div>
-                            </div>
-                            <div>
-                                <div className="d-flex flex-row small align-items-end pb-2">
-                                    <span className="text-muted">Progress</span>
-                                    <span className="ml-auto text-muted" style={{ fontSize: 14, fontWeight: 600 }}>9.000 (10%)</span>
-                                </div>
-                                <CProgress color="danger" value="10" style={{ height: 4 }} />
+                    {/* End total Messages */}
+                    {/* Begin Totals Messages */}
+                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 d-flex align-items-center" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="py-3 d-flex justify-content-center">
+                            <div className="d-flex flex-column">
+                                <span className="text-muted pb-2 d-flex justify-content-center">Messages Delivered</span>
+                                <span className="d-flex flex-row align-items-center">
+                                    <span style={{ fontSize: 26, fontWeight: 700 }}>900.000</span><span className="ml-2 text-muted" style={{ fontSize: 14, fontWeight: 400 }}>(60%)</span>
+                                </span>
                             </div>
                         </CCol>
                     </CCol>
-                    {/* End Failed Messages */}
+                    {/* End total Messages */}
+                    {/* Begin Totals Messages */}
+                    <CCol className="rounded-lg bg-white p-0 d-flex align-items-center" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="py-3 d-flex justify-content-center">
+                            <div className="d-flex flex-column">
+                                <span className="text-muted pb-2 d-flex justify-content-center">Failed(Cancel)</span>
+                                <span className="d-flex flex-row align-items-center">
+                                    <span style={{ fontSize: 26, fontWeight: 700 }}>9</span><span className="ml-2 text-muted" style={{ fontSize: 14, fontWeight: 400 }}>(9%)</span>
+                                </span>
+                            </div>
+                        </CCol>
+                    </CCol>
+                    {/* End total Messages */}
                 </CCol>
+            </CCol>
+            {/* Chart bar Messages */}
+            <CCol lg={6} className="pt-2">
+                <CCard>
+                    <CCardBody>
+                        <CChartBar
+                            datasets={[
+                                {
+                                    label: 'GitHub Commits',
+                                    backgroundColor: '#f87979',
+                                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+                                }
+                            ]}
+                            labels={['Messages Sent', 'Delivered', 'Failed']}
+                            options={{
+                                tooltips: {
+                                    enabled: true
+                                }
+                            }}
+                        />
+                    </CCardBody>
+                </CCard>
             </CCol>
             {/* Chart pie deliver Statistics */}
             <CCol className="d-flex flex-lg-row flex-column flex-wrap" lg="12">
