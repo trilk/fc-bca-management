@@ -10,6 +10,11 @@ import {
   faCheckCircle,
   faTimesCircle,
   faSearch,
+  faUsers,
+  faArrowUp,
+  faPhone,
+  faMobile,
+  faMobileAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./contacts.scss";
@@ -22,6 +27,7 @@ import {
   CCol,
   CDataTable,
   CDropdownHeader,
+  CWidgetDropdown,
   CForm,
   CPagination,
   CLabel,
@@ -56,6 +62,7 @@ const Contacts = () => {
   const [data, setData] = useState([]);
   const getAllAudience = async (page, limit) => {
     const response = await AudienceService.getAllAudience(page, limit);
+    console.log(response)
     if (response.data.errorCode === 0) {
       setData(response.data.Contacts);
     }
@@ -84,11 +91,7 @@ const Contacts = () => {
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
-    if (channelDropdown === "All") {
-      getAllAudience(currentPage, limitpage);
-    } else {
-      getAudienceByChannelType(currentPage, limitpage, channelDropdown);
-    }
+    getAllAudience(currentPage, limitpage);
   }, [currentPage, page, channelDropdown]);
   //end pagination
   if (_.isNil(data)) {
@@ -97,6 +100,56 @@ const Contacts = () => {
   return (
     <>
       <CRow>
+        <CCol>
+          <CCard>
+            <CCardBody>
+              <CCol className="d-flex flex-lg-row flex-xl-row flex-md-lg flex-column p-0">
+                {/* Box user totals */}
+                <div className="d-flex flex-column rounded-lg bg-light-primary pl-2 mb-3 border-primary" style={{ height: 120, width: 240 }}>
+                  <CCol className="px-2 py-2 primary-color d-flex align-items-center">
+                    <div className="d-flex flex-column">
+                      <span><FontAwesomeIcon icon={faUsers} className="mr-2" />Total Contacts</span>
+                      <div className="d-flex flex-row align-items-center">
+                        <h2 className="pt-2 pr-2">20.000.000</h2><span className="d-flex flex-row align-items-center success-color"><FontAwesomeIcon icon={faArrowUp} style={{ height: 10, width: 10 }} />10%</span>
+                      </div>
+                    </div>
+                  </CCol>
+                </div>
+                {/* Channels */}
+                <CCol className="d-flex flex-row pl-lg-4 pl-xl-4 pl-0" >
+                  <CCol className="p-0">
+                    <CCol className="p-0">
+                      <div className="d-flex align-items-center"><FontAwesomeIcon icon={faMobileAlt} className="mr-2" /><span style={{ fontSize: 18 }}>Channels</span></div>
+                    </CCol>
+                    <CCol className="pt-3 pl-0 flex-">
+                      {/* Box channnels */}
+                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-2">
+                        <span className="d-flex justify-content-">
+                          Zalo
+                        </span>
+                        <CLabel>
+                          <span style={{ fontSize: 18, fontWeight: 600 }}>10.000.000 </span><small className="text-muted">Contacts</small>
+                        </CLabel>
+                      </CLabel>
+                      {/* End box channels */}
+                      {/* Box channnels */}
+                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column">
+                        <span className="d-flex justify-content-">
+                          Viber
+                        </span>
+                        <CLabel>
+                          <span style={{ fontSize: 18, fontWeight: 600 }}>1.000.000 </span><small className="text-muted">Contacts</small>
+                        </CLabel>
+                      </CLabel>
+                      {/* End box channels */}
+                    </CCol>
+                  </CCol>
+                </CCol>
+              </CCol>
+            </CCardBody>
+          </CCard>
+        </CCol>
+
         <CCol col="12" lg="12">
           <CCard>
             <CCardBody>
@@ -115,71 +168,77 @@ const Contacts = () => {
                   {/* Start Filter */}
                   <CCol className="d-flex p-0 ml-auto">
                     {/* <div className="ml-auto d-inline"> */}
-                      <CDropdown className="ml-auto">
-                        <CDropdownToggle color="secondary" size="lg" className="d-flex align-items-center">
-                          <FontAwesomeIcon icon={faFilter} className="mr-2" />
-                          <span>Filter</span>
-                        </CDropdownToggle>
-                        <CDropdownMenu className="mt-2" placement="bottom-end" >
-                          <CDropdownHeader className="pr-5">
-                            <span style={{ fontSize: 16, fontWeight: 600, color: '#181c32' }} className="pr-5">Filter Options</span>
-                          </CDropdownHeader>
-                          <CDropdownDivider />
-                          <CForm className="px-3 py-2" >
-                            <CCol className="p-0 pb-3" col="6">
-                              <CLabel htmlFor="exampleDropdownFormEmail1">
-                                <span style={{ fontSize: 14, fontWeight: 700 }}>Status</span>
-                              </CLabel>
-                              <CDropdown>
-                                <CDropdownToggle color="light" size="lg" block className="d-flex align-items-center">
-                                  <span className="d-flex justify-content-start">Filter</span>
-                                  <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
-                                </CDropdownToggle>
-                                <CForm>
-                                  <CDropdownMenu className="mt-2" placement="bottom-end" block>
-                                    <CDropdownItem>All Channels</CDropdownItem>
-                                    <CDropdownItem>Zalo</CDropdownItem>
-                                    <CDropdownItem>Viber</CDropdownItem>
-                                  </CDropdownMenu>
-                                </CForm>
-                              </CDropdown>
-                            </CCol>
-                            {/* Filter Channels type */}
-                            <CCol className="p-0 pt-3 d-flex flex-column pb-3">
-                              <CLabel htmlFor="exampleDropdownFormEmail1">
-                                <span style={{ fontSize: 14, fontWeight: 700 }}>Channels Type:</span>
-                              </CLabel>
-                              <CCol className="p-0 pt-1 d-flex flex-row">
-                                <CFormGroup variant="custom-checkbox" inline>
-                                  <CInputCheckbox
-                                    custom
-                                    id="inline-checkbox1"
-                                    name="inline-checkbox1"
-                                    value="option1"
-                                  />
-                                  <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1" >Zalo</CLabel>
-                                </CFormGroup>
-                                <CFormGroup variant="custom-checkbox" inline>
-                                  <CInputCheckbox
-                                    custom
-                                    id="inline-checkbox1"
-                                    name="inline-checkbox1"
-                                    value="option1"
-                                  />
-                                  <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1">Viber</CLabel>
-                                </CFormGroup>
-                              </CCol>
-                            </CCol>
-                            <CCol className="p-0 py-2">
-                              <CFormGroup className="mt-2 float-right">
-                                <CButton color="ghost" size="lg" className="mr-2">Reset</CButton>
-                                <CButton color="primary" size="lg" type="submit">Submit</CButton>
+                    <CDropdown className="ml-auto">
+                      <CDropdownToggle color="secondary" size="lg" className="d-flex align-items-center">
+                        <FontAwesomeIcon icon={faFilter} className="mr-2" />
+                        <span>Filter</span>
+                      </CDropdownToggle>
+                      <CDropdownMenu className="mt-2" placement="bottom-end" style={{ minWidth: 300 }}>
+                        <CDropdownHeader className="pr-5">
+                          <span style={{ fontSize: 16, fontWeight: 600, color: '#181c32' }} className="pr-5">Filter Options</span>
+                        </CDropdownHeader>
+                        <CDropdownDivider />
+                        <CForm className="px-3 py-2" >
+                          <CCol className="p-0 pb-3">
+                            <CLabel htmlFor="exampleDropdownFormEmail1">
+                              <span style={{ fontSize: 14, fontWeight: 700 }}>Date</span>
+                            </CLabel>
+                            <CInput type="date" />
+                          </CCol>
+                          <CCol className="p-0 pb-3" col="12">
+                            <CLabel htmlFor="exampleDropdownFormEmail1">
+                              <span style={{ fontSize: 14, fontWeight: 700 }}>Status</span>
+                            </CLabel>
+                            <CDropdown>
+                              <CDropdownToggle color="light" size="lg" block className="d-flex align-items-center">
+                                <span className="d-flex justify-content-start">Filter</span>
+                                <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1 ml-auto" />
+                              </CDropdownToggle>
+                              <CForm>
+                                <CDropdownMenu className="mt-2" placement="bottom-end" block>
+                                  <CDropdownItem>All</CDropdownItem>
+                                  <CDropdownItem>Subscribed</CDropdownItem>
+                                  <CDropdownItem>UnSubcribed</CDropdownItem>
+                                </CDropdownMenu>
+                              </CForm>
+                            </CDropdown>
+                          </CCol>
+                          {/* Filter Channels type */}
+                          <CCol className="p-0 pt-3 d-flex flex-column pb-3">
+                            <CLabel htmlFor="exampleDropdownFormEmail1">
+                              <span style={{ fontSize: 14, fontWeight: 700 }}>Channels Type:</span>
+                            </CLabel>
+                            <CCol className="p-0 pt-1 d-flex flex-row">
+                              <CFormGroup variant="custom-checkbox" inline>
+                                <CInputCheckbox
+                                  custom
+                                  id="inline-checkbox1"
+                                  name="inline-checkbox1"
+                                  value="option1"
+                                />
+                                <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1" >Zalo</CLabel>
+                              </CFormGroup>
+                              <CFormGroup variant="custom-checkbox" inline>
+                                <CInputCheckbox
+                                  custom
+                                  id="inline-checkbox1"
+                                  name="inline-checkbox1"
+                                  value="option1"
+                                />
+                                <CLabel variant="custom-checkbox" htmlFor="inline-checkbox1">Viber</CLabel>
                               </CFormGroup>
                             </CCol>
-                          </CForm>
-                        </CDropdownMenu>
-                      </CDropdown>
-                    
+                          </CCol>
+                          <CCol className="p-0 py-2">
+                            <CFormGroup className="mt-2 float-right">
+                              <CButton color="ghost" size="lg" className="mr-2">Reset</CButton>
+                              <CButton color="primary" size="lg" type="submit">Submit</CButton>
+                            </CFormGroup>
+                          </CCol>
+                        </CForm>
+                      </CDropdownMenu>
+                    </CDropdown>
+
                     {/* End Filter */}
                   </CCol>
                 </CCol>
@@ -235,7 +294,7 @@ const Contacts = () => {
                 itemsPerPage={8}
                 activePage={page}
                 onRowClick={
-                  (item) => history.push(`/contacts/${item.id}`)}
+                  (item) => history.push(`/contacts/${item._id}`)}
                 clickableRows
                 scopedSlots={{
                   //name
@@ -246,7 +305,7 @@ const Contacts = () => {
                           <CCol lg="0" className="p-0 pr-3 d-flex align-items-center pl-2" >
                             <div className="c-avatar ">
                               {/* avatar */}
-                              <img src={item.ZaloAccount?.avatar || item.ViberAccount?.avatar || maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default" />
+                              <img src={item.Account.avatar ? item.Account.avatar : femaleimg} className="c-avatar-img" alt={item.ChatName} height="48" width="48" name="avatar-female-default" />
                             </div>
                           </CCol>
                           <CCol className="p-0 d-flex flex-column">
@@ -264,26 +323,26 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.ChannelType === "Viber" && (
-                          <FontAwesomeIcon
-                            icon={faViber}
-                            className="channel-icon mr-2"
-                            style={{ color: "#665CAC" }}
-                          />
-                        )}
-                        {item.ChannelType === "Zalo" && (
-                          <CIcon
-                            name="zaloIcon"
-                            className="channel-icon mr-2 zalo-icon"
-                          />
-                        )}
-                        {item.ChannelType === "Telegram" && (
-                          <FontAwesomeIcon
-                            icon={faTelegram}
-                            className="channel-icon mr-2"
-                            style={{ color: "#0088cc" }}
-                          />
-                        )}
+                          {item.ChannelType === "Viber" && (
+                            <FontAwesomeIcon
+                              icon={faViber}
+                              className="channel-icon"
+                              style={{ color: "#665CAC" }}
+                            />
+                          )}
+                          {item.ChannelType === "Zalo" && (
+                            <CIcon
+                              name="zaloIcon"
+                              style={{ height: 18, width: 18, }}
+                            />
+                          )}
+                          {item.ChannelType === "Telegram" && (
+                            <FontAwesomeIcon
+                              icon={faTelegram}
+                              className="channel-icon"
+                              style={{ color: "#0088cc" }}
+                            />
+                          )}
                       </CCol>
                     </td>
                   ),

@@ -44,7 +44,7 @@ const MainChartExample = attributes => {
         borderColor: brandFailed,
         pointHoverBackgroundColor: brandFailed,
         borderWidth: 0.5,
-        // borderDash: [8, 5],
+        borderDash: [8, 5],
         data: data3 
       }
     ]

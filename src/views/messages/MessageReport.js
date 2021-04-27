@@ -2,12 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faChartLine, faPaperPlane, faEnvelopeOpenText, faCommentSlash, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 import './messages.scss'
-import { CCardBody, CRow, CAlert, CDropdown, CProgress, CDropdownToggle, CBadge, CDropdownMenu, CDropdownItem, CButton, CCol, CCard, CLabel, CImg, CDropdownDivider } from '@coreui/react'
+import { CCardBody, CRow, CCardHeader, CAlert, CDropdown, CProgress, CDropdownToggle, CBadge, CDropdownMenu, CDropdownItem, CButton, CCol, CCard, CLabel, CImg, CDropdownDivider } from '@coreui/react'
 import React from 'react'
 import Imagedemo from './photo/demo.jpeg'
 import {
-    CChartPie,
+    CChartPie, CChartBar
 } from '@coreui/react-chartjs'
+import ChartBarSimple from '../charts/ChartBarSimple'
+import ChannelStatistic from '../charts/ChannelStatistis'
 
 
 const MessageReport = () => {
@@ -40,233 +42,78 @@ const MessageReport = () => {
                 </div>
             </CCol>
             {/* End */}
-            <CCol className="p-lg-3 d-flex flex-lg-row flex-column" lg="12">
+            <CCol className="p-lg-3 d-flex flex-lg-row flex-column" xl={12}>
                 {/* Messages Statistics */}
                 <CCol className="d-flex flex-lg-row flex-wrap flex-column p-0">
                     {/* Begin Totals Messages */}
-                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 my-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
-                        <CCol className="d-flex flex-column p-4 d-flex justify-content-start">
+                    <CCol className="rounded-lg bg-white p-0 mr-lg-4" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="d-flex flex-column py-3 d-flex justify-content-start">
                             <div className="pb-1 d-flex flex-row">
                                 <div className="d-flex flex-column">
-                                    <span className="text-muted pb-1">Total Messages</span>
-                                    <span style={{ fontSize: 24, fontWeight: 700 }}>1.097.099</span>
+                                    <span className="text-muted pb-1"> Estimated recipients</span>
+                                    <div>
+                                        <span style={{ fontSize: 24, fontWeight: 700 }}>10.097.099</span><small className="text-muted ml-2">Users</small>
+                                    </div>
                                 </div>
                                 <div className="ml-auto">
-                                    <FontAwesomeIcon icon={faPaperPlane} style={{ height: 24, width: 24 }} className="light-color" />
+                                    <FontAwesomeIcon icon={faPaperPlane} style={{ height: 14, width: 14 }} className="light-color" />
                                 </div>
                             </div>
                             <div>
                                 <div className="d-flex flex-row small align-items-end pb-2">
-                                    <span className="text-muted">Progress</span>
-                                    <span className="ml-auto text-muted" style={{ fontSize: 14, fontWeight: 600 }}>90%</span>
+                                    <span className="text-muted">Sending</span>
+                                    <span className="ml-auto text-muted" style={{ fontSize: 14, fontWeight: 400 }}>90%</span>
                                 </div>
-                                <CProgress color="primary" value="90" style={{ height: 4 }} />
+                                <CProgress color="primary" value="90" size="xs" />
                             </div>
                         </CCol>
                     </CCol>
                     {/* End total Messages */}
-                    {/* Begin Delivered Messages */}
-                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 my-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
-                        <CCol className="d-flex flex-column p-4 d-flex justify-content-start">
-                            <div className="pb-1 d-flex flex-row">
-                                <div className="d-flex flex-column">
-                                    <span className="text-muted pb-1">Delivered</span>
-                                    <div className="d-flex flex-row">
-                                        <span style={{ fontSize: 30, fontWeight: 700 }}>90.09% <span className="text-muted" style={{ fontSize: 14, fontWeight: 600 }}>1.090.000</span></span>
-
-                                    </div>
-                                </div>
-                                <div className="ml-auto">
-                                    <FontAwesomeIcon icon={faEnvelopeOpenText} style={{ height: 24, width: 24 }} className="light-color" />
-                                </div>
+                    {/* Begin Totals Messages */}
+                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 d-flex align-items-center" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="py-3 d-flex justify-content-center">
+                            <div className="d-flex flex-column">
+                                <span className="text-muted pb-2 d-flex justify-content-center">Users Delivered</span>
+                                <span className="d-flex flex-row align-items-center">
+                                    <span style={{ fontSize: 26, fontWeight: 700 }}>1.200.000</span><span className="ml-2 success-color" style={{ fontSize: 14, fontWeight: 600 }}>(90%)</span>
+                                </span>
                             </div>
                         </CCol>
                     </CCol>
-                    {/* End Delivered Messages */}
-                    {/* Begin Failed Messages */}
-                    <CCol className="rounded-lg bg-white p-0 my-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
-                        <CCol className="d-flex flex-column p-4 d-flex justify-content-start">
-                            <div className="pb-1 d-flex flex-row">
-                                <div className="d-flex flex-column">
-                                    <span className="text-muted pb-1">Delivered Failed</span>
-                                    <span style={{ fontSize: 24, fontWeight: 700 }}>9.09%</span>
-                                </div>
-                                <div className="ml-auto">
-                                    <FontAwesomeIcon icon={faCommentSlash} style={{ height: 24, width: 24 }} className="light-color" />
-                                </div>
-                            </div>
-                            <div>
-                                <div className="d-flex flex-row small align-items-end pb-2">
-                                    <span className="text-muted">Progress</span>
-                                    <span className="ml-auto text-muted" style={{ fontSize: 14, fontWeight: 600 }}>9.000 (10%)</span>
-                                </div>
-                                <CProgress color="danger" value="10" style={{ height: 4 }} />
+                    {/* End total Messages */}
+                    {/* Begin Totals Messages */}
+                    <CCol className="rounded-lg bg-white p-0 mr-lg-4 d-flex align-items-center" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="py-3 d-flex justify-content-center">
+                            <div className="d-flex flex-column">
+                                <span className="text-muted pb-2 d-flex justify-content-center">Remaining</span>
+                                <span className="d-flex flex-row align-items-center">
+                                    <span style={{ fontSize: 26, fontWeight: 700 }} className="d-flex justify-center">900.000</span>
+                                </span>
                             </div>
                         </CCol>
                     </CCol>
-                    {/* End Failed Messages */}
+                    {/* End total Messages */}
+                    {/* Begin Totals Messages */}
+                    <CCol className="rounded-lg bg-white p-0 d-flex align-items-center" style={{ boxShadow: 'rgba(0, 0, 0, 0.01) 0px 4px 10px' }}>
+                        <CCol className="py-3 d-flex justify-content-center">
+                            <div className="d-flex flex-column">
+                                <span className="text-muted pb-2 d-flex justify-content-center">Failed(Cancel)</span>
+                                <span className="d-flex flex-row align-items-center">
+                                    <span style={{ fontSize: 26, fontWeight: 700 }} className="d-flex justify-content-center">9</span>
+                                </span>
+                            </div>
+                        </CCol>
+                    </CCol>
+                    {/* End total Messages */}
                 </CCol>
             </CCol>
-            {/* Chart pie deliver Statistics */}
-            <CCol className="d-flex flex-lg-row flex-column flex-wrap" lg="12">
-                <CCol className="p-0 ">
-                    <CCard style={{ minHeight: 300 }}>
-                        <CCardBody>
-                            <CCol className="p-0">
-                                <CLabel><h5 className="font-weight-bold">Delivery Statistics</h5></CLabel>
-                                <CCol className="p-0 d-flex flex-lg-row flex-md-row flex-column">
-                                    <CCol lg="4" md="6" sm="6" className="p-0 py-3">
-                                        <CCol className="p-0">
-                                            <CCol className="p-0">
-                                                <div className="progress-group-header">
-                                                    <FontAwesomeIcon icon={faCircle} className="mr-2 mb-1 success-color" style={{ height: 8, width: 8 }} />
-                                                    <span className="title">Delivered</span>
-                                                    <span className="ml-auto font-weight-bold">191,235</span>
-                                                </div>
-                                                <hr className="border-dashed" />
-                                            </CCol>
-                                            <CCol className="p-0">
-                                                <div className="progress-group-header">
-                                                    <FontAwesomeIcon icon={faCircle} className="mr-2 mb-1" style={{ height: 8, width: 8, color: '#3399ff' }} />
-                                                    <span className="title">Read</span>
-                                                    <span className="ml-auto font-weight-bold">235</span>
-                                                </div>
-                                                <hr className="border-dashed" />
-                                            </CCol>
-                                            <CCol className="p-0">
-                                                <div className="progress-group-header">
-                                                    <FontAwesomeIcon icon={faCircle} className="mr-2 mb-1 danger-color" style={{ height: 8, width: 8 }} />
-                                                    <span className="title">Failed (Cancel)</span>
-                                                    <span className="ml-auto font-weight-bold">0</span>
-                                                </div>
-                                                <hr className="border-dashed" />
-                                            </CCol>
-                                            <CCol className="p-0">
-                                                <div className="progress-group-header">
-                                                    <FontAwesomeIcon icon={faCircle} color="success" className="mr-2 mb-1 warning-color" style={{ height: 8, width: 8 }} />
-                                                    <span className="title">Remaining</span>
-                                                    <span className="ml-auto font-weight-bold">100</span>
-                                                </div>
-                                            </CCol>
-                                        </CCol>
-                                    </CCol>
-                                    <CCol className="p-0" col="8" lg="8" className="p-0">
-                                        <CChartPie
-                                            className="hola"
-                                            datasets={[
-                                                {
-                                                    backgroundColor: [
-                                                        '#28A745', //Delivered
-                                                        '#3399ff', // read
-                                                        '#DC3545', // failed
-                                                        '#f9b115' // Remaining
-                                                    ],
-                                                    data: [56, 10, 0, 2]
-                                                }
-                                            ]}
-                                            labels={['Delivered', 'Read', 'Failed ( Cancel )', 'Remaining']}
-                                            options={{
-                                                maintainAspectRatio: true,
-                                                responsive: true,
-                                                legend: {
-                                                    display: false
-                                                },
-                                                tooltips: {
-                                                    enabled: true,
-                                                    displayColors: false,
-                                                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                                                    borderColor: '#e4e6ef',
-                                                    color: '#666',
-                                                },
-                                                layout: {
-                                                    padding: {
-                                                        left: 0,
-                                                        right: 0,
-                                                        top: 0,
-                                                        bottom: 20
-                                                    }
-                                                },
-
-                                            }}
-                                        />
-                                    </CCol>
-                                </CCol>
-                            </CCol>
-                        </CCardBody>
-                    </CCard>
-                </CCol>
-                {/* End */}
-                {/* Chart pie deliver Statistics */}
-                <CCol className="p-0 pl-lg-4" >
-                    <CCard style={{ minHeight: 300 }}>
-                        <CCardBody>
-                            <CCol className="p-0">
-                                <CLabel><h5 className="font-weight-bold">Channels Statistics</h5></CLabel>
-                                <CCol className="p-0 d-flex flex-lg-row flex-md-row flex-column">
-                                    <CCol col="6" lg="5" md="6" sm="6" className="p-0 py-3">
-                                        <CCol className="p-0">
-                                            <CCol className="p-0 pt-1">
-                                                <div className="progress-group-header">
-                                                    <FontAwesomeIcon icon={faCircle} className="mr-2 mb-1 primary-color" style={{ height: 8, width: 8 }} />
-                                                    <span className="title">Zalo Channel</span>
-                                                </div>
-                                                <hr className="border-dashed" />
-                                            </CCol>
-                                            <CCol className="p-0 pt-1">
-                                                <div className="progress-group-header">
-                                                    <FontAwesomeIcon icon={faCircle} className="mr-2 mb-1" style={{ height: 8, width: 8, color: '#665CAC' }} />
-                                                    <span className="title">Viber Channel</span>
-                                                </div>
-                                                <hr className="border-dashed" />
-                                            </CCol>
-                                        </CCol>
-                                    </CCol>
-                                    <CCol className="p-0" col="8" lg="8" xs="12" className="p-0">
-                                        {/* <canvas id="safe_id_b8runsgrlub" width="400" height="400"></canvas> */}
-                                        <CChartPie
-                                            className="hola"
-                                            datasets={[
-                                                {
-                                                    backgroundColor: [
-                                                        '#009ef7', //Zalo
-                                                        '#665CAC', // Viber
-                                                    ],
-                                                    data: [90, 10,]
-                                                }
-                                            ]}
-                                            labels={['Zalo', 'Viber',]}
-                                            options={{
-                                                maintainAspectRatio: true,
-                                                responsive: true,
-                                                legend: {
-                                                    display: false
-                                                },
-                                                tooltips: {
-                                                    enabled: true,
-                                                    displayColors: false,
-                                                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                                                    borderColor: '#e4e6ef',
-                                                    color: '#666',
-                                                },
-                                                layout: {
-                                                    padding: {
-                                                        left: 0,
-                                                        right: 0,
-                                                        top: 0,
-                                                        bottom: 20
-                                                    }
-                                                },
-                                            }}
-                                        />
-                                    </CCol>
-                                </CCol>
-                            </CCol>
-                        </CCardBody>
-                    </CCard>
-                </CCol>
-            </CCol>
-            {/* End */}
-            {/* Messages Details */}
+            {/* Chart */}
+            {/* <CCol className="d-flex flex-xl-row p-0 pt-2" xl={12}> */}
+            {/* Chart bar Messages */}
+            {/* <ChartBarSimple style={{ height: 315 }} /> */}
+            {/* Channel Statistics */}
+            {/* <ChannelStatistic /> */}
+            {/* </CCol> */}
             <CCol>
                 <CCard>
                     <CCardBody>

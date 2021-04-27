@@ -96,7 +96,7 @@ const Segments = () => {
                                     { key: 'action', label: 'action', _style: { width: '1%' } },
                                 ]}
                                 itemsPerPage={5}
-                                hover
+                                // hover
                                 striped
                                 pagination
                                 scopedSlots={{
