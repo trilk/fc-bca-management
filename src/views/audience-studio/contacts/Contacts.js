@@ -62,6 +62,7 @@ const Contacts = () => {
   const [data, setData] = useState([]);
   const getAllAudience = async (page, limit) => {
     const response = await AudienceService.getAllAudience(page, limit);
+    console.log(response)
     if (response.data.errorCode === 0) {
       setData(response.data.Contacts);
     }
@@ -90,11 +91,7 @@ const Contacts = () => {
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
-    if (channelDropdown === "All") {
-      getAllAudience(currentPage, limitpage);
-    } else {
-      getAudienceByChannelType(currentPage, limitpage, channelDropdown);
-    }
+    getAllAudience(currentPage, limitpage);
   }, [currentPage, page, channelDropdown]);
   //end pagination
   if (_.isNil(data)) {
@@ -108,7 +105,7 @@ const Contacts = () => {
             <CCardBody>
               <CCol className="d-flex flex-lg-row flex-xl-row flex-md-lg flex-column p-0">
                 {/* Box user totals */}
-                <div className="d-flex flex-column rounded-lg bg-light-primary pl-2 mb-3" style={{ height: 120, width: 240 }}>
+                <div className="d-flex flex-column rounded-lg bg-light-primary pl-2 mb-3 border-primary" style={{ height: 120, width: 240 }}>
                   <CCol className="px-2 py-2 primary-color d-flex align-items-center">
                     <div className="d-flex flex-column">
                       <span><FontAwesomeIcon icon={faUsers} className="mr-2" />Total Contacts</span>
@@ -152,37 +149,6 @@ const Contacts = () => {
             </CCardBody>
           </CCard>
         </CCol>
-        {/* <CCol lg={12} className="d-flex flex-row pb-4">
-          <CCol lg={2} className="bg-white text-dark rounded mr-lg-2">
-            <CCol className="d-flex flex-column py-3 p-0">
-              <div className="d-flex flex-row align-items-center">
-                <FontAwesomeIcon icon={faUsers} style={{ color: '#009ef7', height: 18, width: 18 }} className="mr-2" />
-                <span className="light-color">Total Contacts</span>
-              </div>
-              <span className="text-dark" style={{ fontSize: 30, fontWeight: 600 }}>120.908.888</span>
-            </CCol>
-          </CCol>
-          <CCol lg={10} className="bg-white text-dark rounded ml-lg-2">
-            <CCol className="p-0">
-              <CCol className="p-0">
-                <div className="d-flex flex-row align-items-center">
-                  <FontAwesomeIcon icon={faUsers} style={{ color: '#009ef7', height: 18, width: 18 }} className="mr-2" />
-                  <span className="light-color">Channels</span>
-                </div>
-              </CCol>
-              <CCol className="d-flex flex-row">
-                <CCol lg={2} className="border rounded d-flex flex-column py-2 mr-lg-2 my-2">
-                  <span>Zalo</span>
-                  <span>1.200.000</span>
-                </CCol>
-                <CCol lg={2} className="border rounded d-flex flex-column py-3 mr-lg-2 my-2">
-                  <span>Zalo</span>
-                  <span>1.200.000</span>
-                </CCol>
-              </CCol>
-            </CCol>
-          </CCol>
-        </CCol> */}
 
         <CCol col="12" lg="12">
           <CCard>
@@ -328,7 +294,7 @@ const Contacts = () => {
                 itemsPerPage={8}
                 activePage={page}
                 onRowClick={
-                  (item) => history.push(`/contacts/${item.id}`)}
+                  (item) => history.push(`/contacts/${item._id}`)}
                 clickableRows
                 scopedSlots={{
                   //name
@@ -339,7 +305,7 @@ const Contacts = () => {
                           <CCol lg="0" className="p-0 pr-3 d-flex align-items-center pl-2" >
                             <div className="c-avatar ">
                               {/* avatar */}
-                              <img src={item.ZaloAccount?.avatar || item.ViberAccount?.avatar || maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default" />
+                              <img src={item.Account.avatar ? item.Account.avatar : femaleimg} className="c-avatar-img" alt={item.ChatName} height="48" width="48" name="avatar-female-default" />
                             </div>
                           </CCol>
                           <CCol className="p-0 d-flex flex-column">
@@ -357,26 +323,26 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.ChannelType === "Viber" && (
-                          <FontAwesomeIcon
-                            icon={faViber}
-                            className="channel-icon mr-2"
-                            style={{ color: "#665CAC" }}
-                          />
-                        )}
-                        {item.ChannelType === "Zalo" && (
-                          <CIcon
-                            name="zaloIcon"
-                            className="channel-icon mr-2 zalo-icon"
-                          />
-                        )}
-                        {item.ChannelType === "Telegram" && (
-                          <FontAwesomeIcon
-                            icon={faTelegram}
-                            className="channel-icon mr-2"
-                            style={{ color: "#0088cc" }}
-                          />
-                        )}
+                          {item.ChannelType === "Viber" && (
+                            <FontAwesomeIcon
+                              icon={faViber}
+                              className="channel-icon"
+                              style={{ color: "#665CAC" }}
+                            />
+                          )}
+                          {item.ChannelType === "Zalo" && (
+                            <CIcon
+                              name="zaloIcon"
+                              style={{ height: 18, width: 18, }}
+                            />
+                          )}
+                          {item.ChannelType === "Telegram" && (
+                            <FontAwesomeIcon
+                              icon={faTelegram}
+                              className="channel-icon"
+                              style={{ color: "#0088cc" }}
+                            />
+                          )}
                       </CCol>
                     </td>
                   ),
