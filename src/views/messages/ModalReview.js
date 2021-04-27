@@ -20,7 +20,7 @@ import { useState } from "react";
 import { phonePreview } from "src/assets/icons/phone-preview";
 import CIcon from "@coreui/icons-react";
 
-const ReviewMsg = ({ onSubmit }) => {
+const ReviewMsg = ({ onSubmit, message }) => {
   //Modal
   const [large, setLarge] = useState(false);
 
@@ -36,7 +36,7 @@ const ReviewMsg = ({ onSubmit }) => {
             <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
             Review and Send
           </CButton>
-          <CButton color="outline" onClick={onSubmit}>
+          <CButton color="outline" onClick={() => onSubmit("Draft")}>
             Save as Draft
           </CButton>
         </CCol>
@@ -65,7 +65,9 @@ const ReviewMsg = ({ onSubmit }) => {
                     >
                       Channel
                     </CCol>
-                    <CCol className="font-weight-bold">Zalo</CCol>
+                    <CCol className="font-weight-bold">
+                      {message.channel.name}
+                    </CCol>
                   </CCol>
                   <hr />
                   <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
@@ -79,7 +81,11 @@ const ReviewMsg = ({ onSubmit }) => {
                       Included segments
                     </CCol>
                     <CCol className="font-weight-bold">
-                      Subscribed Users, Segment 2 Holoa
+                      {message.segment.check
+                        ? "Subscribed Users"
+                        : message.segment.filter.map((item, index) => {
+                            return <span key={index}>{item}</span>;
+                          })}
                     </CCol>
                   </CCol>
                   <hr />
@@ -108,22 +114,14 @@ const ReviewMsg = ({ onSubmit }) => {
                     <CCol lg="3" className="text-muted">
                       <span>Title</span>
                     </CCol>
-                    <CCol className="font-weight-bold">
-                      Lorem Ipsum is simply dummy text of the printing
-                    </CCol>
+                    <CCol className="font-weight-bold">{message.title}</CCol>
                   </CCol>
                   <hr />
                   <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
                     <CCol lg="3" className="text-muted">
                       Content
                     </CCol>
-                    <CCol className="font-weight-bold">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book.
-                    </CCol>
+                    <CCol className="font-weight-bold">{message.message}</CCol>
                   </CCol>
                   <hr />
                   <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
@@ -132,7 +130,7 @@ const ReviewMsg = ({ onSubmit }) => {
                     </CCol>
                     <CCol className="font-weight-bold">
                       <CImg
-                        src={Imagedemo}
+                        src={message.filePath}
                         height="80"
                         width="80"
                         className="rounded"
@@ -148,7 +146,7 @@ const ReviewMsg = ({ onSubmit }) => {
                       className="font-weight-bold"
                       style={{ cursor: "pointer", color: "#007BFF" }}
                     >
-                      https://fontawesome.com/icons?d=gallery&p=2&q=send
+                      {message.link}
                     </CCol>
                   </CCol>
                 </CCol>
@@ -163,7 +161,9 @@ const ReviewMsg = ({ onSubmit }) => {
                       Start sending
                     </CCol>
                     <CCol className="font-weight-bold">
-                      Friday, April 16, 2021 12:20 AM UTC+07:00 (in 6 days)
+                      {message.schedule.check
+                        ? "Send right away"
+                        : message.schedule.filter}
                     </CCol>
                   </CCol>
                 </CCol>
@@ -174,7 +174,12 @@ const ReviewMsg = ({ onSubmit }) => {
             <CButton color="ghost" onClick={() => setLarge(!large)}>
               Make changes
             </CButton>
-            <CLink to="/messages/MessagesReport">
+            <CLink
+              to="/messages/MessagesReport"
+              onClick={() =>
+                onSubmit(message.schedule.check ? "OneTime" : "Schedule")
+              }
+            >
               <CButton color="primary">Send Message</CButton>
             </CLink>
           </CModalFooter>

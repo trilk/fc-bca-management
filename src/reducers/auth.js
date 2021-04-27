@@ -5,20 +5,21 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SIDEBAR_SHOW,
-  CHANGE_LANGUAGE
+  CHANGE_LANGUAGE,
+  CHANNELS,
 } from "../actions/types";
 
 const initialState = {
-  sidebarShow: 'responsive',
+  sidebarShow: "responsive",
   isAuthenticated: false,
   user: {},
-  role: 'admin',
-  lang: 'vi',
-  loading: false
+  role: "admin",
+  lang: "vi",
+  loading: false,
+  channels: [],
 };
 
 export default function (state = initialState, action) {
-
   switch (action.type) {
     case REGISTER_SUCCESS:
       return {
@@ -51,12 +52,17 @@ export default function (state = initialState, action) {
     case SIDEBAR_SHOW:
       return {
         ...state,
-        sidebarShow: action.payload
+        sidebarShow: action.payload,
       };
     case CHANGE_LANGUAGE:
       return {
         ...state,
-        lang: action.payload
+        lang: action.payload,
+      };
+    case CHANNELS:
+      return {
+        ...state,
+        channels: action.payload,
       };
     default:
       return state;
