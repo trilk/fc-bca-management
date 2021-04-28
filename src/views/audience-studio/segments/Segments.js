@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faProjectDiagram, faChartPie, faAsterisk, } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faProjectDiagram, faChartPie, faAsterisk, faArchive, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 // import Avatar from 'react-avatar';
 import './segments.scss'
@@ -35,6 +35,7 @@ import {
     CLink,
 } from '@coreui/react'
 import segmentData from './segmentData'
+import CreateSegments from './CreateSegment'
 
 const getBadge = status => {
     switch (status) {
@@ -53,10 +54,6 @@ const getDefaultSegments = defaultSegment => {
         case 'noDefault': return false
     }
 }
-const placements = [
-    'top'
-]
-
 const Segments = () => {
 
     const [large, setLarge] = useState(false)
@@ -69,10 +66,10 @@ const Segments = () => {
                         <CCardBody>
                             <CCol className="d-flex flex-lg-row flex-md-row flex-sm-row flex-column pb-4 p-0">
                                 <div className="d-flex flex-row pb-3">
-                                        <div className="filter">
-                                            <div className="line-active"></div>
-                                            <CButton variant="ghost">All</CButton>
-                                        </div>
+                                    <div className="filter">
+                                        <div className="line-active"></div>
+                                        <CButton variant="ghost">All</CButton>
+                                    </div>
                                     <div className="filter">
                                         {/* <div className="line-active"></div> */}
                                         <CButton variant="ghost">Active</CButton>
@@ -132,15 +129,6 @@ const Segments = () => {
                                     'createby':
                                         (item) => (
                                             <td>
-                                                {/* <CCol className="pl-4">
-                                                    <div className="c-avatar d-flex justify-content-center">
-                                                        <CImg
-                                                            src={'avatars/6.jpg'}
-                                                            className="c-avatar-img"
-                                                            alt="admin@bootstrapmaster.com"
-                                                        />
-                                                    </div>
-                                                </CCol> */}
                                                 <span>{item.createby}</span>
                                             </td>
                                         ),
@@ -185,128 +173,8 @@ const Segments = () => {
                 </CCol>
             </CRow>
             {/* modal create segment */}
-            <CModal
-                show={large}
-                onClose={() => setLarge(!large)}
-                size="lg"
-            >
-                <CModalHeader closeButton>
-                    <CModalTitle>Create Segment</CModalTitle>
-                </CModalHeader>
-                <CModalBody>
-                    <CRow>
-                        {/* header */}
-                        <CCol col="12" lg="12" className="d-flex flex-row bd-highlight segment-header">
-                            <CCol lg="0" className="pl-2 mr-2">
-                                <FontAwesomeIcon icon={faTag} />
-                            </CCol>
-                            <CCol className="p-0 pl-2 pr-2">
-                                <CFormGroup>
-                                    <CLabel htmlFor="name" className="form-control-label">Segmnet Name <span style={{ color: '#cd384a' }}>*</span></CLabel>
-                                    <CInput id="name" placeholder="Enter your name" required />
-                                </CFormGroup>
-                            </CCol>
-                            <CCol className="pr-0">
-                                {/* <CCol className="p-0"> */}
-                                <h6 className="d-flex justify-content-end light-color"><strong>Total users</strong></h6>
-                                <h3 className="d-flex justify-content-end">Pending</h3>
-                                {/* </CCol> */}
-                            </CCol>
-                        </CCol>
-                        {/* Filter */}
-                        <CCol col="12">
-                            <CCol className="p-2 pt-4">
-                                <CCol className="pl-0 d-flex flex-row bd-highlight d-flex align-items-center">
-                                    <FontAwesomeIcon icon={faFilter} className="mr-2 mb-2 mr-3" />
-                                    <h4>Filter</h4>
-                                </CCol>
-                                <hr />
-                            </CCol>
-                        </CCol>
-                        {/* channel type */}
-                        <CCol lg="12" className="d-flex flex-row bd-highlight">
-                            <CCol lg="0" className="pl-2 mr-2">
-                                <FontAwesomeIcon icon={faDatabase} />
-                            </CCol>
-                            <CCol className="pl-0">
-                                <CCol className="pl-2" >
-                                    <CLabel htmlFor="name" className="form-control-label">Channel type</CLabel>
-                                </CCol>
-                                <CCol className="pl-2 pb-3">
-                                    <CFormGroup variant="custom-checkbox" inline className="pr-2 pt-1">
-                                        <CInputCheckbox custom id="inline-checkbox2" name="inline-checkbox2" value="option2" />
-                                        <CLabel variant="custom-checkbox" htmlFor="inline-checkbox2">Zalo</CLabel>
-                                    </CFormGroup>
-                                    <CFormGroup variant="custom-checkbox" inline>
-                                        <CInputCheckbox custom id="inline-checkbox3" name="inline-checkbox3" value="option3" />
-                                        <CLabel variant="custom-checkbox" htmlFor="inline-checkbox3">Viber</CLabel>
-                                    </CFormGroup>
-                                </CCol>
-                                <hr />
-                            </CCol>
-                        </CCol>
-                        {/* filter age */}
-                        <CCol col="12" lg="12" className="d-flex flex-row bd-highlight">
-                            <CCol lg="0" className="pl-2 mr-2">
-                                <FontAwesomeIcon icon={faExchangeAlt} />
-                            </CCol>
-                            <CCol className="pl-0">
-                                <CCol className="pl-2">
-                                    <CLabel htmlFor="name" className="form-control-label">Age Range</CLabel>
-                                </CCol>
-                                <CCol className="pr-0 pb-1">
-                                    <CFormGroup row >
-                                        <CCol className="p-0 pl-2 pr-2">
-                                            <CLabel htmlFor="district" className="form-control-label item-label light-color">Age from</CLabel>
-                                            <CSelect custom name="select" id="select">
-                                                <option value="0">select..</option>
-                                                <option value="1">Option #1</option>
-                                                <option value="2">Option #2</option>
-                                                <option value="3">Option #3</option>
-                                            </CSelect>
-                                        </CCol>
-                                        <CCol>
-                                            <CLabel htmlFor="ward" className="form-control-label item-label light-color">To</CLabel>
-                                            <CSelect custom name="select" id="select">
-                                                <option value="0">select..</option>
-                                                <option value="1">Option #1</option>
-                                                <option value="2">Option #2</option>
-                                                <option value="3">Option #3</option>
-                                            </CSelect>
-                                        </CCol>
-                                    </CFormGroup>
-                                </CCol>
-                                <hr />
-                            </CCol>
-                        </CCol>
-                        {/* filter gender */}
-                        <CCol col="12" lg="12" className="d-flex flex-row bd-highlight">
-                            <CCol lg="0" className="pl-2 mr-2">
-                                <FontAwesomeIcon icon={faUserTag} />
-                            </CCol>
-                            <CCol className="pl-0">
-                                <CCol className="pl-2">
-                                    <CLabel htmlFor="name" className="form-control-label">Gender</CLabel>
-                                </CCol>
-                                <CCol className="pt-1 pr-0 pb-1">
-                                    <CFormGroup variant="custom-checkbox" inline className="pr-2 pt-1">
-                                        <CInputCheckbox custom id="inline-checkbox2" name="inline-checkbox2" value="option2" />
-                                        <CLabel variant="custom-checkbox" htmlFor="inline-checkbox2">Male</CLabel>
-                                    </CFormGroup>
-                                    <CFormGroup variant="custom-checkbox" inline>
-                                        <CInputCheckbox custom id="inline-checkbox3" name="inline-checkbox3" value="option3" />
-                                        <CLabel variant="custom-checkbox" htmlFor="inline-checkbox3">Female</CLabel>
-                                    </CFormGroup>
-                                </CCol>
-                            </CCol>
-                        </CCol>
-                    </CRow>
-                </CModalBody>
-                <CModalFooter>
-                    <CButton color="outline" onClick={() => setLarge(!large)}>Cancel</CButton>
-                    <CButton color="primary" onClick={() => setLarge(!large)}>Create Segmnet</CButton>{' '}
-                </CModalFooter>
-            </CModal>
+            <CreateSegments show={large} onClose={() => setLarge(false)} onOpen={() => { setLarge(true) }} />
+
         </>
     )
 }
