@@ -174,14 +174,14 @@ const ReviewMsg = ({ onSubmit, message }) => {
             <CButton color="ghost" onClick={() => setLarge(!large)}>
               Make changes
             </CButton>
-            <CLink
-              to="/messages/MessagesReport"
+            <CButton
+              color="primary"
               onClick={() =>
                 onSubmit(message.schedule.check ? "OneTime" : "Schedule")
               }
             >
-              <CButton color="primary">Send Message</CButton>
-            </CLink>
+              Send Message
+            </CButton>
           </CModalFooter>
         </CModal>
       </CCol>

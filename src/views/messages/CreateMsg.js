@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Imagedemo from "./photo/demo.jpeg";
 import {
@@ -42,7 +42,11 @@ import { useSelector } from "react-redux";
 import ChannelService from "../../services/channel.service";
 import MessageService from "../../services/message.service";
 
+import { useHistory } from "react-router-dom";
+
 const CreateMsg = () => {
+  //history routes
+  const history = useHistory();
   // get channels when login
   const channels = useSelector((state) => state.auth.channels);
 
@@ -139,9 +143,16 @@ const CreateMsg = () => {
     }
   };
   const onSubmit = async (type) => {
-    await setMessage({ ...message, type: type });
-    const response = await MessageService.createMessage(message);
-    console.log("response create message", response);
+    let messageData = message;
+    messageData.type = type;
+    MessageService.createMessage(messageData)
+      .then((response) => {
+        const { messageId } = response.data;
+        return history.push(`/messages/${messageId}`);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
   return (
