@@ -1,56 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUsersCog,
-  faUsers,
-  fabViber,
-  faChessQueen,
-  faFacebookMessenger,
-  faEye,
-  faEdit,
   faPen,
-  faPause,
   faCopy,
-  faEllipsisV,
-  faPlus,
-  faPlusCircle,
-  faChevronCircleDown,
   faSortDown,
-  faClone,
-  faCircle,
-  faTag,
-  faFilter,
-  faUserCircle,
-  faUser,
-  faDatabase,
-  faHamburger,
-  faVenusMars,
-  faIdBadge,
-  faMinus,
-  faExchangeAlt,
-  faTrash,
-  faUserTag,
-  faCheck,
   faTimes,
-  faUserFriends,
-  faFileImport,
-  faUserPlus,
-  faEnvelope,
   faChartLine,
   faPaperPlane,
-  faEnvelopeOpenText,
-  faCommentSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./messages.scss";
 import {
   CCardBody,
   CRow,
-  CCardHeader,
-  CAlert,
   CDropdown,
   CProgress,
   CDropdownToggle,
-  CBadge,
   CDropdownMenu,
   CDropdownItem,
   CButton,
@@ -60,28 +24,54 @@ import {
   CImg,
   CDropdownDivider,
 } from "@coreui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Imagedemo from "./photo/demo.jpeg";
-import { CChartPie, CChartBar } from "@coreui/react-chartjs";
-import ChartBarSimple from "../charts/ChartBarSimple";
-import ChannelStatistic from "../charts/ChannelStatistis";
+
+//lodash
+import _ from "lodash";
 
 import { useParams } from "react-router-dom";
 
 //api
 import MessageService from "../../services/message.service";
-const MessageReport = () => {
-  const { id } = useParams();
-  const [visible, setVisible] = React.useState(10);
 
-  //get detail message by id
+//redux
+import { useSelector } from "react-redux";
+
+// helpers
+import { convert_day_hours_minute } from "../../helpers/convertdate";
+import {
+  faFantasyFlightGames,
+  faFly,
+} from "@fortawesome/free-brands-svg-icons";
+
+const MessageReport = () => {
+  const [messageDetail, setMessageDetail] = useState({});
+  const { id } = useParams();
+  //get message detail by id
+
   const getDetailMessageById = async () => {
     const response = await MessageService.getDetailMessageById(id);
-    console.log("response message detail", response);
+    if (response.data.errorCode === 0) {
+      setMessageDetail(response.data.detail);
+    }
+  };
+
+  const onSendMessage = async () => {
+    await MessageService.sendMessage({
+      id: messageDetail._id,
+    }).then((response) => {
+      console.log("response", response);
+    });
   };
   useEffect(() => {
     getDetailMessageById();
   }, []);
+
+  //return
+  if (_.isEmpty(messageDetail)) {
+    return <p>Loading...</p>;
+  }
   return (
     <CRow>
       {/* Begign Title  */}
@@ -92,11 +82,11 @@ const MessageReport = () => {
             <strong>Message Statistics</strong>
           </h4>
           <span style={{ fontSize: 16, fontWeight: 700 }}>
-            Name This Messages
+            {messageDetail.Title}
           </span>
           <span>
-            Started sending at: October 8th 2020, 7:30:57 am UTC +07:00
-            (Completed in: 0.51 seconds){" "}
+            Started create at:{" "}
+            {convert_day_hours_minute(messageDetail.CreateDate)}
           </span>
         </CCol>
         <div className="p-0 ml-auto">
@@ -119,6 +109,14 @@ const MessageReport = () => {
               <CDropdownItem>
                 <FontAwesomeIcon icon={faCopy} className="mr-2" />
                 Duplicate
+              </CDropdownItem>
+              <CDropdownDivider />
+              <CDropdownItem
+                className="primary-color"
+                onClick={() => onSendMessage()}
+              >
+                <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
+                Send
               </CDropdownItem>
               <CDropdownDivider />
               <CDropdownItem className="danger-color">
@@ -276,7 +274,11 @@ const MessageReport = () => {
                         <span>Create By</span>
                       </CCol>
                       <CCol className="font-weight-bold">
-                        <span>Nguyen Van Nam</span>
+                        <span>
+                          {messageDetail.CreateBy.LastName +
+                            " " +
+                            messageDetail.CreateBy.FirstName}
+                        </span>
                       </CCol>
                     </CCol>
                     <hr />
@@ -288,12 +290,12 @@ const MessageReport = () => {
                         xs="12"
                         className="text-muted py-1"
                       >
-                        <span>Sent At</span>
+                        <span>Last Update</span>
                       </CCol>
                       <CCol className="font-weight-bold">
                         <span>
-                          Started sending at: October 8th 2020, 7:30:57 am UTC
-                          +07:00 (Completed in: 0.51 seconds)
+                          Last Update at:{" "}
+                          {convert_day_hours_minute(messageDetail.UpdateDate)}
                         </span>
                       </CCol>
                     </CCol>
@@ -316,7 +318,9 @@ const MessageReport = () => {
                       >
                         Channel
                       </CCol>
-                      <CCol className="font-weight-bold">Zalo</CCol>
+                      <CCol className="font-weight-bold">
+                        {messageDetail.ChannelId.ChannelType}
+                      </CCol>
                     </CCol>
                     <hr />
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
@@ -362,7 +366,7 @@ const MessageReport = () => {
                         <span>Title</span>
                       </CCol>
                       <CCol className="font-weight-bold">
-                        Lorem Ipsum is simply dummy text of the printing
+                        {messageDetail.Title}
                       </CCol>
                     </CCol>
                     <hr />
@@ -371,11 +375,7 @@ const MessageReport = () => {
                         Content
                       </CCol>
                       <CCol className="font-weight-bold">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book.
+                        {messageDetail.ContentOTT}
                       </CCol>
                     </CCol>
                     <hr />
@@ -385,7 +385,7 @@ const MessageReport = () => {
                       </CCol>
                       <CCol className="font-weight-bold">
                         <CImg
-                          src={Imagedemo}
+                          src={messageDetail.Image}
                           height="80"
                           width="80"
                           className="rounded"
@@ -401,7 +401,7 @@ const MessageReport = () => {
                         className="font-weight-bold"
                         style={{ cursor: "pointer", color: "#007BFF" }}
                       >
-                        https://fontawesome.com/icons?d=gallery&p=2&q=send
+                        {messageDetail.Link}
                       </CCol>
                     </CCol>
                   </CCol>
@@ -416,7 +416,7 @@ const MessageReport = () => {
                         Start sending
                       </CCol>
                       <CCol className="font-weight-bold">
-                        Friday, April 16, 2021 12:20 AM UTC+07:00 (in 6 days)
+                        {convert_day_hours_minute(messageDetail.Schedule)}
                       </CCol>
                     </CCol>
                   </CCol>

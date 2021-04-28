@@ -74,43 +74,74 @@ import {
   CLink,
   CDropdownHeader,
 } from "@coreui/react";
-import messageData from "./messageData";
+
+//lodash
+import _ from "lodash";
+
 import { faTelegram, faViber } from "@fortawesome/free-brands-svg-icons";
 
+//api service
+import MessageService from "../../services/message.service";
+
+//redux and actions
+import { useDispatch } from "react-redux";
+import { setMessage } from "../../actions/message";
 const getBadge = (status) => {
   switch (status) {
-    case "Delivered":
-      return "primary";
-    case "Sending":
+    case "Draft":
       return "warning";
-    case "Pause":
-      return "danger";
     default:
-      return "primary";
+      return "success";
   }
 };
 
+//limit page
+const limit = 15;
 const Messages = () => {
+  // history react router
   const history = useHistory();
+
+  //dispatch redux
+  const dispatch = useDispatch();
+
+  //pagination core ui
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
 
-  // const pageChange = newPage => {
-  //     currentPage !== newPage && history.push(`/contacts?page=${newPage}`)
-  // }
-
-  useEffect(() => {
-    currentPage !== page && setPage(currentPage);
-  }, [currentPage, page]);
-
   const pageChange = (newPage) => {
     currentPage !== newPage && history.push(`/messages?page=${newPage}`);
   };
+  //end pagination
 
-  const placements = ["top"];
   //Modal
   const [danger, setDanger] = useState(false);
+
+  // go to message detail
+  const onGetDetail = (item) => {
+    dispatch(setMessage(item));
+    return history.push(`/messages/${item._id}`);
+  };
+
+  //message data
+  const [data, setData] = useState();
+
+  //get all messages
+  const getAllMessage = async () => {
+    const response = await MessageService.getAllMessage(page, limit);
+    if (response.data.errorCode === 0) {
+      setData(response.data.messages);
+    }
+  };
+
+  //effect afert page render
+  useEffect(() => {
+    currentPage !== page && setPage(currentPage);
+    getAllMessage();
+  }, [currentPage, page]);
+  if (_.isNil(data)) {
+    return <></>;
+  }
   return (
     <>
       <CRow>
@@ -312,32 +343,35 @@ const Messages = () => {
                 </CCol>
               </CRow>
               <CDataTable
-                items={messageData}
+                items={data}
                 fields={[
-                  { key: "type", label: "", _style: { width: "1%" } },
+                  { key: "label", label: "", _style: { width: "1%" } },
                   {
                     key: "content",
                     label: "content",
                     _style: { width: "15%" },
                   },
-                  { key: "status", label: "status", _style: { width: "1%" } },
+                  { key: "channel", label: "Channel", _style: { width: "2%" } },
                   {
-                    key: "delivery",
-                    label: "delivery",
+                    key: "type",
+                    label: "type",
                     _style: { width: "1%" },
                   },
-                  { key: "sent", label: "sent", _style: { width: "2%" } },
-                  { key: "sentAt", label: "sent at", _style: { width: "4%" } },
+                  {
+                    key: "createAt",
+                    label: "Create At",
+                    _style: { width: "2%" },
+                  },
                   { key: "action", label: "action", _style: { width: "1%" } },
                 ]}
                 // hover
                 bordered
                 striped
-                itemsPerPage={8}
+                itemsPerPage={limit}
                 activePage={page}
                 clickableRows
                 scopedSlots={{
-                  type: (item) => (
+                  label: (item) => (
                     <td className="p-0">
                       <CCol className="d-flex justify-content-center">
                         <FontAwesomeIcon
@@ -355,7 +389,7 @@ const Messages = () => {
                         className="text-gray-800 tags-text"
                         style={{ fontSize: 15, fontWeight: 700 }}
                       >
-                        Title Of Messages
+                        {item.Title}
                       </span>
                       <div className="py-2">
                         <span
@@ -363,13 +397,15 @@ const Messages = () => {
                           style={{ fontWeight: 600 }}
                           maxLength={100}
                         >
-                          {item.content}
+                          {item.ContentOTT}
                         </span>
                       </div>
                       <CTooltip content={`User Create message`}>
                         <span className="small font-weight-bold text-gray-400">
                           <FontAwesomeIcon icon={faUserEdit} className="mr-2" />
-                          NGUYEN VAN BA
+                          {item.CreateBy.LastName +
+                            " " +
+                            item.CreateBy.FirstName}
                         </span>
                       </CTooltip>
                       {/* <div className="small text-muted">
@@ -382,80 +418,74 @@ const Messages = () => {
                                                 </div> */}
                     </td>
                   ),
-                  //sent
-                  sent: (item) => (
+                  channel: (item) => (
                     <td>
-                      <div>
-                        <span>{item.sent}</span>
-                        <br />
-                      </div>
-                      <div className="small text-muted">
-                        <span>Users recieved Message</span>
-                      </div>
-                    </td>
-                  ),
-                  // delivery
-                  delivery: (item) => (
-                    <td>
-                      <CCol className="p-0">
-                        {item.delivery.includes("delivered") && (
-                          <div className="d-flex flex-column">
-                            <span className="pb-1">100%</span>
-                            <CProgress
-                              color="info"
-                              value={100}
-                              className="delivery-progress"
-                              size="sm"
-                            />
-                          </div>
+                      <CCol className="p-2 d-flex flex-row bd-highlight">
+                        {/* channels icon */}
+                        {item.ChannelId.ChannelType === "Viber" && (
+                          <FontAwesomeIcon
+                            icon={faViber}
+                            className="channel-icon"
+                            style={{ color: "#665CAC" }}
+                          />
                         )}
-                        {item.delivery.includes("sending") && (
-                          <div className="d-flex flex-column">
-                            <span className="pb-1">90%</span>
-                            <CProgress
-                              animated
-                              color="warning"
-                              value={90}
-                              className="delivery-progress"
-                              size="sm"
-                            />
-                          </div>
+                        {item.ChannelId.ChannelType === "Zalo" && (
+                          <CIcon
+                            name="zaloIcon"
+                            style={{ height: 18, width: 18 }}
+                          />
                         )}
-                        {item.delivery.includes("pause") && (
-                          <div className="d-flex flex-column">
-                            <span className="pb-1">10%</span>
-                            <CProgress
-                              color="danger"
-                              value={10}
-                              size="sm"
-                              className="delivery-progress"
-                            />
-                          </div>
+                        {item.ChannelId.ChannelType === "Telegram" && (
+                          <FontAwesomeIcon
+                            icon={faTelegram}
+                            className="channel-icon"
+                            style={{ color: "#0088cc" }}
+                          />
                         )}
                       </CCol>
                     </td>
                   ),
+                  //creat at
+                  createAt: (item) => (
+                    <td>
+                      <div>
+                        <span>{item.CreateDate}</span>
+                        <br />
+                      </div>
+                      <div className="small text-muted">
+                        <span>Create at</span>
+                      </div>
+                    </td>
+                  ),
+                  //delivery
+                  //   delivery: (item) => (
+                  //     <td>
+                  //       <CCol className="p-0">
+                  //         <div className="d-flex flex-column">
+                  //           <span className="pb-1">100%</span>
+                  //           <CProgress
+                  //             color="info"
+                  //             value={100}
+                  //             className="delivery-progress"
+                  //             size="sm"
+                  //           />
+                  //         </div>
+                  //       </CCol>
+                  //     </td>
+                  //   ),
                   //
-                  // Trạng thái
-                  status: (item) => (
+
+                  //message type
+                  type: (item) => (
                     <td>
                       <CCol className="p-0">
                         <CBadge
                           className="badge-status mt-2"
-                          color={getBadge(item.status)}
+                          color={getBadge(item.Type)}
                         >
-                          {item.status}
+                          {item.Type}
                         </CBadge>
                       </CCol>
-                    </td>
-                  ),
-                  segments: (item) => (
-                    <td>
-                      <div>
-                        <span className="tags-text" maxLength={100}>
-                          {item.segments}
-                        </span>
-                      </div>
                     </td>
                   ),
                   //button action
@@ -469,11 +499,9 @@ const Messages = () => {
                           />
                         </CDropdownToggle>
                         <CDropdownMenu>
-                          <CDropdownItem>
-                            <CLink to={`/messages/${item._id}`}>
-                              <FontAwesomeIcon icon={faEye} className="mr-2" />
-                              View details
-                            </CLink>
+                          <CDropdownItem onClick={() => onGetDetail(item)}>
+                            <FontAwesomeIcon icon={faEye} className="mr-2" />
+                            View details
                           </CDropdownItem>
                           <CDropdownItem>
                             {/* Edit message wwith message draft and schedule */}

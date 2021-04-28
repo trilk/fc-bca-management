@@ -14,6 +14,9 @@ class MessageService {
   createMessage(message) {
     return axiosInstance.post("/api/message/create", message);
   }
+  sendMessage(message) {
+    return axiosInstance.post("/api/message/send", message);
+  }
 }
 
 export default new MessageService();
