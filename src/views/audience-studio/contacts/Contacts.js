@@ -121,9 +121,9 @@ const Contacts = () => {
                     <CCol className="p-0">
                       <div className="d-flex align-items-center"><FontAwesomeIcon icon={faMobileAlt} className="mr-2" /><span style={{ fontSize: 18 }}>Channels</span></div>
                     </CCol>
-                    <CCol className="pt-3 pl-0 flex-">
+                    <CCol className="pl-0 flex-">
                       {/* Box channnels */}
-                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-2">
+                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-3 my-3">
                         <span className="d-flex justify-content-">
                           Zalo
                         </span>

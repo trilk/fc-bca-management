@@ -107,24 +107,12 @@ const ContactDetails = () => {
                       </CCol>
                     </CCol>
                     <CCol className="d-flex p-0 justify-content-center">
-                      {/* <CCol className="border rounded border-dashed mr-lg-2 mr-md-3 mr-sm-3 p-0 mb-3">
-                        <CCol className="d-flex flex-column py-2">
-                          <span style={{ fontSize: 16, fontWeight: 700 }} className="d-flex align-items-center">1.009 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
-                          <span className="text-muted small">Messages </span>
-                        </CCol>
-                      </CCol> */}
-                      <CCol className="border rounded border-dashed mb-3" xl={5} lg={5} md={5} sm={6} xs={12} >
+                      <CCol className="border rounded border-dashed mb-3" xxl={6} xl={6} lg={6} md={6} sm={8} xs={12} >
                         <CCol className="d-flex flex-column py-2 p-0">
-                          <span style={{ fontSize: 24, fontWeight: 700 }} className="d-flex align-items-center pb-1">1.009 <FontAwesomeIcon style={{ height: 10, width: 10, color: '#28A745' }} icon={faArrowUp} className="ml-auto" /></span>
-                          <span className="text-muted small">Messages Delivered</span>
+                          <span style={{ fontSize: 24, fontWeight: 700 }} className="d-flex align-items-center pb-1 justify-content-center">1.009</span>
+                          <span className="text-muted small d-flex justify-content-center">Messages Delivered</span>
                         </CCol>
                       </CCol>
-                      {/* <CCol className="border rounded border-dashed p-0 mb-3">
-                        <CCol className="d-flex flex-column py-2">
-                          <span style={{ fontSize: 16, fontWeight: 700 }} className="d-flex align-items-center">12 <FontAwesomeIcon style={{ height: 10, width: 10, }} icon={faArrowDown} className="ml-auto danger-color" /></span>
-                          <span className="text-muted small">Failed</span>
-                        </CCol>
-                      </CCol> */}
                     </CCol>
                   </CCol>
                   {/* end user avatar and more */}
