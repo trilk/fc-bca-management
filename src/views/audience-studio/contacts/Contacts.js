@@ -63,7 +63,6 @@ const Contacts = () => {
   const getAllAudience = async (page, limit) => {
     const response = await AudienceService.getAllAudience(page, limit);
     if (response.data.errorCode === 0) {
-      console.log("response data", response.data);
       setData(response.data.contacts);
     }
   };
@@ -81,11 +80,8 @@ const Contacts = () => {
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
     getAllAudience(currentPage, limitpage);
-  }, [currentPage, page, channelDropdown]);
+  }, [currentPage, page, channelDropdown, data]);
   //end pagination
-  if (_.isNil(data)) {
-    return <></>;
-  }
   return (
     <>
       <CRow>
@@ -126,7 +122,7 @@ const Contacts = () => {
                         <span style={{ fontSize: 18 }}>Channels</span>
                       </div>
                     </CCol>
-                    <CCol className="pt-3 pl-0 flex-">
+                    <CCol className="pl-0 flex-">
                       {/* Box channnels */}
                       <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-2">
                         <span className="d-flex justify-content-">Zalo</span>

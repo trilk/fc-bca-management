@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faProjectDiagram, faChartPie, faAsterisk, faArchive, } from '@fortawesome/free-solid-svg-icons'
+import { faUsersCog, faUsers, faChessQueen, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faProjectDiagram, faChartPie, faAsterisk, faArchive, faMobileAlt, faMapMarkedAlt, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 // import Avatar from 'react-avatar';
 import './segments.scss'
@@ -118,9 +118,10 @@ const Segments = () => {
                                                         <span>Create Date: {item.createDate}</span>
                                                     </div>
                                                     <div className=" pl-0 pt-2 d-flex flex-column bd-highlight">
-                                                        {item.filter.includes("ageRange") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faExchangeAlt} className="mr-2" />Age Range 30 - 35 years old</strong>}
-                                                        {item.filter.includes("channelsType") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Gender is Male</strong>}
-                                                        {item.filter.includes("gender") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faDatabase} className="mr-2" />Channel Type is Zalo</strong>}
+                                                        {item.filter.includes("ageRange") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faUserCircle} className="mr-2" />Age Range 30 - 35 years old</strong>}
+                                                        {item.filter.includes("channelsType") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faVenusMars} className="mr-2" />Gender is Male</strong>}
+                                                        {item.filter.includes("gender") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faMobileAlt} className="mr-2" />Channel Type is Zalo</strong>}
+                                                        {item.filter.includes("Area") && <strong className="segment-lb pb-1 light-color"><FontAwesomeIcon icon={faMapMarkedAlt} className="mr-2" />Channel Type is Zalo</strong>}
                                                     </div>
                                                 </CCol>
                                             </td>
