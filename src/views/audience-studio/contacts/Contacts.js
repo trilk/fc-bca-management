@@ -80,7 +80,7 @@ const Contacts = () => {
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
     getAllAudience(currentPage, limitpage);
-  }, [currentPage, page, channelDropdown, data]);
+  }, [currentPage, page, channelDropdown]);
   //end pagination
   return (
     <>
