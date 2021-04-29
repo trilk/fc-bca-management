@@ -313,7 +313,7 @@ const ContactDetails = () => {
                               </div>
                               <CCol className="p-0 d-flex flex-column">
                                 <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                  {detail.ChannelId.ChannelType}
+                                  {detail.ChannelId.ChannelName}
                                 </span>
                                 <span className="text-muted small pt-1">
                                   <strong>Name:</strong> {detail.ChatName}

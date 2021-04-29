@@ -204,7 +204,7 @@ const CreateMsg = () => {
               <CCol className="p-0 pt-3" lg="2">
                 <CLabel htmlFor="segments">
                   <span style={{ fontWeight: 600, fontSize: 14 }}>
-                    Template
+                    Segmnets
                   </span>{" "}
                   <span className="danger-color pl-1">*</span>
                 </CLabel>
