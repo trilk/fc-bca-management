@@ -14,9 +14,8 @@ import {
 } from "./types";
 import { MESSAGES } from './../utils/_constants'
 
-
 // Register User
-export const registerUser = (userData) => dispatch => {
+export const registerUser = (userData) => (dispatch) => {
   return AuthService.register(userData).then(
     (response) => {
       dispatch({
@@ -50,10 +49,9 @@ export const registerUser = (userData) => dispatch => {
       return Promise.reject();
     }
   );
-
 };
 // Login - get user token
-export const login = userData => dispatch => {
+export const login = (userData) => (dispatch) => {
   return AuthService.login(userData).then(
     (res) => {
       // Save to localStorage
@@ -95,7 +93,7 @@ export const login = userData => dispatch => {
 };
 
 // Log user out
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
   // Remove token from local storage
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
@@ -103,7 +101,7 @@ export const logout = () => dispatch => {
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch({
     type: LOGOUT,
-    payload: null
+    payload: null,
   });
 
   // Redirect to login
@@ -114,8 +112,6 @@ export const logout = () => dispatch => {
 export const setUser = (type, data) => {
   return {
     type: type,
-    payload: data
+    payload: data,
   };
 };
-
-

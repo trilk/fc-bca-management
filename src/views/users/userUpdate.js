@@ -130,11 +130,11 @@ const UserUpdate = () => {
                                     </CCol>
                                     <CCol className="pb-1 p-0">
                                         <CFormGroup variant="custom-radio" inline className="pb-2">
-                                            <CInputRadio custom id="inline-radio4" name="inline-radios" checked={role == 'Admin' ? true : false} onChange={() => { setRole("Admin") }} />
+                                            <CInputRadio custom id="inline-radio4" name="inline-radios" checked={role === 'Admin' ? true : false} onChange={() => { setRole("Admin") }} />
                                             <CLabel variant="custom-checkbox" htmlFor="inline-radio4" className="form-control-label">{t('create-user.lb-admin')}</CLabel>
                                         </CFormGroup>{' '}
                                         <CFormGroup variant="custom-radio" inline>
-                                            <CInputRadio custom id="inline-radio5" name="inline-radios" checked={role == 'Moderator' ? true : false} onChange={() => { setRole("Moderator") }} />
+                                            <CInputRadio custom id="inline-radio5" name="inline-radios" checked={role === 'Moderator' ? true : false} onChange={() => { setRole("Moderator") }} />
                                             <CLabel variant="custom-checkbox" htmlFor="inline-radio5" className="form-control-label">{t('create-user.lb-moderator')}</CLabel>
                                         </CFormGroup>
                                     </CCol>
@@ -179,24 +179,24 @@ const UserUpdate = () => {
                                                                 <span><FontAwesomeIcon icon={faPen} style={{ height: 10, width: 10 }} className="mr-2" /><strong>{t('create-user.td-change')}</strong></span>
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -204,24 +204,24 @@ const UserUpdate = () => {
                                                                 <span><FontAwesomeIcon icon={faFileSignature} style={{ height: 12, width: 12 }} className="mr-2" /><strong>{t('create-user.td-create')}</strong></span>
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                             <td className="text-center">
-                                                                {role == 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
-                                                                {role == 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
+                                                                {role === 'Admin' && <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />}
+                                                                {role === 'Moderator' && <FontAwesomeIcon icon={faBan} className="icon-center icon-color-disable" />}
                                                             </td>
                                                         </tr>
                                                     </tbody>

@@ -29,6 +29,7 @@ import {
 } from '@coreui/react'
 
 import usersData from './UsersData'
+import CIcon from '@coreui/icons-react'
 
 const getBadge = status => {
   switch (status) {
@@ -68,7 +69,7 @@ const Users = () => {
               {/* begin Main Card */}
               <CCol className="p-0 d-flex flex-lg-row flex-md-row flex-sm-row flex-column p-lg-2">
                 <div className="d-flex flex-shrink-0 rounded bg-light w-lg-150px h-lg-150px me-7 mb-4 justify-content-center align-items-center">
-                  <FontAwesomeIcon icon={faLungsVirus} />
+                  <CIcon name="logoBg" height="120" width="120"/>
                 </div>
                 {/* right content */}
                 <CCol className="d-flex flex-lg-row flex-column p-0 pl-lg-3 pl-md-3 pl-sm-3">

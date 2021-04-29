@@ -8,6 +8,9 @@ class AudienceService {
       `/api/contact/list-by-channel-type?page=${page}&limit=${limit}&type=${type}`
     );
   }
+  getDetailById(id) {
+    return axiosInstance.get(`/api/contact/profile/${id}`);
+  }
 }
 
 export default new AudienceService();
