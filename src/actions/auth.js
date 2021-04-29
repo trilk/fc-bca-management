@@ -10,8 +10,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
-  USER_LOADING
+  CLEAR_MESSAGE
 } from "./types";
+import { MESSAGES } from './../utils/_constants'
 
 
 // Register User
@@ -57,28 +58,27 @@ export const login = userData => dispatch => {
     (res) => {
       // Save to localStorage
       // Set token to localStorage
-      const token = res.token;
+      const token = res.accessToken;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
-      const decoded = jwt_decode(token);
+      const userInfo = jwt_decode(token);
 
       // Set current user
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: decoded
+        payload: userInfo
       });
+
+      dispatch({ type: CLEAR_MESSAGE });
 
       return Promise.resolve();
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      let message = (error.response && error.response.data && error.response.data.message) || MESSAGES.UNKNOW_ERROR;
+
+      message = message === MESSAGES.UNKNOW_ERROR ? 'common.' + message : 'login.' + message;
 
       dispatch({
         type: LOGIN_FAIL,

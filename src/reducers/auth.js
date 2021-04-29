@@ -11,8 +11,8 @@ import {
 const initialState = {
   sidebarShow: 'responsive',
   isAuthenticated: false,
-  user: {},
-  role: 'admin',
+  user: null,
+  channels: [],
   lang: 'vi',
   loading: false
 };
@@ -34,19 +34,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        user: action.payload
       };
     case LOGIN_FAIL:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
+        channels: []
       };
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
+        channels: []
       };
     case SIDEBAR_SHOW:
       return {

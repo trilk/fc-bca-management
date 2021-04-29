@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import i18n from './../i18n'
 
-export const getNavs = (role) => {
-  const isAdmin = role === 'admin';
+export const getNavs = (isAdmin) => {
 
   const _nav = [
     {

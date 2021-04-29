@@ -1,4 +1,8 @@
 {
+    "common": {
+        "msg_unknow_error": "Unknow error occurs. Please try again later.",
+        "home": "Dashboard"
+    },
     "login": {
         "title": "LOGIN",
         "description": "Sending OTT messages system",
@@ -7,7 +11,8 @@
         "bt-register": "Register",
         "bt-login": "Login",
         "msg-error-title": "Login fail",
-        "msg-error": "Cannot login to system. Please check your email and password again.",
+        "msg_not_found": "Cannot login to system. User not found.",
+        "msg_invalid_password": "Cannot login to system. Invalid password.",
         "lb-check-login": "Remember login",
         "bt-forget-password": "Forget password"
     },

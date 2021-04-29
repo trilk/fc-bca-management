@@ -5,34 +5,28 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CForm,
   CCol,
-  CButton,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
   CLink,
   CImg,
-  CInput,
-  CLabel,
   CDropdownDivider,
-  CPopover
+  CRow
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
 import { logout } from 'src/actions/auth'
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faSearch, faSortDown, faTimesCircle, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+
+import { setFullName } from './../utils/_common'
 
 const TheHeaderDropdown = () => {
+  const history = useHistory();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const userName = useSelector(state => state.auth.user.data.name);
-  const history = useHistory();
+  const user = useSelector(state => state.auth.user);
+  const lang = useSelector(state => state.auth.lang);
+  const fullName = setFullName(user.firstName, user.lastName, lang);
 
   const userLogout = () => {
     dispatch(logout());
@@ -42,8 +36,6 @@ const TheHeaderDropdown = () => {
   const pageNavigate = (page) => {
     history.push('/' + page);
   }
-  const [show, setShow] = useState(false)
-  const closeModalHandler = () => setShow(false)
 
   return (
     <CDropdown
@@ -56,77 +48,61 @@ const TheHeaderDropdown = () => {
           <CImg
             src={'avatars/6.jpg'}
             className="c-avatar-img"
-            alt="admin@bootstrapmaster.com"
           />
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-2 mt-2" placement="bottom-end">
-        <CCol>
-          <CCol className="d-flex flex-row p-0 pr-5 py-2">
-            <div className="c-avatar-dropdown mr-3">
-              <CImg
-                src={'avatars/6.jpg'}
-                className="c-avatar-bg"
-                alt="admin@bootstrapmaster.com"
-              />
-            </div>
-            <CLink to="/profile">
+        <CDropdownItem href="#/profile">
+          <CRow>
+            <CCol className="d-flex flex-row p-0 pr-5 py-2">
+              <div className="c-avatar-dropdown mr-3">
+                <CImg
+                  src={'avatars/6.jpg'}
+                  className="c-avatar-bg"
+                />
+              </div>
               <div className="d-flex flex-column bd-highlight">
                 <span style={{ fontSize: 16 }}>
-                  <strong>{userName}</strong>
-                  <CBadge color="primary" className="small ml-2">Admin</CBadge>
+                  <strong>{fullName}</strong>
+                  {/* <CBadge color="primary" className="small ml-2">{user.role}</CBadge> */}
                 </span>
-                <span className="light-color font-weight-bold">admin@gmail.com</span>
+                <span className="light-color">{user.username}</span>
               </div>
-            </CLink>
-          </CCol>
-        </CCol>
-        <CDropdownDivider />
-        <CDropdownItem className="menu-item py-1">
-          <CLink to="/profile" className=" py-1 d-flex bd-highlight align-items-center">
-            <div className="icon-drop mr-3 ml-3">
-              <FontAwesomeIcon icon={faUser} style={{ color: '#1bc5bd' }} />
-            </div>
-            <div>
-              <span style={{ fontWeight: 600, }} className="d-flex justify-content-start">{t('user-topmenu.item-profile-info')}</span>
-              <span style={{ fontWeight: 400, }} className="text-muted small">Account Info and more</span>
-            </div>
-          </CLink>
+            </CCol>
+          </CRow>
         </CDropdownItem>
-        <CDropdownItem className="menu-item py-1" onClick={() => pageNavigate("user-settings")}>
-          <div className="py-1 d-flex bd-highlight align-items-center pl-3">
-            <div className="icon-drop mr-3 ml-0">
-              <FontAwesomeIcon icon={faCog} style={{ color: '#ffa800' }} />
+        <CDropdownDivider />
+        <CDropdownItem className="pl-0 py-2" href="#/profile">
+          <div className="d-flex py-1">
+            <div className="mr-3 ml-3">
+              <FontAwesomeIcon icon={faUser} size='lg' />
             </div>
             <div>
-              <span style={{ fontWeight: 600, }} className="d-flex justify-content-start">{t('user-topmenu.item-setting')}</span>
-              <span style={{ fontWeight: 400, }} className="text-muted small">Account Setting</span>
+              <span className="d-flex justify-content-start">{t('user-topmenu.item-profile-info')}</span>
             </div>
           </div>
         </CDropdownItem>
-        <CDropdown className="py-1">
-          <CDropdownToggle size="lg" block className="d-flex align-items-center lang-chang">
-            <div className="menu-item d-flex bd-highlight align-items-center ">
-              <div className="icon-drop mr-3 ml-3">
-                <CIcon name="enFlat" className="flat-lang" />
-              </div>
-              <div>
-                <span style={{ fontWeight: 600, }} className="d-flex justify-content-start">English</span>
-                <span style={{ fontWeight: 400, }} className="text-muted small">Account Setting</span>
-              </div>
+        <CDropdownItem className="pl-0 py-2" onClick={() => pageNavigate("user-settings")}>
+          <div className="d-flex py-1">
+            <div className="mr-3 ml-3">
+              <FontAwesomeIcon icon={faCog} size='lg' />
             </div>
-          </CDropdownToggle>
-          <CForm>
-            <CDropdownMenu className="mt-2" placement="left-start" block>
-              <CDropdownItem><CIcon name="enFlat" className="flat-lang mr-3"/>English</CDropdownItem>
-              <CDropdownItem><CIcon name="viFlat" className="flat-lang mr-3"/>Vietnamese</CDropdownItem>
-            </CDropdownMenu>
-          </CForm>
-        </CDropdown>
+            <div>
+              <span className="d-flex justify-content-start">{t('user-topmenu.item-setting')}</span>
+            </div>
+          </div>
+        </CDropdownItem>
         <CDropdownItem divider />
-        <CCol onClick={userLogout}>
-          <CButton color="secondary">{t('user-topmenu.item-logout')}</CButton>
-        </CCol>
+        <CDropdownItem className="pl-0 py-2" onClick={userLogout}>
+          <div className="d-flex py-1">
+            <div className="mr-3 ml-3">
+              <FontAwesomeIcon icon={faSignOutAlt} size='lg' />
+            </div>
+            <div>
+              <span>{t('user-topmenu.item-logout')}</span>
+            </div>
+          </div>
+        </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
   )

@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import femaleimg from './avatar/female.jpg'
-import maleimg from './avatar/male.jpg'
-import avatarBlank from './avatar/blank.png'
+import React, { useState } from 'react'
 import './users.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, faPlusCircle, faEllipsisV, faEye, faPen, faSortDown, faChessQueen, faUser, faMapMarkerAlt, faAt, faArrowUp, faArrowDown, faUserShield, faInfo, faQuestionCircle, faCheckCircle, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faMapMarkerAlt, faAt, faArrowUp, faArrowDown, faUserShield, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 import {
   CBadge,
   CButton,
@@ -15,7 +11,6 @@ import {
   CModalBody,
   CTooltip,
   CLabel,
-  CCardFooter,
   CInput,
   CSelect,
   CModalFooter,
@@ -43,7 +38,6 @@ const Profile = () => {
                     <CImg
                       src={'avatars/6.jpg'}
                       className="avatar-lg"
-                      alt="admin@bootstrapmaster.com"
                     />
                     <span className="c-status bg-success"></span>
                   </div>

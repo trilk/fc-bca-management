@@ -3,12 +3,8 @@ import { axiosInstance } from './axios';
 class AuthService {
     login(userData) {
         return axiosInstance
-            .post("/api/auth/login", userData)
+            .post("/api/auth/signin", userData)
             .then((response) => {
-                // if (response.data.accessToken) {
-                //     localStorage.setItem("user", JSON.stringify(response.data));
-                // }
-
                 return response.data;
             });
     }

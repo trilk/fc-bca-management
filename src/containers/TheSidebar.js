@@ -21,12 +21,12 @@ import { getNavs } from './_nav'
 const TheSidebar = () => {
   const dispatch = useDispatch()
   const show = useSelector(state => state.auth.sidebarShow);
-  const role = useSelector(state => state.auth.role);
+  const isAdmin = useSelector(state => state.auth.user.isAdmin);
   const language = useSelector(state => state.auth.lang);
-  const [menuItems, setMenuItems] = useState(getNavs(role));
+  const [menuItems, setMenuItems] = useState(getNavs(isAdmin));
 
   useEffect(() => {
-    setMenuItems(getNavs(role));
+    setMenuItems(getNavs(isAdmin));
   }, [language]);
 
   return (

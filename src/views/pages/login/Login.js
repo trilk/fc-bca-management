@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faCommentDots, faUserEdit, faSearch, faLock, } from '@fortawesome/free-solid-svg-icons'
+import { faLock, } from '@fortawesome/free-solid-svg-icons'
 import "./login.scss"
 import {
   CButton,
@@ -16,10 +16,6 @@ import {
   CForm,
   CInput,
   CAlert,
-  CInputGroup,
-  CInputGroupPrepend,
-  CSelect,
-  CInputGroupText,
   CHeaderBrand,
   CRow
 } from '@coreui/react'
@@ -42,8 +38,9 @@ const Login = () => {
   const dispatch = useDispatch();
   // get from store redux
   let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  let language = useSelector(state => state.auth.lang);
-  const [userData, setUserData] = useState({ phone: '', password: '' })
+  const message = useSelector(state => state.message.msgCode);
+  const [userData, setUserData] = useState({ username: '', password: '' });
+  const [showMsg, setShowMessage] = useState(false);
 
   const onChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -62,13 +59,14 @@ const Login = () => {
       isAuthenticated = true;
     });
   };
-  // useEffect(() => {
-  //   console.log("isAuthenticated", isAuthenticated)
-  //   if (isAuthenticated) {
-  //     console.log('Login roi vo day lam chi?');
-  //     history.push('/');
-  //   }
-  // }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (message) {
+      setShowMessage(true);
+    } else {
+      setShowMessage(false);
+    }
+  }, [message]);
 
   if (isAuthenticated) {
     return <Redirect to="/" />
@@ -89,20 +87,20 @@ const Login = () => {
             <CCardGroup>
               <CCard className="pt-0 pb-4 form-login">
                 <CCardBody className="pb-5">
-                  <CForm>
-                    <CRow>
+                  <CForm onSubmit={onSubmit}>
+                    {/* <CRow>
                       <CCol col="6" className="pb-2">
                         <CSelect className='col-md-4 float-right' custom name="select" id="select-lang" defaultValue={language} onChange={value => onLanguageChanged(value)}>
                           <option value="en" >English</option>
                           <option value="vi" >Tieng Viet</option>
                         </CSelect>
                       </CCol>
-                    </CRow>
+                    </CRow> */}
                     <CRow>
                       <CCol col="6">
-                        <CAlert color="danger">
-                          {t('login.msg-error')}
-                        </CAlert>
+                        {showMsg && <CAlert color="danger">
+                          {t(message)}
+                        </CAlert>}
                       </CCol>
                     </CRow>
                     <CRow className="d-flex justify-content-center">
@@ -110,19 +108,19 @@ const Login = () => {
                         <h2 className="title-login mb-3 d-flex justify-content-center ">{t('login.title')}</h2>
                         <h6 className="description mb-4  d-flex justify-content-center">{t('login.description')}</h6>
                       </CCol>
-                    </CRow>                    
-                      <CFormGroup className="form-group2 has-search pb-1">
-                        <span className="form-control-feedback mt-1 ml-2">
-                          <FontAwesomeIcon icon={faPhoneAlt} style={{ height: 18, width: 18 }} />
-                        </span>
-                        <CInput id="" type="text" size="lg" placeholder={t('login.ph-username')} required autoComplete="username" name="phone" className="form-control2" onChange={value => onChange(value)} />
-                      </CFormGroup>
-                      <CFormGroup className="form-group2 has-search pb-2">
-                        <span className="form-control-feedback mt-1 ml-2">
-                          <FontAwesomeIcon icon={faLock} style={{ height: 18, width: 18 }} />
-                        </span>
-                        <CInput id="" type="password" size="lg" placeholder={t('login.ph-password')} required autoComplete="current-password" name="password" className="form-control2" onChange={value => onChange(value)} />
-                      </CFormGroup>
+                    </CRow>
+                    <CFormGroup className="form-group2 has-search pb-1">
+                      <span className="form-control-feedback mt-1 ml-2">
+                        <FontAwesomeIcon icon={faPhoneAlt} style={{ height: 18, width: 18 }} />
+                      </span>
+                      <CInput id="" type="text" size="lg" placeholder={t('login.ph-username')} required autoComplete="username" name="username" className="form-control2" onChange={value => onChange(value)} />
+                    </CFormGroup>
+                    <CFormGroup className="form-group2 has-search pb-2">
+                      <span className="form-control-feedback mt-1 ml-2">
+                        <FontAwesomeIcon icon={faLock} style={{ height: 18, width: 18 }} />
+                      </span>
+                      <CInput id="" type="password" size="lg" placeholder={t('login.ph-password')} required autoComplete="current-password" name="password" className="form-control2" onChange={value => onChange(value)} />
+                    </CFormGroup>
                     {/* check login */}
                     <CRow>
                       <CCol col="3" lg="0" className="pt-0 pr-0 pl-3">
@@ -140,7 +138,7 @@ const Login = () => {
                     </CRow>
                     {/* button login  */}
                     <CCol col="6" lg="0" className="pt-2 pb-2">
-                      <CButton block color="primary" onClick={onSubmit}>{t('login.bt-login')}</CButton>
+                      <CButton block color="primary" type="submit">{t('login.bt-login')}</CButton>
                     </CCol>
                   </CForm>
                 </CCardBody>

@@ -30,20 +30,19 @@ if (localStorage.jwtToken) {
   setAuthToken(token);
 
   // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
+  const userInfo = jwt_decode(token);
+
   // Set user and isAuthenticated
   store.dispatch({
     type: LOGIN_SUCCESS,
-    payload: decoded
+    payload: userInfo
   });
   // Check for expired token
   const currentTime = Date.now() / 1000; // to get in milliseconds
-  if (decoded.exp < currentTime) {
+  if (userInfo.exp < currentTime) {
     // Logout user
     store.dispatch(logout());
 
-    // Redirect to login
-    // window.location.href = "./login";
   }
 }
 

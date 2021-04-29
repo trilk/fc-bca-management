@@ -1,4 +1,8 @@
 {
+    "common": {
+        "msg_unknow_error": "Không thể kết nối tới hệ thống. Xin vui lòng thử lại sau.",
+        "home": "Trang Chủ"
+    },
     "login": {
         "title": "ĐĂNG NHẬP",
         "description": "Hệ thống gửi tin nhắn tự động OTT",
@@ -7,7 +11,8 @@
         "bt-register": "Đăng Ký",
         "bt-login": "Đăng Nhập",
         "msg-error-title": "Đăng nhập thất bại",
-        "msg-error": "Không thể đăng nhập vào hệ thống. Vui lòng kiểm tra lại email hoặc mật khẩu.",
+        "msg_not_found": "Đăng nhập thất bại: Không tìm thấy người dùng.",
+        "msg_invalid_password": "Đăng nhập thất bại: Sai tên đăng nhập hoặc mật khẩu.",
         "lb-check-login": "Ghi nhớ đăng nhập",
         "bt-forget-password": "Quên mật khẩu"
     },
