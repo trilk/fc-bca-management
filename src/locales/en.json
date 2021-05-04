@@ -3,6 +3,16 @@
         "msg_unknow_error": "Unknow error occurs. Please try again later.",
         "home": "Dashboard"
     },
+    "gender": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+    },
+    "role": {
+        "admin": "Administration",
+        "moderator": "Moderator",
+        "user": "Normal user"
+    },
     "login": {
         "title": "LOGIN",
         "description": "Sending OTT messages system",
@@ -12,6 +22,7 @@
         "bt-login": "Login",
         "msg-error-title": "Login fail",
         "msg_not_found": "Cannot login to system. User not found.",
+        "msg_inactive_user": "Cannot login to system. User is inactive.",
         "msg_invalid_password": "Cannot login to system. Invalid password.",
         "lb-check-login": "Remember login",
         "bt-forget-password": "Forget password"
@@ -42,24 +53,26 @@
         "admin-settings": "Settings",
         "item-roles": "Roles"
     },
-    "personal-info": {
-        "title": "Personal info",
+    "profile": {
+        "title": "Personal information",
         "description": "Basic info, like your name address and photo, that you use on System",
-        "lb-detail": "Personal Info",
-        "lb-last-update": "Last update 20/10/2020",
-        "lb-photo": "Photo",
-        "lb-name": "Name",
-        "lb-role": "Role",
-        "lb-status": "Status",
+        "lb-total-msg": "Total messages",
+        "lb-success-msg": "Successful messages",
+        "lb-fail-msg": "Failed messages",
+        "lb-name": "Full name",
         "lb-phone": "Phone",
+        "lb-email": "Email",
+        "lb-dob": "Day of birth",
+        "lb-channel-mng": "Channels",
         "lb-address": "Address",
-        "lb-createdate": "Create Date",
         "lb-gender": "Gender",
-        "lb-male": "Male",
-        "lb-female": "Female",
+        "lb-last-update": "Last updated",
+        "pw-update-msg": "Last updated on {0}",
+        "lb-signin-method": "Sign-in Method",
+        "lb-username": "User Name",
         "lb-password": "Password",
-        "lb-password-update": "Last update 20/10/2020",
-        "btn-update-info": "Update"
+        "btn-change-pw": "Change password",
+        "btn-update-info": "Edit Profile"
     },
     "create-user": {
         "tt-header": "Create New User",

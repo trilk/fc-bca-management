@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './users.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faMapMarkerAlt, faAt, faArrowUp, faArrowDown, faUserShield, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
@@ -22,9 +22,29 @@ import {
   CRow,
 } from '@coreui/react'
 
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import UserService from '../../services/user.service'
+import { setFullName, setAddress } from '../../utils/_common'
+import { GENDER } from '../../utils/_constants'
+
+
 const Profile = () => {
+  const { t } = useTranslation();
+  const user = useSelector(state => state.auth.user);
   const [large, setLarge] = useState(false)
   const [small, setSmall] = useState(false)
+  const [userProfile, setUserProfile] = useState({});
+  const [fullName, setName] = useState('');
+  const [location, setLocation] = useState('')
+
+  useEffect(async () => {
+    const profile = await UserService.getProfile();
+    setUserProfile(profile.data);
+    setName(setFullName(profile.data.firstName, profile.data.lastName));
+    setLocation(setAddress(profile.data.address));
+  }, [])
+
   return (
     <>
       <CRow>
@@ -45,48 +65,48 @@ const Profile = () => {
                 <CCol className="p-0">
                   <CCol className="d-flex flex-row align-items-center p-0">
                     <div className="mr-2 p-0">
-                      <strong style={{ fontSize: 22 }}>Max Smith</strong>
+                      <strong style={{ fontSize: 22 }}>{fullName}</strong>
                     </div>
                     <div className="mr-2">
-                      <CBadge color="light" className="badge-status">
+                      {(user.isAdmin || user.isModerator) && <CBadge color="light" className="badge-status">
                         <FontAwesomeIcon icon={faUserShield} className="mr-2" />
-                        Administration
-                      </CBadge>
+                        {user.isAdmin ? t('role.admin') : 'role.moderator'}
+                      </CBadge>}
                     </div>
                   </CCol>
                   <CCol className="d-flex flex-wrap p-0 pt-1">
                     <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
-                      <FontAwesomeIcon icon={faPhoneAlt} className="mr-2" /><span style={{ fontWeight: 600 }}>0987 8878 88</span>
+                      <FontAwesomeIcon icon={faPhoneAlt} className="mr-2" /><span >{userProfile.username}</span>
                     </div>
-                    <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
-                      <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" /><span style={{ fontWeight: 600 }}>HCM, District 2</span>
-                    </div>
+                    {/* <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
+                      <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" /><span >{location}</span>
+                    </div> */}
                     <div className="text-muted d-flex flex-row align-items-center pb-1">
-                      <FontAwesomeIcon icon={faAt} className="mr-2" /><span style={{ fontWeight: 600 }}>admin@gmail.com</span>
+                      <FontAwesomeIcon icon={faAt} className="mr-2" /><span>{userProfile.email}</span>
                     </div>
                   </CCol>
                   <CCol className="d-flex flex-lg-row flex-column align-items-end p-0 pt-2">
                     <CCol className="pt-3 d-flex flex-lg-row flex-column p-0">
                       <CCol lg="3" className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-2 me-6 mb-3 mr-3" >
                         <div className="d-flex bd-highlight align-items-center">
-                          <FontAwesomeIcon icon={faArrowUp} style={{ height: 10, width: 10, color: '#50cd89' }} className="mr-2" />
+                          <FontAwesomeIcon icon={faArrowUp} color="#50cd89" className="mr-2" />
                           <span style={{ fontSize: 24, fontWeight: 600 }}>12.000</span>
                         </div>
-                        <span className="text-muted small">Total Messages Create</span>
+                        <span className="text-muted small">{t('profile.lb-total-msg')}</span>
                       </CCol>
                       <CCol lg="3" className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-2 me-6 mb-3 mr-3" >
                         <div className="d-flex bd-highlight align-items-center">
-                          <FontAwesomeIcon icon={faArrowUp} style={{ height: 10, width: 10, color: '#50cd89' }} className="mr-2" />
+                          <FontAwesomeIcon icon={faArrowUp} color="#50cd89" className="mr-2" />
                           <span style={{ fontSize: 24, fontWeight: 600 }}>12.000</span>
                         </div>
-                        <span className="text-muted small">Sent Success</span>
+                        <span className="text-muted small">{t('profile.lb-success-msg')}</span>
                       </CCol>
                       <CCol lg="3" className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-2 me-6 mb-3 mr-3" >
                         <div className="d-flex bd-highlight align-items-center">
-                          <FontAwesomeIcon icon={faArrowDown} style={{ height: 10, width: 10, color: '#D9214E' }} className="mr-2" />
+                          <FontAwesomeIcon icon={faArrowDown} color="#D9214E" className="mr-2" />
                           <span style={{ fontSize: 24, fontWeight: 600 }}>100</span>
                         </div>
-                        <span className="text-muted small">Send Failed</span>
+                        <span className="text-muted small">{t('profile.lb-fail-msg')}</span>
                       </CCol>
                     </CCol>
                   </CCol>
@@ -100,49 +120,45 @@ const Profile = () => {
           <CCard>
             <CCardHeader className="">
               <CCol className="d-flex align-items-center p-0">
-                <span className="float-left" style={{ fontSize: 20, fontWeight: 700 }}>Profile Details</span>
-                <CButton color="primary" size="lg" className="ml-auto" onClick={() => setLarge(!large)}>Edit Profile</CButton>
+                <span className="float-left" style={{ fontSize: 20, fontWeight: 700 }}>{t('profile.title')}</span>
+                <CButton color="primary" size="lg" className="ml-auto" onClick={() => setLarge(!large)}>{t('profile.btn-update-info')}</CButton>
               </CCol>
             </CCardHeader>
             <CCardBody>
               <CCol className="py-lg-3 px-lg-3 p-0">
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Full Name</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>Max Smith</span></CCol>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-name')}</CCol>
+                  <CCol col="6"><span >{fullName}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">
-                    <span style={{ fontWeight: 500 }}>Contact Phone </span>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-phone')}
+                    {/* <span style={{ fontWeight: 500 }}>Contact Phone </span> */}
                   </CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>0446 454 935</span></CCol>
+                  <CCol col="6"><span>{userProfile.username}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Email</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>admin@gmail.com</span></CCol>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-email')}</CCol>
+                  <CCol col="6"><span>{userProfile.email}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Gender</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>Male</span></CCol>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-gender')}</CCol>
+                  <CCol col="6"><span >{t(GENDER[userProfile.gender])}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Day of birth</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>20 july 1997</span></CCol>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-dob')}</CCol>
+                  <CCol col="6"><span>{userProfile.dob}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Address</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>Ho Chi Minh. City</span></CCol>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-address')}</CCol>
+                  <CCol col="6"><span>{location}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Manage Segments</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>Segment 1, Segment 2</span></CCol>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-channel-mng')}</CCol>
+                  <CCol col="6"><span ></span></CCol>
                 </CRow>
                 <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Country</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>Vietnam</span></CCol>
-                </CRow>
-                <CRow className="pb-4">
-                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted"><span style={{ fontWeight: 500 }}>Last Update</span></CCol>
-                  <CCol col="6"><span style={{ fontSize: 15, fontWeight: 700 }}>20 july 2021</span></CCol>
+                  <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-last-update')}</CCol>
+                  <CCol col="6"><span >20 july 2021</span></CCol>
                 </CRow>
               </CCol>
             </CCardBody>
@@ -153,23 +169,23 @@ const Profile = () => {
         <CCol lg="12">
           <CCard>
             <CCardHeader className="py-3">
-              <span className="float-left" style={{ fontSize: 20, fontWeight: 700 }}>Sign-in Method</span>
+              <span className="float-left" style={{ fontSize: 20, fontWeight: 700 }}>{t('profile.lb-signin-method')}</span>
             </CCardHeader>
             <CCardBody>
               <CCol className="d-flex flex-column p-lg-3 p-0">
                 <CCol className="p-0 pb-3 box-phone">
                   <div className="d-flex flex-column float-left">
-                    <span> <strong>Phone Number</strong></span>
-                    <span className="light-color  pt-1">+84 987 567 678</span>
+                    <span> <strong>{t('profile.lb-username')}</strong></span>
+                    <span className="light-color  pt-1">{userProfile.username}</span>
                   </div>
                 </CCol>
                 <CCol className="p-0 d-flex flex-lg-row flex-column align-items-center pt-3">
                   <CCol className="d-flex flex-column float-left p-0">
-                    <span> <strong>Password</strong></span>
-                    <span className="light-color  pt-1"><em> Last Update 10:00 20/11/2021</em></span>
+                    <span> <strong>{t('profile.lb-password')}</strong></span>
+                    <span className="light-color  pt-1"><em> {t('profile.pw-update-msg')}</em></span>
                   </CCol>
                   <div className="mr-auto pt-2 pt-lg-0">
-                    <CButton color="light" onClick={() => setSmall(!large)}> Change Password</CButton>
+                    <CButton color="light" onClick={() => setSmall(!large)}> {t('profile.btn-change-pw')}</CButton>
                   </div>
                 </CCol>
               </CCol>

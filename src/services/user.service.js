@@ -1,24 +1,23 @@
-import axios from "axios";
-import authHeader from "./authToken";
-
-const API_URL = process.env.REACT_APP_API_URL + "api/test/";
+import { axiosInstance } from './axios';
 
 class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + "all");
+  getProfile() {
+    try {
+      return axiosInstance.get('api/user/profile');
+    } catch {
+      return null;
+    }
   }
 
-  getUserBoard() {
-    return axios.get(API_URL + "user", { headers: authHeader() });
+  getUsers() {
+    try {
+      return axiosInstance.get('api/user/list');
+    } catch {
+      return [];
+    }
   }
 
-  getModeratorBoard() {
-    return axios.get(API_URL + "mod", { headers: authHeader() });
-  }
 
-  getAdminBoard() {
-    return axios.get(API_URL + "admin", { headers: authHeader() });
-  }
 }
 
 export default new UserService();

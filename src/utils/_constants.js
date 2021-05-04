@@ -10,6 +10,12 @@ export const USER_STATUS = {
     PENDING: 'Pending'
 };
 
+export const GENDER = {
+    M: 'gender.male',
+    F: 'gender.female',
+    O: 'gender.other'
+};
+
 export const MESSAGE_STATUS = {
     SENDING: 'Sending',
     DELIVERED: 'Delivered',

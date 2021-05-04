@@ -4,31 +4,29 @@ import femaleimg from './avatar/female.jpg'
 import maleimg from './avatar/male.jpg'
 import './users.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersCog, faUsers, faPlusCircle, faEllipsisV, faEye, faPen, faSortDown, faLungsVirus, faUserShield, faUserEdit, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle, faEllipsisV, faEye, faPen, faSortDown, faUserShield, faUserEdit, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   CBadge,
   CButton,
   CCol,
   CDataTable,
   CFormGroup,
-  CLabel,
   CCard,
   CLink,
-  CCardHeader,
   CCardBody,
-  CPopover,
   CDropdownItem,
   CDropdown,
   CDropdownToggle,
   CDropdownMenu,
   CInput,
-  CImg,
   CRow,
 
   CPagination
 } from '@coreui/react'
+import { useTranslation } from 'react-i18next'
+import UserService from '../../services/user.service'
 
-import usersData from './UsersData'
+// import usersData from './UsersData'
 import CIcon from '@coreui/icons-react'
 
 const getBadge = status => {
@@ -47,6 +45,8 @@ const getRole = role => {
 
 const Users = () => {
 
+  const { t } = useTranslation();
+  const [usersData, setUserData] = useState([]);
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
@@ -56,8 +56,11 @@ const Users = () => {
     currentPage !== newPage && history.push(`/users?page=${newPage}`)
   }
 
-  useEffect(() => {
+  useEffect(async () => {
     currentPage !== page && setPage(currentPage)
+
+    const users = await UserService.getUsers();
+    setUserData(users.data);
   }, [currentPage, page])
 
   return (
@@ -69,7 +72,7 @@ const Users = () => {
               {/* begin Main Card */}
               <CCol className="p-0 d-flex flex-lg-row flex-md-row flex-sm-row flex-column p-lg-2">
                 <div className="d-flex flex-shrink-0 rounded bg-light w-lg-150px h-lg-150px me-7 mb-4 justify-content-center align-items-center">
-                  <CIcon name="logoBg" height="120" width="120"/>
+                  <CIcon name="logoBg" height="120" width="120" />
                 </div>
                 {/* right content */}
                 <CCol className="d-flex flex-lg-row flex-column p-0 pl-lg-3 pl-md-3 pl-sm-3">
@@ -189,12 +192,11 @@ const Users = () => {
                             <CCol lg="0" className="p-0 pr-3 d-flex align-items-center pl-2">
                               <div className="c-avatar">
                                 {/* avatar */}
-                                {item.gender.includes("Female") && <img src={femaleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-male-default" />}
-                                {item.gender.includes("Male") && <img src={maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default" />}
+                                {item.gender == "F" && <img src={femaleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-male-default" />}
+                                {item.gender == "M" && <img src={maleimg} className="c-avatar-img" alt="admin@bootstrapmaster.com" height="48" width="48" name="avatar-female-default" />}
                                 {/* status */}
-                                {item.status.includes("Active") && <span className="c-avatar-status bg-success"></span>}
-                                {item.status.includes("Inactive") && <span className="c-avatar-status bg-secondary"></span>}
-                                {item.status.includes("Banned") && <span className="c-avatar-status bg-danger"></span>}
+                                {item.isActive && <span className="c-avatar-status bg-success"></span>}
+                                {!item.isActive && <span className="c-avatar-status bg-secondary"></span>}
                               </div>
                             </CCol>
                             <CCol className="p-0">
@@ -225,8 +227,8 @@ const Users = () => {
                           {item.role}
                         </CBadge> */}
                         <CBadge color="light" className="badge-status border">
-                          {item.role.includes("Admin") && <FontAwesomeIcon icon={faUserShield} className="mr-2" />}
-                          {item.role.includes("Moderator") && <FontAwesomeIcon icon={faUserEdit} className="mr-2" />}
+                          {item.roles.includes("admin") && <FontAwesomeIcon icon={faUserShield} className="mr-2" />}
+                          {item.roles.includes("moderator") && <FontAwesomeIcon icon={faUserEdit} className="mr-2" />}
                           {item.role}
                         </CBadge>
                       </td>
