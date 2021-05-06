@@ -101,7 +101,7 @@ const Contacts = () => {
                         Total Contacts
                       </span>
                       <div className="d-flex flex-row align-items-center">
-                        <h2 className="pt-2 pr-2">20.000.000</h2>
+                        <h2 className="pt-2 pr-2">20.000</h2>
                         <span className="d-flex flex-row align-items-center success-color">
                           <FontAwesomeIcon
                             icon={faArrowUp}
