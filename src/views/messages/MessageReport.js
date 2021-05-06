@@ -52,8 +52,8 @@ const MessageReport = () => {
 
   const getDetailMessageById = async () => {
     const response = await MessageService.getDetailMessageById(id);
-    if (response.data.errorCode === 0) {
-      setMessageDetail(response.data.detail);
+    if (response.status === 200 || response.status === 201) {
+      setMessageDetail(response.data);
     }
   };
 
@@ -86,7 +86,7 @@ const MessageReport = () => {
           </span>
           <span>
             Started create at:{" "}
-            {convert_day_hours_minute(messageDetail.CreateDate)}
+            {convert_day_hours_minute(messageDetail.createdAt)}
           </span>
         </CCol>
         <div className="p-0 ml-auto">
@@ -275,9 +275,9 @@ const MessageReport = () => {
                       </CCol>
                       <CCol className="font-weight-bold">
                         <span>
-                          {messageDetail.CreateBy.LastName +
+                          {messageDetail.createdBy.lastName +
                             " " +
-                            messageDetail.CreateBy.FirstName}
+                            messageDetail.createdBy.firstName}
                         </span>
                       </CCol>
                     </CCol>
@@ -295,7 +295,7 @@ const MessageReport = () => {
                       <CCol className="font-weight-bold">
                         <span>
                           Last Update at:{" "}
-                          {convert_day_hours_minute(messageDetail.UpdateDate)}
+                          {convert_day_hours_minute(messageDetail.updatedAt)}
                         </span>
                       </CCol>
                     </CCol>
@@ -319,7 +319,7 @@ const MessageReport = () => {
                         Channel
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {messageDetail.ChannelId.ChannelType}
+                        {messageDetail.channel.type}
                       </CCol>
                     </CCol>
                     <hr />
@@ -366,7 +366,7 @@ const MessageReport = () => {
                         <span>Title</span>
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {messageDetail.Title}
+                        {messageDetail.title}
                       </CCol>
                     </CCol>
                     <hr />
@@ -375,7 +375,7 @@ const MessageReport = () => {
                         Content
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {messageDetail.ContentOTT}
+                        {messageDetail.content}
                       </CCol>
                     </CCol>
                     <hr />
@@ -385,7 +385,7 @@ const MessageReport = () => {
                       </CCol>
                       <CCol className="font-weight-bold">
                         <CImg
-                          src={messageDetail.Image}
+                          src={messageDetail.image}
                           height="80"
                           width="80"
                           className="rounded"
@@ -401,7 +401,7 @@ const MessageReport = () => {
                         className="font-weight-bold"
                         style={{ cursor: "pointer", color: "#007BFF" }}
                       >
-                        {messageDetail.Link}
+                        {messageDetail.link}
                       </CCol>
                     </CCol>
                   </CCol>
@@ -416,7 +416,7 @@ const MessageReport = () => {
                         Start sending
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {convert_day_hours_minute(messageDetail.Schedule)}
+                        {convert_day_hours_minute(messageDetail.schedule)}
                       </CCol>
                     </CCol>
                   </CCol>
