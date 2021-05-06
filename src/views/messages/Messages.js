@@ -41,14 +41,13 @@ import {
   faUserEdit,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import { faTelegram, faViber } from "@fortawesome/free-brands-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./messages.scss";
-import femaleimg from "../users/avatar/female.jpg";
 import {
   CBadge,
   CButton,
   CCol,
-  CProgress,
   CDataTable,
   CForm,
   CPagination,
@@ -58,7 +57,6 @@ import {
   CModalHeader,
   CModalTitle,
   CModalBody,
-  CProgressBar,
   CModalFooter,
   CCard,
   CCardBody,
@@ -78,7 +76,8 @@ import {
 //lodash
 import _ from "lodash";
 
-import { faTelegram, faViber } from "@fortawesome/free-brands-svg-icons";
+// helpers
+import { convert_day_hours_minute } from "../../helpers/convertdate";
 
 //api service
 import MessageService from "../../services/message.service";
@@ -129,8 +128,8 @@ const Messages = () => {
   //get all messages
   const getAllMessage = async () => {
     const response = await MessageService.getAllMessage(page, limit);
-    if (response.data.errorCode === 0) {
-      setData(response.data.messages);
+    if (response.status === 200) {
+      setData(response.data);
     }
   };
 
@@ -139,9 +138,6 @@ const Messages = () => {
     currentPage !== page && setPage(currentPage);
     getAllMessage();
   }, [currentPage, page]);
-  if (_.isNil(data)) {
-    return <></>;
-  }
   return (
     <>
       <CRow>
@@ -389,7 +385,7 @@ const Messages = () => {
                         className="text-gray-800 tags-text"
                         style={{ fontSize: 15, fontWeight: 700 }}
                       >
-                        {item.Title}
+                        {item.title}
                       </span>
                       <div className="py-2">
                         <span
@@ -397,15 +393,15 @@ const Messages = () => {
                           style={{ fontWeight: 600 }}
                           maxLength={100}
                         >
-                          {item.ContentOTT}
+                          {item.content}
                         </span>
                       </div>
                       <CTooltip content={`User Create message`}>
                         <span className="small font-weight-bold text-gray-400">
                           <FontAwesomeIcon icon={faUserEdit} className="mr-2" />
-                          {item.CreateBy.LastName +
+                          {item.createdBy.lastName +
                             " " +
-                            item.CreateBy.FirstName}
+                            item.createdBy.firstName}
                         </span>
                       </CTooltip>
                       {/* <div className="small text-muted">
@@ -422,20 +418,20 @@ const Messages = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.ChannelId.ChannelType === "Viber" && (
+                        {item.channel.type === "Viber" && (
                           <FontAwesomeIcon
                             icon={faViber}
                             className="channel-icon"
                             style={{ color: "#665CAC" }}
                           />
                         )}
-                        {item.ChannelId.ChannelType === "Zalo" && (
+                        {item.channel.type === "Zalo" && (
                           <CIcon
                             name="zaloIcon"
                             style={{ height: 18, width: 18 }}
                           />
                         )}
-                        {item.ChannelId.ChannelType === "Telegram" && (
+                        {item.channel.type === "Telegram" && (
                           <FontAwesomeIcon
                             icon={faTelegram}
                             className="channel-icon"
@@ -449,7 +445,7 @@ const Messages = () => {
                   createAt: (item) => (
                     <td>
                       <div>
-                        <span>{item.CreateDate}</span>
+                        <span>{convert_day_hours_minute(item.createdAt)}</span>
                         <br />
                       </div>
                       <div className="small text-muted">
@@ -481,9 +477,9 @@ const Messages = () => {
                       <CCol className="p-0">
                         <CBadge
                           className="badge-status mt-2"
-                          color={getBadge(item.Type)}
+                          color={getBadge(item.type)}
                         >
-                          {item.Type}
+                          {item.type}
                         </CBadge>
                       </CCol>
                     </td>

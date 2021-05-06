@@ -48,7 +48,7 @@ const CreateMsg = () => {
   //history routes
   const history = useHistory();
   // get channels when login
-  const channels = useSelector((state) => state.auth.channels);
+  const channels = useSelector((state) => state.auth.user.channels);
 
   const [large, setLarge] = useState(false);
   const [small, setSmall] = useState(false);
@@ -62,11 +62,11 @@ const CreateMsg = () => {
     segment: { check: true, filter: ["all"] },
     template: null,
     title: null,
-    message: null,
+    content: null,
     link: null,
     fileName: null,
     filePath: null,
-    schedule: { check: true, filter: Date.now() },
+    schedule: { check: true, filter: "" },
     type: null,
     date: null,
   });
@@ -126,8 +126,8 @@ const CreateMsg = () => {
       setMessage({
         ...message,
         schedule: {
+          ...message.schedule,
           check: !message.schedule.check,
-          filter: target.value,
         },
       });
     }
@@ -147,8 +147,8 @@ const CreateMsg = () => {
     messageData.type = type;
     MessageService.createMessage(messageData)
       .then((response) => {
-        const { messageId } = response.data;
-        return history.push(`/messages/${messageId}`);
+        const { message_id } = response.data;
+        return history.push(`/messages/${message_id}`);
       })
       .catch((error) => {
         console.log("error", error);
@@ -187,7 +187,7 @@ const CreateMsg = () => {
                   <option value="">Select..</option>
                   {channels.map((item, index) => {
                     return (
-                      <option value={JSON.stringify(item)} key={index}>
+                      <option value={item._id} key={index}>
                         {item.name} - {item.type}
                       </option>
                     );
@@ -438,10 +438,10 @@ const CreateMsg = () => {
                         <span className="danger-color pl-1">*</span>
                       </CLabel>
                       <CTextarea
-                        name="message"
+                        name="content"
                         id="textarea-input"
                         rows="4"
-                        placeholder="Message..."
+                        placeholder="Content..."
                         maxLength="1000"
                         onChange={(value) => onValueChange(value)}
                       />

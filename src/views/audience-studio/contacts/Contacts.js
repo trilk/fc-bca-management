@@ -355,7 +355,7 @@ const Contacts = () => {
                 bordered
                 sorter
                 striped
-                itemsPerPage={8}
+                itemsPerPage={limitpage}
                 activePage={page}
                 onRowClick={(item) => history.push(`/contacts/${item._id}`)}
                 clickableRows
