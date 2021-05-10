@@ -511,7 +511,7 @@ const CreateMsg = () => {
               </div>
             </CCardHeader>
             <CCardBody>
-              <CCol className="d-flex flex-column pb-2">
+              <CCol className="d-flex flex-column pb-2 p-0">
                 <CLabel className="font-weight-bold text-muted">
                   When should this message start sending?
                 </CLabel>
