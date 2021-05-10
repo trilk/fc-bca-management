@@ -26,23 +26,19 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import UserService from '../../services/user.service'
 import { setFullName, setAddress } from '../../utils/_common'
-import { GENDER } from '../../utils/_constants'
 
 
 const Profile = () => {
   const { t } = useTranslation();
   const user = useSelector(state => state.auth.user);
+  const lang = useSelector(state => state.auth.lang);
   const [large, setLarge] = useState(false)
   const [small, setSmall] = useState(false)
   const [userProfile, setUserProfile] = useState({});
-  const [fullName, setName] = useState('');
-  const [location, setLocation] = useState('')
 
   useEffect(async () => {
     const profile = await UserService.getProfile();
     setUserProfile(profile.data);
-    setName(setFullName(profile.data.firstName, profile.data.lastName));
-    setLocation(setAddress(profile.data.address));
   }, [])
 
   return (
@@ -65,7 +61,7 @@ const Profile = () => {
                 <CCol className="p-0">
                   <CCol className="d-flex flex-row align-items-center p-0">
                     <div className="mr-2 p-0">
-                      <strong style={{ fontSize: 22 }}>{fullName}</strong>
+                      <strong style={{ fontSize: 22 }}>{setFullName(userProfile.firstName, userProfile.lastName, lang)}</strong>
                     </div>
                     <div className="mr-2">
                       {(user.isAdmin || user.isModerator) && <CBadge color="light" className="badge-status">
@@ -128,7 +124,7 @@ const Profile = () => {
               <CCol className="py-lg-3 px-lg-3 p-0">
                 <CRow className="pb-4">
                   <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-name')}</CCol>
-                  <CCol col="6"><span >{fullName}</span></CCol>
+                  <CCol col="6"><span >{setFullName(userProfile.firstName, userProfile.lastName, lang)}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
                   <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-phone')}
@@ -142,7 +138,7 @@ const Profile = () => {
                 </CRow>
                 <CRow className="pb-4">
                   <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-gender')}</CCol>
-                  <CCol col="6"><span >{t(GENDER[userProfile.gender])}</span></CCol>
+                  <CCol col="6"><span >{t(userProfile.gender)}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
                   <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-dob')}</CCol>
@@ -150,7 +146,7 @@ const Profile = () => {
                 </CRow>
                 <CRow className="pb-4">
                   <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-address')}</CCol>
-                  <CCol col="6"><span>{location}</span></CCol>
+                  <CCol col="6"><span>{setAddress(userProfile.address)}</span></CCol>
                 </CRow>
                 <CRow className="pb-4">
                   <CCol col="3" xs="12" sm="2" lg="3" className="text-muted">{t('profile.lb-channel-mng')}</CCol>

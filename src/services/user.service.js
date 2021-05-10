@@ -9,9 +9,9 @@ class UserService {
     }
   }
 
-  getUsers() {
+  getUsers(query) {
     try {
-      return axiosInstance.get('api/user/list');
+      return axiosInstance.get('api/user/list' + query);
     } catch {
       return [];
     }
