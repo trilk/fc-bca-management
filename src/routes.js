@@ -225,6 +225,13 @@ const routes = [
     name: "Edit Message",
     component: EditMsg,
   },
+  {
+    path: "/EditMsg",
+    exact: true,
+    name: "Edit Message",
+    component: EditMsg,
+  },
+
   { path: "/template", exact: true, name: "Templates", component: Template },
   {
     path: "/template/new-template",

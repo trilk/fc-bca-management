@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Imagedemo from "./photo/demo.jpeg";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import {
   CButton,
   CImg,
@@ -12,6 +12,7 @@ import {
   CModalTitle,
   CModalBody,
   CModalFooter,
+  CAlert,
   CRow,
   CLink,
 } from "@coreui/react";
@@ -23,11 +24,11 @@ import CIcon from "@coreui/icons-react";
 const ReviewMsg = ({ onSubmit, message }) => {
   //Modal
   const [large, setLarge] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   return (
     <>
       <CCol className="d-flex bd-highlight">
-        <CCol className="pb-5 p-0">
+        <CCol className="pb-5 p-0 d-flex align-items-center">
           <CButton
             color="primary"
             className="mr-3"
@@ -36,10 +37,26 @@ const ReviewMsg = ({ onSubmit, message }) => {
             <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
             Review and Send
           </CButton>
+          {/* <CButton color="outline" onClick={() => setVisible()}>
+            Save as Draft
+          </CButton> */}
+
           <CButton color="outline" onClick={() => onSubmit("Draft")}>
             Save as Draft
           </CButton>
+          {/* Alert Save Message to Draft */}
+          <CAlert
+            color="success"
+            show={visible}
+            className="position-absolute alert__Draft"
+            closeButton
+          >
+            <CCol>
+              <FontAwesomeIcon icon={faCheckCircle} className="mr-2"/><span>Draft Saved</span>
+            </CCol>
+          </CAlert>
         </CCol>
+
         {/* Collapse review */}
         <CModal show={large} onClose={() => setLarge(!large)} size="lg">
           <CModalHeader closeButton>

@@ -3,11 +3,6 @@ class MessageService {
   getAllMessage(page, limit) {
     return axiosInstance.get(`/api/message/list?page=${page}&limit=${limit}`);
   }
-  getMessageByChannelType(page, limit, type) {
-    return axiosInstance.get(
-      `/api/message/list-by-channel-type?page=${page}&limit=${limit}&type=${type}`
-    );
-  }
   getDetailMessageById(id) {
     return axiosInstance.get(`/api/message/detail/${id}`);
   }

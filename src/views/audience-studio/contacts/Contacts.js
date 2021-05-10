@@ -101,7 +101,7 @@ const Contacts = () => {
                         Total Contacts
                       </span>
                       <div className="d-flex flex-row align-items-center">
-                        <h2 className="pt-2 pr-2">20.000.000</h2>
+                        <h2 className="pt-2 pr-2">20.000</h2>
                         <span className="d-flex flex-row align-items-center success-color">
                           <FontAwesomeIcon
                             icon={faArrowUp}
@@ -122,9 +122,9 @@ const Contacts = () => {
                         <span style={{ fontSize: 18 }}>Channels</span>
                       </div>
                     </CCol>
-                    <CCol className="pl-0 flex-">
+                    <CCol className="pl-0 py-3">
                       {/* Box channnels */}
-                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-2">
+                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-3">
                         <span className="d-flex justify-content-">Zalo</span>
                         <CLabel>
                           <span style={{ fontSize: 18, fontWeight: 600 }}>
@@ -355,7 +355,7 @@ const Contacts = () => {
                 bordered
                 sorter
                 striped
-                itemsPerPage={8}
+                itemsPerPage={limitpage}
                 activePage={page}
                 onRowClick={(item) => history.push(`/contacts/${item._id}`)}
                 clickableRows

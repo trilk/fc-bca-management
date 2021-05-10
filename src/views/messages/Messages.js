@@ -40,15 +40,22 @@ import {
   faCommentDots,
   faUserEdit,
   faSearch,
+  faPager,
+  faPaperPlane,
+  faCommentSlash,
+  faClock,
+  faCommentAlt,
+  faTimesCircle,
+  faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { faTelegram, faViber } from "@fortawesome/free-brands-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./messages.scss";
-import femaleimg from "../users/avatar/female.jpg";
 import {
   CBadge,
   CButton,
-  CCol,
   CProgress,
+  CCol,
   CDataTable,
   CForm,
   CPagination,
@@ -58,7 +65,6 @@ import {
   CModalHeader,
   CModalTitle,
   CModalBody,
-  CProgressBar,
   CModalFooter,
   CCard,
   CCardBody,
@@ -78,7 +84,8 @@ import {
 //lodash
 import _ from "lodash";
 
-import { faTelegram, faViber } from "@fortawesome/free-brands-svg-icons";
+// helpers
+import { convert_day_hours_minute } from "../../helpers/convertdate";
 
 //api service
 import MessageService from "../../services/message.service";
@@ -89,7 +96,7 @@ import { setMessage } from "../../actions/message";
 const getBadge = (status) => {
   switch (status) {
     case "Draft":
-      return "warning";
+      return "light";
     default:
       return "success";
   }
@@ -129,8 +136,8 @@ const Messages = () => {
   //get all messages
   const getAllMessage = async () => {
     const response = await MessageService.getAllMessage(page, limit);
-    if (response.data.errorCode === 0) {
-      setData(response.data.messages);
+    if (response.status === 200) {
+      setData(response.data);
     }
   };
 
@@ -139,13 +146,10 @@ const Messages = () => {
     currentPage !== page && setPage(currentPage);
     getAllMessage();
   }, [currentPage, page]);
-  if (_.isNil(data)) {
-    return <></>;
-  }
   return (
     <>
       <CRow>
-        <CCol>
+        <CCol xxl={12} xl={12} lg={12} md={12} sm={12} xs={12}>
           <CCard>
             <CCardBody>
               <CRow>
@@ -342,27 +346,40 @@ const Messages = () => {
                   </CCol>
                 </CCol>
               </CRow>
+              {/* Table */}
               <CDataTable
                 items={data}
                 fields={[
                   { key: "label", label: "", _style: { width: "1%" } },
                   {
-                    key: "content",
-                    label: "content",
+                    key: "message",
+                    label: "message",
                     _style: { width: "15%" },
                   },
-                  { key: "channel", label: "Channel", _style: { width: "2%" } },
                   {
-                    key: "type",
-                    label: "type",
-                    _style: { width: "1%" },
-                  },
-                  {
-                    key: "createAt",
-                    label: "Create At",
+                    key: "delivery",
                     _style: { width: "2%" },
                   },
-                  { key: "action", label: "action", _style: { width: "1%" } },
+                  {
+                    key: "channel",
+                    label: "Channel",
+                    _style: { width: "2%" },
+                  },
+                  {
+                    key: "createBy",
+                    label: "CreateBy",
+                    _style: { width: "3%" },
+                  },
+                  // {
+                  //   key: "type",
+                  //   label: "type",
+                  //   _style: { width: "1%" },
+                  // },
+                  {
+                    key: "action",
+                    label: "action",
+                    _style: { width: "1%" },
+                  },
                 ]}
                 // hover
                 bordered
@@ -382,134 +399,158 @@ const Messages = () => {
                     </td>
                   ),
                   //name
-                  content: (item) => (
+                  message: (item) => (
                     <td>
-                      <span
+                      {/* <h6
                         htmlFor="titleMessage"
-                        className="text-gray-800 tags-text"
-                        style={{ fontSize: 15, fontWeight: 700 }}
+                        className="text-gray-800 tags-text1Line"
+                        style={{ fontWeight: 700 }}
                       >
-                        {item.Title}
-                      </span>
-                      <div className="py-2">
-                        <span
-                          className="tags-text text-gray-800"
-                          style={{ fontWeight: 600 }}
-                          maxLength={100}
-                        >
-                          {item.ContentOTT}
-                        </span>
-                      </div>
-                      <CTooltip content={`User Create message`}>
+                        {item.title}
+                      </h6> */}
+                      <h6
+                        className="tags-text text-gray-800 pb-1"
+                        style={{ fontWeight: 600 }}
+                      >
+                        {item.content}
+                      </h6>
+                      {/* <CTooltip content={`User Create message`}>
                         <span className="small font-weight-bold text-gray-400">
                           <FontAwesomeIcon icon={faUserEdit} className="mr-2" />
-                          {item.CreateBy.LastName +
+                          {item.createdBy.lastName +
                             " " +
-                            item.CreateBy.FirstName}
+                            item.createdBy.firstName}
                         </span>
-                      </CTooltip>
-                      {/* <div className="small text-muted">
-                                                    <span>Create Date: {item.createDate}</span>
-                                                </div> */}
-                      {/* tags draf schedule */}
-                      {/* <div className="pt-2">
-                                                    <CBadge className="mr-1 badge-status" color="light">Messages</CBadge>
-                                                    <CBadge className="mr-1 badge-status" color="danger">Schedule</CBadge>
-                                                </div> */}
+                      </CTooltip> */}
+                      <div>
+                        <CBadge
+                          className="badge-status mr-2"
+                          color={getBadge(item.type)}
+                        >
+                          {item.type}
+                        </CBadge>
+                        <small>
+                          {convert_day_hours_minute(item.createdAt)}
+                        </small>
+                      </div>
                     </td>
                   ),
                   channel: (item) => (
                     <td>
-                      <CCol className="p-2 d-flex flex-row bd-highlight">
-                        {/* channels icon */}
-                        {item.ChannelId.ChannelType === "Viber" && (
+                      {/* Viber */}
+                      {item.channel.type == "Viber" && (
+                        <div className="d-flex flex-row align-items-end">
                           <FontAwesomeIcon
                             icon={faViber}
-                            className="channel-icon"
+                            size="lg"
+                            className="channel-icon mr-2"
                             style={{ color: "#665CAC" }}
                           />
-                        )}
-                        {item.ChannelId.ChannelType === "Zalo" && (
-                          <CIcon
-                            name="zaloIcon"
-                            style={{ height: 18, width: 18 }}
-                          />
-                        )}
-                        {item.ChannelId.ChannelType === "Telegram" && (
-                          <FontAwesomeIcon
-                            icon={faTelegram}
-                            className="channel-icon"
-                            style={{ color: "#0088cc" }}
-                          />
-                        )}
-                      </CCol>
+                          <span className="tags-text1Line">
+                            Chatbot Tesolf Zalo
+                          </span>
+                        </div>
+                      )}
+                      {/* Zalo */}
+                      {item.channel.type == "Zalo" && (
+                        <div className="d-flex flex-row align-items-center">
+                          <CIcon name="zaloIcon" size="lg" className="mr-2" />
+                          <span className="tags-text1Line">
+                            Chatbot Tesolf Zalo
+                          </span>
+                        </div>
+                      )}
                     </td>
                   ),
                   //creat at
-                  createAt: (item) => (
+                  // createAt: (item) => (
+                  //   <td>
+                  //     <span>{convert_day_hours_minute(item.createdAt)}</span>
+                  //   </td>
+                  // ),
+                  //create by
+                  createBy: (item) => (
                     <td>
-                      <div>
-                        <span>{item.CreateDate}</span>
-                        <br />
-                      </div>
-                      <div className="small text-muted">
-                        <span>Create at</span>
+                      <span>
+                        {/* <FontAwesomeIcon icon={faUserEdit} className="mr-2" /> */}
+                        {item.createdBy.lastName +
+                          " " +
+                          item.createdBy.firstName}
+                      </span>
+                    </td>
+                  ),
+                  delivery: (item) => (
+                    <td>
+                      <div className="d-flex flex-column">
+                        <div className="d-flex flex-row align-items-center">
+                          <FontAwesomeIcon
+                            icon={faPaperPlane}
+                            className="mr-2 primary-color"
+                            size="xs"
+                          />
+                          <strong>10.000.000</strong>
+                          <small className="pl-2 text-muted">Delivered</small>
+                        </div>
+                        <div className="d-flex flex-row align-items-center">
+                          <FontAwesomeIcon
+                            icon={faClock}
+                            className="mr-2 warning-color"
+                            size="xs"
+                          />
+                          <strong>100</strong>
+                          <small className="pl-2 text-muted">Remaining</small>
+                        </div>
+                        <div className="d-flex flex-row align-items-center">
+                          <FontAwesomeIcon
+                            icon={faExclamationCircle}
+                            className="mr-2 danger-color"
+                            size="xs"
+                          />
+                          <strong>100</strong>
+                          <small className="pl-2 text-muted">Failed</small>
+                        </div>
                       </div>
                     </td>
                   ),
-                  //delivery
-                  //   delivery: (item) => (
-                  //     <td>
-                  //       <CCol className="p-0">
-                  //         <div className="d-flex flex-column">
-                  //           <span className="pb-1">100%</span>
-                  //           <CProgress
-                  //             color="info"
-                  //             value={100}
-                  //             className="delivery-progress"
-                  //             size="sm"
-                  //           />
-                  //         </div>
-                  //       </CCol>
-                  //     </td>
-                  //   ),
-                  //
-
                   //message type
-                  type: (item) => (
-                    <td>
-                      <CCol className="p-0">
-                        <CBadge
-                          className="badge-status mt-2"
-                          color={getBadge(item.Type)}
-                        >
-                          {item.Type}
-                        </CBadge>
-                      </CCol>
-                    </td>
-                  ),
+                  // type: (item) => (
+                  //   <td>
+                  //     <CCol className="p-0">
+                  //       <CBadge
+                  //         className="badge-status"
+                  //         color={getBadge(item.type)}
+                  //       >
+                  //         {item.type}
+                  //       </CBadge>
+                  //     </CCol>
+                  //   </td>
+                  // ),
                   //button action
                   action: (item) => (
                     <td>
-                      <CDropdown className="pr-2 d-flex justify-content-center">
+                      <CDropdown className="pl-2">
                         <CDropdownToggle color="ghost">
                           <FontAwesomeIcon
                             icon={faEllipsisV}
                             style={{ width: 12, height: 12 }}
                           />
                         </CDropdownToggle>
-                        <CDropdownMenu>
+                        <CDropdownMenu
+                          placement="bottom-end"
+                          // className="position-absolute"
+                        >
                           <CDropdownItem onClick={() => onGetDetail(item)}>
                             <FontAwesomeIcon icon={faEye} className="mr-2" />
                             View details
                           </CDropdownItem>
                           <CDropdownItem>
                             {/* Edit message wwith message draft and schedule */}
-                            <CLink to="/messages/EditMsg">
+                            <CLink to="/EditMsg">
                               <FontAwesomeIcon icon={faPen} className="mr-2" />
                               Edit
                             </CLink>
                           </CDropdownItem>
+
                           <CDropdownItem>
                             <FontAwesomeIcon icon={faCopy} className="mr-2" />
                             Duplicate
@@ -528,9 +569,8 @@ const Messages = () => {
                   ),
                 }}
               />
-
               <CPagination
-                className="pt-4 d-flex flex-wrap py-2 mr-3 "
+                className="pt-3 d-flex flex-wrap py-2 mr-3 "
                 activePage={page}
                 onActivePageChange={pageChange}
                 doubleArrows={false}
@@ -549,7 +589,7 @@ const Messages = () => {
             </CModalHeader>
             <CModalBody>Are you want delete this Message?</CModalBody>
             <CModalFooter>
-              <CButton color="outline">Cancel</CButton>
+              <CButton color="outline">Cancel</CButton>{" "}
               <CButton color="primary">Delete</CButton>
             </CModalFooter>
           </CModal>

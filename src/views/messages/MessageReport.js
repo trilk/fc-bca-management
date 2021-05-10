@@ -52,8 +52,8 @@ const MessageReport = () => {
 
   const getDetailMessageById = async () => {
     const response = await MessageService.getDetailMessageById(id);
-    if (response.data.errorCode === 0) {
-      setMessageDetail(response.data.detail);
+    if (response.status === 200 || response.status === 201) {
+      setMessageDetail(response.data);
     }
   };
 
@@ -75,7 +75,7 @@ const MessageReport = () => {
   return (
     <CRow>
       {/* Begign Title  */}
-      <CCol className="d-flex flex-row p-3 py-2" lg="12">
+      <CCol className="d-flex flex-row p-3 py-2" xxl={12} xl={12} lg={12}>
         <CCol className="p-0 d-flex flex-column">
           <h4 className="pb-1">
             <FontAwesomeIcon icon={faChartLine} className="mr-3" />
@@ -86,7 +86,7 @@ const MessageReport = () => {
           </span>
           <span>
             Started create at:{" "}
-            {convert_day_hours_minute(messageDetail.CreateDate)}
+            {convert_day_hours_minute(messageDetail.createdAt)}
           </span>
         </CCol>
         <div className="p-0 ml-auto">
@@ -128,126 +128,83 @@ const MessageReport = () => {
         </div>
       </CCol>
       {/* End */}
-      <CCol className="p-lg-3 d-flex flex-lg-row flex-column" xl={12}>
-        {/* Messages Statistics */}
-        <CCol className="d-flex flex-lg-row flex-wrap flex-column p-0">
-          {/* Begin Totals Messages */}
-          <CCol
-            className="rounded-lg bg-white p-0 mr-lg-4"
-            style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
+      {/* Messages Statistics */}
+      <CCol
+        className="d-flex flex-xxl-row flex-xl-row flex-lg-row flex-md-wrap flex-column pb-3"
+        xxl={12}
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+      >
+        {/* Begin Totals Messages */}
+        <CCol
+          className="d-flex flex-column py-3 rounded-lg bg-white p-0 mr-lg-4 my-2"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
+        >
+          <div className="text-muted pb-2 d-flex align-items-center justify-content-center">
+            <span>
+              <FontAwesomeIcon icon={faPaperPlane} size="xs" className="mr-2" />
+              Estimated recipients
+            </span>
+          </div>
+          <span
+            className="d-flex justify-content-center"
+            style={{ fontSize: 26, fontWeight: 700 }}
           >
-            <CCol className="d-flex flex-column py-3 d-flex justify-content-start">
-              <div className="pb-1 d-flex flex-row">
-                <div className="d-flex flex-column">
-                  <span className="text-muted pb-1"> Estimated recipients</span>
-                  <div>
-                    <span style={{ fontSize: 24, fontWeight: 700 }}>
-                      10.097.099
-                    </span>
-                    <small className="text-muted ml-2">Users</small>
-                  </div>
-                </div>
-                <div className="ml-auto">
-                  <FontAwesomeIcon
-                    icon={faPaperPlane}
-                    style={{ height: 14, width: 14 }}
-                    className="light-color"
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="d-flex flex-row small align-items-end pb-2">
-                  <span className="text-muted">Sending</span>
-                  <span
-                    className="ml-auto text-muted"
-                    style={{ fontSize: 14, fontWeight: 400 }}
-                  >
-                    90%
-                  </span>
-                </div>
-                <CProgress color="primary" value="90" size="xs" />
-              </div>
-            </CCol>
-          </CCol>
-          {/* End total Messages */}
-          {/* Begin Totals Messages */}
-          <CCol
-            className="rounded-lg bg-white p-0 mr-lg-4 d-flex align-items-center"
-            style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
-          >
-            <CCol className="py-3 d-flex justify-content-center">
-              <div className="d-flex flex-column">
-                <span className="text-muted pb-2 d-flex justify-content-center">
-                  Users Delivered
-                </span>
-                <span className="d-flex flex-row align-items-center">
-                  <span style={{ fontSize: 26, fontWeight: 700 }}>
-                    1.200.000
-                  </span>
-                  <span
-                    className="ml-2 success-color"
-                    style={{ fontSize: 14, fontWeight: 600 }}
-                  >
-                    (90%)
-                  </span>
-                </span>
-              </div>
-            </CCol>
-          </CCol>
-          {/* End total Messages */}
-          {/* Begin Totals Messages */}
-          <CCol
-            className="rounded-lg bg-white p-0 mr-lg-4 d-flex align-items-center"
-            style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
-          >
-            <CCol className="py-3 d-flex justify-content-center">
-              <div className="d-flex flex-column">
-                <span className="text-muted pb-2 d-flex justify-content-center">
-                  Remaining
-                </span>
-                <span className="d-flex flex-row align-items-center">
-                  <span
-                    style={{ fontSize: 26, fontWeight: 700 }}
-                    className="d-flex justify-center"
-                  >
-                    900.000
-                  </span>
-                </span>
-              </div>
-            </CCol>
-          </CCol>
-          {/* End total Messages */}
-          {/* Begin Totals Messages */}
-          <CCol
-            className="rounded-lg bg-white p-0 d-flex align-items-center"
-            style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
-          >
-            <CCol className="py-3 d-flex justify-content-center">
-              <div className="d-flex flex-column">
-                <span className="text-muted pb-2 d-flex justify-content-center">
-                  Failed(Cancel)
-                </span>
-                <span className="d-flex flex-row align-items-center">
-                  <span
-                    style={{ fontSize: 26, fontWeight: 700 }}
-                    className="d-flex justify-content-center"
-                  >
-                    9
-                  </span>
-                </span>
-              </div>
-            </CCol>
-          </CCol>
-          {/* End total Messages */}
+            1.200.000
+          </span>
         </CCol>
+        {/* End total Messages */}
+        {/* Begin Totals Messages */}
+        <CCol
+          className="d-flex flex-column py-3 rounded-lg bg-white p-0 mr-lg-4 my-2"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
+        >
+          <span className="text-muted pb-2 d-flex justify-content-center">
+            Users Delivered
+          </span>
+          <span
+            className="d-flex justify-content-center"
+            style={{ fontSize: 26, fontWeight: 700 }}
+          >
+            1.200.000
+          </span>
+        </CCol>
+        {/* End total Messages */}
+        {/* Begin Totals Messages */}
+        <CCol
+          className="d-flex flex-column py-3 rounded-lg bg-white p-0 mr-lg-4 my-2"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
+        >
+          <span className="text-muted pb-2 d-flex justify-content-center">
+            Remaining
+          </span>
+          <span
+            style={{ fontSize: 26, fontWeight: 700 }}
+            className="d-flex justify-content-center"
+          >
+            900.00
+          </span>
+        </CCol>
+        {/* End total Messages */}
+        {/* Begin Totals Messages */}
+        <CCol
+          className="d-flex flex-column py-3 rounded-lg bg-white p-0 my-2"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
+        >
+          <span className="text-muted pb-2 d-flex justify-content-center">
+            Failed(Cancel)
+          </span>
+          <span
+            style={{ fontSize: 26, fontWeight: 700 }}
+            className="d-flex justify-content-center"
+          >
+            9
+          </span>
+        </CCol>
+        {/* End total Messages */}
       </CCol>
-      {/* Chart */}
-      {/* <CCol className="d-flex flex-xl-row p-0 pt-2" xl={12}> */}
-      {/* Chart bar Messages */}
-      {/* <ChartBarSimple style={{ height: 315 }} /> */}
-      {/* Channel Statistics */}
-      {/* <ChannelStatistic /> */}
-      {/* </CCol> */}
       <CCol>
         <CCard>
           <CCardBody>
@@ -275,9 +232,9 @@ const MessageReport = () => {
                       </CCol>
                       <CCol className="font-weight-bold">
                         <span>
-                          {messageDetail.CreateBy.LastName +
+                          {messageDetail.createdBy.lastName +
                             " " +
-                            messageDetail.CreateBy.FirstName}
+                            messageDetail.createdBy.firstName}
                         </span>
                       </CCol>
                     </CCol>
@@ -295,7 +252,7 @@ const MessageReport = () => {
                       <CCol className="font-weight-bold">
                         <span>
                           Last Update at:{" "}
-                          {convert_day_hours_minute(messageDetail.UpdateDate)}
+                          {convert_day_hours_minute(messageDetail.updatedAt)}
                         </span>
                       </CCol>
                     </CCol>
@@ -319,7 +276,7 @@ const MessageReport = () => {
                         Channel
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {messageDetail.ChannelId.ChannelType}
+                        {messageDetail.channel.type}
                       </CCol>
                     </CCol>
                     <hr />
@@ -366,7 +323,7 @@ const MessageReport = () => {
                         <span>Title</span>
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {messageDetail.Title}
+                        {messageDetail.title}
                       </CCol>
                     </CCol>
                     <hr />
@@ -375,7 +332,7 @@ const MessageReport = () => {
                         Content
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {messageDetail.ContentOTT}
+                        {messageDetail.content}
                       </CCol>
                     </CCol>
                     <hr />
@@ -385,7 +342,7 @@ const MessageReport = () => {
                       </CCol>
                       <CCol className="font-weight-bold">
                         <CImg
-                          src={messageDetail.Image}
+                          src={messageDetail.image}
                           height="80"
                           width="80"
                           className="rounded"
@@ -401,7 +358,7 @@ const MessageReport = () => {
                         className="font-weight-bold"
                         style={{ cursor: "pointer", color: "#007BFF" }}
                       >
-                        {messageDetail.Link}
+                        {messageDetail.link}
                       </CCol>
                     </CCol>
                   </CCol>
@@ -416,7 +373,7 @@ const MessageReport = () => {
                         Start sending
                       </CCol>
                       <CCol className="font-weight-bold">
-                        {convert_day_hours_minute(messageDetail.Schedule)}
+                        {convert_day_hours_minute(messageDetail.schedule)}
                       </CCol>
                     </CCol>
                   </CCol>
