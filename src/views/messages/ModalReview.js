@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Imagedemo from "./photo/demo.jpeg";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 import {
   CButton,
   CImg,
@@ -12,6 +13,7 @@ import {
   CModalTitle,
   CModalBody,
   CModalFooter,
+  CAlert,
   CRow,
   CLink,
 } from "@coreui/react";
@@ -21,30 +23,47 @@ import { phonePreview } from "src/assets/icons/phone-preview";
 import CIcon from "@coreui/icons-react";
 
 const ReviewMsg = ({ onSubmit, message }) => {
+  const { t } = useTranslation();
   //Modal
   const [large, setLarge] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   return (
     <>
       <CCol className="d-flex bd-highlight">
-        <CCol className="pb-5 p-0">
+        <CCol className="pb-5 p-0 d-flex align-items-center">
           <CButton
             color="primary"
             className="mr-3"
             onClick={() => setLarge(!large)}
           >
             <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-            Review and Send
+            {t("create-msg.btn-send")}
           </CButton>
-          <CButton color="outline" onClick={() => onSubmit("Draft")}>
+          {/* <CButton color="outline" onClick={() => setVisible()}>
             Save as Draft
+          </CButton> */}
+
+          <CButton color="outline" onClick={() => onSubmit("Draft")}>
+            {t("create-msg.btn-savedraft")}
           </CButton>
+          {/* Alert Save Message to Draft */}
+          <CAlert
+            color="success"
+            show={visible}
+            className="position-absolute alert__Draft"
+            closeButton
+          >
+            <CCol>
+              <FontAwesomeIcon icon={faCheckCircle} className="mr-2" /><span>Draft Saved</span>
+            </CCol>
+          </CAlert>
         </CCol>
+
         {/* Collapse review */}
         <CModal show={large} onClose={() => setLarge(!large)} size="lg">
           <CModalHeader closeButton>
             <CModalTitle>
-              <h4>Review Your Message</h4>
+              <h4>{t("create-msg.md-reviewmsg")}</h4>
             </CModalTitle>
           </CModalHeader>
           <CModalBody style={{ height: "80vh", overflow: "auto" }}>
@@ -52,10 +71,10 @@ const ReviewMsg = ({ onSubmit, message }) => {
               {/* form Audience */}
               <CCol className="p-0">
                 <CLabel>
-                  <h5>Audience</h5>
+                  <h5>{t("create-msg.md-lb-audience")}</h5>
                 </CLabel>
-                <CCol className="border rounded-lg p-0 py-4">
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column">
+                <CCol className="border rounded-lg p-0 py-3">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
                     <CCol
                       lg="3"
                       md="3"
@@ -63,7 +82,7 @@ const ReviewMsg = ({ onSubmit, message }) => {
                       xs="12"
                       className="text-muted py-1"
                     >
-                      Channel
+                      {t("create-msg.md-lb-channel")}
                     </CCol>
                     <CCol className="font-weight-bold">
                       {message.channel.name}
@@ -76,16 +95,16 @@ const ReviewMsg = ({ onSubmit, message }) => {
                       md="3"
                       sm="3"
                       xs="12"
-                      className="text-muted py-1"
+                      className="text-muted"
                     >
-                      Included segments
+                      {t("create-msg.md-lb-segment")}
                     </CCol>
                     <CCol className="font-weight-bold">
                       {message.segment.check
                         ? "Subscribed Users"
                         : message.segment.filter.map((item, index) => {
-                            return <span key={index}>{item}</span>;
-                          })}
+                          return <span key={index}>{item}</span>;
+                        })}
                     </CCol>
                   </CCol>
                   <hr />
@@ -95,9 +114,9 @@ const ReviewMsg = ({ onSubmit, message }) => {
                       md="3"
                       sm="3"
                       xs="12"
-                      className="text-muted py-1"
+                      className="text-muted"
                     >
-                      Estimated recipients
+                      {t("create-msg.md-lb-user")}
                     </CCol>
                     <CCol className="font-weight-bold">100.000.000 Users</CCol>
                   </CCol>
@@ -107,26 +126,45 @@ const ReviewMsg = ({ onSubmit, message }) => {
               {/* Content */}
               <CCol className="p-0 py-4">
                 <CLabel>
-                  <h5>Messages</h5>
+                  <h5>{t("create-msg.md-message")}</h5>
                 </CLabel>
-                <CCol className="border rounded p-0 py-4">
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                    <CCol lg="3" className="text-muted">
-                      <span>Title</span>
+                <CCol className="border rounded p-0 py-3">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                    <CCol
+                      xxl="3"
+                      xl="3"
+                      lg="3"
+                      md="3"
+                      sm="3"
+                      xs="12"
+                      className="text-muted">
+                      <span>{t("create-msg.md-lb-title")}</span>
                     </CCol>
                     <CCol className="font-weight-bold">{message.title}</CCol>
                   </CCol>
                   <hr />
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                    <CCol lg="3" className="text-muted">
-                      Content
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                    <CCol
+                      xxl="3"
+                      xl="3"
+                      lg="3"
+                      md="3"
+                      sm="3"
+                      xs="12" className="text-muted">
+                      {t("create-msg.md-lb-content")}
                     </CCol>
                     <CCol className="font-weight-bold">{message.message}</CCol>
                   </CCol>
                   <hr />
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                    <CCol lg="3" className="text-muted">
-                      Image
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                    <CCol
+                      xxl="3"
+                      xl="3"
+                      lg="3"
+                      md="3"
+                      sm="3"
+                      xs="12" className="text-muted">
+                      {t("create-msg.md-lb-image")}
                     </CCol>
                     <CCol className="font-weight-bold">
                       <CImg
@@ -138,9 +176,15 @@ const ReviewMsg = ({ onSubmit, message }) => {
                     </CCol>
                   </CCol>
                   <hr />
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                    <CCol lg="3" className="text-muted">
-                      Launch URL
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                    <CCol
+                      xxl="3"
+                      xl="3"
+                      lg="3"
+                      md="3"
+                      sm="3"
+                      xs="12" className="text-muted">
+                      {t("create-msg.md-lb-url")}
                     </CCol>
                     <CCol
                       className="font-weight-bold"
@@ -153,12 +197,18 @@ const ReviewMsg = ({ onSubmit, message }) => {
               </CCol>
               <CCol className="p-0">
                 <CLabel>
-                  <h5>Schedule</h5>
+                  <h5>{t("create-msg.md-lb-schedule")}</h5>
                 </CLabel>
                 <CCol className="border rounded p-0 py-4">
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                    <CCol lg="3" className="text-muted">
-                      Start sending
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                    <CCol
+                      xxl="3"
+                      xl="3"
+                      lg="3"
+                      md="3"
+                      sm="3"
+                      xs="12" className="text-muted">
+                      {t("create-msg.md-lb-send")}
                     </CCol>
                     <CCol className="font-weight-bold">
                       {message.schedule.check
@@ -172,7 +222,7 @@ const ReviewMsg = ({ onSubmit, message }) => {
           </CModalBody>
           <CModalFooter className="d-flex justify-content-center">
             <CButton color="ghost" onClick={() => setLarge(!large)}>
-              Make changes
+              {t("create-msg.md-btn-change")}
             </CButton>
             <CButton
               color="primary"
@@ -180,7 +230,7 @@ const ReviewMsg = ({ onSubmit, message }) => {
                 onSubmit(message.schedule.check ? "OneTime" : "Schedule")
               }
             >
-              Send Message
+              {t("create-msg.md-btn-send")}
             </CButton>
           </CModalFooter>
         </CModal>

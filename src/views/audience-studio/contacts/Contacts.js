@@ -122,9 +122,9 @@ const Contacts = () => {
                         <span style={{ fontSize: 18 }}>Channels</span>
                       </div>
                     </CCol>
-                    <CCol className="pl-0 flex-">
+                    <CCol className="pl-0 py-3">
                       {/* Box channnels */}
-                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-2">
+                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-3">
                         <span className="d-flex justify-content-">Zalo</span>
                         <CLabel>
                           <span style={{ fontSize: 18, fontWeight: 600 }}>
