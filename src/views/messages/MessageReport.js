@@ -87,8 +87,10 @@ const MessageReport = () => {
             {messageDetail.Title}
           </span>
           <span>
-          {t("detail-msg.lb-sentat")}
-            {convert_day_hours_minute(messageDetail.createdAt)}
+            {t("detail-msg.lb-sentat")}
+            <span className="pl-2">
+              {convert_day_hours_minute(messageDetail.createdAt)}
+            </span>
           </span>
         </CCol>
         <div className="p-0 ml-auto">
@@ -164,7 +166,7 @@ const MessageReport = () => {
           style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
         >
           <span className="text-muted pb-2 d-flex justify-content-center">
-          {t("detail-msg.box-delivered")}
+            {t("detail-msg.box-delivered")}
           </span>
           <span
             className="d-flex justify-content-center"
@@ -180,7 +182,7 @@ const MessageReport = () => {
           style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
         >
           <span className="text-muted pb-2 d-flex justify-content-center">
-          {t("detail-msg.box-remaining")}
+            {t("detail-msg.box-remaining")}
           </span>
           <span
             style={{ fontSize: 26, fontWeight: 700 }}
@@ -196,7 +198,7 @@ const MessageReport = () => {
           style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
         >
           <span className="text-muted pb-2 d-flex justify-content-center">
-          {t("detail-msg.box-fail")}
+            {t("detail-msg.box-fail")}
           </span>
           <span
             style={{ fontSize: 26, fontWeight: 700 }}
@@ -391,7 +393,7 @@ const MessageReport = () => {
                         md="3"
                         sm="3"
                         xs="12" className="text-muted">
-                       {t("detail-msg.lb-send")}
+                        {t("detail-msg.lb-send")}
                       </CCol>
                       <CCol className="font-weight-bold">
                         {convert_day_hours_minute(messageDetail.schedule)}
@@ -403,7 +405,7 @@ const MessageReport = () => {
               <CCol col="6" className="d-lg-block d-ms-block d-none">
                 <div className="d-flex justify-content-center flex-column">
                   <strong className="pb-3 d-flex justify-content-center primary-color">
-                  {t("detail-msg.col-preview")}
+                    {t("detail-msg.col-preview")}
                   </strong>
                   <CIcon name="phonePreview" height="700" alt="Logo" />
                 </div>
