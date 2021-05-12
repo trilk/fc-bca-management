@@ -174,7 +174,7 @@
         "lb-content": "Content",
         "ph-content": "Input content",
         "lb-image": "Image",
-        "lb-url": "Launch URL",
+        "lb-url": "URL",
         "card-schedule": "Schedule",
         "lb-schedule": "When should this message start sending?",
         "cb-sendnow": "Message will send right away",
@@ -199,7 +199,7 @@
     },
     "detail-msg": {
         "title": "Message Statistics",
-        "lb-sentat": "started sent at",
+        "lb-sentat": "started sent at: ",
         "btn-dropdown": "Action",
         "dropdown-edit": "Edit",
         "dropdown-duplicate": "Duplicate",
