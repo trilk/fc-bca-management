@@ -357,7 +357,7 @@ const MessageReport = () => {
                       </CCol>
                       <CCol className="font-weight-bold">
                         <CImg
-                          src={messageDetail.image}
+                          src={messageDetail.image?.image1}
                           height="80"
                           width="80"
                           className="rounded"
@@ -377,7 +377,7 @@ const MessageReport = () => {
                         className="font-weight-bold"
                         style={{ cursor: "pointer", color: "#007BFF" }}
                       >
-                        {messageDetail.link}
+                        {messageDetail.url?.url1}
                       </CCol>
                     </CCol>
                   </CCol>
