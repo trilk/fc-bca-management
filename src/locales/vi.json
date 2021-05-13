@@ -10,6 +10,10 @@
         "female": "Nữ",
         "other": "Khác"
     },
+    "country": {
+        "VN": "Việt Nam",
+        "TH": "Thái Lan"
+    },
     "role": {
         "admin": "Quản trị viên",
         "moderator": "Người điều hành",
@@ -92,10 +96,11 @@
     },
     "user-edit-form": {
         "title-header1": "Thông tin cá nhân",
-        "lb-first-name": "Họ",
-        "lb-last-name": "Tên",
+        "lb-first-name": "Tên",
+        "lb-last-name": "Họ",
         "lb-phone": "Số điện thoại",
-        "pl-username": "Tên đăng nhập là số điện thoại",
+        "lb-username": "Tên đăng nhập",
+        "ph-username": "Tên đăng nhập là số điện thoại",
         "lb-gender": "Giới tính",
         "lb-email": "Thư điện tử",
         "lb-dob": "Ngày sinh",
@@ -114,14 +119,19 @@
         "th-message": "Tin nhắn",
         "th-template": "Tin nhắn mẫu",
         "th-user": "Người dùng",
-        "th-customer": "Khách hàng",
+        "th-audience": "Khách hàng",
         "th-channel": "Kênh khách hàng",
         "td-read": "Đọc/Xem",
-        "td-change": "Thay đổi",
+        "td-update": "Thay đổi",
         "td-create": "Tạo",
-        "btn-submit": "Lưu thay đổi",
+        "btn-save": "Lưu thay đổi",
         "btn-delete": "Xóa",
-        "btn-cancel": "Huỷ"
+        "btn-cancel": "Huỷ",
+        "msg-input-req": "Vui lòng nhập {{0}}.",
+        "msg-username-invalid": "Tên đăng nhập không khả dụng",
+        "msg_save_fail": "Lưu dữ liệu người dùng thất bại. Vui lòng thử lại sau.",
+        "msg_delete_confirm": "Bạn có chắc chắn xóa người dùng {{0}} ra khỏi hệ thống không?",
+        "msg_save_success": "Lưu dữ liệu thành công. Hệ thống sẽ tự động chuyển về trang trước."
     },
     "message-list": {
         "ph-search": "Tìm kiếm",
@@ -210,9 +220,10 @@
         "description": "Tin nhắn sẽ hiện thị cho người nhận chỉ dưới dạng hình ảnh và nội dụng"
     },
     "msg-image": {
-        "lb-img":"Hình ảnh",
+        "lb-img": "Hình ảnh",
         "lb-upload": "Nhấp để tải lên hình ảnh",
         "lb-description": "Tải lên tối đa 1 hình ảnh",
+        "tooltip": "Gỡ hình này",
         "lb-content": "Nội dung",
         "ph-content": "Nhập nội  dung",
         "title": "Tin nhắn dạng danh sách",
