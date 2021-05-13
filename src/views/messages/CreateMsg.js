@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Imagedemo from "./photo/demo.jpeg";
 import { useTranslation } from "react-i18next";
-import ListMsgType from './TypeMessage/TypeList'
-import ImageMsgType from './TypeMessage/TypeImage'
-import TextMsgType from './TypeMessage/TypeText'
+import ListMsgType from "./TypeMessage/TypeList";
+import ImageMsgType from "./TypeMessage/TypeImage";
+import TextMsgType from "./TypeMessage/TypeText";
 import {
   faPlus,
   faPlusCircle,
@@ -59,7 +59,6 @@ const CreateMsg = () => {
   const history = useHistory();
   // get channels when login
   const channels = useSelector((state) => state.auth.user.channels);
-
   const [large, setLarge] = useState(false);
   const [small, setSmall] = useState(false);
 
@@ -70,15 +69,16 @@ const CreateMsg = () => {
   const [message, setMessage] = useState({
     channel: {},
     segment: { check: true, filter: ["all"] },
-    template: null,
-    title: null,
-    content: null,
-    link: null,
-    fileName: null,
-    filePath: null,
+    template: "",
+    title: "",
+    content: "",
+    link: "",
+    fileName: "",
+    filePath: "",
     schedule: { check: true, filter: "" },
     type: "text",
     date: null,
+    listMsg: [],
   });
 
   const toggleMulti = (type) => {
@@ -119,7 +119,7 @@ const CreateMsg = () => {
       }
     }
     if (name === "channel") {
-      setMessage({ ...message, [name]: JSON.parse(target.value) });
+      setMessage({ ...message, [name]: target.value });
     }
     if (name === "segment") {
       const array = [];
@@ -162,22 +162,35 @@ const CreateMsg = () => {
         console.log("error", error);
       });
   };
-  //upload image
-  const [image, setImage] = useState("");
-  const [isUploaded, setIsUploaded] = useState(false);
 
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader()
+  const onCreateListMsg = () => {
+    const msg = {
+      title: message.title,
+      url: message.link,
+      image: message.filePath,
+      content: message.content,
+    };
+    const listMsg = message.listMsg;
+    listMsg.push(msg);
+    setMessage({
+      ...message,
+      listMsg,
+      link: "",
+      filePath: "",
+      fileName: "",
+      title: "",
+      content: "",
+    });
+  };
+  const onRemoveListMsg = (id) => {
+    const listMsg = message.listMsg;
+    listMsg.splice(id, 1);
+    setMessage({ ...message, listMsg });
+  };
+  const onRemoveImage = () => {
+    setMessage({ ...message, fileName: "", filePath: "" });
+  };
 
-      reader.onload = function (e) {
-        setImage(e.target.result)
-        setIsUploaded(true)
-      }
-      reader.readAsDataURL(e.target.files[0])
-
-    }
-  }
   return (
     <>
       {error && (
@@ -406,10 +419,14 @@ const CreateMsg = () => {
                 className="p-0 d-flex flex-row bd-highlight align-items-center"
               >
                 <div className="font-weight-bold">
-                  <span className="text-muted">2. {t("create-msg.card-message")}</span>
+                  <span className="text-muted">
+                    2. {t("create-msg.card-message")}
+                  </span>
                 </div>
                 <div className="ml-auto d-md-none d-lg-none">
-                  <CButton color="secondary">{t("create-msg.btn-preview")}</CButton>
+                  <CButton color="secondary">
+                    {t("create-msg.btn-preview")}
+                  </CButton>
                 </div>
               </CCol>
             </CCardHeader>
@@ -417,9 +434,15 @@ const CreateMsg = () => {
               <CRow>
                 <CCol col="6" lg="6" md="6">
                   <CCol className="p-0">
-                    <h6 className="font-weight-bold">{t("create-msg.sl-type-msg")}</h6>
+                    <h6 className="font-weight-bold">
+                      {t("create-msg.sl-type-msg")}
+                    </h6>
                     <div className="d-flex flex-xxl-row flex-column bg-light-primary border-primary-light p-3 rounded mb-4">
-                      <CFormGroup variant="custom-radio" inline className="py-1">
+                      <CFormGroup
+                        variant="custom-radio"
+                        inline
+                        className="py-1"
+                      >
                         <CInputRadio
                           custom
                           value="text"
@@ -427,13 +450,20 @@ const CreateMsg = () => {
                           name="type"
                           onChange={(value) => onValueChange(value)}
                         />
-                        <CLabel variant="custom-checkbox" htmlFor="inline-radio5">
+                        <CLabel
+                          variant="custom-checkbox"
+                          htmlFor="inline-radio5"
+                        >
                           <strong>{t("create-msg.text-msg")}</strong>
                         </CLabel>
                       </CFormGroup>
                       {/* end */}
                       {/* begin select image messages */}
-                      <CFormGroup variant="custom-radio" inline className="py-1">
+                      <CFormGroup
+                        variant="custom-radio"
+                        inline
+                        className="py-1"
+                      >
                         <CInputRadio
                           custom
                           value="image"
@@ -441,13 +471,20 @@ const CreateMsg = () => {
                           name="type"
                           onChange={(value) => onValueChange(value)}
                         />
-                        <CLabel variant="custom-checkbox" htmlFor="inline-radio6">
+                        <CLabel
+                          variant="custom-checkbox"
+                          htmlFor="inline-radio6"
+                        >
                           <strong>{t("create-msg.image-msg")}</strong>
                         </CLabel>
                       </CFormGroup>
                       {/* end */}
                       {/* begin select list messages */}
-                      <CFormGroup variant="custom-radio" inline className="py-1">
+                      <CFormGroup
+                        variant="custom-radio"
+                        inline
+                        className="py-1"
+                      >
                         <CInputRadio
                           custom
                           value="list"
@@ -455,7 +492,10 @@ const CreateMsg = () => {
                           name="type"
                           onChange={(value) => onValueChange(value)}
                         />
-                        <CLabel variant="custom-checkbox" htmlFor="inline-radio7">
+                        <CLabel
+                          variant="custom-checkbox"
+                          htmlFor="inline-radio7"
+                        >
                           <strong>{t("create-msg.list-msg")}</strong>
                         </CLabel>
                       </CFormGroup>
@@ -465,12 +505,21 @@ const CreateMsg = () => {
                   {/* Message text only */}
                   {message.type === "text" && <TextMsgType />}
                   {/* message image */}
-                  {message.type === "image" &&
-                    <ImageMsgType />}
+                  {message.type === "image" && <ImageMsgType />}
                   {/* List message */}
-                  {message.type === "list" &&
-                    < ListMsgType />
-                  }
+                  {message.type === "list" && (
+                    <ListMsgType
+                      listMsg={message.listMsg}
+                      onCreateListMsg={onCreateListMsg}
+                      onRemoveListMsg={onRemoveListMsg}
+                      onRemoveImage={onRemoveImage}
+                      onValueChange={onValueChange}
+                      link={message.link}
+                      title={message.title}
+                      image={message.filePath}
+                      content={message.content}
+                    />
+                  )}
                 </CCol>
                 <CCol col="6" className="d-lg-block d-ms-block d-none">
                   <div className="d-flex justify-content-center flex-column">
@@ -489,7 +538,9 @@ const CreateMsg = () => {
           <CCard>
             <CCardHeader>
               <div className="font-weight-bold ">
-                <span className="text-muted">3. {t("create-msg.card-schedule")}</span>
+                <span className="text-muted">
+                  3. {t("create-msg.card-schedule")}
+                </span>
               </div>
             </CCardHeader>
             <CCardBody>
