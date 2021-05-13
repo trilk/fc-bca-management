@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
+import Statistics from "./Statistics";
 import {
   faPen,
   faCopy,
@@ -45,6 +46,7 @@ import {
   faFantasyFlightGames,
   faFly,
 } from "@fortawesome/free-brands-svg-icons";
+import boxStatistics from "./Statistics";
 
 const MessageReport = () => {
   const { t } = useTranslation();
@@ -132,83 +134,7 @@ const MessageReport = () => {
         </div>
       </CCol>
       {/* End */}
-      {/* Messages Statistics */}
-      <CCol
-        className="d-flex flex-xxl-row flex-xl-row flex-lg-row flex-md-wrap flex-column pb-3"
-        xxl={12}
-        xl={12}
-        lg={12}
-        md={12}
-        sm={12}
-      >
-        {/* Begin Totals Messages */}
-        <CCol
-          className="d-flex flex-column py-3 rounded-lg bg-white p-0 mr-lg-4 my-2"
-          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
-        >
-          <div className="text-muted pb-2 d-flex align-items-center justify-content-center">
-            <span>
-              <FontAwesomeIcon icon={faPaperPlane} size="xs" className="mr-2" />
-              {t("detail-msg.box-recipients")}
-            </span>
-          </div>
-          <span
-            className="d-flex justify-content-center"
-            style={{ fontSize: 26, fontWeight: 700 }}
-          >
-            1.200.000
-          </span>
-        </CCol>
-        {/* End total Messages */}
-        {/* Begin Totals Messages */}
-        <CCol
-          className="d-flex flex-column py-3 rounded-lg bg-white p-0 mr-lg-4 my-2"
-          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
-        >
-          <span className="text-muted pb-2 d-flex justify-content-center">
-            {t("detail-msg.box-delivered")}
-          </span>
-          <span
-            className="d-flex justify-content-center"
-            style={{ fontSize: 26, fontWeight: 700 }}
-          >
-            1.200.000
-          </span>
-        </CCol>
-        {/* End total Messages */}
-        {/* Begin Totals Messages */}
-        <CCol
-          className="d-flex flex-column py-3 rounded-lg bg-white p-0 mr-lg-4 my-2"
-          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
-        >
-          <span className="text-muted pb-2 d-flex justify-content-center">
-            {t("detail-msg.box-remaining")}
-          </span>
-          <span
-            style={{ fontSize: 26, fontWeight: 700 }}
-            className="d-flex justify-content-center"
-          >
-            900.00
-          </span>
-        </CCol>
-        {/* End total Messages */}
-        {/* Begin Totals Messages */}
-        <CCol
-          className="d-flex flex-column py-3 rounded-lg bg-white p-0 my-2"
-          style={{ boxShadow: "rgba(0, 0, 0, 0.01) 0px 4px 10px" }}
-        >
-          <span className="text-muted pb-2 d-flex justify-content-center">
-            {t("detail-msg.box-fail")}
-          </span>
-          <span
-            style={{ fontSize: 26, fontWeight: 700 }}
-            className="d-flex justify-content-center"
-          >
-            9
-          </span>
-        </CCol>
-        {/* End total Messages */}
-      </CCol>
+      <Statistics />
       <CCol>
         <CCard>
           <CCardBody>
@@ -220,18 +146,14 @@ const MessageReport = () => {
                   <CLabel className="d-flex flex-row">
                     <h4>{t("detail-msg.lb-detail")}</h4>
                     <div className="ml-auto d-block d-sm-none">
-                      <CButton color="secondary">{t("detail-msg.btn-preview")}</CButton>
+                      <CButton color="secondary">
+                        {t("detail-msg.btn-preview")}
+                      </CButton>
                     </div>
                   </CLabel>
                   <CCol className="border rounded-lg p-0 py-3">
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12"
-                        className="text-muted"
-                      >
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         <span>{t("detail-msg.lb-createby")}</span>
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -244,13 +166,7 @@ const MessageReport = () => {
                     </CCol>
                     <hr />
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12"
-                        className="text-muted"
-                      >
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         <span>{t("detail-msg.lb-lastupdate")}</span>
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -269,13 +185,7 @@ const MessageReport = () => {
                   </CLabel>
                   <CCol className="border rounded-lg p-0 py-3">
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2  ">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12"
-                        className="text-muted"
-                      >
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         {t("detail-msg.lb-channel")}
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -284,13 +194,7 @@ const MessageReport = () => {
                     </CCol>
                     <hr />
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12"
-                        className="text-muted"
-                      >
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         {t("detail-msg.lb-segment")}
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -299,13 +203,7 @@ const MessageReport = () => {
                     </CCol>
                     <hr />
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12"
-                        className="text-muted"
-                      >
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         {t("detail-msg.lb-recipients")}
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -322,11 +220,7 @@ const MessageReport = () => {
                   </CLabel>
                   <CCol className="border rounded p-0 py-3">
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12" className="text-muted">
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         <span>{t("detail-msg.msg-title")}</span>
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -335,11 +229,7 @@ const MessageReport = () => {
                     </CCol>
                     <hr />
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12" className="text-muted">
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         {t("detail-msg.msg-content")}
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -348,11 +238,7 @@ const MessageReport = () => {
                     </CCol>
                     <hr />
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12" className="text-muted">
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         {t("detail-msg.lb-image")}
                       </CCol>
                       <CCol className="font-weight-bold">
@@ -366,11 +252,7 @@ const MessageReport = () => {
                     </CCol>
                     <hr />
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12" className="text-muted">
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         {t("detail-msg.lb-url")}
                       </CCol>
                       <CCol
@@ -388,11 +270,7 @@ const MessageReport = () => {
                   </CLabel>
                   <CCol className="border rounded p-0 py-4">
                     <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol
-                        lg="3"
-                        md="3"
-                        sm="3"
-                        xs="12" className="text-muted">
+                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                         {t("detail-msg.lb-send")}
                       </CCol>
                       <CCol className="font-weight-bold">

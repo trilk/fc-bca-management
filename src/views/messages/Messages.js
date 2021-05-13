@@ -375,7 +375,7 @@ const Messages = () => {
                   {
                     key: "type",
                     label: "Type Message",
-                    _style: { width: "1%" }
+                    _style: { width: "2%" }
                   },
                   // {
                   //   key: "type",

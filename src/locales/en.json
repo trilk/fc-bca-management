@@ -10,6 +10,10 @@
         "female": "Female",
         "other": "Other"
     },
+    "country": {
+        "VN": "Vietnam",
+        "TH": "Thailand"
+    },
     "role": {
         "admin": "Administration",
         "moderator": "Moderator",
@@ -112,17 +116,22 @@
         "lb-status": "Active status",
         "tt-table": "Menu Authorization Options",
         "th-classification": "Classification",
-        "th-message": "Messages",
+        "th-message": "Message",
         "th-template": "Template",
-        "th-user": "Users",
-        "th-customer": "Customers",
-        "th-channel": "Channels",
+        "th-user": "User",
+        "th-audience": "Audience",
+        "th-channel": "Channel",
         "td-read": "Read",
-        "td-change": "Update",
+        "td-update": "Update",
         "td-create": "Create",
-        "btn-submit": "Save changes",
+        "btn-save": "Save changes",
         "btn-delete": "Delete",
-        "btn-cancel": "Cancel"
+        "btn-cancel": "Cancel",
+        "msg-input-req": "Please enter {{0}}.",
+        "msg-username-invalid": "This username is not available",
+        "msg_save_fail": "The user's data cannot be updated. Please try again later",
+        "msg_delete_confirm": "Are you sure to delete the user {{0}} ?",
+        "msg_save_success": "The user's data has been updated. The system will automatically redirect to the previous page"
     },
     "message-list": {
         "ph-search": "Search",
@@ -204,7 +213,7 @@
     },
     "msg-text": {
         "title-messages": "Title",
-        "ph-message":"Enter title",
+        "ph-message": "Enter title",
         "lb-content": "Content",
         "ph-content": "Enter content",
         "title": "Image message",
@@ -214,6 +223,7 @@
         "lb-img": "Image",
         "lb-upload": "Click to upload image",
         "lb-description": "Upload up to 1 image",
+        "tooltip": "Remove image",
         "lb-content": "Content",
         "ph-content": "Enter content",
         "title": "List message",
@@ -221,7 +231,7 @@
     },
     "msg-list": {
         "lb-image": "Image",
-        "lb-upload":"Upload image",
+        "lb-upload": "Upload image",
         "lb-delete-img": "Remove image",
         "lb-content": "Content",
         "ph-content": "Enter content",
