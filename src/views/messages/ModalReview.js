@@ -42,12 +42,11 @@ const ReviewMsg = ({ onSubmit, message }) => {
           {/* <CButton color="outline" onClick={() => setVisible()}>
             Save as Draft
           </CButton> */}
-
           <CButton color="outline" onClick={() => onSubmit("Draft")}>
             {t("create-msg.btn-savedraft")}
           </CButton>
           {/* Alert Save Message to Draft */}
-          <CAlert
+          {/* <CAlert
             color="success"
             show={visible}
             className="position-absolute alert__Draft"
@@ -56,9 +55,8 @@ const ReviewMsg = ({ onSubmit, message }) => {
             <CCol>
               <FontAwesomeIcon icon={faCheckCircle} className="mr-2" /><span>Draft Saved</span>
             </CCol>
-          </CAlert>
+          </CAlert> */}
         </CCol>
-
         {/* Collapse review */}
         <CModal show={large} onClose={() => setLarge(!large)} size="lg">
           <CModalHeader closeButton>

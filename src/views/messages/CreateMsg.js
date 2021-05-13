@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Imagedemo from "./photo/demo.jpeg";
 import { useTranslation } from "react-i18next";
+import ListMsgType from './TypeMessage/TypeList'
+import ImageMsgType from './TypeMessage/TypeImage'
+import TextMsgType from './TypeMessage/TypeText'
 import {
   faPlus,
   faPlusCircle,
   faTimes,
   faChartPie,
+  faUpload,
+  faFileImage,
+  faFileImport,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   CButton,
@@ -44,6 +51,7 @@ import ChannelService from "../../services/channel.service";
 import MessageService from "../../services/message.service";
 
 import { useHistory } from "react-router-dom";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 const CreateMsg = () => {
   const { t } = useTranslation();
@@ -69,7 +77,7 @@ const CreateMsg = () => {
     fileName: null,
     filePath: null,
     schedule: { check: true, filter: "" },
-    type: null,
+    type: "text",
     date: null,
   });
 
@@ -144,10 +152,8 @@ const CreateMsg = () => {
       });
     }
   };
-  const onSubmit = async (type) => {
-    let messageData = message;
-    messageData.type = type;
-    MessageService.createMessage(messageData)
+  const onSubmit = async () => {
+    MessageService.createMessage(message)
       .then((response) => {
         const { message_id } = response.data;
         return history.push(`/messages/${message_id}`);
@@ -156,7 +162,22 @@ const CreateMsg = () => {
         console.log("error", error);
       });
   };
+  //upload image
+  const [image, setImage] = useState("");
+  const [isUploaded, setIsUploaded] = useState(false);
 
+  function handleImageChange(e) {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader()
+
+      reader.onload = function (e) {
+        setImage(e.target.result)
+        setIsUploaded(true)
+      }
+      reader.readAsDataURL(e.target.files[0])
+
+    }
+  }
   return (
     <>
       {error && (
@@ -395,110 +416,69 @@ const CreateMsg = () => {
             <CCardBody>
               <CRow>
                 <CCol col="6" lg="6" md="6">
-                  <CCol className="p-0 pb-4">
-                    <CLabel htmlFor="district">
-                      <span style={{ fontWeight: 600, fontSize: 14 }}>
-                        {t("create-msg.sl-template")}
-                      </span>
-                    </CLabel>
-                    <CSelect
-                      custom
-                      name="select"
-                      id="select"
-                      onChange={(value) => onValueChange(value)}
-                    >
-                      <option value="">Select..</option>
-                      <option value="1">Template 1</option>
-                      <option value="2">Template 2</option>
-                    </CSelect>
-                    <small className="form-text text-muted">
-                      {t("create-msg.sl-tm-description")}
-                    </small>
-                  </CCol>
                   <CCol className="p-0">
-                    <CFormGroup>
-                      <CLabel htmlFor="">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          {t("create-msg.title-messages")}
-                        </span>
-                        <span className="danger-color pl-1">*</span>
-                      </CLabel>
-                      <CInput
-                        name="title"
-                        placeholder={t("create-msg.ph-message")}
-                        required
-                        onChange={(value) => onValueChange(value)}
-                      />
-                    </CFormGroup>
-                  </CCol>
-                  <CCol className="p-0 pb-2">
-                    <CFormGroup>
-                      <CLabel htmlFor="district">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          {t("create-msg.lb-content")}
-                        </span>
-                        <span className="danger-color pl-1">*</span>
-                      </CLabel>
-                      <CTextarea
-                        name="content"
-                        id="textarea-input"
-                        rows="4"
-                        placeholder={t("create-msg.ph-content")}
-                        maxLength="1000"
-                        onChange={(value) => onValueChange(value)}
-                      />
-                    </CFormGroup>
-                  </CCol>
-                  <CCol className="p-0 pb-2">
-                    <CFormGroup>
-                      <CLabel htmlFor="file-input">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          {t("create-msg.lb-image")}
-                        </span>
-                      </CLabel>
-                      <CCol>
-                        <CInputFile
-                          id="file-multiple-input"
-                          name="fileName"
-                          multiple
+                    <h6 className="font-weight-bold">{t("create-msg.sl-type-msg")}</h6>
+                    <div className="d-flex flex-xxl-row flex-column bg-light-primary border-primary-light p-3 rounded mb-4">
+                      <CFormGroup variant="custom-radio" inline className="py-1">
+                        <CInputRadio
                           custom
+                          value="text"
+                          id="inline-radio5"
+                          name="type"
                           onChange={(value) => onValueChange(value)}
                         />
-                        <CLabel
-                          htmlFor="file-multiple-input"
-                          variant="custom-file"
-                        >
-                          {message.fileName
-                            ? message.fileName
-                            : "Choose Files..."}
+                        <CLabel variant="custom-checkbox" htmlFor="inline-radio5">
+                          <strong>{t("create-msg.text-msg")}</strong>
                         </CLabel>
-                      </CCol>
-                    </CFormGroup>
+                      </CFormGroup>
+                      {/* end */}
+                      {/* begin select image messages */}
+                      <CFormGroup variant="custom-radio" inline className="py-1">
+                        <CInputRadio
+                          custom
+                          value="image"
+                          id="inline-radio6"
+                          name="type"
+                          onChange={(value) => onValueChange(value)}
+                        />
+                        <CLabel variant="custom-checkbox" htmlFor="inline-radio6">
+                          <strong>{t("create-msg.image-msg")}</strong>
+                        </CLabel>
+                      </CFormGroup>
+                      {/* end */}
+                      {/* begin select list messages */}
+                      <CFormGroup variant="custom-radio" inline className="py-1">
+                        <CInputRadio
+                          custom
+                          value="list"
+                          id="inline-radio7"
+                          name="type"
+                          onChange={(value) => onValueChange(value)}
+                        />
+                        <CLabel variant="custom-checkbox" htmlFor="inline-radio7">
+                          <strong>{t("create-msg.list-msg")}</strong>
+                        </CLabel>
+                      </CFormGroup>
+                    </div>
+                    {/* end */}
                   </CCol>
-                  <CCol className="p-0">
-                    <CFormGroup>
-                      <CLabel htmlFor="file-input">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          {t("create-msg.lb-url")}
-                        </span>
-                      </CLabel>
-                      <CInput
-                        id="name"
-                        placeholder="http://bit.ly/abc"
-                        name="link"
-                        onChange={(value) => onValueChange(value)}
-                      />
-                    </CFormGroup>
-                  </CCol>
+                  {/* Message text only */}
+                  {message.type === "text" && <TextMsgType />}
+                  {/* message image */}
+                  {message.type === "image" &&
+                    <ImageMsgType />}
+                  {/* List message */}
+                  {message.type === "list" &&
+                    < ListMsgType />
+                  }
                 </CCol>
-                <CCol col="6" className="d-none d-lg-block d-md-block">
-                  <CCol className="d-flex justify-content-center align-items-start">
-                    <CIcon
-                      name="phonePreview"
-                      height="600"
-                      alt="phonePreview"
-                    />
-                  </CCol>
+                <CCol col="6" className="d-lg-block d-ms-block d-none">
+                  <div className="d-flex justify-content-center flex-column">
+                    <strong className="pb-3 d-flex justify-content-center primary-color">
+                      {t("detail-msg.col-preview")}
+                    </strong>
+                    <CIcon name="phonePreview" height="700" alt="Logo" />
+                  </div>
                 </CCol>
               </CRow>
             </CCardBody>
@@ -508,8 +488,8 @@ const CreateMsg = () => {
         <CCol>
           <CCard>
             <CCardHeader>
-              <div className="font-weight-bold">
-                <span>3. {t("create-msg.card-schedule")}</span>
+              <div className="font-weight-bold ">
+                <span className="text-muted">3. {t("create-msg.card-schedule")}</span>
               </div>
             </CCardHeader>
             <CCardBody>

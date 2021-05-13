@@ -128,7 +128,7 @@ const Users = () => {
               <span className="form-control-feedback mt-1 ml-2">
                 <FontAwesomeIcon icon={faSearch} style={{ height: 18, width: 18 }} />
               </span>
-              <CInput id="" type="text" size="lg" placeholder="Search" required className="form-control2 bg-White" />
+              <CInput id="" type="text" size="lg" placeholder="Search" required className="form-control2 bg-white" />
             </CFormGroup>
           </CCol>
           {/* Right */}

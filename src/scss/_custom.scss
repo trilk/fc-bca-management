@@ -281,7 +281,7 @@ a:hover {
 }
 
 .dropdown-menu {
-    z-index: 9999;
+  z-index: 9999;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
   border: 0px solid #fff !important;
   border-radius: 0.42rem !important;
@@ -435,7 +435,7 @@ a:hover {
 .bg-success {
   background-color: #47be7d !important;
 }
-.bg-White {
+.bg-white {
   background-color: #fff !important;
 }
 .bg-primary {
@@ -443,6 +443,9 @@ a:hover {
 }
 .border-primary {
   border: 1px solid #a3d8f7 !important;
+}
+.border-primary-light {
+  border: 1px solid #add8f1;
 }
 //end
 //
@@ -617,4 +620,7 @@ a:hover {
   display: -webkit-box;
   -webkit-line-clamp: 1; /* number of lines to show */
   -webkit-box-orient: vertical;
+}
+.border-primary {
+  border-color: #009ef7 !important ;
 }

@@ -360,7 +360,7 @@ const Messages = () => {
                   },
                   {
                     key: "delivery",
-                    _style: { width: "2%" },
+                    _style: { width: "4%" },
                   },
                   {
                     key: "channel",
@@ -371,6 +371,11 @@ const Messages = () => {
                     key: "createBy",
                     label: "CreateBy",
                     _style: { width: "3%" },
+                  },
+                  {
+                    key: "type",
+                    label: "Type Message",
+                    _style: { width: "1%" }
                   },
                   // {
                   //   key: "type",
@@ -416,14 +421,6 @@ const Messages = () => {
                       >
                         {item.content}
                       </h6>
-                      {/* <CTooltip content={`User Create message`}>
-                        <span className="small font-weight-bold text-gray-400">
-                          <FontAwesomeIcon icon={faUserEdit} className="mr-2" />
-                          {item.createdBy.lastName +
-                            " " +
-                            item.createdBy.firstName}
-                        </span>
-                      </CTooltip> */}
                       <div>
                         <CBadge
                           className="badge-status mr-2"
@@ -435,6 +432,11 @@ const Messages = () => {
                           {convert_day_hours_minute(item.createdAt)}
                         </small>
                       </div>
+                    </td>
+                  ),
+                  type: (item) => (
+                    <td>
+                      <CBadge className="badge-status border-primary-light" color="secondary">Image Message</CBadge>
                     </td>
                   ),
                   channel: (item) => (
@@ -458,7 +460,7 @@ const Messages = () => {
                         <div className="d-flex flex-row align-items-center">
                           <CIcon name="zaloIcon" size="lg" className="mr-2" />
                           <span className="tags-text1Line">
-                            Chatbot Tesolf Zalo
+                            Zalo Channel
                           </span>
                         </div>
                       )}
@@ -490,13 +492,13 @@ const Messages = () => {
                             className="mr-2 primary-color"
                             size="xs"
                           />
-                          <strong>10.000.000</strong>
-                          <small className="pl-2 text-muted">{t("message-list.td-delivered")}</small>
+                          <strong>1.000.000</strong>
+                          <small className="pl-2 text-muted d-inline">{t("message-list.td-delivered")}</small>
                         </div>
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
                             icon={faClock}
-                            className="mr-2 warning-color"
+                            className="mr-2 text-muted"
                             size="xs"
                           />
                           <strong>100</strong>
@@ -505,7 +507,7 @@ const Messages = () => {
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
                             icon={faExclamationCircle}
-                            className="mr-2 danger-color"
+                            className="mr-2 text-muted"
                             size="xs"
                           />
                           <strong>100</strong>
