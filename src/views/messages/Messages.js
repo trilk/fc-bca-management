@@ -48,6 +48,7 @@ import {
   faTimesCircle,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 import { faTelegram, faViber } from "@fortawesome/free-brands-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./messages.scss";
@@ -105,6 +106,7 @@ const getBadge = (status) => {
 //limit page
 const limit = 15;
 const Messages = () => {
+  const { t } = useTranslation();
   // history react router
   const history = useHistory();
 
@@ -167,7 +169,7 @@ const Messages = () => {
                         id=""
                         type="text"
                         size="lg"
-                        placeholder="Search"
+                        placeholder={t("message-list.ph-search")}
                         required
                         className="form-control2"
                       />
@@ -184,7 +186,7 @@ const Messages = () => {
                           className="d-flex align-items-center"
                         >
                           <FontAwesomeIcon icon={faFilter} className="mr-2" />
-                          <span>Filter</span>
+                          <span>{t("message-list.ft-title")}</span>
                         </CDropdownToggle>
                         <CDropdownMenu className="mt-2">
                           <CDropdownHeader className="mr-5">
@@ -196,7 +198,7 @@ const Messages = () => {
                               }}
                               className="mr-5"
                             >
-                              Filter Options
+                              {t("message-list.tt-header")}
                             </span>
                           </CDropdownHeader>
                           <CDropdownDivider />
@@ -204,7 +206,7 @@ const Messages = () => {
                             <CCol className="p-0 d-flex flex-column pb-3">
                               <CLabel htmlFor="exampleDropdownFormEmail1">
                                 <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                  Filter Type Messages:
+                                  {t("message-list.ft-typemsg")}
                                 </span>
                               </CLabel>
                               <CCol className="p-0 d-flex flex-column">
@@ -227,7 +229,7 @@ const Messages = () => {
                                       style={{ fontWeight: 500 }}
                                       className="text-muted"
                                     >
-                                      Messages
+                                      {t("message-list.lb-message")}
                                     </span>
                                   </CLabel>
                                 </CFormGroup>
@@ -250,7 +252,7 @@ const Messages = () => {
                                       style={{ fontWeight: 500 }}
                                       className="text-muted"
                                     >
-                                      Draft
+                                      {t("message-list.lb-draft")}
                                     </span>
                                   </CLabel>
                                 </CFormGroup>
@@ -269,7 +271,7 @@ const Messages = () => {
                                       style={{ fontWeight: 500 }}
                                       className="text-muted"
                                     >
-                                      Schedule
+                                      {t("message-list.lb-schedule")}
                                     </span>
                                   </CLabel>
                                 </CFormGroup>
@@ -278,14 +280,14 @@ const Messages = () => {
                             <CCol className="p-0" lg="12">
                               <CLabel htmlFor="exampleDropdownFormEmail1">
                                 <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                  Date Filter:
+                                  {t("message-list.ft-typedate")}
                                 </span>
                               </CLabel>
                               <CCol className="p-0">
                                 <CFormGroup>
                                   <CLabel htmlFor="exampleDropdownFormEmail1">
                                     <span className="text-muted small">
-                                      Start Date
+                                      {t("message-list.lb-startdate")}
                                     </span>
                                   </CLabel>
                                   <CInput
@@ -301,7 +303,7 @@ const Messages = () => {
                                 <CFormGroup>
                                   <CLabel htmlFor="exampleDropdownFormEmail1">
                                     <span className="text-muted small">
-                                      End Date
+                                      {t("message-list.lb-enddate")}
                                     </span>
                                   </CLabel>
                                   <CInput
@@ -317,10 +319,10 @@ const Messages = () => {
                               <CCol className="p-0 py-2">
                                 <CFormGroup className="mt-2 float-right">
                                   <CButton color="ghost" className="mr-2">
-                                    Reset
+                                    {t("message-list.btn-reset")}
                                   </CButton>
                                   <CButton color="primary" type="submit">
-                                    Submit
+                                    {t("message-list.btn-submit")}
                                   </CButton>
                                 </CFormGroup>
                               </CCol>
@@ -338,7 +340,7 @@ const Messages = () => {
                             icon={faPlusCircle}
                             className="mr-2"
                           />
-                          <span>Create Message</span>
+                          <span>{t("message-list.btn-createmsg")}</span>
                         </CButton>
                       </CLink>
                     </div>
@@ -358,7 +360,7 @@ const Messages = () => {
                   },
                   {
                     key: "delivery",
-                    _style: { width: "2%" },
+                    _style: { width: "4%" },
                   },
                   {
                     key: "channel",
@@ -369,6 +371,11 @@ const Messages = () => {
                     key: "createBy",
                     label: "CreateBy",
                     _style: { width: "3%" },
+                  },
+                  {
+                    key: "type",
+                    label: "Type Message",
+                    _style: { width: "2%" }
                   },
                   // {
                   //   key: "type",
@@ -414,14 +421,6 @@ const Messages = () => {
                       >
                         {item.content}
                       </h6>
-                      {/* <CTooltip content={`User Create message`}>
-                        <span className="small font-weight-bold text-gray-400">
-                          <FontAwesomeIcon icon={faUserEdit} className="mr-2" />
-                          {item.createdBy.lastName +
-                            " " +
-                            item.createdBy.firstName}
-                        </span>
-                      </CTooltip> */}
                       <div>
                         <CBadge
                           className="badge-status mr-2"
@@ -433,6 +432,11 @@ const Messages = () => {
                           {convert_day_hours_minute(item.createdAt)}
                         </small>
                       </div>
+                    </td>
+                  ),
+                  type: (item) => (
+                    <td>
+                      <CBadge className="badge-status border-primary-light" color="secondary">Image Message</CBadge>
                     </td>
                   ),
                   channel: (item) => (
@@ -456,7 +460,7 @@ const Messages = () => {
                         <div className="d-flex flex-row align-items-center">
                           <CIcon name="zaloIcon" size="lg" className="mr-2" />
                           <span className="tags-text1Line">
-                            Chatbot Tesolf Zalo
+                            Zalo Channel
                           </span>
                         </div>
                       )}
@@ -488,26 +492,26 @@ const Messages = () => {
                             className="mr-2 primary-color"
                             size="xs"
                           />
-                          <strong>10.000.000</strong>
-                          <small className="pl-2 text-muted">Delivered</small>
+                          <strong>1.000.000</strong>
+                          <small className="pl-2 text-muted d-inline">{t("message-list.td-delivered")}</small>
                         </div>
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
                             icon={faClock}
-                            className="mr-2 warning-color"
+                            className="mr-2 text-muted"
                             size="xs"
                           />
                           <strong>100</strong>
-                          <small className="pl-2 text-muted">Remaining</small>
+                          <small className="pl-2 text-muted">{t("message-list.td-remaining")}</small>
                         </div>
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
                             icon={faExclamationCircle}
-                            className="mr-2 danger-color"
+                            className="mr-2 text-muted"
                             size="xs"
                           />
                           <strong>100</strong>
-                          <small className="pl-2 text-muted">Failed</small>
+                          <small className="pl-2 text-muted">{t("message-list.td-failed")}</small>
                         </div>
                       </div>
                     </td>
@@ -537,23 +541,22 @@ const Messages = () => {
                         </CDropdownToggle>
                         <CDropdownMenu
                           placement="bottom-end"
-                          // className="position-absolute"
+                        // className="position-absolute"
                         >
                           <CDropdownItem onClick={() => onGetDetail(item)}>
                             <FontAwesomeIcon icon={faEye} className="mr-2" />
-                            View details
+                            {t("message-list.it-details")}
                           </CDropdownItem>
                           <CDropdownItem>
                             {/* Edit message wwith message draft and schedule */}
                             <CLink to="/EditMsg">
                               <FontAwesomeIcon icon={faPen} className="mr-2" />
-                              Edit
+                              {t("message-list.it-edit")}
                             </CLink>
                           </CDropdownItem>
-
                           <CDropdownItem>
                             <FontAwesomeIcon icon={faCopy} className="mr-2" />
-                            Duplicate
+                            {t("message-list.it-duplicate")}
                           </CDropdownItem>
                           <CDropdownDivider />
                           <CDropdownItem
@@ -561,7 +564,7 @@ const Messages = () => {
                             onClick={() => setDanger(!danger)}
                           >
                             <FontAwesomeIcon icon={faTrash} className="mr-2" />
-                            Delete
+                            {t("message-list.it-delete")}
                           </CDropdownItem>
                         </CDropdownMenu>
                       </CDropdown>{" "}
@@ -585,12 +588,12 @@ const Messages = () => {
             alignment="center"
           >
             <CModalHeader closeButton>
-              <CModalTitle>Message Delete</CModalTitle>
+              <CModalTitle>{t("message-list.md-delete")}</CModalTitle>
             </CModalHeader>
-            <CModalBody>Are you want delete this Message?</CModalBody>
+            <CModalBody>{t("message-list.md-content")}</CModalBody>
             <CModalFooter>
-              <CButton color="outline">Cancel</CButton>{" "}
-              <CButton color="primary">Delete</CButton>
+              <CButton color="outline">{t("message-list.md-btncancel")}</CButton>{" "}
+              <CButton color="primary">{t("message-list.md-btndelete")}</CButton>
             </CModalFooter>
           </CModal>
         </CCol>

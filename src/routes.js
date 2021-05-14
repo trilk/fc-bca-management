@@ -1,5 +1,4 @@
 import React from "react";
-import UpdateUser from "./views/users/userUpdate";
 
 const Toaster = React.lazy(() =>
   import("./views/notifications/toaster/Toaster")
@@ -59,12 +58,11 @@ const Typography = React.lazy(() =>
 );
 const Widgets = React.lazy(() => import("./views/widgets/Widgets"));
 const Users = React.lazy(() => import("./views/users/Users"));
-const Profile = React.lazy(() => import("./views/users/Profile"));
-const updateProfile = React.lazy(() => import("./views/users/updateProfile"));
+const MyProfile = React.lazy(() => import("./views/users/MyProfile"));
+// const updateProfile = React.lazy(() => import("./views/users/updateProfile"));
 const UserDetails = React.lazy(() => import("./views/users/UserDetails"));
 const CreateUser = React.lazy(() => import("./views/users/createUser"));
 const EditUser = React.lazy(() => import("./views/users/editUser"));
-const UserUpdate = React.lazy(() => import("./views/users/userUpdate"));
 const Segments = React.lazy(() =>
   import("./views/audience-studio/segments/Segments")
 );
@@ -161,24 +159,12 @@ const routes = [
     component: UserDetails,
   },
   {
-    path: "/users/:id/edit-user",
+    path: "/users/:id/edit",
     exact: true,
     name: "Edit User",
     component: EditUser,
   },
-  {
-    path: "/users/:id/user-update",
-    exact: true,
-    name: "User Update",
-    component: UserUpdate,
-  },
-  { path: "/profile", exact: true, name: "User Profile", component: Profile },
-  {
-    path: "/profile/update-profile",
-    exact: true,
-    name: "Update Profile",
-    component: updateProfile,
-  },
+  { path: "/profile", exact: true, name: "My Profile", component: MyProfile },
   { path: "/segments", exact: true, name: "Segmnets", component: Segments },
   { path: "/contacts", exact: true, name: "Contacts", component: Contacts },
   {

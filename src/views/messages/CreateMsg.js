@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Imagedemo from "./photo/demo.jpeg";
+import { useTranslation } from "react-i18next";
+import ListMsgType from "./TypeMessage/TypeList";
+import ImageMsgType from "./TypeMessage/TypeImage";
+import TextMsgType from "./TypeMessage/TypeText";
 import {
   faPlus,
   faPlusCircle,
   faTimes,
   faChartPie,
+  faUpload,
+  faFileImage,
+  faFileImport,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   CButton,
@@ -43,13 +51,14 @@ import ChannelService from "../../services/channel.service";
 import MessageService from "../../services/message.service";
 
 import { useHistory } from "react-router-dom";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 const CreateMsg = () => {
+  const { t } = useTranslation();
   //history routes
   const history = useHistory();
   // get channels when login
   const channels = useSelector((state) => state.auth.user.channels);
-
   const [large, setLarge] = useState(false);
   const [small, setSmall] = useState(false);
 
@@ -60,15 +69,16 @@ const CreateMsg = () => {
   const [message, setMessage] = useState({
     channel: {},
     segment: { check: true, filter: ["all"] },
-    template: null,
-    title: null,
-    content: null,
-    link: null,
-    fileName: null,
-    filePath: null,
+    template: "",
+    title: "",
+    content: "",
+    link: "",
+    fileName: "",
+    filePath: "",
     schedule: { check: true, filter: "" },
-    type: null,
+    type: "text",
     date: null,
+    listMsg: [],
   });
 
   const toggleMulti = (type) => {
@@ -109,7 +119,7 @@ const CreateMsg = () => {
       }
     }
     if (name === "channel") {
-      setMessage({ ...message, [name]: JSON.parse(target.value) });
+      setMessage({ ...message, [name]: target.value });
     }
     if (name === "segment") {
       const array = [];
@@ -142,10 +152,8 @@ const CreateMsg = () => {
       });
     }
   };
-  const onSubmit = async (type) => {
-    let messageData = message;
-    messageData.type = type;
-    MessageService.createMessage(messageData)
+  const onSubmit = async () => {
+    MessageService.createMessage(message)
       .then((response) => {
         const { message_id } = response.data;
         return history.push(`/messages/${message_id}`);
@@ -153,6 +161,34 @@ const CreateMsg = () => {
       .catch((error) => {
         console.log("error", error);
       });
+  };
+
+  const onCreateListMsg = () => {
+    const msg = {
+      title: message.title,
+      url: message.link,
+      image: message.filePath,
+      content: message.content,
+    };
+    const listMsg = message.listMsg;
+    listMsg.push(msg);
+    setMessage({
+      ...message,
+      listMsg,
+      link: "",
+      filePath: "",
+      fileName: "",
+      title: "",
+      content: "",
+    });
+  };
+  const onRemoveListMsg = (id) => {
+    const listMsg = message.listMsg;
+    listMsg.splice(id, 1);
+    setMessage({ ...message, listMsg });
+  };
+  const onRemoveImage = () => {
+    setMessage({ ...message, fileName: "", filePath: "" });
   };
 
   return (
@@ -166,13 +202,13 @@ const CreateMsg = () => {
         <CCol>
           <CCard>
             <CCardHeader className="font-weight-bold text-muted">
-              1. Audience
+              {t("create-msg.card-audience")}
             </CCardHeader>
             <CCardBody>
               <CCol className="p-0" lg="3" md="3">
                 <CLabel htmlFor="">
                   <span style={{ fontWeight: 600, fontSize: 14 }}>
-                    Channels Type
+                    {t("create-msg.lb-channel")}
                   </span>
                   <span className="danger-color pl-1">*</span>
                 </CLabel>
@@ -184,7 +220,7 @@ const CreateMsg = () => {
                     onValueChange(value);
                   }}
                 >
-                  <option value="">Select..</option>
+                  <option value="">{t("create-msg.opt-seclect")}</option>
                   {channels.map((item, index) => {
                     return (
                       <option value={item._id} key={index}>
@@ -198,13 +234,13 @@ const CreateMsg = () => {
                   <option value="Telegram">Telegram</option> */}
                 </CSelect>
                 <small className="form-text text-muted">
-                  <strong>Select</strong> a Channel to send message
+                  {t("create-msg.sl-channel-description")}
                 </small>
               </CCol>
               <CCol className="p-0 pt-3" lg="2">
                 <CLabel htmlFor="segments">
                   <span style={{ fontWeight: 600, fontSize: 14 }}>
-                    Segmnets
+                    {t("create-msg.lb-segment")}
                   </span>{" "}
                   <span className="danger-color pl-1">*</span>
                 </CLabel>
@@ -222,7 +258,7 @@ const CreateMsg = () => {
                     }
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio1">
-                    <strong>Send to Subscribed Users</strong>
+                    <strong>{t("create-msg.cb-user")}</strong>
                   </CLabel>
                 </CFormGroup>
                 <CFormGroup variant="custom-radio" inline>
@@ -237,7 +273,7 @@ const CreateMsg = () => {
                     }}
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio2">
-                    <strong>Send to particular segment(s)</strong>
+                    <strong>{t("create-msg.cb-segment")}</strong>
                   </CLabel>
                 </CFormGroup>
                 {/* collapes */}
@@ -245,7 +281,7 @@ const CreateMsg = () => {
                   <CCollapse show={collapseMulti[0]}>
                     <CCol className="p-0">
                       <CLabel className="pl-2 font-weight-bold text-muted pt-2">
-                        Who should receive this campaign?
+                        {t("create-msg.cb-description")}
                       </CLabel>
                       <CCol col="12" className="p-0 pl-1">
                         <div className="el-tag d-inline-flex p-2 bd-highlight d-flex align-items-center m-1">
@@ -309,7 +345,7 @@ const CreateMsg = () => {
                               icon={faPlusCircle}
                               className="mr-2"
                             />
-                            <span>Add Segment</span>
+                            <span>{t("create-msg.btn-addsegment")}</span>
                           </CButton>
                         </div>
                       </CCol>
@@ -322,7 +358,7 @@ const CreateMsg = () => {
                     size="md"
                   >
                     <CModalHeader closeButton>
-                      <CModalTitle>Select Segment</CModalTitle>
+                      <CModalTitle>{t("create-msg.md-segment")}</CModalTitle>
                     </CModalHeader>
                     <CModalBody>
                       <CCol className="p-0">
@@ -365,7 +401,7 @@ const CreateMsg = () => {
                     </CModalBody>
                     <CModalFooter>
                       <CButton color="primary" onClick={() => setSmall(!small)}>
-                        Create Segment
+                        {t("create-msg.btn-create-segment")}
                       </CButton>{" "}
                     </CModalFooter>
                   </CModal>
@@ -383,120 +419,115 @@ const CreateMsg = () => {
                 className="p-0 d-flex flex-row bd-highlight align-items-center"
               >
                 <div className="font-weight-bold">
-                  <span className="text-muted">2. Message</span>
+                  <span className="text-muted">
+                    2. {t("create-msg.card-message")}
+                  </span>
                 </div>
                 <div className="ml-auto d-md-none d-lg-none">
-                  <CButton color="secondary">Preview</CButton>
+                  <CButton color="secondary">
+                    {t("create-msg.btn-preview")}
+                  </CButton>
                 </div>
               </CCol>
             </CCardHeader>
             <CCardBody>
               <CRow>
                 <CCol col="6" lg="6" md="6">
-                  <CCol className="p-0 pb-4">
-                    <CLabel htmlFor="district">
-                      <span style={{ fontWeight: 600, fontSize: 14 }}>
-                        Template
-                      </span>
-                    </CLabel>
-                    <CSelect
-                      custom
-                      name="select"
-                      id="select"
-                      onChange={(value) => onValueChange(value)}
-                    >
-                      <option value="">Select..</option>
-                      <option value="1">Template 1</option>
-                      <option value="2">Template 2</option>
-                    </CSelect>
-                    <small className="form-text text-muted">
-                      <strong>Select</strong> your Template
-                    </small>
-                  </CCol>
                   <CCol className="p-0">
-                    <CFormGroup>
-                      <CLabel htmlFor="">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          Title
-                        </span>
-                        <span className="danger-color pl-1">*</span>
-                      </CLabel>
-                      <CInput
-                        name="title"
-                        placeholder="Title"
-                        required
-                        onChange={(value) => onValueChange(value)}
-                      />
-                    </CFormGroup>
-                  </CCol>
-                  <CCol className="p-0 pb-2">
-                    <CFormGroup>
-                      <CLabel htmlFor="district">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          Content
-                        </span>
-                        <span className="danger-color pl-1">*</span>
-                      </CLabel>
-                      <CTextarea
-                        name="content"
-                        id="textarea-input"
-                        rows="4"
-                        placeholder="Content..."
-                        maxLength="1000"
-                        onChange={(value) => onValueChange(value)}
-                      />
-                    </CFormGroup>
-                  </CCol>
-                  <CCol className="p-0 pb-2">
-                    <CFormGroup>
-                      <CLabel htmlFor="file-input">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          Image
-                        </span>
-                      </CLabel>
-                      <CCol>
-                        <CInputFile
-                          id="file-multiple-input"
-                          name="fileName"
-                          multiple
+                    <h6 className="font-weight-bold">
+                      {t("create-msg.sl-type-msg")}
+                    </h6>
+                    <div className="d-flex flex-xxl-row flex-column bg-light-primary border-primary-light p-3 rounded mb-4">
+                      <CFormGroup
+                        variant="custom-radio"
+                        inline
+                        className="py-1"
+                      >
+                        <CInputRadio
                           custom
+                          value="text"
+                          id="inline-radio5"
+                          name="type"
                           onChange={(value) => onValueChange(value)}
                         />
                         <CLabel
-                          htmlFor="file-multiple-input"
-                          variant="custom-file"
+                          variant="custom-checkbox"
+                          htmlFor="inline-radio5"
                         >
-                          {message.fileName
-                            ? message.fileName
-                            : "Choose Files..."}
+                          <strong>{t("create-msg.text-msg")}</strong>
                         </CLabel>
-                      </CCol>
-                    </CFormGroup>
+                      </CFormGroup>
+                      {/* end */}
+                      {/* begin select image messages */}
+                      <CFormGroup
+                        variant="custom-radio"
+                        inline
+                        className="py-1"
+                      >
+                        <CInputRadio
+                          custom
+                          value="image"
+                          id="inline-radio6"
+                          name="type"
+                          onChange={(value) => onValueChange(value)}
+                        />
+                        <CLabel
+                          variant="custom-checkbox"
+                          htmlFor="inline-radio6"
+                        >
+                          <strong>{t("create-msg.image-msg")}</strong>
+                        </CLabel>
+                      </CFormGroup>
+                      {/* end */}
+                      {/* begin select list messages */}
+                      <CFormGroup
+                        variant="custom-radio"
+                        inline
+                        className="py-1"
+                      >
+                        <CInputRadio
+                          custom
+                          value="list"
+                          id="inline-radio7"
+                          name="type"
+                          onChange={(value) => onValueChange(value)}
+                        />
+                        <CLabel
+                          variant="custom-checkbox"
+                          htmlFor="inline-radio7"
+                        >
+                          <strong>{t("create-msg.list-msg")}</strong>
+                        </CLabel>
+                      </CFormGroup>
+                    </div>
+                    {/* end */}
                   </CCol>
-                  <CCol className="p-0">
-                    <CFormGroup>
-                      <CLabel htmlFor="file-input">
-                        <span style={{ fontWeight: 600, fontSize: 14 }}>
-                          Launch URL
-                        </span>
-                      </CLabel>
-                      <CInput
-                        id="name"
-                        placeholder="http://bit.ly/abc"
-                        name="link"
-                        onChange={(value) => onValueChange(value)}
-                      />
-                    </CFormGroup>
-                  </CCol>
-                </CCol>
-                <CCol col="6" className="d-none d-lg-block d-md-block">
-                  <CCol className="d-flex justify-content-center align-items-start">
-                    <CIcon
-                      name="phonePreview"
-                      height="600"
-                      alt="phonePreview"
+                  {/* Message text only */}
+                  {message.type === "text" && <TextMsgType />}
+                  {/* message image */}
+                  {message.type === "image" && <ImageMsgType />}
+                  {/* List message */}
+                  {message.type === "list" && (
+                    <ListMsgType
+                      listMsg={message.listMsg}
+                      onCreateListMsg={onCreateListMsg}
+                      onRemoveListMsg={onRemoveListMsg}
+                      onRemoveImage={onRemoveImage}
+                      onValueChange={onValueChange}
+                      link={message.link}
+                      title={message.title}
+                      image={message.filePath}
+                      content={message.content}
                     />
-                  </CCol>
+                  )}
+                </CCol>
+                <CCol col="6" className="d-lg-block d-ms-block d-none">
+                  <div className="d-flex justify-content-center flex-column">
+                    <strong className="pb-3 d-flex justify-content-center primary-color">
+                      {t("detail-msg.col-preview")}
+                    </strong>
+                    <CIcon name="phonePreview" height="700" alt="Logo" />
+                  </div>
                 </CCol>
               </CRow>
             </CCardBody>
@@ -506,14 +537,16 @@ const CreateMsg = () => {
         <CCol>
           <CCard>
             <CCardHeader>
-              <div className="font-weight-bold">
-                <span>3. Schedule</span>
+              <div className="font-weight-bold ">
+                <span className="text-muted">
+                  3. {t("create-msg.card-schedule")}
+                </span>
               </div>
             </CCardHeader>
             <CCardBody>
               <CCol className="d-flex flex-column pb-2 p-0">
                 <CLabel className="font-weight-bold text-muted">
-                  When should this message start sending?
+                  {t("create-msg.lb-schedule")}
                 </CLabel>
                 <CFormGroup variant="custom-radio" inline className="pb-1">
                   <CInputRadio
@@ -527,7 +560,7 @@ const CreateMsg = () => {
                     }
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio3">
-                    <strong>Message will send right away</strong>
+                    <strong>{t("create-msg.cb-sendnow")}</strong>
                   </CLabel>
                 </CFormGroup>
                 <CFormGroup variant="custom-radio" inline>
@@ -542,7 +575,7 @@ const CreateMsg = () => {
                     }
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio4">
-                    <strong>Specific Time</strong>
+                    <strong>{t("create-msg.cb-selecttime")}</strong>
                   </CLabel>
                 </CFormGroup>
               </CCol>
@@ -557,7 +590,7 @@ const CreateMsg = () => {
                       onChange={(value) => onValueChange(value)}
                     />
                     <small className="form-text text-muted">
-                      <strong>Select</strong> time you want to send message
+                      {t("create-msg.cb-schedule-description")}
                     </small>
                   </CCol>
                 </CCollapse>

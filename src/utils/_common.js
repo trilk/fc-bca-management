@@ -31,7 +31,13 @@ export const setLocation = (address) => {
     return address ? [address.province, address.country].filter(Boolean).join(', ') : '';
 }
 
+export const setChannelName = (channelIds, channels) => {
+
+}
+
 export const formatDateTime = (datetime, lang, formatStr = '') => {
+    if (!moment(datetime).isValid()) return '';
+
     if (formatStr === '') {
         formatStr = (lang === 'vi') ? DATETIME_FORMAT.VI_DATETIME_24 : DATETIME_FORMAT.EN_DATETIME_24;
     }
@@ -40,6 +46,8 @@ export const formatDateTime = (datetime, lang, formatStr = '') => {
 }
 
 export const formatDate = (date, lang, formatStr = '') => {
+    if (!moment(date).isValid()) return '';
+
     if (formatStr === '') {
         formatStr = (lang === 'vi') ? DATETIME_FORMAT.VI_DATE : DATETIME_FORMAT.EN_DATE;
     }
