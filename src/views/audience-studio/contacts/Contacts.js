@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
+import Filter from "./Filter";
+import BoxContact from "./BoxContact";
 import {
   faEye,
   faPen,
   faEllipsisV,
-  faSortDown,
-  faFilter,
   faCheckCircle,
   faTimesCircle,
   faSearch,
-  faUsers,
-  faArrowUp,
-  faPhone,
-  faMobile,
-  faMobileAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
 import "./contacts.scss";
@@ -22,51 +18,39 @@ import femaleimg from "../../users/avatar/female.jpg";
 import maleimg from "../../users/avatar/male.jpg";
 import {
   CBadge,
-  CButton,
-  CImg,
   CCol,
   CDataTable,
-  CDropdownHeader,
-  CWidgetDropdown,
-  CForm,
   CPagination,
-  CLabel,
-  CInputCheckbox,
-  CCallout,
   CCard,
   CCardBody,
-  CPopover,
   CDropdownItem,
   CFormGroup,
   CDropdown,
   CDropdownToggle,
   CDropdownMenu,
-  CInputRadio,
   CInput,
   CRow,
-  CDropdownDivider,
   CLink,
 } from "@coreui/react";
 import { faTelegram, faViber } from "@fortawesome/free-brands-svg-icons";
-
 //lodash
 import _ from "lodash";
 //convert data
 import { convert_day_hours_minute } from "../../../helpers/convertdate";
 // api service
 import AudienceService from "../../../services/audience.service";
-
 const Contacts = () => {
+  const { t } = useTranslation();
   const limitpage = 15;
   const [channelDropdown, setChannelDropdown] = useState("All");
   const [data, setData] = useState();
+  console.log(data)
   const getAllAudience = async (page, limit) => {
     const response = await AudienceService.getAllAudience(page, limit);
     if (response.data.errorCode === 0) {
       setData(response.data.contacts);
     }
   };
-
   //pagination
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
@@ -82,77 +66,11 @@ const Contacts = () => {
     getAllAudience(currentPage, limitpage);
   }, [currentPage, page, channelDropdown]);
   //end pagination
+  
   return (
     <>
       <CRow>
-        <CCol>
-          <CCard>
-            <CCardBody>
-              <CCol className="d-flex flex-lg-row flex-xl-row flex-md-lg flex-column p-0">
-                {/* Box user totals */}
-                <div
-                  className="d-flex flex-column rounded-lg bg-light-primary pl-2 mb-3 border-primary"
-                  style={{ height: 120, width: 240 }}
-                >
-                  <CCol className="px-2 py-2 primary-color d-flex align-items-center">
-                    <div className="d-flex flex-column">
-                      <span>
-                        <FontAwesomeIcon icon={faUsers} className="mr-2" />
-                        Total Contacts
-                      </span>
-                      <div className="d-flex flex-row align-items-center">
-                        <h2 className="pt-2 pr-2">20.000</h2>
-                        <span className="d-flex flex-row align-items-center success-color">
-                          <FontAwesomeIcon
-                            icon={faArrowUp}
-                            style={{ height: 10, width: 10 }}
-                          />
-                          10%
-                        </span>
-                      </div>
-                    </div>
-                  </CCol>
-                </div>
-                {/* Channels */}
-                <CCol className="d-flex flex-row pl-lg-4 pl-xl-4 pl-0">
-                  <CCol className="p-0">
-                    <CCol className="p-0">
-                      <div className="d-flex align-items-center">
-                        <FontAwesomeIcon icon={faMobileAlt} className="mr-2" />
-                        <span style={{ fontSize: 18 }}>Channels</span>
-                      </div>
-                    </CCol>
-                    <CCol className="pl-0 py-3">
-                      {/* Box channnels */}
-                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column mr-3">
-                        <span className="d-flex justify-content-">Zalo</span>
-                        <CLabel>
-                          <span style={{ fontSize: 18, fontWeight: 600 }}>
-                            10.000.000{" "}
-                          </span>
-                          <small className="text-muted">Contacts</small>
-                        </CLabel>
-                      </CLabel>
-                      {/* End box channels */}
-                      {/* Box channnels */}
-                      <CLabel className="border border-dashed rounded p-2 d-inline-flex flex-column">
-                        <span className="d-flex justify-content-">Viber</span>
-                        <CLabel>
-                          <span style={{ fontSize: 18, fontWeight: 600 }}>
-                            1.000.000{" "}
-                          </span>
-                          <small className="text-muted">Contacts</small>
-                        </CLabel>
-                      </CLabel>
-                      {/* End box channels */}
-                    </CCol>
-                  </CCol>
-                </CCol>
-              </CCol>
-            </CCardBody>
-          </CCard>
-        </CCol>
-
+        <BoxContact />
         <CCol col="12" lg="12">
           <CCard>
             <CCardBody>
@@ -171,180 +89,55 @@ const Contacts = () => {
                         id=""
                         type="text"
                         size="lg"
-                        placeholder="Search"
+                        placeholder={t("contact.ph-search")}
                         required
                         className="form-control2"
                       />
                     </CFormGroup>
                   </CCol>
-                  {/* End Search */}
                   {/* Start Filter */}
                   <CCol className="d-flex p-0 ml-auto">
-                    {/* <div className="ml-auto d-inline"> */}
-                    <CDropdown className="ml-auto">
-                      <CDropdownToggle
-                        color="secondary"
-                        size="lg"
-                        className="d-flex align-items-center"
-                      >
-                        <FontAwesomeIcon icon={faFilter} className="mr-2" />
-                        <span>Filter</span>
-                      </CDropdownToggle>
-                      <CDropdownMenu
-                        className="mt-2"
-                        placement="bottom-end"
-                        style={{ minWidth: 300 }}
-                      >
-                        <CDropdownHeader className="pr-5">
-                          <span
-                            style={{
-                              fontSize: 16,
-                              fontWeight: 600,
-                              color: "#181c32",
-                            }}
-                            className="pr-5"
-                          >
-                            Filter Options
-                          </span>
-                        </CDropdownHeader>
-                        <CDropdownDivider />
-                        <CForm className="px-3 py-2">
-                          <CCol className="p-0 pb-3">
-                            <CLabel htmlFor="exampleDropdownFormEmail1">
-                              <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                Date
-                              </span>
-                            </CLabel>
-                            <CInput type="date" />
-                          </CCol>
-                          <CCol className="p-0 pb-3" col="12">
-                            <CLabel htmlFor="exampleDropdownFormEmail1">
-                              <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                Status
-                              </span>
-                            </CLabel>
-                            <CDropdown>
-                              <CDropdownToggle
-                                color="light"
-                                size="lg"
-                                block
-                                className="d-flex align-items-center"
-                              >
-                                <span className="d-flex justify-content-start">
-                                  Filter
-                                </span>
-                                <FontAwesomeIcon
-                                  icon={faSortDown}
-                                  className="ml-2 mb-1 ml-auto"
-                                />
-                              </CDropdownToggle>
-                              <CForm>
-                                <CDropdownMenu
-                                  className="mt-2"
-                                  placement="bottom-end"
-                                  block
-                                >
-                                  <CDropdownItem>All</CDropdownItem>
-                                  <CDropdownItem>Subscribed</CDropdownItem>
-                                  <CDropdownItem>UnSubcribed</CDropdownItem>
-                                </CDropdownMenu>
-                              </CForm>
-                            </CDropdown>
-                          </CCol>
-                          {/* Filter Channels type */}
-                          <CCol className="p-0 pt-3 d-flex flex-column pb-3">
-                            <CLabel htmlFor="exampleDropdownFormEmail1">
-                              <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                Channels Type:
-                              </span>
-                            </CLabel>
-                            <CCol className="p-0 pt-1 d-flex flex-row">
-                              <CFormGroup variant="custom-checkbox" inline>
-                                <CInputCheckbox
-                                  custom
-                                  id="inline-checkbox1"
-                                  name="inline-checkbox1"
-                                  value="option1"
-                                />
-                                <CLabel
-                                  variant="custom-checkbox"
-                                  htmlFor="inline-checkbox1"
-                                >
-                                  Zalo
-                                </CLabel>
-                              </CFormGroup>
-                              <CFormGroup variant="custom-checkbox" inline>
-                                <CInputCheckbox
-                                  custom
-                                  id="inline-checkbox1"
-                                  name="inline-checkbox1"
-                                  value="option1"
-                                />
-                                <CLabel
-                                  variant="custom-checkbox"
-                                  htmlFor="inline-checkbox1"
-                                >
-                                  Viber
-                                </CLabel>
-                              </CFormGroup>
-                            </CCol>
-                          </CCol>
-                          <CCol className="p-0 py-2">
-                            <CFormGroup className="mt-2 float-right">
-                              <CButton color="ghost" size="lg" className="mr-2">
-                                Reset
-                              </CButton>
-                              <CButton color="primary" size="lg" type="submit">
-                                Submit
-                              </CButton>
-                            </CFormGroup>
-                          </CCol>
-                        </CForm>
-                      </CDropdownMenu>
-                    </CDropdown>
-
-                    {/* End Filter */}
+                    <Filter />
                   </CCol>
                 </CCol>
               </CRow>
               <CDataTable
                 items={data}
                 fields={[
-                  // { key: 'id', _style: { width: '1%' } },
                   {
                     key: "name",
-                    label: "name",
+                    label: `${t("tb-contact.td-name")}`,
                     _style: { width: "10%" },
                   },
                   {
                     key: "phonenumber",
-                    label: "phone",
+                    label: `${t("tb-contact.td-phone")}`,
                     _style: { width: "4%" },
                   },
                   {
                     key: "channels",
-                    label: "channels",
+                    label: `${t("tb-contact.td-channel")}`,
                     _style: { width: "2%" },
                   },
                   {
                     key: "email",
-                    label: "email",
+                    label: `${t("tb-contact.td-email")}`,
                     _style: { width: "4%" },
                   },
                   {
                     key: "gender",
-                    label: "gender",
-                    _style: { width: "1%" },
+                    label: `${t("tb-contact.td-gender")}`,
+                    _style: { width: "2%" },
                   },
                   {
                     key: "lastUpdate",
-                    label: "lastupdate",
+                    label: `${t("tb-contact.td-lastupdate")}`,
                     _style: { width: "4%" },
                   },
                   {
                     key: "status",
-                    label: "status",
-                    _style: { width: "1%" },
+                    label: `${t("tb-contact.td-status")}`,
+                    _style: { width: "2%" },
                   },
                   // {
                   //   key: "action",

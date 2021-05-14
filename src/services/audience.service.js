@@ -1,7 +1,7 @@
 import { axiosInstance } from "./axios";
 class AudienceService {
   getAllAudience(page, limit) {
-    return axiosInstance.get(`/api/contact/list?page=${page}&limit=${limit}`);
+    return axiosInstance.get(`/api/audience/list?page=${page}&limit=${limit}`);
   }
   getAudienceByChannelType(page, limit, type) {
     return axiosInstance.get(

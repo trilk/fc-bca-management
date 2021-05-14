@@ -1,6 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
-import Statistics from "./Statistics";
+import Statistics from "./MessageReport/Statistics";
+import Info from "./MessageReport/Info";
+import MsgListType from "./MessageReport/MsgListType";
+import MsgTextType from "./MessageReport/MsgTextType";
+import MsgImageType from "./MessageReport/MsgImageType";
 import {
   faPen,
   faCopy,
@@ -46,14 +50,15 @@ import {
   faFantasyFlightGames,
   faFly,
 } from "@fortawesome/free-brands-svg-icons";
-import boxStatistics from "./Statistics";
+import boxStatistics from "./MessageReport/Statistics";
+import AudienceInfo from "./MessageReport/AudienceInfo";
 
 const MessageReport = () => {
   const { t } = useTranslation();
   const [messageDetail, setMessageDetail] = useState({});
+  console.log(messageDetail);
   const { id } = useParams();
   //get message detail by id
-
   const getDetailMessageById = async () => {
     const response = await MessageService.getDetailMessageById(id);
     if (response.status === 200 || response.status === 201) {
@@ -86,13 +91,7 @@ const MessageReport = () => {
             <strong>{t("detail-msg.title")}</strong>
           </h4>
           <span style={{ fontSize: 16, fontWeight: 700 }}>
-            {messageDetail.Title}
-          </span>
-          <span>
-            {t("detail-msg.lb-sentat")}
-            <span className="pl-2">
-              {convert_day_hours_minute(messageDetail.createdAt)}
-            </span>
+            {messageDetail.title}
           </span>
         </CCol>
         <div className="p-0 ml-auto">
@@ -107,7 +106,6 @@ const MessageReport = () => {
               <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
             </CDropdownToggle>
             <CDropdownMenu className="mt-2">
-              {/* edit with status schedule */}
               <CDropdownItem checked>
                 <FontAwesomeIcon icon={faPen} className="mr-2" />
                 {t("detail-msg.dropdown-edit")}
@@ -134,136 +132,43 @@ const MessageReport = () => {
         </div>
       </CCol>
       {/* End */}
+      {/* boxStatistics */}
       <Statistics />
+      {/* End */}
       <CCol>
         <CCard>
           <CCardBody>
             <CCol className="p-0 d-flex flex-lg-row flex-column">
-              {/* Col left */}
               <CCol col="6" lg="6" md="12" className="p-0">
-                {/* form Audience */}
-                <CCol className="p-0 pb-4">
-                  <CLabel className="d-flex flex-row">
-                    <h4>{t("detail-msg.lb-detail")}</h4>
-                    <div className="ml-auto d-block d-sm-none">
-                      <CButton color="secondary">
-                        {t("detail-msg.btn-preview")}
-                      </CButton>
-                    </div>
-                  </CLabel>
-                  <CCol className="border rounded-lg p-0 py-3">
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        <span>{t("detail-msg.lb-createby")}</span>
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        <span>
-                          {messageDetail.createdBy.lastName +
-                            " " +
-                            messageDetail.createdBy.firstName}
-                        </span>
-                      </CCol>
-                    </CCol>
-                    <hr />
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        <span>{t("detail-msg.lb-lastupdate")}</span>
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        <span>
-                          {convert_day_hours_minute(messageDetail.updatedAt)}
-                        </span>
-                      </CCol>
-                    </CCol>
-                  </CCol>
-                </CCol>
-                {/* End */}
-                {/* form Audience */}
-                <CCol className="p-0">
-                  <CLabel>
-                    <h4>{t("detail-msg.lb-audience")}</h4>
-                  </CLabel>
-                  <CCol className="border rounded-lg p-0 py-3">
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2  ">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        {t("detail-msg.lb-channel")}
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        {messageDetail.channel.type}
-                      </CCol>
-                    </CCol>
-                    <hr />
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        {t("detail-msg.lb-segment")}
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        Subscribed Users, Segment 2 Holoa
-                      </CCol>
-                    </CCol>
-                    <hr />
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        {t("detail-msg.lb-recipients")}
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        100.000.000 {t("detail-msg.lb-users")}
-                      </CCol>
-                    </CCol>
-                  </CCol>
-                </CCol>
-                {/* End */}
-                {/* Content */}
+                {/* Info Form */}
+                <Info
+                  createdBy={messageDetail.createdBy}
+                  createdAt={messageDetail.createdAt}
+                />
+                {/* AudienceInfo */}
+                <AudienceInfo channel={messageDetail.channel} />
+                {/* Message */}
                 <CCol className="p-0 py-4">
                   <CLabel>
                     <h4>{t("detail-msg.lb-message")}</h4>
                   </CLabel>
-                  <CCol className="border rounded p-0 py-3">
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        <span>{t("detail-msg.msg-title")}</span>
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        {messageDetail.title}
-                      </CCol>
-                    </CCol>
-                    <hr />
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        {t("detail-msg.msg-content")}
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        {messageDetail.content}
-                      </CCol>
-                    </CCol>
-                    <hr />
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        {t("detail-msg.lb-image")}
-                      </CCol>
-                      <CCol className="font-weight-bold">
-                        <CImg
-                          src={messageDetail.image?.image1}
-                          height="80"
-                          width="80"
-                          className="rounded"
-                        />
-                      </CCol>
-                    </CCol>
-                    <hr />
-                    <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
-                      <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
-                        {t("detail-msg.lb-url")}
-                      </CCol>
-                      <CCol
-                        className="font-weight-bold"
-                        style={{ cursor: "pointer", color: "#007BFF" }}
-                      >
-                        {messageDetail.url?.url1}
-                      </CCol>
-                    </CCol>
-                  </CCol>
+                  {messageDetail.type === "list" && (
+                    <MsgListType MsgList={messageDetail.list} />
+                  )}
+                  {messageDetail.type === "text" && (
+                    <MsgTextType
+                      title={messageDetail.title}
+                      content={messageDetail.content}
+                    />
+                  )}
+                  {messageDetail.type === "image" && (
+                    <MsgImageType
+                      image={messageDetail.image}
+                      content={messageDetail.content}
+                    />
+                  )}
                 </CCol>
+
                 <CCol className="p-0">
                   <CLabel>
                     <h4>{t("detail-msg.lb-schedule")}</h4>

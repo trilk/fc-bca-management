@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Filter from "./Filter";
 import {
   faUsersCog,
   faUsers,
@@ -94,6 +95,7 @@ import MessageService from "../../services/message.service";
 //redux and actions
 import { useDispatch } from "react-redux";
 import { setMessage } from "../../actions/message";
+import message from "src/reducers/message";
 const getBadge = (status) => {
   switch (status) {
     case "Draft":
@@ -142,7 +144,6 @@ const Messages = () => {
       setData(response.data);
     }
   };
-
   //effect afert page render
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
@@ -176,163 +177,11 @@ const Messages = () => {
                     </CFormGroup>
                   </CCol>
                   {/* End Search */}
-                  {/* Start Filter */}
                   <CCol className="d-flex flex-row p-0">
-                    <div className="pr-3 ml-lg-auto ml-sm-auto ml-md-auto d-inline">
-                      <CDropdown>
-                        <CDropdownToggle
-                          color="secondary"
-                          size="lg"
-                          className="d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon icon={faFilter} className="mr-2" />
-                          <span>{t("message-list.ft-title")}</span>
-                        </CDropdownToggle>
-                        <CDropdownMenu className="mt-2">
-                          <CDropdownHeader className="mr-5">
-                            <span
-                              style={{
-                                fontSize: 16,
-                                fontWeight: 600,
-                                color: "#181c32",
-                              }}
-                              className="mr-5"
-                            >
-                              {t("message-list.tt-header")}
-                            </span>
-                          </CDropdownHeader>
-                          <CDropdownDivider />
-                          <CForm className="px-3 py-2">
-                            <CCol className="p-0 d-flex flex-column pb-3">
-                              <CLabel htmlFor="exampleDropdownFormEmail1">
-                                <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                  {t("message-list.ft-typemsg")}
-                                </span>
-                              </CLabel>
-                              <CCol className="p-0 d-flex flex-column">
-                                <CFormGroup
-                                  variant="custom-radio"
-                                  inline
-                                  className="pb-2"
-                                >
-                                  <CInputRadio
-                                    custom
-                                    id="inline-radio1"
-                                    name="inline-radios"
-                                    value="option1"
-                                  />
-                                  <CLabel
-                                    variant="custom-checkbox"
-                                    htmlFor="inline-radio1"
-                                  >
-                                    <span
-                                      style={{ fontWeight: 500 }}
-                                      className="text-muted"
-                                    >
-                                      {t("message-list.lb-message")}
-                                    </span>
-                                  </CLabel>
-                                </CFormGroup>
-                                <CFormGroup
-                                  variant="custom-radio"
-                                  inline
-                                  className="pb-2"
-                                >
-                                  <CInputRadio
-                                    custom
-                                    id="inline-radio2"
-                                    name="inline-radios"
-                                    value="option2"
-                                  />
-                                  <CLabel
-                                    variant="custom-checkbox"
-                                    htmlFor="inline-radio2"
-                                  >
-                                    <span
-                                      style={{ fontWeight: 500 }}
-                                      className="text-muted"
-                                    >
-                                      {t("message-list.lb-draft")}
-                                    </span>
-                                  </CLabel>
-                                </CFormGroup>
-                                <CFormGroup variant="custom-radio" inline>
-                                  <CInputRadio
-                                    custom
-                                    id="inline-radio2"
-                                    name="inline-radios"
-                                    value="option2"
-                                  />
-                                  <CLabel
-                                    variant="custom-checkbox"
-                                    htmlFor="inline-radio2"
-                                  >
-                                    <span
-                                      style={{ fontWeight: 500 }}
-                                      className="text-muted"
-                                    >
-                                      {t("message-list.lb-schedule")}
-                                    </span>
-                                  </CLabel>
-                                </CFormGroup>
-                              </CCol>
-                            </CCol>
-                            <CCol className="p-0" lg="12">
-                              <CLabel htmlFor="exampleDropdownFormEmail1">
-                                <span style={{ fontSize: 14, fontWeight: 700 }}>
-                                  {t("message-list.ft-typedate")}
-                                </span>
-                              </CLabel>
-                              <CCol className="p-0">
-                                <CFormGroup>
-                                  <CLabel htmlFor="exampleDropdownFormEmail1">
-                                    <span className="text-muted small">
-                                      {t("message-list.lb-startdate")}
-                                    </span>
-                                  </CLabel>
-                                  <CInput
-                                    className="form-control"
-                                    id="exampleDropdownFormEmail1"
-                                    type="date"
-                                    placeholder="email@example.com"
-                                    autoComplete="email"
-                                  />
-                                </CFormGroup>
-                              </CCol>
-                              <CCol className="p-0 pb-2">
-                                <CFormGroup>
-                                  <CLabel htmlFor="exampleDropdownFormEmail1">
-                                    <span className="text-muted small">
-                                      {t("message-list.lb-enddate")}
-                                    </span>
-                                  </CLabel>
-                                  <CInput
-                                    className="form-control"
-                                    id="exampleDropdownFormEmail1"
-                                    type="date"
-                                    placeholder="email@example.com"
-                                    autoComplete="email"
-                                  />
-                                </CFormGroup>
-                              </CCol>
-                              <CDropdownDivider />
-                              <CCol className="p-0 py-2">
-                                <CFormGroup className="mt-2 float-right">
-                                  <CButton color="ghost" className="mr-2">
-                                    {t("message-list.btn-reset")}
-                                  </CButton>
-                                  <CButton color="primary" type="submit">
-                                    {t("message-list.btn-submit")}
-                                  </CButton>
-                                </CFormGroup>
-                              </CCol>
-                            </CCol>
-                          </CForm>
-                        </CDropdownMenu>
-                      </CDropdown>
-                    </div>
+                    {/* Start Filter */}
+                    <Filter />
                     {/* End Filter */}
-                    {/* Start Create */}
+                    {/* Start Button create */}
                     <div className="p-0">
                       <CLink to="/messages/CreateMsg">
                         <CButton size="lg" color="primary">
@@ -355,40 +204,35 @@ const Messages = () => {
                   { key: "label", label: "", _style: { width: "1%" } },
                   {
                     key: "message",
-                    label: "message",
+                    label: `${t("message-list.th-message")}`,
                     _style: { width: "15%" },
                   },
                   {
                     key: "delivery",
-                    _style: { width: "4%" },
+                    label: `${t("message-list.th-delivery")}`,
+                    _style: { width: "3%" },
                   },
                   {
                     key: "channel",
-                    label: "Channel",
-                    _style: { width: "2%" },
+                    label: `${t("message-list.th-channel")}`,
+                    _style: { width: "3%" },
                   },
                   {
                     key: "createBy",
-                    label: "CreateBy",
+                    label: `${t("message-list.th-createby")}`,
                     _style: { width: "3%" },
                   },
                   {
                     key: "type",
-                    label: "Type Message",
-                    _style: { width: "2%" }
+                    label: `${t("message-list.th-type")}`,
+                    _style: { width: "1%" },
                   },
-                  // {
-                  //   key: "type",
-                  //   label: "type",
-                  //   _style: { width: "1%" },
-                  // },
                   {
                     key: "action",
-                    label: "action",
+                    label: "",
                     _style: { width: "1%" },
                   },
                 ]}
-                // hover
                 bordered
                 striped
                 itemsPerPage={limit}
@@ -408,26 +252,15 @@ const Messages = () => {
                   //name
                   message: (item) => (
                     <td>
-                      {/* <h6
-                        htmlFor="titleMessage"
-                        className="text-gray-800 tags-text1Line"
-                        style={{ fontWeight: 700 }}
-                      >
-                        {item.title}
-                      </h6> */}
                       <h6
-                        className="tags-text text-gray-800 pb-1"
+                        className="tags-text text-gray-800"
                         style={{ fontWeight: 600 }}
                       >
-                        {item.content}
+                        {item.content === ""
+                          ? item.list[0].content
+                          : item.content}
                       </h6>
                       <div>
-                        <CBadge
-                          className="badge-status mr-2"
-                          color={getBadge(item.type)}
-                        >
-                          {item.type}
-                        </CBadge>
                         <small>
                           {convert_day_hours_minute(item.createdAt)}
                         </small>
@@ -436,7 +269,11 @@ const Messages = () => {
                   ),
                   type: (item) => (
                     <td>
-                      <CBadge className="badge-status border-primary-light" color="secondary">Image Message</CBadge>
+                      <CBadge className="badge-status" color="success">
+                        {item.type === "list" && `${t("msg-list.title")}`}
+                        {item.type === "text" && `${t("msg-text.title")}`}
+                        {item.type === "image" && `${t("msg-image.title")}`}
+                      </CBadge>
                     </td>
                   ),
                   channel: (item) => (
@@ -451,27 +288,21 @@ const Messages = () => {
                             style={{ color: "#665CAC" }}
                           />
                           <span className="tags-text1Line">
-                            Chatbot Tesolf Zalo
+                            {item.channel.name}
                           </span>
                         </div>
                       )}
                       {/* Zalo */}
                       {item.channel.type == "Zalo" && (
                         <div className="d-flex flex-row align-items-center">
-                          <CIcon name="zaloIcon" size="lg" className="mr-2" />
+                          <CIcon name="zaloIcon" className="mr-2 zaloIcon" />
                           <span className="tags-text1Line">
-                            Zalo Channel
+                            {item.channel.name}
                           </span>
                         </div>
                       )}
                     </td>
                   ),
-                  //creat at
-                  // createAt: (item) => (
-                  //   <td>
-                  //     <span>{convert_day_hours_minute(item.createdAt)}</span>
-                  //   </td>
-                  // ),
                   //create by
                   createBy: (item) => (
                     <td>
@@ -493,7 +324,9 @@ const Messages = () => {
                             size="xs"
                           />
                           <strong>1.000.000</strong>
-                          <small className="pl-2 text-muted d-inline">{t("message-list.td-delivered")}</small>
+                          <small className="pl-2 text-muted d-inline">
+                            {t("message-list.td-delivered")}
+                          </small>
                         </div>
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
@@ -502,7 +335,9 @@ const Messages = () => {
                             size="xs"
                           />
                           <strong>100</strong>
-                          <small className="pl-2 text-muted">{t("message-list.td-remaining")}</small>
+                          <small className="pl-2 text-muted">
+                            {t("message-list.td-remaining")}
+                          </small>
                         </div>
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
@@ -511,24 +346,13 @@ const Messages = () => {
                             size="xs"
                           />
                           <strong>100</strong>
-                          <small className="pl-2 text-muted">{t("message-list.td-failed")}</small>
+                          <small className="pl-2 text-muted">
+                            {t("message-list.td-failed")}
+                          </small>
                         </div>
                       </div>
                     </td>
                   ),
-                  //message type
-                  // type: (item) => (
-                  //   <td>
-                  //     <CCol className="p-0">
-                  //       <CBadge
-                  //         className="badge-status"
-                  //         color={getBadge(item.type)}
-                  //       >
-                  //         {item.type}
-                  //       </CBadge>
-                  //     </CCol>
-                  //   </td>
-                  // ),
                   //button action
                   action: (item) => (
                     <td>
@@ -541,7 +365,7 @@ const Messages = () => {
                         </CDropdownToggle>
                         <CDropdownMenu
                           placement="bottom-end"
-                        // className="position-absolute"
+                          // className="position-absolute"
                         >
                           <CDropdownItem onClick={() => onGetDetail(item)}>
                             <FontAwesomeIcon icon={faEye} className="mr-2" />
@@ -592,8 +416,12 @@ const Messages = () => {
             </CModalHeader>
             <CModalBody>{t("message-list.md-content")}</CModalBody>
             <CModalFooter>
-              <CButton color="outline">{t("message-list.md-btncancel")}</CButton>{" "}
-              <CButton color="primary">{t("message-list.md-btndelete")}</CButton>
+              <CButton color="outline">
+                {t("message-list.md-btncancel")}
+              </CButton>{" "}
+              <CButton color="primary">
+                {t("message-list.md-btndelete")}
+              </CButton>
             </CModalFooter>
           </CModal>
         </CCol>
