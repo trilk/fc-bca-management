@@ -7,12 +7,8 @@ import { useTranslation } from "react-i18next";
 import {
   faPen,
   faMapMarkerAlt,
-  faChartPie,
   faCheckCircle,
-  faArrowUp,
-  faArrowDown,
   faPhoneAlt,
-  faTrashAlt,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
@@ -24,20 +20,11 @@ import {
   CButton,
   CCol,
   CTooltip,
-  CModal,
-  CModalHeader,
-  CSelect,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
   CCard,
   CCardBody,
-  CInput,
   CRow,
 } from "@coreui/react";
 import {
-  faAccessibleIcon,
-  faTelegram,
   faViber,
 } from "@fortawesome/free-brands-svg-icons";
 
@@ -151,7 +138,7 @@ const ContactDetails = () => {
                             1.009
                           </span>
                           <span className="text-muted small d-flex justify-content-center">
-                            Messages Delivered
+                            {t("contact-details.lb-delivered")}
                           </span>
                         </CCol>
                       </CCol>
@@ -162,7 +149,7 @@ const ContactDetails = () => {
                     <CCol className="p-0">
                       <CCol className="p-0 pt-2 d-flex align-items-center">
                         <span style={{ fontSize: 16, fontWeight: 600 }}>
-                          Details
+                        {t("contact-details.lb-details")}
                         </span>
                         <div className="ml-auto">
                           <CButton
@@ -176,7 +163,7 @@ const ContactDetails = () => {
                               style={{ height: 10, width: 10 }}
                               className="mr-2"
                             />
-                            Update Info
+                           {t("contact-details.btn-updateinfo")}
                           </CButton>
                         </div>
                       </CCol>
@@ -191,7 +178,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Contact ID
+                          {t("contact-details.lb-id")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -206,7 +193,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Email
+                          {t("contact-details.lb-email")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -223,7 +210,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Gender
+                          {t("contact-details.lb-gender")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -240,7 +227,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Date Of Birth
+                         {t("contact-details.lb-birth")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -257,7 +244,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Address
+                          {t("contact-details.lb-address")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -274,7 +261,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Lastest Update
+                          {t("contact-details.lb-lastupdate")}
                         </span>
                       </CCol>
                       <CCol className="py-1 p-0">
@@ -299,16 +286,16 @@ const ContactDetails = () => {
                   <CCol className="p-0 px-lg-3 px-md-3 px-sm-3 p-0 py-3">
                     <CCol className="p-0">
                       <h4>
-                        <strong>Subscribed Channels</strong>
+                        <strong>{t("contact-details.lb-channel")}</strong>
                       </h4>
                     </CCol>
                     <CCol className="overflow-auto p-0 ">
                       <table className="table">
                         <thead>
                           <tr>
-                            <th>Channels</th>
-                            <th>Status</th>
-                            <th>Started</th>
+                            <th>{t("contact-details.th-channel")}</th>
+                            <th>{t("contact-details.th-status")}</th>
+                            <th>{t("contact-details.th-started")}</th>
                           </tr>
                         </thead>
                         <tr>

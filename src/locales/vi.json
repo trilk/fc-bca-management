@@ -302,5 +302,56 @@
         "td-gender": "Giới tính",
         "td-lastupdate": "Được cập nhật",
         "td-status": "Trạng thái"
+    },
+    "contact-details": {
+        "lb-delivered": "Tin nhắn đã nhận",
+        "lb-details": "Chi tiết",
+        "btn-updateinfo": "Cập nhật thông tin",
+        "lb-id": "ID liên hệ",
+        "lb-email": "Email",
+        "lb-gender": "Giới tính",
+        "lb-birth": "Ngày sinh",
+        "lb-address": "Địa chỉ",
+        "lb-lastupdate": "Cập nhật lần cuối"
+    },
+    "channel": {
+        "lb-channel": "Kênh Đã đăng ký",
+        "th-channel": "Kênh",
+        "th-status": "Trạng thái",
+        "th-started": "Đăng ký lúc"
+    },
+    "msg-statistics": {
+        "title": "Thống kê tin nhắn",
+        "description": "Có hơn 4000 tin nhắn được gửi trong ngày hôm nay",
+        "filter": "30 Ngày",
+        "lb-filter": "Lọc",
+        "ft-description": "theo thời gian",
+        "item-1h": "1 Giờ trước",
+        "item-24h": "24 Giờ trước",
+        "item-30d": "30 Ngày trước"
+    },
+    "widget-msg": {
+        "totalmsg": "Tất cả Tin nhắn",
+        "msgdelivered": "Tin nhắn Đã nhận",
+        "msgfail": "Tin nhắn Lỗi"
+    },
+    "widget-user": {
+        "title": "Người đăng ký",
+        "lb-subscribed": "Đã đăng ký",
+        "lb-unsubscribed": "Bỏ đăng ký",
+        "lb-total": "Tất cả"
+    },
+    "user-sort": {
+        "lb-30d": "30 Ngày trước",
+        "item-24h": "24 Giờ trước",
+        "item-year": "Năm ngoái"
+    },
+    "channel-sort": {
+        "lb-main": "Kênh:",
+        "item-all": "Tất cả kênh"
+    },
+    "user-trend": {
+        "lb-all": "Tất cả người dùng",
+        "lb-unsubscribed": "Bỏ đăng ký"
     }
 }
