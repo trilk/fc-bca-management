@@ -228,10 +228,6 @@ const CreateMsg = () => {
                       </option>
                     );
                   })}
-
-                  {/* <option value="Zalo">Zalo</option>
-                  <option value="Viber">Viber</option>
-                  <option value="Telegram">Telegram</option> */}
                 </CSelect>
                 <small className="form-text text-muted">
                   {t("create-msg.sl-channel-description")}

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ModalUpdateProfile from "./UpdateProfie";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 import {
   faPen,
   faMapMarkerAlt,
-  faChartPie,
   faCheckCircle,
-  faArrowUp,
-  faArrowDown,
   faPhoneAlt,
-  faTrashAlt,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
@@ -22,20 +20,11 @@ import {
   CButton,
   CCol,
   CTooltip,
-  CModal,
-  CModalHeader,
-  CSelect,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
   CCard,
   CCardBody,
-  CInput,
   CRow,
 } from "@coreui/react";
 import {
-  faAccessibleIcon,
-  faTelegram,
   faViber,
 } from "@fortawesome/free-brands-svg-icons";
 
@@ -56,6 +45,7 @@ const getBadge = (status) => {
   }
 };
 const ContactDetails = () => {
+  const { t } = useTranslation();
   const [large, setLarge] = useState(false);
   const [small, setSmall] = useState(false);
   const { id } = useParams();
@@ -131,10 +121,25 @@ const ContactDetails = () => {
                       </CCol>
                     </CCol>
                     <CCol className="d-flex p-0 justify-content-center">
-                      <CCol className="border rounded border-dashed mb-3" xxl={6} xl={6} lg={6} md={6} sm={8} xs={12} >
+                      <CCol
+                        className="border rounded border-dashed mb-3"
+                        xxl={6}
+                        xl={6}
+                        lg={6}
+                        md={6}
+                        sm={8}
+                        xs={12}
+                      >
                         <CCol className="d-flex flex-column py-2 p-0">
-                          <span style={{ fontSize: 24, fontWeight: 700 }} className="d-flex align-items-center pb-1 justify-content-center">1.009</span>
-                          <span className="text-muted small d-flex justify-content-center">Messages Delivered</span>
+                          <span
+                            style={{ fontSize: 24, fontWeight: 700 }}
+                            className="d-flex align-items-center pb-1 justify-content-center"
+                          >
+                            1.009
+                          </span>
+                          <span className="text-muted small d-flex justify-content-center">
+                            {t("contact-details.lb-delivered")}
+                          </span>
                         </CCol>
                       </CCol>
                     </CCol>
@@ -144,7 +149,7 @@ const ContactDetails = () => {
                     <CCol className="p-0">
                       <CCol className="p-0 pt-2 d-flex align-items-center">
                         <span style={{ fontSize: 16, fontWeight: 600 }}>
-                          Details
+                        {t("contact-details.lb-details")}
                         </span>
                         <div className="ml-auto">
                           <CButton
@@ -158,7 +163,7 @@ const ContactDetails = () => {
                               style={{ height: 10, width: 10 }}
                               className="mr-2"
                             />
-                            Update Info
+                           {t("contact-details.btn-updateinfo")}
                           </CButton>
                         </div>
                       </CCol>
@@ -173,7 +178,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Contact ID
+                          {t("contact-details.lb-id")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -188,7 +193,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Email
+                          {t("contact-details.lb-email")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -205,7 +210,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Gender
+                          {t("contact-details.lb-gender")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -222,7 +227,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Date Of Birth
+                         {t("contact-details.lb-birth")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -239,7 +244,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Address
+                          {t("contact-details.lb-address")}
                         </span>
                       </CCol>
                       <CCol className="p-0 py-1">
@@ -256,7 +261,7 @@ const ContactDetails = () => {
                           className="text-muted"
                           style={{ fontWeight: 500 }}
                         >
-                          Lastest Update
+                          {t("contact-details.lb-lastupdate")}
                         </span>
                       </CCol>
                       <CCol className="py-1 p-0">
@@ -281,16 +286,16 @@ const ContactDetails = () => {
                   <CCol className="p-0 px-lg-3 px-md-3 px-sm-3 p-0 py-3">
                     <CCol className="p-0">
                       <h4>
-                        <strong>Subscribed Channels</strong>
+                        <strong>{t("contact-details.lb-channel")}</strong>
                       </h4>
                     </CCol>
                     <CCol className="overflow-auto p-0 ">
                       <table className="table">
                         <thead>
                           <tr>
-                            <th>Channels</th>
-                            <th>Status</th>
-                            <th>Started</th>
+                            <th>{t("contact-details.th-channel")}</th>
+                            <th>{t("contact-details.th-status")}</th>
+                            <th>{t("contact-details.th-started")}</th>
                           </tr>
                         </thead>
                         <tr>
@@ -352,235 +357,11 @@ const ContactDetails = () => {
             </CCol>
             {/* End Card Subscribed Channels */}
             {/* card segments */}
-            {/* <CCol className="p-0">
-              <CCard>
-                <CCardBody className="overflow-auto">
-                  <CCol className="p-0 px-lg-3 px-md-3 px-sm-3 py-3">
-                    <CCol className="p-0 pb-4">
-                      <h4><strong>Segmnets this contact</strong></h4>
-                      <span className="text-muted small">All Segments of this contact</span>
-                    </CCol>
-                    Segment
-                    <CCol className="d-flex flex-row align-items-center p-0">
-                      <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
-                        <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
-                      </div>
-                      <CCol className="p-0 d-flex flex-column">
-                        <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
-                        <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
-                      </CCol>
-                      <div className="float-right">
-                        <CTooltip content={`Delete`}><CButton color="light" variant="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton></CTooltip>
-                      </div>
-                    </CCol>
-                    <hr className="border-dashed" />
-                    Segment
-                    <CCol className="d-flex flex-row align-items-center p-0">
-                      <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
-                        <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
-                      </div>
-                      <CCol className="p-0 d-flex flex-column">
-                        <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
-                        <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
-                      </CCol>
-                      <div className="float-right">
-                        <CTooltip content={`Delete`}><CButton color="light" variant="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton></CTooltip>
-                      </div>
-                    </CCol>
-                    <hr className="border-dashed" />
-                    Segment
-                    <CCol className="d-flex flex-row align-items-center p-0">
-                      <div className="icon-drop mr-3 ml-0 mt-1 bg-light">
-                        <FontAwesomeIcon icon={faChartPie} style={{ color: '#009ef7' }} />
-                      </div>
-                      <CCol className="p-0 d-flex flex-column">
-                        <span style={{ fontSize: 14, fontWeight: 700 }}>Ten Segment Quan 2 TP Sai Son </span>
-                        <span className="text-muted small pt-1">Create Date: 12/ 12 / 2021</span>
-                      </CCol>
-                      <div className="float-right">
-                        <CTooltip content={`Delete`}><CButton color="light" variant="ghost"><FontAwesomeIcon icon={faTrashAlt} /></CButton></CTooltip>
-                      </div>
-                    </CCol>
-                    <hr className="border-dashed" />
-                  </CCol>
-                </CCardBody>
-              </CCard>
-            </CCol> */}
-            {/* End  */}
-            {/* begin card message list newest */}
-            {/* messages list */}
             <MsgOfContact />
             {/* End  */}
           </CCol>
         </CCol>
-
-        {/* Modal Upadate profile */}
-        <CModal
-          show={large}
-          onClose={() => setLarge(!large)}
-          size="lg"
-          className="custom-modal"
-        >
-          <CModalHeader closeButton>
-            <CModalTitle>
-              <h4 className="font-weight-bold">Update Contact</h4>
-            </CModalTitle>
-          </CModalHeader>
-          <CModalBody
-            className="p-3"
-            style={{ height: "80vh", overflow: "auto" }}
-          >
-            <CCol lg="12" className="p-lg-4 px-lg-5 p-0 ">
-              {/* Name */}
-              <CCol className="pb-2 p-0 d-flex flex-lg-row flex-column ">
-                <CCol className="p-0 pr-lg-4">
-                  <CCol className="p-0 d-flex align-items-center">
-                    <span style={{ fontWeight: 600, fontSize: 14 }}>
-                      First Name<span className="danger-color pl-2">*</span>
-                    </span>
-                  </CCol>
-                  <CCol className="p-0 py-2 me-6">
-                    <CInput htmlFor="First-name" placeholder="First Name" />
-                  </CCol>
-                </CCol>
-                <CCol className="p-0">
-                  <CCol className="p-0 d-flex align-items-center">
-                    <span style={{ fontWeight: 600, fontSize: 14 }}>
-                      Last Name <span className="danger-color pl-2">*</span>
-                    </span>
-                  </CCol>
-                  <CCol className="p-0 py-2 me-6">
-                    <CInput htmlFor="First-name" placeholder="First Name" />
-                  </CCol>
-                </CCol>
-              </CCol>
-              {/* email and gender */}
-              <CCol className="pb-2 p-0 d-flex flex-lg-row flex-column">
-                <CCol className="p-0 pr-lg-4">
-                  <CCol className="p-0 d-flex align-items-center">
-                    <span style={{ fontWeight: 600, fontSize: 14 }}>
-                      Email <span className="danger-color pl-2">*</span>
-                    </span>
-                  </CCol>
-                  <CCol className="p-0 py-2 me-6">
-                    <CInput htmlFor="First-name" placeholder="First Name" />
-                  </CCol>
-                </CCol>
-                <CCol className="p-0">
-                  <CCol className="p-0">
-                    <span style={{ fontWeight: 600, fontSize: 14 }}>
-                      Gender
-                    </span>
-                  </CCol>
-                  <CCol col="6" className="py-2 p-0">
-                    <CSelect custom name="select" id="select">
-                      <option value="0">select..</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                      <option value="3">Other</option>
-                    </CSelect>
-                  </CCol>
-                </CCol>
-              </CCol>
-              <CCol className="p-0 pb-2">
-                <CCol className="p-0 d-flex align-items-center">
-                  <span style={{ fontWeight: 600, fontSize: 14 }}>
-                    Day of birth
-                  </span>
-                </CCol>
-                <CCol className="p-0 py-2 me-6">
-                  <CInput htmlFor="date" type="date" placeholder="" />
-                </CCol>
-              </CCol>
-              {/* Address */}
-              <CCol className="p-0 pt-4 pb-2">
-                <h5>
-                  <strong>Addres Info</strong>
-                </h5>
-              </CCol>
-              <CCol col="6" className="d-flex flex-column p-0">
-                <CCol className="p-0">
-                  <span style={{ fontWeight: 600, fontSize: 14 }}>Adress</span>
-                </CCol>
-                <CCol className="p-0 mr-3 py-2">
-                  <CInput htmlFor="Phone" placeholder="" />
-                  <small className="text-muted">
-                    <strong>Enter</strong> the address
-                  </small>
-                </CCol>
-              </CCol>
-              <CCol col="6" className="d-flex flex-column p-0 pt-2 pr-0">
-                <CCol className="p-0">
-                  <span style={{ fontWeight: 600, fontSize: 14 }}>
-                    City/Provincial
-                  </span>
-                </CCol>
-                <CCol className="p-0 py-2">
-                  <CSelect custom name="select" id="select">
-                    <option value="0">select..</option>
-                    <option value="1">Vietnam</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </CSelect>
-                  <small className="text-muted">
-                    <strong>Select</strong> the Provincial/City
-                  </small>
-                </CCol>
-              </CCol>
-              <CCol className="pt-2 p-0 d-flex flex-lg-row flex-column">
-                <CCol col="6" className="d-flex flex-column p-0 pr-lg-4">
-                  <CCol className="p-0">
-                    <span style={{ fontWeight: 600, fontSize: 14 }}>
-                      City/Provincial
-                    </span>
-                  </CCol>
-                  <CCol className="p-0 py-2">
-                    <CSelect custom name="select" id="select">
-                      <option value="0">select..</option>
-                      <option value="1">Vietnam</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                    </CSelect>
-                    <small className="text-muted">
-                      <strong>Select</strong> the Provincial/City
-                    </small>
-                  </CCol>
-                </CCol>
-                <CCol col="6" className="d-flex flex-column p-0">
-                  <CCol className="p-0">
-                    <span style={{ fontWeight: 600, fontSize: 14 }}>
-                      District
-                    </span>
-                  </CCol>
-                  <CCol className="p-0 py-2">
-                    <CSelect custom name="select" id="select">
-                      <option value="0">select..</option>
-                      <option value="1">Vietnam</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                    </CSelect>
-                    <small className="text-muted">
-                      <strong>Select</strong> the district
-                    </small>
-                  </CCol>
-                </CCol>
-              </CCol>
-              {/* street */}
-            </CCol>
-          </CModalBody>
-          <CModalFooter className="d-flex justify-content-center">
-            <CButton
-              color="ghost"
-              variant="light"
-              onClick={() => setLarge(!large)}
-            >
-              Cancel
-            </CButton>
-            <CButton color="primary" onClick={() => setLarge(!large)}>
-              Save Changes
-            </CButton>{" "}
-          </CModalFooter>
-        </CModal>
+        <ModalUpdateProfile show={large}/>
       </CRow>
     </>
   );

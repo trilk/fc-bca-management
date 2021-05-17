@@ -4,35 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersCog, faUsers, fabViber, faChessQueen, faFacebookMessenger, faEye, faEdit, faPen, faPause, faCopy, faEllipsisV, faPlus, faPlusCircle, faChevronCircleDown, faSortDown, faClone, faCircle, faTag, faFilter, faUserCircle, faUser, faDatabase, faHamburger, faVenusMars, faIdBadge, faMinus, faExchangeAlt, faTrash, faUserTag, faCheck, faTimes, faUserFriends, faFileImport, faUserPlus, faEnvelope, faCommentDots, faUserEdit, faSearch, } from '@fortawesome/free-solid-svg-icons'
 import CIcon from '@coreui/icons-react'
 import '../../messages/messages.scss'
-// import femaleimg from '../users/avatar/female.jpg'
 import {
     CBadge,
-    CButton,
     CCol,
     CProgress,
     CDataTable,
-    CForm,
     CPagination,
-    CLabel,
     CTooltip,
-    CModal,
-    CModalHeader,
-    CModalTitle,
-    CModalBody,
-    CModalFooter,
     CCard,
     CCardBody,
-    CDropdownItem,
-    CFormGroup,
-    CDropdown,
-    CDropdownToggle,
-    CDropdownMenu,
-    CInputRadio,
-    CInput,
     CRow,
-    CDropdownDivider,
-    CLink,
-    CDropdownHeader,
 } from '@coreui/react'
 import messageData from '../../messages/messageData'
 import { faTelegram, faViber } from '@fortawesome/free-brands-svg-icons'
