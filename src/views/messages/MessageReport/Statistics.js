@@ -10,7 +10,7 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
-import "./messages.scss";
+import "../messages.scss";
 import {
   CCardBody,
   CRow,

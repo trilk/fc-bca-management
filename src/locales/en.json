@@ -59,26 +59,27 @@
         "admin-settings": "Settings",
         "item-roles": "Roles"
     },
-    "profile": {
+    "user-info": {
         "title": "Personal information",
         "description": "Basic info, like your name address and photo, that you use on System",
         "lb-total-msg": "Total messages",
         "lb-success-msg": "Successful messages",
         "lb-fail-msg": "Failed messages",
-        "lb-name": "Full name",
+        "lb-name": "Full Name",
         "lb-phone": "Phone",
         "lb-email": "Email",
-        "lb-dob": "Day of birth",
+        "lb-dob": "Day of Birth",
         "lb-channel-mng": "Channels",
         "lb-address": "Address",
         "lb-gender": "Gender",
-        "lb-last-update": "Last updated",
+        "lb-last-update": "Last Updated",
         "pw-update-msg": "Last updated at {{at}}",
         "lb-signin-method": "Sign-in Method",
         "lb-username": "User Name",
         "lb-password": "Password",
         "btn-change-pw": "Change password",
-        "btn-update-info": "Edit Profile"
+        "btn-profile-update": "Edit Profile",
+        "btn-admin-update": "Edit User"
     },
     "user-list": {
         "title": "User list",
@@ -106,7 +107,7 @@
         "lb-dob": "Day of birth",
         "select-default-item": "Please select ...",
         "lb-address": "Address street",
-        "lb-city": "Province/City",
+        "lb-province": "Province/City",
         "ph-address": "Enter house number, street,...",
         "lb-country": "Country",
         "title-header2": "User permission",
@@ -137,7 +138,10 @@
         "ph-search": "Search",
         "ft-title": "Filter",
         "tt-header": "Filter Option",
-        "ft-typemsg": "Filter type messages",
+        "ft-typemsg": "Type messages",
+        "msg-list": "Message list",
+        "msg-img": "Message Image",
+        "msg-text": "Message text",
         "lb-message": "Message",
         "lb-draft": "Draft",
         "lb-schedule": "Schedule",
@@ -151,6 +155,7 @@
         "th-delivery": "Delivery",
         "th-channel": "Channel",
         "th-createby": "Create by",
+        "th-type": "Type",
         "th-action": "Action",
         "td-delivered": "Delivered",
         "td-remaining": "Remaining",
@@ -207,40 +212,44 @@
         "md-lb-image": "Image",
         "md-lb-url": "Launch URL",
         "md-lb-schedule": "Schedule",
-        "md-lb-send": "Start sending",
-        "title": "Text message",
-        "description": "Tin nhắn sẽ  hiện thị cho người nhận chỉ dưới dạng văn bản"
+        "md-lb-send": "Start sending"
     },
     "msg-text": {
+        "title": "Text message",
+        "description": "Tin nhắn sẽ  hiện thị cho người nhận chỉ dưới dạng văn bản",
         "title-messages": "Title",
         "ph-message": "Enter title",
         "lb-content": "Content",
-        "ph-content": "Enter content",
-        "title": "Image message",
-        "description": "The message will be visible to the recipient only in the form of images and text"
+        "ph-content": "Enter content"
     },
     "msg-image": {
+        "title": "Image message",
+        "description": "The message will be visible to the recipient only in the form of images and text",
         "lb-img": "Image",
         "lb-upload": "Click to upload image",
         "lb-description": "Upload up to 1 image",
         "tooltip": "Remove image",
         "lb-content": "Content",
-        "ph-content": "Enter content",
-        "title": "List message",
-        "description ": "This message will show the recipient a list of text and images"
+        "ph-content": "Enter content"
     },
     "msg-list": {
+        "lb-type": "Type message",
+        "title": "List message",
+        "description ": "This message will show the recipient a list of text and images",
+        "lb-list": "List",
         "lb-image": "Image",
         "lb-upload": "Upload image",
         "lb-delete-img": "Remove image",
+        "lb-title": "Title",
+        "ph-title": "Enter title",
         "lb-content": "Content",
         "ph-content": "Enter content",
         "lb-url": "URL",
-        "btn-create": "Create",
-        "md-btn-change": "Make changes",
-        "md-btn-send": "Send message"
+        "btn-create": "Add"
     },
     "detail-msg": {
+        "md-btn-change": "Make changes",
+        "md-btn-send": "Send message",
         "title": "Message Statistics",
         "lb-sentat": "started sent at: ",
         "btn-dropdown": "Action",
@@ -251,10 +260,10 @@
         "box-delivered": "Delivered",
         "box-remaining": "Remaining",
         "box-fail": "Failed",
-        "lb-detail": "Details",
+        "lb-detail": "Info",
         "btn-preview": "Preview",
         "lb-createby": "Create by",
-        "lb-lastupdate": "Last update",
+        "lb-lastupdate": "Create date",
         "lb-audience": "Audience",
         "lb-channel": "Channel",
         "lb-segment": "Included segments",
@@ -268,5 +277,81 @@
         "lb-schedule": "Schedule",
         "lb-send": "Start sending",
         "col-preview": "Preview"
+    },
+    "contact": {
+        "lb-total": "Total contacts",
+        "lb-channel": "Channels",
+        "lb-contact": "Contacts",
+        "ph-search": "Search by name ...",
+        "lb-filter": "Filter",
+        "ft-header": "Filter Options",
+        "lb-date": "Date",
+        "lb-status": "Status",
+        "lb-all": "All",
+        "lb-subscribed": "Subscribed",
+        "lb-unsubscribed": "UnSubscribed",
+        "lb-type": "Channel",
+        "btn-reset": "Reset",
+        "btn-submit": "Submit"
+    },
+    "tb-contact": {
+        "td-name": "Name",
+        "td-phone": "Phone",
+        "td-channel": "Channels",
+        "td-email": "Email",
+        "td-gender": "Gender",
+        "td-lastupdate": "Last Updated",
+        "td-status": "Status"
+    },
+    "contact-details": {
+        "lb-delivered": "Messages Delivered",
+        "lb-details": "Details",
+        "btn-updateinfo": "Update Info",
+        "lb-id": "Contact ID",
+        "lb-email": "Email",
+        "lb-gender": "Gender",
+        "lb-birth": "Date of Birth",
+        "lb-address": "Address",
+        "lb-lastupdate": "Last Updated"
+    },
+    "channel": {
+        "lb-channel": "Subscribed channels",
+        "th-channel": "Channels",
+        "th-status": "Status",
+        "th-started": "Subscribed at"
+    },
+    "msg-statistics": {
+        "title": "Messages Statistics",
+        "description": "More than 4000 messages sent today",
+        "filter": "30 Days",
+        "lb-filter": "Filter",
+        "ft-description": "by times",
+        "item-1h": "1 Hours",
+        "item-24h": "24 Hours",
+        "item-30d": "30 Days"
+    },
+    "widget-msg": {
+        "totalmsg": "Total Messages",
+        "msgdelivered": "Messages Delivered",
+        "msgfail": "Messages Fail"
+    },
+    "widget-user": {
+        "title": "Subscriber Trends",
+        "lb-subscribed": "Subscribed",
+        "lb-unsubscribed": "UnSubscribed",
+        "lb-total": "Total"
+    },
+    "user-sort": {
+        "lb-30d": "Last 30 Days",
+        "item-24h": "24 Hours",
+        "item-year": "Past Year"
+    },
+    "channel-sort": {
+        "lb-main": "Channel:",
+        "item-all": "All channels"
+    },
+    "user-trend": {
+        "lb-all": "All Users",
+        "lb-unsubscribed": "UnSubscribed"
     }
 }

@@ -7,34 +7,10 @@ import femaleimg from '../../users/avatar/female.jpg'
 import './contacts.scss'
 import imgblank from '../img/blank.png'
 import {
-    CBadge,
-    CButton,
     CImg,
     CCol,
-    CDataTable,
-    CPagination,
-    CLabel,
-    CTooltip,
-    CModal,
-    CModalHeader,
-    CSelect,
-    CModalTitle,
-    CModalBody,
-    CModalFooter,
-    CInputCheckbox,
-    CCallout,
     CCard,
     CCardBody,
-    CPopover,
-    CDropdownItem,
-    CFormGroup,
-    CDropdown,
-    CDropdownToggle,
-    CDropdownMenu,
-    CInputRadio,
-    CInput,
-    CRow,
-    CDropdownDivider,
 } from '@coreui/react'
 import { faAccessibleIcon, faTelegram, faViber } from '@fortawesome/free-brands-svg-icons'
 

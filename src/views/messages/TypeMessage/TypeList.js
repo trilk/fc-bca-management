@@ -27,21 +27,19 @@ const ListMsgType = ({
   onRemoveListMsg,
   onRemoveImage,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <CCol className="p-0">
         <CLabel>
-          <h6 className="font-weight-bold mb-0">Tin nhắn dạng danh dách</h6>
-          <small className="text-muted">
-            Tin nhắn này sẽ hiện cho người nhận dạng danh sách bao gồm nội dung
-            và hình ảnh
-          </small>
+          <h6 className="font-weight-bold mb-0">{t("msg-list.title")}</h6>
+          <small className="text-muted">{t("msg-list.description ")}</small>
         </CLabel>
         <hr className="mt-0" />
         {/* Box content vs images */}
         <CCol className="border rounded bg-light p-3 mt-4">
           <CCol className="p-0">
-            <CLabel style={{ fontWeight: 600, fontSize: 14 }}>Hình ảnh</CLabel>
+            <CLabel style={{ fontWeight: 600, fontSize: 14 }}>{t("msg-list.lb-image")}</CLabel>
             <div className="Upload__img">
               {!image ? (
                 <>
@@ -58,7 +56,7 @@ const ListMsgType = ({
                     />
                     <div className="d-flex flex-column pl-2">
                       {/* <h6 className="mb-0 font-weight-bold">Drop file here or click to upload</h6> */}
-                      <span>Click to upload image</span>
+                      <span>{t("msg-list.lb-upload")}</span>
                     </div>
                     {/* </div> */}
                   </CLabel>
@@ -75,7 +73,7 @@ const ListMsgType = ({
                 <div className="bg__uploaded">
                   <CImg src={image} className="image__uploaded " />
                   <span color="ghost" onClick={onRemoveImage}>
-                    Gỡ hình
+                  {t("msg-list.lb-delete-img")}
                   </span>
                 </div>
               )}
@@ -83,23 +81,24 @@ const ListMsgType = ({
           </CCol>
           <CCol className="p-0 pt-3">
             <CLabel>
-              <span style={{ fontWeight: 600, fontSize: 14 }}>Tiêu đề</span>
+              <span style={{ fontWeight: 600, fontSize: 14 }}>{t("msg-list.lb-title")}</span>
             </CLabel>
             <CInput
               className="bg-white border"
               name="title"
+              placeholder={t("msg-list.ph-title")}
               onChange={(value) => onValueChange(value)}
               value={title}
             />
           </CCol>
           <CCol className="p-0 pt-3">
             <CLabel>
-              <span style={{ fontWeight: 600, fontSize: 14 }}>Noi dung</span>
+              <span style={{ fontWeight: 600, fontSize: 14 }}>{t("msg-list.lb-content")}</span>
             </CLabel>
             <CTextarea
               rows="2"
               className="bg-white border"
-              placeholder="Nhap noi dung"
+              placeholder={t("msg-list.ph-content")}
               name="content"
               onChange={(value) => onValueChange(value)}
               value={content}
@@ -107,11 +106,11 @@ const ListMsgType = ({
           </CCol>
           <CCol className="p-0 pt-3">
             <CLabel>
-              <span style={{ fontWeight: 600, fontSize: 14 }}>Đường dẫn</span>
+              <span style={{ fontWeight: 600, fontSize: 14 }}>{t("msg-list.lb-url")}</span>
             </CLabel>
             <CInput
               className="bg-white border"
-              placeholder="http://Ott@.com.vn"
+              placeholder="http://OTTABC.com.vn"
               name="link"
               onChange={(value) => onValueChange(value)}
               value={link}
@@ -127,7 +126,7 @@ const ListMsgType = ({
             >
               <span className="d-flex align-items-center">
                 <FontAwesomeIcon icon={faPlus} size="xs" className="mr-1" />
-                Tạo
+                {t("msg-list.btn-create")}
               </span>
             </CButton>
           </CCol>
@@ -138,7 +137,7 @@ const ListMsgType = ({
           return (
             <CCol className="d-flex flex-column pt-3 p-0" key={index}>
               <div className="d-flex flex-row align-items-center py-2">
-                <CLabel className="font-weight-bold">List {index + 1}</CLabel>
+                <CLabel className="font-weight-bold">{t("msg-list.lb-list")} {index + 1}</CLabel>
                 <div className="ml-auto">
                   <CButton color="secondary" size="sm" className="mr-2">
                     <FontAwesomeIcon icon={faPen} className="mx-1" />
@@ -156,12 +155,13 @@ const ListMsgType = ({
                 <div className="bg__img">
                   <CImg src={item.image} className="img" />
                 </div>
-                <div className="d-flex flex-column pl-3">
-                  <span className="d-flex flex-wrap">{item.title}</span>
+                <CCol className="d-flex flex-column pl-3 p-0">
+                  <strong className="tags-text1Line">{item.title}</strong>
+                  <span className="d-flex flex-wrap">{item.content}</span>
                   <small className="primary-color">
-                    <u>{item.url}</u>
+                    <u className="tags-text1Line">{item.url}</u>
                   </small>
-                </div>
+                </CCol>
               </CCol>
             </CCol>
           );
