@@ -12,12 +12,20 @@ class UserService {
     }
   }
 
+  deleteUser(userId, username) {
+    return axiosInstance.post("/api/user/delete", { _id: userId, username: username });
+  }
+
   getProfile() {
     return axiosInstance.get('api/user/profile');
   }
 
   getUserInfo(query) {
-    return axiosInstance.get('api/user/info' + query);
+    try {
+      return axiosInstance.get('api/user/info' + query);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   getUsers(query) {

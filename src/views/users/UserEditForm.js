@@ -20,11 +20,14 @@ import {
     CFormGroup,
     CSelect,
     CRow,
-    CForm
+    CForm,
+    CModal,
+    CModalBody,
+    CModalFooter, CModalHeader, CModalTitle, CSpinner
 } from '@coreui/react'
 
 import UserService from './../../services/user.service'
-import { MESSAGES } from './../../utils/_constants'
+import { MESSAGES, SELECT_STYLES } from './../../utils/_constants'
 
 const UserEditForm = (props) => {
     // console.log(props.userInfo);
@@ -35,6 +38,7 @@ const UserEditForm = (props) => {
     const { t, i18n } = useTranslation()
     const [iconRole, setIconRole] = useState({ icon: faBan, color: '#ced4da' })
     const [userInfo, setUserInfo] = useState({});
+    const [deleteAlert, setDeleteConfirm] = useState(false)
     const isNewUser = props.isNewUser;
 
     const onChange = e => {
@@ -52,8 +56,24 @@ const UserEditForm = (props) => {
         history.goBack();
     }
 
-    const onDelete = () => {
+    const onDelete = (confirmed) => {
+        setDeleteConfirm(false);
+        if (confirmed) {
+            UserService.deleteUser(userInfo._id, userInfo.username).then(
+                () => {
+                    history.push('/users')
+                    return Promise.resolve();
+                },
+                (error) => {
+                    let message = (error.response && error.response.data && error.response.data.message) || MESSAGES.UNKNOW_ERROR;
 
+                    message = message === MESSAGES.UNKNOW_ERROR ? 'common.' + message : 'user-form.' + message;
+                    console.log(message);
+
+                    return Promise.reject();
+                }
+            );
+        }
     }
 
     const onSubmit = e => {
@@ -71,14 +91,9 @@ const UserEditForm = (props) => {
             }
         };
 
-        return UserService.saveUser(updatedUser, isNewUser).then(
+        UserService.saveUser(updatedUser, isNewUser).then(
             (response) => {
-
-                // dispatch({
-                //     type: SET_MESSAGE,
-                //     payload: response.data.message,
-                // });
-                history.goBack()
+                history.push('/users/' + response.data._id)
                 return Promise.resolve();
             },
             (error) => {
@@ -113,7 +128,7 @@ const UserEditForm = (props) => {
         <>
             <CForm onSubmit={onSubmit}>
                 <CRow>
-                    <CCol xs="12" sm="6">
+                    <CCol xs="12" sm="6" className="pr-2">
                         <CCard>
                             <CCardHeader>
                                 <h4><FontAwesomeIcon icon={faAddressCard} className="mr-2" /><span>{t('user-edit-form.title-header1')}</span></h4>
@@ -122,7 +137,7 @@ const UserEditForm = (props) => {
                                 <CFormGroup row>
                                     <CCol md="6">
                                         <CLabel htmlFor="username">{t('user-edit-form.lb-username')}</CLabel>
-                                        <CInput type="text" name="username" value={userInfo.username || ''} onChange={value => onChange(value)} placeholder={t('user-edit-form.ph-username')} />
+                                        <CInput disabled={!isNewUser} type="text" name="username" value={userInfo.username || ''} onChange={value => onChange(value)} placeholder={t('user-edit-form.ph-username')} />
                                         <CInvalidFeedback>We have a problem...</CInvalidFeedback>
                                     </CCol>
                                     <CCol md="6">
@@ -184,7 +199,7 @@ const UserEditForm = (props) => {
                         </CCard>
                     </CCol>
 
-                    <CCol xs="12" sm="6">
+                    <CCol xs="12" sm="6" className="pl-2">
                         <CCard>
                             <CCardHeader>
                                 <h4><FontAwesomeIcon icon={faUserShield} className="mr-2" /> <span>{t('user-edit-form.title-header2')}</span></h4>
@@ -217,7 +232,8 @@ const UserEditForm = (props) => {
                                             displayValue="name"
                                             showCheckbox={true}
                                             selectedValues={userInfo.role === 'admin' ? [] : userInfo.channels}
-                                            placeholder={userInfo.role === 'admin' ? 'Tat ca kenh' : 'Vui long chon'}
+                                            placeholder={userInfo.role === 'admin' ? t('user-edit-form.channell-all-items') : t('user-edit-form.select-default-item')}
+                                            style={SELECT_STYLES}
                                         />
                                         {/* <CSelect custom name="channel" value={userInfo.channel || ''} onChange={value => onChange(value)} >
                                             <option value="">{t('user-edit-form.channell-all-items')}</option>
@@ -241,9 +257,9 @@ const UserEditForm = (props) => {
                                                 <thead className="bg-light">
                                                     <tr>
                                                         <th></th>
-                                                        <th className="text-center" ><FontAwesomeIcon icon={faEye} style={{ height: 12, width: 12 }} className="mr-2" />{t('user-edit-form.td.read')}</th>
+                                                        <th className="text-center" ><FontAwesomeIcon icon={faEye} style={{ height: 12, width: 12 }} className="mr-2" />{t('user-edit-form.td-read')}</th>
                                                         <th className="text-center" ><FontAwesomeIcon icon={faPen} style={{ height: 10, width: 10 }} className="mr-2" />{t('user-edit-form.td-create')}</th>
-                                                        <th className="text-center" ><FontAwesomeIcon icon={faFileSignature} style={{ height: 12, width: 12 }} className="mr-2" />{t('user-edit-form.update')}</th>
+                                                        <th className="text-center" ><FontAwesomeIcon icon={faFileSignature} style={{ height: 12, width: 12 }} className="mr-2" />{t('user-edit-form.td-update')}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -338,7 +354,7 @@ const UserEditForm = (props) => {
                             <CCardHeader>
                                 <CCol className="p-0 pt-3 d-flex flex-row-reverse bd-highlight">
                                     <CButton color="primary" className="ml-2" type="submit"><FontAwesomeIcon icon={faSave} className="mr-2" />{t('user-edit-form.btn-save')}</CButton>
-                                    {!isNewUser && <CButton color="danger" className="ml-2" name="delete" onClick={onDelete}><FontAwesomeIcon icon={faTrash} className="mr-2" />{t('user-edit-form.btn-delete')}</CButton>}
+                                    {!isNewUser && <CButton color="danger" className="ml-2" name="delete" onClick={() => setDeleteConfirm(true)}><FontAwesomeIcon icon={faTrash} className="mr-2" />{t('user-edit-form.btn-delete')}</CButton>}
                                     <CButton color="outline-dark" className="ml-2" name="cancel" onClick={onCancel}><FontAwesomeIcon icon={faTimes} className="mr-2" />{t('user-edit-form.btn-cancel')}</CButton>
                                 </CCol>
                             </CCardHeader>
@@ -346,6 +362,22 @@ const UserEditForm = (props) => {
                     </CCol>
                 </CRow>
             </CForm>
+            <CModal
+                show={deleteAlert}
+                onClose={() => setDeleteConfirm(false)}
+                color="danger"
+            >
+                <CModalHeader closeButton>
+                    <CModalTitle>Modal title</CModalTitle>
+                </CModalHeader>
+                <CModalBody>
+                    Ban co chac xoa user nay ra khoi he thong ko?
+              </CModalBody>
+                <CModalFooter>
+                    <CButton color="danger" onClick={() => onDelete(true)}>Confirm</CButton>{' '}
+                    <CButton color="secondary" onClick={() => onDelete(false)}>Cancel</CButton>
+                </CModalFooter>
+            </CModal>
         </>
     )
 }

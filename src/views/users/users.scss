@@ -1,8 +1,11 @@
-.input-group-append {
-    margin-left: 0 !important;
+.input-group {
+    input {
+        height: 39px;
+    }
     select {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+        height: 39px;
     }
 }
 // nút status

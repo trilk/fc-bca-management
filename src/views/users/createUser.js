@@ -5,7 +5,7 @@ const CreateUser = () => {
     const info = {
         firstName: '',
         lastName: '',
-        username: '0988661903',
+        username: '',
         password: '',
         email: '',
         gender: '',

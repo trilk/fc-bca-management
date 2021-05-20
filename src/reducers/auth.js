@@ -7,6 +7,7 @@ import {
   SIDEBAR_SHOW,
   CHANGE_LANGUAGE,
   CHANNELS,
+  LOADING
 } from "../actions/types";
 
 const initialState = {
@@ -64,6 +65,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         channels: action.payload,
+      };
+    case LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return state;

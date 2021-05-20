@@ -1,4 +1,5 @@
 import React from "react";
+import i18n from './i18n'
 
 const Toaster = React.lazy(() =>
   import("./views/notifications/toaster/Toaster")
@@ -90,8 +91,8 @@ const TemplateDetails = React.lazy(() =>
 );
 
 const routes = [
-  { path: "/", exact: true, name: "Home" },
-  { path: "/dashboard", name: "Dashboard", component: Dashboard },
+  { path: "/", exact: true, name: i18n.t('top-menu.br-home') },
+  { path: "/dashboard", name: i18n.t('top-menu.br-dashboard'), component: Dashboard },
   { path: "/theme", name: "Theme", component: Colors, exact: true },
   { path: "/theme/colors", name: "Colors", component: Colors },
   { path: "/theme/typography", name: "Typography", component: Typography },
@@ -145,26 +146,26 @@ const routes = [
   { path: "/notifications/modals", name: "Modals", component: Modals },
   { path: "/notifications/toaster", name: "Toaster", component: Toaster },
   { path: "/widgets", name: "Widgets", component: Widgets },
-  { path: "/users", exact: true, name: "Users", component: Users },
+  { path: "/users", exact: true, name: i18n.t('top-menu.br-users'), component: Users },
   {
     path: "/users/create-user",
     exact: true,
-    name: "Create User",
+    name: i18n.t('top-menu.br-create-user'),
     component: CreateUser,
   },
   {
     path: "/users/:id",
     exact: true,
-    name: "User Details",
+    name: i18n.t('top-menu.br-user-details'),
     component: UserDetails,
   },
   {
     path: "/users/:id/edit",
     exact: true,
-    name: "Edit User",
+    name: i18n.t('top-menu.br-edit-user'),
     component: EditUser,
   },
-  { path: "/profile", exact: true, name: "My Profile", component: MyProfile },
+  { path: "/profile", exact: true, name: i18n.t('top-menu.br-profile'), component: MyProfile },
   { path: "/segments", exact: true, name: "Segmnets", component: Segments },
   { path: "/contacts", exact: true, name: "Contacts", component: Contacts },
   {

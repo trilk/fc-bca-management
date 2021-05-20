@@ -42,3 +42,19 @@ export const DATETIME_FORMAT = {
     VI_DATETIME_24: 'HH:mm DD/MM/YYYY',
     EN_DATETIME_24: 'MM/DD/YYYY HH:mm',
 }
+
+export const SELECT_STYLES = {
+    searchBox: {
+        padding: "3px"
+    },
+    inputField: {
+        margin: "2px"
+    },
+    groupHeading: {
+        "font-weight": "bold"
+    },
+    option: {
+        'padding-top': '4px',
+        'padding-bottom': '4px'
+    },
+}

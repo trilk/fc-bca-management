@@ -1,26 +1,31 @@
 import React, { Suspense } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Redirect,
   Route,
   Switch
 } from 'react-router-dom'
-import { CContainer, CFade } from '@coreui/react'
+import { CContainer, CFade, CSpinner } from '@coreui/react'
 
 // routes config
 import routes from '../routes';
 
-const loading = (
+const suspenseLoading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 )
 
 const TheContent = () => {
+  const loading = useSelector(state => state.auth.loading);
 
   return (
     <main className="c-main">
       <CContainer fluid>
-        <Suspense fallback={loading}>
+        <div className="text-center">
+          {loading && <CSpinner color="info" variant="grow" size="lg" />}
+        </div>
+        <Suspense fallback={suspenseLoading}>
           <Switch>
             {routes.map((route, idx) => {
               return route.component && (
@@ -30,7 +35,7 @@ const TheContent = () => {
                   exact={route.exact}
                   name={route.name}
                   render={props => (
-                    <CFade>
+                    <CFade className={loading ? 'loading' : ''}>
                       <route.component {...props} />
                     </CFade>
                   )} />

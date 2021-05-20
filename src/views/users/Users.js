@@ -92,7 +92,6 @@ const Users = () => {
   }
 
   useEffect(async () => {
-    console.log('Voday')
     currentPage !== page && setPage(currentPage)
 
     const users = await UserService.getUsers(queryStr);
@@ -107,10 +106,10 @@ const Users = () => {
         <CCol lg="6" md="6" sm="4" xs="6" className="d-flex" >
           <CInputGroup className="mb-3">
             <CInputGroupPrepend>
-              <CButton color="primary" size="lg" onClick={onSearch}><FontAwesomeIcon icon={faSearch} className="mr-2" />
+              <CButton color="primary" onClick={onSearch}><FontAwesomeIcon icon={faSearch} className="mr-2" />
                 {t('user-list.btn-search')}</CButton>
             </CInputGroupPrepend>
-            <CInput id="" type="text" name="text" size="lg" placeholder={t('user-list.ph-search')} className="form-control2 bg-White" onChange={value => onChange(value)} />
+            <CInput type="text" name="text" placeholder={t('user-list.ph-search')} className="form-control2 bg-White" onChange={value => onChange(value)} />
             <CInputGroupAppend className="select-status">
               <CSelect custom name="isActive" className="bg-White" onChange={value => onChange(value)}>
                 <option value="">{t('user-list.col-status')}</option>
@@ -125,7 +124,7 @@ const Users = () => {
           <div className="d-flex flex-row ml-lg-auto ml-md-auto ml-sm-auto">
             <div className="ml-lg-auto p-0" lg="0">
               <CLink to="/users/create-user">
-                <CButton size="lg" color="primary">
+                <CButton color="primary">
                   <FontAwesomeIcon icon={faUserPlus} className="mr-2" />
                   <span>{t('user-list.btn-new-user')}</span>
                 </CButton>

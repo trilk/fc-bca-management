@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import './users.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faArrowUp, faArrowDown, faUserShield, faPhoneAlt, faUserEdit, faAddressCard, faKey } from '@fortawesome/free-solid-svg-icons'
