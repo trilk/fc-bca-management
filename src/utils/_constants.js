@@ -31,3 +31,30 @@ export const CHANNEL_TYPES = {
     VIBER: 'Viber',
     ZALO: 'Zalo'
 }
+
+export const DATETIME_FORMAT = {
+    VI_DATE: 'DD/MM/YYYY',
+    EN_DATE: 'MM/DD/YYYY',
+    TIME_12: 'hh:mm A',
+    TIME_24: 'HH:mm',
+    VI_DATETIME_12: 'hh:mm A DD/MM/YYYY',
+    EN_DATETIME_12: 'MM/DD/YYYY hh:mm A',
+    VI_DATETIME_24: 'HH:mm DD/MM/YYYY',
+    EN_DATETIME_24: 'MM/DD/YYYY HH:mm',
+}
+
+export const SELECT_STYLES = {
+    searchBox: {
+        padding: "3px"
+    },
+    inputField: {
+        margin: "2px"
+    },
+    groupHeading: {
+        "font-weight": "bold"
+    },
+    option: {
+        'padding-top': '4px',
+        'padding-bottom': '4px'
+    },
+}

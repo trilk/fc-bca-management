@@ -19,19 +19,15 @@ import {
   CCardBody,
   CRow,
   CDropdown,
-  CProgress,
   CDropdownToggle,
   CDropdownMenu,
   CDropdownItem,
-  CButton,
   CCol,
   CCard,
   CLabel,
-  CImg,
   CDropdownDivider,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
-import Imagedemo from "./photo/demo.jpeg";
 
 //lodash
 import _ from "lodash";

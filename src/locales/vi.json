@@ -139,9 +139,9 @@
         "ft-title": "Bộ lọc",
         "tt-header": "Tuỳ chọn bộ lọc",
         "ft-typemsg": "Loại tin nhắn",
-        "msg-list": "Tin nhắn dạng danh sách",
-        "msg-img": "Tin nhắn hình ảnh",
-        "msg-text": "Tin nhắn văn bản",
+        "msg-list": "Dạng danh sách",
+        "msg-img": "Dạng hình ảnh",
+        "msg-text": "Dạng văn bản",
         "lb-message": "Tin nhắn",
         "lb-draft": "Nháp",
         "lb-schedule": "Tin nhắn hẹn",
@@ -155,7 +155,7 @@
         "th-delivery": "Tiến trình",
         "th-channel": "Kênh",
         "th-createby": "Tạo bởi",
-        "th-type": "Loại",
+        "th-type": "Loại tin nhắn",
         "th-action": "Hành động",
         "td-delivered": "Đã nhận",
         "td-remaining": "Còn lại",
@@ -234,7 +234,7 @@
     },
     "msg-list": {
         "lb-type": "Loại tin nhắn",
-        "title": "Tin nhắn danh sách",
+        "title": "Dạng danh sách",
         "description ": "Tin nhắn này sẽ hiện cho người nhận dạng danh sách bao gồm nội dung và hình ảnh",
         "lb-list": "Danh sách",
         "lb-image": "Hình ảnh ",
@@ -293,65 +293,5 @@
         "lb-type": "Kênh",
         "btn-reset": "Khôi phục",
         "btn-submit": "Xác nhận"
-    },
-    "tb-contact": {
-        "td-name": "Tên",
-        "td-phone": "SĐT",
-        "td-channel": "Kênh",
-        "td-email": "Email",
-        "td-gender": "Giới tính",
-        "td-lastupdate": "Được cập nhật",
-        "td-status": "Trạng thái"
-    },
-    "contact-details": {
-        "lb-delivered": "Tin nhắn đã nhận",
-        "lb-details": "Chi tiết",
-        "btn-updateinfo": "Cập nhật thông tin",
-        "lb-id": "ID liên hệ",
-        "lb-email": "Email",
-        "lb-gender": "Giới tính",
-        "lb-birth": "Ngày sinh",
-        "lb-address": "Địa chỉ",
-        "lb-lastupdate": "Cập nhật lần cuối"
-    },
-    "channel": {
-        "lb-channel": "Kênh Đã đăng ký",
-        "th-channel": "Kênh",
-        "th-status": "Trạng thái",
-        "th-started": "Đăng ký lúc"
-    },
-    "msg-statistics": {
-        "title": "Thống kê tin nhắn",
-        "description": "Có hơn 4000 tin nhắn được gửi trong ngày hôm nay",
-        "filter": "30 Ngày",
-        "lb-filter": "Lọc",
-        "ft-description": "theo thời gian",
-        "item-1h": "1 Giờ trước",
-        "item-24h": "24 Giờ trước",
-        "item-30d": "30 Ngày trước"
-    },
-    "widget-msg": {
-        "totalmsg": "Tất cả Tin nhắn",
-        "msgdelivered": "Tin nhắn Đã nhận",
-        "msgfail": "Tin nhắn Lỗi"
-    },
-    "widget-user": {
-        "title": "Người đăng ký",
-        "lb-subscribed": "Đã đăng ký",
-        "lb-unsubscribed": "Bỏ đăng ký",
-        "lb-total": "Tất cả"
-    },
-    "user-sort": {
-        "lb-30d": "30 Ngày trước",
-        "item-24h": "24 Giờ trước",
-        "item-year": "Năm ngoái"
-    },
-    "channel-sort": {
-        "lb-main": "Kênh:",
-        "item-all": "Tất cả kênh"
-    },
-    "user-trend": {
-        "lb-all": "Tất cả người dùng",
-        "lb-unsubscribed": "Bỏ đăng ký"
     }
 }

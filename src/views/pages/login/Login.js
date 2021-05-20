@@ -31,10 +31,6 @@ import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Login = () => {
   const { t } = useTranslation();
-  const placements = [
-    'bottom',
-  ];
-
   const dispatch = useDispatch();
   // get from store redux
   let isAuthenticated = useSelector(state => state.auth.isAuthenticated);

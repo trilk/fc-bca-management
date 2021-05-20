@@ -243,7 +243,7 @@ const Messages = () => {
                 scopedSlots={{
                   label: (item) => (
                     <td className="p-0">
-                      <CCol className="d-flex justify-content-center">
+                      <CCol className="d-flex justify-content-center p-0">
                         <FontAwesomeIcon
                           icon={faCommentDots}
                           className="text-gray-400"
@@ -255,18 +255,14 @@ const Messages = () => {
                   message: (item) => (
                     <td>
                       <h6
-                        className="tags-text text-gray-800"
+                        className="tags-text text-gray-800 mb-1"
                         style={{ fontWeight: 600 }}
                       >
                         {item.content === ""
                           ? item.list[0].content
                           : item.content}
                       </h6>
-                      <div>
-                        <small>
-                          {convert_day_hours_minute(item.createdAt)}
-                        </small>
-                      </div>
+                      <small>{convert_day_hours_minute(item.createdAt)}</small>
                     </td>
                   ),
                   type: (item) => (
@@ -333,7 +329,7 @@ const Messages = () => {
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
                             icon={faClock}
-                            className="mr-2 text-muted"
+                            className="mr-2 warning-color"
                             size="xs"
                           />
                           <strong>100</strong>
@@ -344,7 +340,7 @@ const Messages = () => {
                         <div className="d-flex flex-row align-items-center">
                           <FontAwesomeIcon
                             icon={faExclamationCircle}
-                            className="mr-2 text-muted"
+                            className="mr-2 danger-color"
                             size="xs"
                           />
                           <strong>100</strong>
@@ -357,43 +353,51 @@ const Messages = () => {
                   ),
                   //button action
                   action: (item) => (
-                    <td>
-                      <CDropdown className="pl-2">
-                        <CDropdownToggle color="ghost">
-                          <FontAwesomeIcon
-                            icon={faEllipsisV}
-                            style={{ width: 12, height: 12 }}
-                          />
-                        </CDropdownToggle>
-                        <CDropdownMenu
-                          placement="bottom-end"
-                          // className="position-absolute"
-                        >
-                          <CDropdownItem onClick={() => onGetDetail(item)}>
-                            <FontAwesomeIcon icon={faEye} className="mr-2" />
-                            {t("message-list.it-details")}
-                          </CDropdownItem>
-                          <CDropdownItem>
-                            {/* Edit message wwith message draft and schedule */}
-                            <CLink to="/EditMsg">
-                              <FontAwesomeIcon icon={faPen} className="mr-2" />
-                              {t("message-list.it-edit")}
-                            </CLink>
-                          </CDropdownItem>
-                          <CDropdownItem>
-                            <FontAwesomeIcon icon={faCopy} className="mr-2" />
-                            {t("message-list.it-duplicate")}
-                          </CDropdownItem>
-                          <CDropdownDivider />
-                          <CDropdownItem
-                            className="danger-color"
-                            onClick={() => setDanger(!danger)}
+                    <td className="p-0">
+                      <CCol className="p-0">
+                        <CDropdown>
+                          <CDropdownToggle color="ghost">
+                            <FontAwesomeIcon
+                              icon={faEllipsisV}
+                              style={{ width: 12, height: 12 }}
+                            />
+                          </CDropdownToggle>
+                          <CDropdownMenu
+                            placement="bottom-end"
+                            // className="position-absolute"
                           >
-                            <FontAwesomeIcon icon={faTrash} className="mr-2" />
-                            {t("message-list.it-delete")}
-                          </CDropdownItem>
-                        </CDropdownMenu>
-                      </CDropdown>{" "}
+                            <CDropdownItem onClick={() => onGetDetail(item)}>
+                              <FontAwesomeIcon icon={faEye} className="mr-2" />
+                              {t("message-list.it-details")}
+                            </CDropdownItem>
+                            <CDropdownItem>
+                              {/* Edit message wwith message draft and schedule */}
+                              <CLink to="/EditMsg">
+                                <FontAwesomeIcon
+                                  icon={faPen}
+                                  className="mr-2"
+                                />
+                                {t("message-list.it-edit")}
+                              </CLink>
+                            </CDropdownItem>
+                            <CDropdownItem>
+                              <FontAwesomeIcon icon={faCopy} className="mr-2" />
+                              {t("message-list.it-duplicate")}
+                            </CDropdownItem>
+                            <CDropdownDivider />
+                            <CDropdownItem
+                              className="danger-color"
+                              onClick={() => setDanger(!danger)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="mr-2"
+                              />
+                              {t("message-list.it-delete")}
+                            </CDropdownItem>
+                          </CDropdownMenu>
+                        </CDropdown>
+                      </CCol>
                     </td>
                   ),
                 }}
