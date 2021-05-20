@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Imagedemo from "./photo/demo.jpeg";
-import { faCheckCircle, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import MsgImageType from "./MessageReport/MsgImageType";
 import MsgListType from "./MessageReport/MsgListType";
 import MsgTextType from "./MessageReport/MsgTextType";
+import CIcon from "@coreui/icons-react";
+import { faViber } from "@fortawesome/free-brands-svg-icons";
 import {
   CButton,
-  CImg,
   CCol,
   CLabel,
   CModal,
@@ -16,14 +16,9 @@ import {
   CModalTitle,
   CModalBody,
   CModalFooter,
-  CAlert,
-  CRow,
-  CLink,
 } from "@coreui/react";
 import "./messages.scss";
 import { useState } from "react";
-import { phonePreview } from "src/assets/icons/phone-preview";
-import CIcon from "@coreui/icons-react";
 
 const ReviewMsg = ({ onSubmit, message }) => {
   const { t } = useTranslation();
@@ -61,7 +56,7 @@ const ReviewMsg = ({ onSubmit, message }) => {
                   <h5>{t("create-msg.md-lb-audience")}</h5>
                 </CLabel>
                 <CCol className="border rounded-lg p-0 py-3">
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
                     <CCol
                       lg="3"
                       md="3"
@@ -72,11 +67,21 @@ const ReviewMsg = ({ onSubmit, message }) => {
                       {t("create-msg.md-lb-channel")}
                     </CCol>
                     <CCol className="font-weight-bold">
+                      {message.type === "Viber" && (
+                        <FontAwesomeIcon
+                          icon={faViber}
+                          size="lg"
+                          style={{ color: "#665CAC" }}
+                        />
+                      )}
+                      {message.type === "Zalo" && (
+                        <CIcon name="zaloIcon" className="mr-2 zaloIcon" />
+                      )}
                       {message.channel.name}
                     </CCol>
                   </CCol>
                   <hr />
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
                     <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                       {t("create-msg.md-lb-segment")}
                     </CCol>
@@ -89,7 +94,7 @@ const ReviewMsg = ({ onSubmit, message }) => {
                     </CCol>
                   </CCol>
                   <hr />
-                  <CCol className="d-flex flex-lg-row flex-md-row flex-column pl-2">
+                  <CCol className="d-flex flex-lg-row flex-md-row flex-column p-0">
                     <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
                       {t("create-msg.md-lb-user")}
                     </CCol>

@@ -9,8 +9,7 @@ import {
   faChartLine,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
-import CIcon from "@coreui/icons-react";
-import { CButton, CCol, CImg, CLabel } from "@coreui/react";
+import { CCol, CImg, CLabel } from "@coreui/react";
 
 const MsgListType = ({ MsgList }) => {
   const { t } = useTranslation();
