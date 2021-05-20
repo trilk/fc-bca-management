@@ -3,13 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
-  faPlusCircle,
-  faTimes,
-  faChartPie,
-  faUpload,
-  faFileImage,
   faFileImport,
-  faTimesCircle,
   faTrash,
   faPen,
 } from "@fortawesome/free-solid-svg-icons";
@@ -48,14 +42,12 @@ const ListMsgType = ({
                     className="mb-0 d-flex flex-row align-items-center upload"
                     block
                   >
-                    {/* <div className=""> */}
                     <FontAwesomeIcon
                       icon={faFileImport}
                       className="ml-3"
                       size="lg"
                     />
                     <div className="d-flex flex-column pl-2">
-                      {/* <h6 className="mb-0 font-weight-bold">Drop file here or click to upload</h6> */}
                       <span>{t("msg-list.lb-upload")}</span>
                     </div>
                     {/* </div> */}

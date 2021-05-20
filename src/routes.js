@@ -1,4 +1,5 @@
 import React from "react";
+
 import UpdateUser from "./views/users/userUpdate";
 
 const Toaster = React.lazy(() =>

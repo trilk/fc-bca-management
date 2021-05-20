@@ -9,7 +9,7 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import CIcon from "@coreui/icons-react";
-import { CButton, CCol, CLabel } from "@coreui/react";
+import {CCol, CLabel } from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import { faViber } from "@fortawesome/free-brands-svg-icons";
 const AudienceInfo = ({ channel }) => {
