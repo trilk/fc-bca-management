@@ -444,6 +444,7 @@ const CreateMsg = () => {
                           value="text"
                           id="inline-radio5"
                           name="type"
+                          checked={message.type === "text" && true}
                           onChange={(value) => onValueChange(value)}
                         />
                         <CLabel
@@ -465,6 +466,7 @@ const CreateMsg = () => {
                           value="image"
                           id="inline-radio6"
                           name="type"
+                          checked={message.type === "image" && true}
                           onChange={(value) => onValueChange(value)}
                         />
                         <CLabel
@@ -486,6 +488,7 @@ const CreateMsg = () => {
                           value="list"
                           id="inline-radio7"
                           name="type"
+                          checked={message.type === "list" && true}
                           onChange={(value) => onValueChange(value)}
                         />
                         <CLabel

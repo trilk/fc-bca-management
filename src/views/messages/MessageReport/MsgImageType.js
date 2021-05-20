@@ -12,7 +12,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import { CButton, CCol, CImg, CLabel } from "@coreui/react";
 
-const MsgImageType = ({ image,content }) => {
+const MsgImageType = ({ message }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -30,7 +30,7 @@ const MsgImageType = ({ image,content }) => {
           </CCol>
           <CCol className="font-weight-bold">
             <CImg
-              src={image}
+              src={message.filePath}
               height="120"
               width="120"
               className="rounded bg-light"
@@ -42,9 +42,7 @@ const MsgImageType = ({ image,content }) => {
           <CCol lg="3" md="3" sm="3" xs="12" className="text-muted">
             {t("detail-msg.msg-content")}
           </CCol>
-          <CCol className="font-weight-bold">
-            {content}
-          </CCol>
+          <CCol className="font-weight-bold">{message.content}</CCol>
         </CCol>
       </CCol>
     </>

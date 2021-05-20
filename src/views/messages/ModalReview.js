@@ -108,9 +108,9 @@ const ReviewMsg = ({ onSubmit, message }) => {
                 <CLabel>
                   <h5>{t("create-msg.md-message")}</h5>
                 </CLabel>
-                {message.type === "text" && <MsgTextType />}
-                {message.type === "image" && <MsgImageType />}
-                {message.type === "list" && <MsgListType />}
+                {message.type === "text" && <MsgTextType message={message} />}
+                {message.type === "image" && <MsgImageType message={message} />}
+                {message.type === "list" && <MsgListType message={message} />}
               </CCol>
               <CCol className="p-0">
                 <CLabel>

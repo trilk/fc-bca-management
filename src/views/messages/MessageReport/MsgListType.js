@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { CCol, CImg, CLabel } from "@coreui/react";
 
-const MsgListType = ({ MsgList }) => {
+const MsgListType = ({ message }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -24,11 +24,13 @@ const MsgListType = ({ MsgList }) => {
         </CCol>
         <hr className="mt-3" />
         {/* Message List */}
-        {MsgList.map((item, index) => {
+        {message.listMsg.map((item, index) => {
           return (
             <CCol className="d-flex flex-column">
               <div className="d-flex flex-row align-items-center py-2">
-                <CLabel className="font-weight-bold">{t("msg-list.lb-list")} {index + 1}</CLabel>
+                <CLabel className="font-weight-bold">
+                  {t("msg-list.lb-list")} {index + 1}
+                </CLabel>
                 <div className="ml-auto"></div>
               </div>
               <CCol className="d-flex flex-row border rounded bg-light py-3">
