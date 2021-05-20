@@ -136,12 +136,14 @@ const Messages = () => {
 
   //message data
   const [data, setData] = useState();
+  const [total, setTotal] = useState();
 
   //get all messages
   const getAllMessage = async () => {
     const response = await MessageService.getAllMessage(page, limit);
     if (response.status === 200) {
-      setData(response.data);
+      setData(response.data.messages);
+      setTotal(response.data.total);
     }
   };
   //effect afert page render
@@ -402,6 +404,7 @@ const Messages = () => {
                 onActivePageChange={pageChange}
                 doubleArrows={false}
                 align="center"
+                pages={total}
               />
             </CCardBody>
           </CCard>

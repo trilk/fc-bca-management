@@ -44,11 +44,12 @@ const Contacts = () => {
   const limitpage = 15;
   const [channelDropdown, setChannelDropdown] = useState("All");
   const [data, setData] = useState();
-  console.log(data)
+  const [total, setTotal] = useState();
   const getAllAudience = async (page, limit) => {
     const response = await AudienceService.getAllAudience(page, limit);
-    if (response.data.errorCode === 0) {
-      setData(response.data.contacts);
+    if (response.status === 200) {
+      setData(response.data.audience);
+      setTotal(response.data.total);
     }
   };
   //pagination
@@ -66,7 +67,7 @@ const Contacts = () => {
     getAllAudience(currentPage, limitpage);
   }, [currentPage, page, channelDropdown]);
   //end pagination
-  
+
   return (
     <>
       <CRow>
@@ -165,9 +166,9 @@ const Contacts = () => {
                             <div className="c-avatar ">
                               {/* avatar */}
                               <img
-                                src={item.Avatar ? item.Avatar : femaleimg}
+                                src={item.avatar ? item.avatar : femaleimg}
                                 className="c-avatar-img"
-                                alt={item.ChatName}
+                                alt={item.lastName + " " + item.firstName}
                                 height="48"
                                 width="48"
                                 name="avatar-female-default"
@@ -176,14 +177,14 @@ const Contacts = () => {
                           </CCol>
                           <CCol className="p-0 d-flex flex-column">
                             <span style={{ fontWeight: 600 }} className="pb-1">
-                              {item.ChatName}
+                              {item.lastName + " " + item.firstName}
                             </span>
                             <span
                               className="small text-muted"
                               style={{ fontWeight: 500 }}
                             >
                               Registered{""}:{" "}
-                              {convert_day_hours_minute(item.CreateDate)}
+                              {convert_day_hours_minute(item.createdAt)}
                             </span>
                           </CCol>
                         </CCol>
@@ -195,20 +196,20 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.ChannelId.ChannelType === "Viber" && (
+                        {item.channel.type === "Viber" && (
                           <FontAwesomeIcon
                             icon={faViber}
                             className="channel-icon"
                             style={{ color: "#665CAC" }}
                           />
                         )}
-                        {item.ChannelId.ChannelType === "Zalo" && (
+                        {item.channel.type === "Zalo" && (
                           <CIcon
                             name="zaloIcon"
                             style={{ height: 18, width: 18 }}
                           />
                         )}
-                        {item.ChannelId.ChannelType === "Telegram" && (
+                        {item.channel.type === "Telegram" && (
                           <FontAwesomeIcon
                             icon={faTelegram}
                             className="channel-icon"
@@ -222,14 +223,12 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-0">
                         <CBadge
-                          color={item.ChatStatus ? "success" : "danger"}
+                          color={item.status ? "success" : "danger"}
                           className="badge-status text-uppercase"
                         >
-                          {item.ChatStatus ? "Subscribed" : "UnSubcribe"}
+                          {item.status ? "Subscribed" : "UnSubcribe"}
                           <FontAwesomeIcon
-                            icon={
-                              item.ChatStatus ? faCheckCircle : faTimesCircle
-                            }
+                            icon={item.status ? faCheckCircle : faTimesCircle}
                             className="ml-2"
                           />
                         </CBadge>
@@ -261,7 +260,7 @@ const Contacts = () => {
                     <td>
                       <CCol className="pl-1">
                         <span className="">
-                          {convert_day_hours_minute(item.CreateDate)}
+                          {convert_day_hours_minute(item.createdAt)}
                         </span>
                       </CCol>
                     </td>
@@ -298,6 +297,7 @@ const Contacts = () => {
                 onActivePageChange={pageChange}
                 doubleArrows={false}
                 align="center"
+                pages={total}
               />
             </CCardBody>
           </CCard>

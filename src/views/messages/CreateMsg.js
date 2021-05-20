@@ -499,9 +499,22 @@ const CreateMsg = () => {
                     {/* end */}
                   </CCol>
                   {/* Message text only */}
-                  {message.type === "text" && <TextMsgType />}
+                  {message.type === "text" && (
+                    <TextMsgType
+                      title={message.title}
+                      content={message.content}
+                      onValueChange={onValueChange}
+                    />
+                  )}
                   {/* message image */}
-                  {message.type === "image" && <ImageMsgType />}
+                  {message.type === "image" && (
+                    <ImageMsgType
+                      onValueChange={onValueChange}
+                      onRemoveImage={onRemoveImage}
+                      content={message.content}
+                      image={message.filePath}
+                    />
+                  )}
                   {/* List message */}
                   {message.type === "list" && (
                     <ListMsgType

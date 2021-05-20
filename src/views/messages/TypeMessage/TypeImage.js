@@ -16,23 +16,9 @@ import {
 import { CCol, CLabel, CTooltip, CTextarea, CImg } from "@coreui/react";
 import "../messages.scss";
 
-const ImageMsgType = () => {
+const ImageMsgType = ({ image, content, onValueChange, onRemoveImage }) => {
   const { t } = useTranslation();
-  //upload image
-  const [image, setImage] = useState("");
-  const [isUploaded, setIsUploaded] = useState(false);
 
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = function (e) {
-        setImage(e.target.result);
-        setIsUploaded(true);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
   return (
     <>
       <CCol className="p-0">
@@ -46,7 +32,7 @@ const ImageMsgType = () => {
             {t("msg-image.lb-img")}
           </CLabel>
           <div className="boxUpload">
-            {!isUploaded ? (
+            {!image ? (
               <>
                 <CLabel htmlFor="upload-input" className="mb-0 upload-img ">
                   <FontAwesomeIcon
@@ -67,8 +53,9 @@ const ImageMsgType = () => {
                   accept=".jpg, .png, .jpeg, .gif, "
                   id="upload-input"
                   type="file"
-                  onChange={handleImageChange}
+                  onChange={(value) => onValueChange(value)}
                   className="d-none"
+                  name="fileName"
                 />
               </>
             ) : (
@@ -78,10 +65,7 @@ const ImageMsgType = () => {
                     icon={faTimesCircle}
                     className="close__img"
                     size="2x"
-                    onClick={() => {
-                      setIsUploaded(false);
-                      setImage(null);
-                    }}
+                    onClick={onRemoveImage}
                   />
                 </CTooltip>
                 <CImg
@@ -98,7 +82,13 @@ const ImageMsgType = () => {
           <CLabel style={{ fontWeight: 600, fontSize: 14 }}>
             {t("msg-image.lb-content")}
           </CLabel>
-          <CTextarea placeholder={t("msg-image.ph-content")} rows="2" />
+          <CTextarea
+            placeholder={t("msg-image.ph-content")}
+            rows="2"
+            name="content"
+            onChange={(value) => onValueChange(value)}
+            value={content}
+          />
         </CCol>
       </CCol>
       {/* Image */}
