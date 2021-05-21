@@ -11,7 +11,7 @@ import { CButton, CCol, CLabel, CTextarea, CInput, CImg } from "@coreui/react";
 import "../messages.scss";
 
 const ListMsgType = ({
-  listMsg,
+  list,
   link,
   title,
   image,
@@ -110,10 +110,10 @@ const ListMsgType = ({
           </CCol>
           <CCol className="p-0 pt-3 d-flex justify-content-end">
             <CButton
-              color={listMsg.length >= 5 ? "light" : "primary"}
+              color={list.length >= 5 ? "light" : "primary"}
               size="sm"
               onClick={() => {
-                listMsg.length < 5 && onCreateListMsg();
+                list.length < 5 && onCreateListMsg();
               }}
             >
               <span className="d-flex align-items-center">
@@ -125,7 +125,7 @@ const ListMsgType = ({
         </CCol>
         {/* End */}
         {/* list when created */}
-        {listMsg.map((item, index) => {
+        {list.map((item, index) => {
           return (
             <CCol className="d-flex flex-column pt-3 p-0" key={index}>
               <div className="d-flex flex-row align-items-center py-2">

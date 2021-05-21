@@ -24,7 +24,7 @@ const MsgListType = ({ message }) => {
         </CCol>
         <hr className="mt-3" />
         {/* Message List */}
-        {message.listMsg.map((item, index) => {
+        {message.list.map((item, index) => {
           return (
             <CCol className="d-flex flex-column">
               <div className="d-flex flex-row align-items-center py-2">

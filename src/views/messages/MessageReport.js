@@ -52,7 +52,6 @@ import AudienceInfo from "./MessageReport/AudienceInfo";
 const MessageReport = () => {
   const { t } = useTranslation();
   const [messageDetail, setMessageDetail] = useState({});
-  console.log(messageDetail);
   const { id } = useParams();
   //get message detail by id
   const getDetailMessageById = async () => {
@@ -149,19 +148,13 @@ const MessageReport = () => {
                     <h4>{t("detail-msg.lb-message")}</h4>
                   </CLabel>
                   {messageDetail.type === "list" && (
-                    <MsgListType MsgList={messageDetail.list} />
+                    <MsgListType message={messageDetail} />
                   )}
                   {messageDetail.type === "text" && (
-                    <MsgTextType
-                      title={messageDetail.title}
-                      content={messageDetail.content}
-                    />
+                    <MsgTextType message={messageDetail} />
                   )}
                   {messageDetail.type === "image" && (
-                    <MsgImageType
-                      image={messageDetail.image}
-                      content={messageDetail.content}
-                    />
+                    <MsgImageType message={messageDetail} />
                   )}
                 </CCol>
 
