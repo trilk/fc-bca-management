@@ -78,7 +78,7 @@ const CreateMsg = () => {
     schedule: { check: true, filter: "" },
     type: "text",
     date: null,
-    listMsg: [],
+    list: [],
   });
 
   const toggleMulti = (type) => {
@@ -170,11 +170,11 @@ const CreateMsg = () => {
       image: message.filePath,
       content: message.content,
     };
-    const listMsg = message.listMsg;
-    listMsg.push(msg);
+    const list = message.list;
+    list.push(msg);
     setMessage({
       ...message,
-      listMsg,
+      list,
       link: "",
       filePath: "",
       fileName: "",
@@ -183,9 +183,9 @@ const CreateMsg = () => {
     });
   };
   const onRemoveListMsg = (id) => {
-    const listMsg = message.listMsg;
-    listMsg.splice(id, 1);
-    setMessage({ ...message, listMsg });
+    const list = message.list;
+    list.splice(id, 1);
+    setMessage({ ...message, list });
   };
   const onRemoveImage = () => {
     setMessage({ ...message, fileName: "", filePath: "" });
@@ -521,7 +521,7 @@ const CreateMsg = () => {
                   {/* List message */}
                   {message.type === "list" && (
                     <ListMsgType
-                      listMsg={message.listMsg}
+                      list={message.list}
                       onCreateListMsg={onCreateListMsg}
                       onRemoveListMsg={onRemoveListMsg}
                       onRemoveImage={onRemoveImage}
