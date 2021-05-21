@@ -35,7 +35,14 @@
     },
     "top-menu": {
         "tooltip-lang": "Select language",
-        "tooltip-notify": "Notification"
+        "tooltip-notify": "Notification",
+        "br-home": "Home",
+        "br-dashboard": "Dashboard",
+        "br-users": "Users",
+        "br-create-user": "Create New",
+        "br-user-details": "User Details",
+        "br-edit-user": "Edit",
+        "br-profile": "My Profile"
     },
     "user-topmenu": {
         "item-profile-info": "Personal info",
@@ -96,7 +103,7 @@
         "col-status": "Status"
     },
     "user-edit-form": {
-        "title-header1": "Personal information",
+        "title-header1": "Personal Information",
         "lb-first-name": "First Name",
         "lb-last-name": "Last Name",
         "lb-phone": "Phone No.",
@@ -110,7 +117,7 @@
         "lb-province": "Province/City",
         "ph-address": "Enter house number, street,...",
         "lb-country": "Country",
-        "title-header2": "User permission",
+        "title-header2": "User Permission",
         "lb-role": "Access role",
         "lb-channels-mng": "Channels management",
         "channell-all-items": "All Channels",
@@ -155,7 +162,7 @@
         "th-delivery": "Delivery",
         "th-channel": "Channel",
         "th-createby": "Create by",
-        "th-type": "Type",
+        "th-type": "Type Message",
         "th-action": "Action",
         "td-delivered": "Delivered",
         "td-remaining": "Remaining",
@@ -293,5 +300,65 @@
         "lb-type": "Channel",
         "btn-reset": "Reset",
         "btn-submit": "Submit"
+    },
+    "tb-contact": {
+        "td-name": "Name",
+        "td-phone": "Phone",
+        "td-channel": "Channels",
+        "td-email": "Email",
+        "td-gender": "Gender",
+        "td-lastupdate": "Last Updated",
+        "td-status": "Status"
+    },
+    "contact-details": {
+        "lb-delivered": "Messages Delivered",
+        "lb-details": "Details",
+        "btn-updateinfo": "Update Info",
+        "lb-id": "Contact ID",
+        "lb-email": "Email",
+        "lb-gender": "Gender",
+        "lb-birth": "Date of Birth",
+        "lb-address": "Address",
+        "lb-lastupdate": "Last Updated"
+    },
+    "channel": {
+        "lb-channel": "Subscribed channels",
+        "th-channel": "Channels",
+        "th-status": "Status",
+        "th-started": "Subscribed at"
+    },
+    "msg-statistics": {
+        "title": "Messages Statistics",
+        "description": "More than 4000 messages sent today",
+        "filter": "30 Days",
+        "lb-filter": "Filter",
+        "ft-description": "by times",
+        "item-1h": "1 Hours",
+        "item-24h": "24 Hours",
+        "item-30d": "30 Days"
+    },
+    "widget-msg": {
+        "totalmsg": "Total Messages",
+        "msgdelivered": "Messages Delivered",
+        "msgfail": "Messages Fail"
+    },
+    "widget-user": {
+        "title": "Subscriber Trends",
+        "lb-subscribed": "Subscribed",
+        "lb-unsubscribed": "UnSubscribed",
+        "lb-total": "Total"
+    },
+    "user-sort": {
+        "lb-30d": "Last 30 Days",
+        "item-24h": "24 Hours",
+        "item-year": "Past Year"
+    },
+    "channel-sort": {
+        "lb-main": "Channel:",
+        "item-all": "All channels"
+    },
+    "user-trend": {
+        "lb-all": "All Users",
+        "lb-unsubscribed": "UnSubscribed"
     }
 }

@@ -50,7 +50,7 @@ const Contacts = () => {
     if (response.status === 200) {
       setData(response.data.audience);
       setTotal(response.data.total);
-      console.log(response);
+      console.log(response)
     }
   };
   //pagination
@@ -197,7 +197,7 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.channel.type === "Viber" && (
+                        {data.channel.type === "Viber" && (
                           <FontAwesomeIcon
                             icon={faViber}
                             className="channel-icon"

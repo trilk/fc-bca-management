@@ -44,13 +44,13 @@ const Contacts = () => {
   const limitpage = 15;
   const [channelDropdown, setChannelDropdown] = useState("All");
   const [data, setData] = useState();
+  console.log(data);
   const [total, setTotal] = useState();
   const getAllAudience = async (page, limit) => {
     const response = await AudienceService.getAllAudience(page, limit);
     if (response.status === 200) {
       setData(response.data.audience);
       setTotal(response.data.total);
-      console.log(response);
     }
   };
   //pagination
@@ -197,7 +197,7 @@ const Contacts = () => {
                     <td>
                       <CCol className="p-2 d-flex flex-row bd-highlight">
                         {/* channels icon */}
-                        {item.channel.type === "Viber" && (
+                        {data.channel.type === "Viber" && (
                           <FontAwesomeIcon
                             icon={faViber}
                             className="channel-icon"
