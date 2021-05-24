@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "localId": 1,
+            "email": "khanhtri@gmail.com",
+            "emailVerified": false,
+            "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8",
+            "displayName": "Tri Le",
+            "photoUrl": ""
+        },
+        {
+            "localId": 2,
+            "email": "khanhtri1@gmail.com",
+            "emailVerified": false,
+            "passwordHash": "73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8",
+            "displayName": "Tri Leo",
+            "photoUrl": ""
+        }
+    ]
+}

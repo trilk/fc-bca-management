@@ -91,7 +91,7 @@ const TemplateDetails = React.lazy(() =>
 );
 
 const routes = [
-  { path: "/", exact: true, name: i18n.t('top-menu.br-home') },
+  // { path: "/", exact: true, name: i18n.t('top-menu.br-home') },
   { path: "/dashboard", name: i18n.t('top-menu.br-dashboard'), component: Dashboard },
   { path: "/theme", name: "Theme", component: Colors, exact: true },
   { path: "/theme/colors", name: "Colors", component: Colors },

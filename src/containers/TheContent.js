@@ -35,13 +35,13 @@ const TheContent = () => {
                   exact={route.exact}
                   name={route.name}
                   render={props => (
-                    <CFade className={loading ? 'loading' : ''}>
+                    <CFade>
                       <route.component {...props} />
                     </CFade>
                   )} />
               )
             })}
-            <Redirect from="/" to="/dashboard" />
+            {/* <Redirect from="/" to="/dashboard" /> */}
           </Switch>
         </Suspense>
       </CContainer>

@@ -30,7 +30,7 @@ const TheHeaderDropdown = () => {
 
   const userLogout = () => {
     dispatch(logout());
-    history.replace('/login');
+    //history.replace('/');
   }
 
   const pageNavigate = (page) => {

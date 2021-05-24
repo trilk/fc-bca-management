@@ -7,7 +7,8 @@ import {
   SIDEBAR_SHOW,
   CHANGE_LANGUAGE,
   CHANNELS,
-  LOADING
+  LOADING,
+  AUTHENTICATED
 } from "../actions/types";
 
 const initialState = {
@@ -21,6 +22,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case AUTHENTICATED:
+      return {
+        ...state,
+        isAuthenticated: true,
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,

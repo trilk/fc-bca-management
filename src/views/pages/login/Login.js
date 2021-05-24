@@ -20,7 +20,7 @@ import {
   CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { login } from "../../../actions/auth";
+import { login, fbLogin } from "../../../actions/auth";
 import { CHANGE_LANGUAGE } from "../../../actions/types";
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,13 +30,15 @@ import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 const Login = () => {
+  console.log('Login');
   const { t } = useTranslation();
   const dispatch = useDispatch();
   // get from store redux
-  let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const message = useSelector(state => state.message.msgCode);
   const [userData, setUserData] = useState({ username: '', password: '' });
   const [showMsg, setShowMessage] = useState(false);
+  const [redirectTo, setRedirectTo] = useState(false);
 
   const onChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -51,21 +53,29 @@ const Login = () => {
   const onSubmit = e => {
     e.preventDefault();
 
-    dispatch(login(userData)).then(() => {
-      isAuthenticated = true;
-    });
+    dispatch(login(userData));
   };
 
+  const onFbLogin = () => {
+    dispatch(fbLogin());
+  }
+
   useEffect(() => {
+    if (isAuthenticated) {
+      console.log('Login: user loggedin ');
+      setRedirectTo(true);
+    }
+
     if (message) {
       setShowMessage(true);
     } else {
       setShowMessage(false);
     }
-  }, [message]);
+  }, [isAuthenticated, message]);
 
-  if (isAuthenticated) {
-    return <Redirect to="/" />
+  if (redirectTo) {
+    console.log('bye bye');
+    return <Redirect to='/dashboard' />
   }
 
   return (
@@ -135,6 +145,7 @@ const Login = () => {
                     {/* button login  */}
                     <CCol col="6" lg="0" className="pt-2 pb-2">
                       <CButton block color="primary" type="submit">{t('login.bt-login')}</CButton>
+                      <CButton block color="primary" onClick={onFbLogin}>Login Facebook</CButton>
                     </CCol>
                   </CForm>
                 </CCardBody>

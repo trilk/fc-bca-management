@@ -1,0 +1,29 @@
+[debug] [2021-05-21T08:48:11.125Z] ----------------------------------------------------------------------
+[debug] [2021-05-21T08:48:11.127Z] Command:       D:\Development\NodeJS\node.exe C:\Users\Tri Le\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js auth:import users.json --hash-algo=SHA256 --rounds=1 --debug
+[debug] [2021-05-21T08:48:11.127Z] CLI Version:   9.11.0
+[debug] [2021-05-21T08:48:11.127Z] Platform:      win32
+[debug] [2021-05-21T08:48:11.127Z] Node Version:  v12.18.3
+[debug] [2021-05-21T08:48:11.128Z] Time:          Fri May 21 2021 15:48:11 GMT+0700 (Indochina Time)
+[debug] [2021-05-21T08:48:11.128Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-05-21T08:48:11.130Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-05-21T08:48:11.151Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-21T08:48:11.153Z] > authorizing via signed-in user (khanhtri@gmail.com)
+[debug] [2021-05-21T08:48:11.155Z] [iam] checking project fc-bca for permissions ["firebase.projects.get","firebaseauth.users.create","firebaseauth.users.update"]
+[debug] [2021-05-21T08:48:11.158Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-05-21T08:48:11.159Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-21T08:48:11.426Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Fri, 21 May 2021 08:48:11 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-21T08:48:11.490Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/fc-bca:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebaseauth.users.create","firebaseauth.users.update"]}
+[debug] [2021-05-21T08:48:11.937Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-05-21T08:48:11.938Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2021-05-21T08:48:12.534Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 21 May 2021 08:48:12 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=817","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] Processing users.json (574 bytes)
+[debug] [2021-05-21T08:48:12.553Z] Preparing to import 2 user records in 1 batches.
+[info] Starting importing 2 account(s).
+[debug] [2021-05-21T08:48:12.558Z] >>> HTTP REQUEST POST https://www.googleapis.com/identitytoolkit/v3/relyingparty/uploadAccount  
+ {"users":[{"localId":1,"email":"khanhtri@gmail.com","emailVerified":false,"passwordHash":"73l8gRjwLftklgfdXT-MdiMEjJwGPVMsyVxe16iYpk8","displayName":"Tri Le","photoUrl":""},{"localId":2,"email":"khanhtri1@gmail.com","emailVerified":false,"passwordHash":"73l8gRjwLftklgfdXT-MdiMEjJwGPVMsyVxe16iYpk8","displayName":"Tri Leo","photoUrl":""}],"hashAlgorithm":"SHA256","rounds":"1","targetProjectId":"fc-bca"}
+[debug] [2021-05-21T08:48:13.113Z] <<< HTTP RESPONSE 200 {"date":"Fri, 21 May 2021 08:48:12 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"ESF","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  Imported successfully. 
+[info] 

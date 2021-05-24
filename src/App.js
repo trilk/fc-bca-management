@@ -1,12 +1,22 @@
-import React, { Component } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import React, { Component, useEffect, useState } from "react";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import PrivateRoute from './helpers/PrivateRoute'
 import "./scss/style.scss";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./services/authToken";
 
-import { logout } from "./actions/auth";
-import { CHANNELS, LOGIN_SUCCESS } from "./actions/types";
+import { logout, setUser } from "./actions/auth";
+import { AUTHENTICATED, LOGOUT } from "./actions/types";
 import store from "./store";
+import { auth, config } from './firebase'
+import firebase from 'firebase'
+import 'firebase/auth'
+import {
+  FirebaseAuthProvider,
+  FirebaseAuthConsumer,
+  IfFirebaseAuthed,
+  IfFirebaseAuthedAnd
+} from "@react-firebase/auth";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -18,40 +28,24 @@ const loading = (
 const TheLayout = React.lazy(() => import("./containers/TheLayout"));
 
 // Pages
+const Home = React.lazy(() => import("./views/pages/Home"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 
-// Check for token to keep user logged in
-if (localStorage.jwtToken) {
-  // Set auth token header auth
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
-
-  // Decode token and get user info and exp
-  const userInfo = jwt_decode(token);
-
-  // Set user and isAuthenticated
-  store.dispatch({
-    type: LOGIN_SUCCESS,
-    payload: userInfo
-  });
-  // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
-  if (userInfo.exp < currentTime) {
-    // Logout user
-    store.dispatch(logout());
-
-  }
-}
-
 class App extends Component {
   render() {
     return (
+      // <FirebaseAuthProvider {...config} firebase={firebase}>
       <HashRouter>
         <React.Suspense fallback={loading}>
           <Switch>
+            <Route
+              exact
+              path="/"
+              name="Home"
+              render={(props) => <Home {...props} />} />
             <Route
               exact
               path="/login"
@@ -78,12 +72,40 @@ class App extends Component {
             />
             <Route
               path="/"
-              name="Home"
-              render={(props) => <TheLayout {...props} />}
-            />
+              name="Dashboard"
+              render={(props) => <TheLayout {...props} />} />
+            {/* <FirebaseAuthConsumer>
+                {({ isSignedIn, user }) => {
+                  if (isSignedIn === true) {
+                    console.log('Vo auth context app');
+                    // if (!isAuthed) {
+                    //   store.dispatch(setUser(user.uid));
+                    // }
+                    store.dispatch({
+                      type: AUTHENTICATED
+                    });
+                    return <Route
+                      path="/dashboard"
+                      name="Dashboard"
+                      render={(props) => <TheLayout {...props} userId={user.uid} />} />
+                  } else {
+                    // store.dispatch({
+                    //   type: LOGOUT
+                    // });
+                    // return <Redirect to='/500' />
+
+                  }
+
+
+                }
+
+                }
+              </FirebaseAuthConsumer> */}
+
           </Switch>
         </React.Suspense>
       </HashRouter>
+      // </FirebaseAuthProvider>
     );
   }
 }
