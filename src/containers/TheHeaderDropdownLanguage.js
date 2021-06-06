@@ -17,7 +17,7 @@ const TheHeaderDropDownLanguage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const language = useSelector(state => state.auth.lang);
-  const iconName = language === 'en' ? "cif-us" : "cif-vn";
+  const iconName = language === 'en' ? "flag-en" : "flag-vi";
 
   const onLanguageChanged = (lang) => {
     i18n.changeLanguage(lang);
@@ -39,10 +39,10 @@ const TheHeaderDropDownLanguage = () => {
       </CTooltip>
       <CDropdownMenu className="pt-0 pb-0" placement="bottom-end">
         <CDropdownItem onClick={() => onLanguageChanged("en")}>
-          <CIcon name="cif-us" size="xl" className="mr-2" /> English
+          <CIcon name="flag-en" size="xl" className="mr-2" /> English
         </CDropdownItem>
         <CDropdownItem onClick={() => onLanguageChanged("vi")}>
-          <CIcon name="cif-vn" size="xl" className="mr-2" /> Tiếng Việt
+          <CIcon name="flag-vi" size="xl" className="mr-2" /> Tiếng Việt
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

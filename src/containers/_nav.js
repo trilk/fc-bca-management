@@ -1,6 +1,5 @@
-import { faCommentDots, faTachometerAlt, faUsers, faUserShield, faSitemap, faCommentMedical, faCog, faInbox } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import CIcon from '@coreui/icons-react'
 import i18n from './../i18n'
 
 export const getNavs = (isAdmin) => {
@@ -10,7 +9,7 @@ export const getNavs = (isAdmin) => {
       _tag: 'CSidebarNavItem',
       name: i18n.t('left-menu.item-dashboard'),
       to: '/dashboard',
-      icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" className="mr-4" />,
+      icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
       badge: {
         color: 'info',
         text: 'NEW'
@@ -23,19 +22,19 @@ export const getNavs = (isAdmin) => {
     {
       _tag: 'CSidebarNavItem',
       name: i18n.t('left-menu.item-allmessages'),
-      icon: <FontAwesomeIcon icon={faCommentDots} size="lg" className="mr-4" />,
+      icon: 'cil-drop',
       to: '/messages'
     },
     {
       _tag: 'CSidebarNavItem',
       name: i18n.t('left-menu.item-createmessage'),
-      icon: <FontAwesomeIcon icon={faCommentMedical} size="lg" className="mr-4" />,
+      icon: 'cil-drop',
       to: '/CreateMsg'
     },
     {
       _tag: 'CSidebarNavItem',
       name: i18n.t('left-menu.item-template'),
-      icon: <FontAwesomeIcon icon={faInbox} size="lg" className="mr-4" />,
+      icon: 'cil-drop',
       to: '/template'
     },
     {
@@ -45,13 +44,13 @@ export const getNavs = (isAdmin) => {
     {
       _tag: 'CSidebarNavItem',
       name: i18n.t('left-menu.item-segments'),
-      icon: <FontAwesomeIcon icon={faSitemap} size="lg" className="mr-4" />,
+      icon: 'cil-drop',
       to: '/segments'
     },
     {
       _tag: 'CSidebarNavItem',
       name: i18n.t('left-menu.item-customers'),
-      icon: <FontAwesomeIcon icon={faUsers} size="lg" className="mr-4" />,
+      icon: 'cil-drop',
       to: '/contacts'
     },
     ...isAdmin ? [
@@ -62,13 +61,13 @@ export const getNavs = (isAdmin) => {
       {
         _tag: 'CSidebarNavItem',
         name: i18n.t('left-menu.admin-user-mng'),
-        icon: <FontAwesomeIcon icon={faUserShield} size="lg" className="mr-3" />,
+        icon: 'cil-drop',
         to: '/users'
       },
       {
         _tag: 'CSidebarNavItem',
         name: i18n.t('left-menu.admin-settings'),
-        icon: <FontAwesomeIcon icon={faCog} size="lg" className="mr-4" />,
+        icon: 'cil-drop',
         to: '/'
       }
     ] : [],

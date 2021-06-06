@@ -11,12 +11,11 @@ import {
   CDropdownDivider,
   CRow
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
 import { logout } from 'src/actions/auth'
 import { useHistory } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { setFullName } from './../utils/_common'
 
@@ -30,7 +29,7 @@ const TheHeaderDropdown = () => {
 
   const userLogout = () => {
     dispatch(logout());
-    history.replace('/login');
+    //history.replace('/');
   }
 
   const pageNavigate = (page) => {
@@ -75,7 +74,7 @@ const TheHeaderDropdown = () => {
         <CDropdownItem className="pl-0 py-2" href="#/profile">
           <div className="d-flex py-1">
             <div className="mr-3 ml-3">
-              <FontAwesomeIcon icon={faUser} size='lg' />
+              {/* <FontAwesomeIcon icon={faUser} size='lg' /> */}
             </div>
             <div>
               <span className="d-flex justify-content-start">{t('user-topmenu.item-profile-info')}</span>
@@ -85,7 +84,7 @@ const TheHeaderDropdown = () => {
         <CDropdownItem className="pl-0 py-2" onClick={() => pageNavigate("user-settings")}>
           <div className="d-flex py-1">
             <div className="mr-3 ml-3">
-              <FontAwesomeIcon icon={faCog} size='lg' />
+              {/* <FontAwesomeIcon icon={faCog} size='lg' /> */}
             </div>
             <div>
               <span className="d-flex justify-content-start">{t('user-topmenu.item-setting')}</span>
@@ -96,7 +95,7 @@ const TheHeaderDropdown = () => {
         <CDropdownItem className="pl-0 py-2" onClick={userLogout}>
           <div className="d-flex py-1">
             <div className="mr-3 ml-3">
-              <FontAwesomeIcon icon={faSignOutAlt} size='lg' />
+              {/* <FontAwesomeIcon icon={faSignOutAlt} size='lg' /> */}
             </div>
             <div>
               <span>{t('user-topmenu.item-logout')}</span>

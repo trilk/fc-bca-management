@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import './users.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAt, faArrowUp, faArrowDown, faUserShield, faPhoneAlt, faUserEdit, faAddressCard, faKey } from '@fortawesome/free-solid-svg-icons'
 import {
   CBadge,
   CButton,
@@ -13,6 +11,7 @@ import {
   CImg,
   CRow,
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
 
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -58,41 +57,41 @@ const UserInfo = (props) => {
                     </div>
                     <div className="mr-2">
                       {(userRole !== 'user') && <CBadge color="light" className="badge-status">
-                        <FontAwesomeIcon icon={faUserShield} className="mr-2" />
+                        {/* <FontAwesomeIcon icon={faUserShield} className="mr-2" /> */}
                         {t(`role.${userRole}`)}
                       </CBadge>}
                     </div>
                   </CCol>
                   <CCol className="d-flex flex-wrap p-0 pt-1">
                     <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
-                      <FontAwesomeIcon icon={faPhoneAlt} className="mr-2" /><span >{userInfo.username || ''}</span>
+                      {/* <FontAwesomeIcon icon={faPhoneAlt} className="mr-2" /><span >{userInfo.username || ''}</span> */}
                     </div>
                     {/* <div className="text-muted pr-3 d-flex flex-row align-items-center pb-1">
                       <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" /><span >{location}</span>
                     </div> */}
                     <div className="text-muted d-flex flex-row align-items-center pb-1">
-                      <FontAwesomeIcon icon={faAt} className="mr-2" /><span>{userInfo.email || ''}</span>
+                      {/* <FontAwesomeIcon icon={faAt} className="mr-2" /><span>{userInfo.email || ''}</span> */}
                     </div>
                   </CCol>
                   <CCol className="d-flex flex-lg-row flex-column align-items-end p-0 pt-2">
                     <CCol className="pt-3 d-flex flex-lg-row flex-column p-0">
                       <CCol lg="3" className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-2 me-6 mb-3 mr-3" >
                         <div className="d-flex bd-highlight align-items-center">
-                          <FontAwesomeIcon icon={faArrowUp} color="#50cd89" className="mr-2" />
+                          {/* <FontAwesomeIcon icon={faArrowUp} color="#50cd89" className="mr-2" /> */}
                           <span style={{ fontSize: 24, fontWeight: 600 }}>12.000</span>
                         </div>
                         <span className="text-muted small">{t('user-info.lb-total-msg')}</span>
                       </CCol>
                       <CCol lg="3" className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-2 me-6 mb-3 mr-3" >
                         <div className="d-flex bd-highlight align-items-center">
-                          <FontAwesomeIcon icon={faArrowUp} color="#50cd89" className="mr-2" />
+                          {/* <FontAwesomeIcon icon={faArrowUp} color="#50cd89" className="mr-2" /> */}
                           <span style={{ fontSize: 24, fontWeight: 600 }}>12.000</span>
                         </div>
                         <span className="text-muted small">{t('user-info.lb-success-msg')}</span>
                       </CCol>
                       <CCol lg="3" className="border border-gray-300 border-dashed rounded min-w-125px py-2 px-2 me-6 mb-3 mr-3" >
                         <div className="d-flex bd-highlight align-items-center">
-                          <FontAwesomeIcon icon={faArrowDown} color="#D9214E" className="mr-2" />
+                          {/* <FontAwesomeIcon icon={faArrowDown} color="#D9214E" className="mr-2" /> */}
                           <span style={{ fontSize: 24, fontWeight: 600 }}>100</span>
                         </div>
                         <span className="text-muted small">{t('user-info.lb-fail-msg')}</span>
@@ -109,9 +108,9 @@ const UserInfo = (props) => {
           <CCard>
             <CCardHeader className="">
               <CCol className="d-flex align-items-center p-0">
-                <h4><FontAwesomeIcon icon={faAddressCard} className="mr-2" /> {t('user-info.title')}</h4>
+                {/* <h4><FontAwesomeIcon icon={faAddressCard} className="mr-2" /> {t('user-info.title')}</h4> */}
                 <CButton color="primary" size="lg" className="ml-auto" onClick={props.onEditClick}>
-                  <FontAwesomeIcon icon={faUserEdit} className="mr-2" />
+                  <CIcon name="cil-pencil" className="mr-2" />
                   {t(`user-info.btn-${parentPage}-update`)}
                 </CButton>
               </CCol>
@@ -160,7 +159,7 @@ const UserInfo = (props) => {
         <CCol lg="12">
           <CCard>
             <CCardHeader className="py-3">
-              <h4><FontAwesomeIcon icon={faKey} className="mr-2" />{t('user-info.lb-signin-method')}</h4>
+              <h4>{t('user-info.lb-signin-method')}</h4>
             </CCardHeader>
             <CCardBody>
               <CCol className="d-flex flex-column p-lg-3 p-0">

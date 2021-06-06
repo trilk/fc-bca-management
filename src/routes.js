@@ -64,34 +64,9 @@ const MyProfile = React.lazy(() => import("./views/users/MyProfile"));
 const UserDetails = React.lazy(() => import("./views/users/UserDetails"));
 const CreateUser = React.lazy(() => import("./views/users/createUser"));
 const EditUser = React.lazy(() => import("./views/users/editUser"));
-const Segments = React.lazy(() =>
-  import("./views/audience-studio/segments/Segments")
-);
-const Contacts = React.lazy(() =>
-  import("./views/audience-studio/contacts/Contacts")
-);
-const contactDetails = React.lazy(() =>
-  import("./views/audience-studio/contacts/contactDetails")
-);
-const updateContact = React.lazy(() =>
-  import("./views/audience-studio/contacts/updateContact")
-);
-const Messages = React.lazy(() => import("./views/messages/Messages"));
-const CreateMsg = React.lazy(() => import("./views/messages/CreateMsg"));
-const MessageReport = React.lazy(() =>
-  import("./views/messages/MessageReport")
-);
-const EditMsg = React.lazy(() => import("./views/messages/EditMsg"));
-const Template = React.lazy(() => import("./views/messages/template/Template"));
-const NewTemplate = React.lazy(() =>
-  import("./views/messages/template/NewTemplate")
-);
-const TemplateDetails = React.lazy(() =>
-  import("./views/messages/template/TemplateDetails")
-);
 
 const routes = [
-  { path: "/", exact: true, name: i18n.t('top-menu.br-home') },
+  // { path: "/", exact: true, name: i18n.t('top-menu.br-home') },
   { path: "/dashboard", name: i18n.t('top-menu.br-dashboard'), component: Dashboard },
   { path: "/theme", name: "Theme", component: Colors, exact: true },
   { path: "/theme/colors", name: "Colors", component: Colors },
@@ -166,84 +141,6 @@ const routes = [
     component: EditUser,
   },
   { path: "/profile", exact: true, name: i18n.t('top-menu.br-profile'), component: MyProfile },
-  { path: "/segments", exact: true, name: "Segmnets", component: Segments },
-  { path: "/contacts", exact: true, name: "Contacts", component: Contacts },
-  {
-    path: "/contacts/:id",
-    exact: true,
-    name: "Contact Details",
-    component: contactDetails,
-  },
-  {
-    path: "/contacts/contactDetails",
-    exact: true,
-    name: "Contact Details",
-    component: contactDetails,
-  },
-  {
-    path: "/contacts/contactDetails/updateContact",
-    exact: true,
-    name: "Update Contact",
-    component: updateContact,
-  },
-  //messages
-  { path: "/messages", exact: true, name: "Messages", component: Messages },
-  {
-    path: "/messages/CreateMsg",
-    exact: true,
-    name: "New Message",
-    component: CreateMsg,
-  },
-  {
-    path: "/CreateMsg",
-    exact: true,
-    name: "New Message",
-    component: CreateMsg,
-  },
-  {
-    path: "/messages/:id",
-    exact: true,
-    name: "Message Report",
-    component: MessageReport,
-  },
-  {
-    path: "/messages/EditMsg",
-    exact: true,
-    name: "Edit Message",
-    component: EditMsg,
-  },
-  {
-    path: "/EditMsg",
-    exact: true,
-    name: "Edit Message",
-    component: EditMsg,
-  },
-
-  { path: "/template", exact: true, name: "Templates", component: Template },
-  {
-    path: "/template/new-template",
-    exact: true,
-    name: "New Template",
-    component: NewTemplate,
-  },
-  {
-    path: "/template/new-template/template-details",
-    exact: true,
-    name: "Message Templates",
-    component: TemplateDetails,
-  },
-  {
-    path: "/template/template-details/new-template",
-    exact: true,
-    name: "Edit Template",
-    component: NewTemplate,
-  },
-  {
-    path: "/template/template-details",
-    exact: true,
-    name: "Message Templates",
-    component: TemplateDetails,
-  },
 ];
 
 export default routes;

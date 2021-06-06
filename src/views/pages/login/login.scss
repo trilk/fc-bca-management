@@ -15,8 +15,38 @@
     box-shadow: 0 0 4px #dde1e4;
 }
 .title-login {
-    color: #007bff !important;
+    //color: #007bff !important;
 }
 .description {
     color: #9492A0;
 }
+
+
+
+div.logo {
+    height: 180px;
+    width: 180px;
+    background-color:#3c4b64;
+    border-radius: 50%;
+    top: 20px;
+    left: calc(50% - 90px);
+    box-shadow: 0 0 0px 9px #ebedef;
+    z-index: 1000;
+    svg {
+        margin-top: 20px;
+    }
+}
+  
+  .half-circle {
+    width: 200px;
+    height: 100px;
+    background-color: #fff;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border: 1px solid #d8dbe0;
+    border-top: 0;
+    box-sizing: border-box;
+    top: 110px;
+    left: calc(50% - 100px);
+    z-index: 999;
+  }

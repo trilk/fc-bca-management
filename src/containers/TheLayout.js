@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-
+import { logout, setUser } from "./../actions/auth";
 import {
   TheContent,
   TheSidebar,
@@ -8,16 +8,47 @@ import {
   TheHeader
 } from './index';
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { auth } from './../firebase'
 
-const TheLayout = () => {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+const TheLayout = (props) => {
+  console.log(props)
+  const dispatch = useDispatch()
+  const authed = useSelector(state => state.auth.isAuthenticated);
+  const [initializing, setInitializing] = useState(true);
+  const [isSignedIn, setSignedIn] = useState(false);
 
-  if (!isAuthenticated) {
-    return <Redirect to="/login" />;
+  const onAuthStateChanged = (user) => {
+    if (!user || user.isAnonymous) {
+      setSignedIn(false);
+      setInitializing(false);
+    } else {
+      dispatch(setUser(user.uid));
+    }
   }
 
-  return (
+  useEffect(() => {
+    if (authed) {
+      setSignedIn(true);
+      setInitializing(false);
+    }
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, [authed]);
+
+  // if (!isAuthenticated) {
+  //   return <Redirect to="/login" />;
+  // }
+
+  if (initializing) {
+    return <div>Loading</div>
+  }
+
+  if (!isSignedIn) {
+    return <Redirect to='/login' />
+  }
+
+  return (isSignedIn ?
     <div className="c-app c-default-layout">
       <TheSidebar />
       <div className="c-wrapper">
@@ -27,7 +58,8 @@ const TheLayout = () => {
         </div>
         <TheFooter />
       </div>
-    </div>
+    </div> :
+    <Redirect to="/" />
   )
 }
 

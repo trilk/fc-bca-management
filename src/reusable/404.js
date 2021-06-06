@@ -1,9 +1,6 @@
 
 import React from 'react'
-// import { faFrown } from '@fortawesome/free-solid-svg-icons'
-import { faFrown as farFrown } from '@fortawesome/free-regular-svg-icons'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import CIcon from '@coreui/icons-react'
 import { CCol, CButton, CRow } from '@coreui/react'
 import { useHistory } from 'react-router-dom'
 
@@ -14,7 +11,7 @@ const Error404 = props => {
         <CRow className="justify-content-center text-align-center">
             <CCol col="6" md="4">
                 <div className="clearfix">
-                    <FontAwesomeIcon icon={farFrown} size="4x"></FontAwesomeIcon>
+                    <CIcon name="cil-sad" size={'3xl'} />
                     <h2 className="pt-3">404! You{'\''}re lost.</h2>
                     <p className="text-muted">The {props.page} you are looking for was not found.</p>
                 </div>

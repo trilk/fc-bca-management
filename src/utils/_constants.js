@@ -1,14 +1,66 @@
+export const COLLECTION = {
+    USER: 'users',
+    EVENT: 'events',
+    BET: 'bets',
+    FUND: 'funds',
+    FUND_TRACK: 'fund_trackings',
+    MATCH: 'matches',
+    PAYMENT: 'user_payments',
+    GAME: '_games',
+    TEAM: '_teams',
+    USER_BET: '_bettings'
+}
+
+export const GROUP = {
+    ALL: "_",
+    BCA: 'BCA',
+    CCG: 'CCG',
+    IVC: 'IVC',
+    EMPTY: ''
+}
 export const USER_ROLE = {
-    ADMIN: 'Admin',
-    USER: 'User',
-    GUEST: 'Guest'
+    ADMIN: 'admin',
+    USER: 'user',
+    GUEST: 'guest'
 }
 export const USER_STATUS = {
-    ACTIVE: 'Active',
-    INACTIVE: 'Inactive',
-    BANNED: 'Banned',
-    PENDING: 'Pending'
+    ACTIVE: 'ACTIVE',
+    INACTIVE: 'INACTIVE',
+    IDLE: 'IDLE'
 };
+
+export const TEAM_STATUS = {
+    NOT_STARTED: 'NOT_STARTED',
+    ON_GOING: 'ON_GOING',
+    CLOSED: 'CLOSED',
+    CANCELLED: 'CANCELLED'
+}
+
+export const TEAM_TYPE = {
+    SPORT: "SPORT",
+    GAME: "GAME"
+}
+
+export const GAME_STATUS = {
+    NOT_STARTED: 'NOT_STARTED',
+    BETTING: 'BETTING',
+    FINISHED: 'FINISHED',
+    DONE: 'DONE'
+}
+export const BET_CODE = {
+    EU_90: 'EU_90P',
+    EU_120: 'EU_120P'
+}
+export const BET_RESULT = {
+    MISSED: 0,
+    WRONG: -1,
+    CORRECTED: 1
+}
+
+export const FUNDING = {
+    OPEN: 'OPEN',
+    ACCEPTED: 'ACCEPTED'
+}
 
 export const GENDER = {
     M: 'gender.male',

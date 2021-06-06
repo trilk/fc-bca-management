@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux'
 import femaleimg from './avatar/female.jpg'
 import maleimg from './avatar/male.jpg'
 import './users.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle, faEllipsisV, faEye, faPen, faSortDown, faUserShield, faUserPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   CBadge,
   CButton,
@@ -24,12 +22,12 @@ import {
   CDropdownMenu,
   CInput,
   CRow,
-
   CPagination,
   CInputGroupAppend
 } from '@coreui/react'
+import FloatingInput from 'src/helpers/FloatingInput'
 import { useTranslation } from 'react-i18next'
-import UserService from '../../services/user.service'
+import * as fbDb from 'src/services/index'
 import { setFullName, getUserRole, formatDate, formatDateTime } from '../../utils/_common'
 
 // import usersData from './UsersData'
@@ -57,6 +55,7 @@ const Users = () => {
   const { t } = useTranslation();
   const limitItem = 10
   const lang = useSelector(state => state.auth.lang);
+  const loggedInUser = useSelector(state => state.auth.user);
   const [usersData, setUserData] = useState([]);
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
@@ -75,28 +74,58 @@ const Users = () => {
   }
 
   const onSearch = () => {
-    let query = Object.keys(searchParams).map(function (key) {
-      if (searchParams[key].trim() !== '') {
+    const goals = {
+      first90: 1,
+      first120: 0,
+      second90: 0,
+      second120: 0,
+    }
 
-        return key + '=' + searchParams[key]
-      } else {
-        return ''
-      }
-    }).filter(Boolean).join('&');
-    if (query !== '') {
-      query = '?' + query
-    }
-    if (query !== queryStr) {
-      setQuery(query);
-    }
+    // const data = [{ gameId: 'EURO_2021_01', betValue: 2 }, { gameId: 'EURO_2021_02', betValue: 3 }]
+
+    // fbDb.BettingService.userBetGame('1', 1, data).then(response => {
+    //   //Set teams dataa
+    //   console.log(response);
+    // });
+    //fbDb.BettingService.updateGameResult('EURO_2021', 'EURO_2021_01', goals).then(response => {
+    fbDb.BettingService.startBettingRound('EURO2021', 1).then(response => {
+      //Set teams dataa
+      console.log(response);
+    });
+
+    // let query = Object.keys(searchParams).map(function (key) {
+    //   if (searchParams[key].trim() !== '') {
+
+    //     return key + '=' + searchParams[key]
+    //   } else {
+    //     return ''
+    //   }
+    // }).filter(Boolean).join('&');
+    // if (query !== '') {
+    //   query = '?' + query
+    // }
+    // if (query !== queryStr) {
+    //   setQuery(query);
+    // }
   }
 
   useEffect(async () => {
     currentPage !== page && setPage(currentPage)
 
-    const users = await UserService.getUsers(queryStr);
-    setUserData(users.data);
-    setTotalPage(Math.ceil(users.data.length / limitItem));
+    //const users = await fbDb.UserService.getUsers(queryStr);
+    // const games = [{ id: 'EURO_2021_01', status: 'BETTING' }, { id: 'EURO_2021_02', status: 'BETTING' }]
+    // fbDb.GameService.updateStatusOfGames(games).then(response => {
+    //   //Set teams dataa
+    //   console.log(response);
+    // });
+
+    fbDb.GameService.updateStandingTable('EURO2021', 'A').then(response => {
+      //Set teams dataa
+      console.log(response);
+    });
+
+    // setUserData(users.data);
+    // setTotalPage(Math.ceil(users.data.length / limitItem));
   }, [queryStr, currentPage, page])
 
   return (
@@ -104,28 +133,25 @@ const Users = () => {
       {/* buttons */}
       <CRow className="" lg="12" md="12" sm="12" xs="12">
         <CCol lg="6" md="6" sm="4" xs="6" className="d-flex" >
-          <CInputGroup className="mb-3">
-            <CInputGroupPrepend>
-              <CButton color="primary" onClick={onSearch}><FontAwesomeIcon icon={faSearch} className="mr-2" />
+          <CInputGroup className="customize mb-3">
+
+            {/* <CInput type="text" name="text" className="" required onChange={value => onChange(value)} />
+            <label className="floating-label">{t('user-list.ph-search')}</label> */}
+            <FloatingInput placeholder={t('user-list.ph-search')} name="text" className="" onChange={value => onChange(value)} />
+            <CInputGroupAppend>
+              <CButton color="primary" onClick={onSearch}><CIcon name='cil-search' className="" />
                 {t('user-list.btn-search')}</CButton>
-            </CInputGroupPrepend>
-            <CInput type="text" name="text" placeholder={t('user-list.ph-search')} className="form-control2 bg-White" onChange={value => onChange(value)} />
-            <CInputGroupAppend className="select-status">
-              <CSelect custom name="isActive" className="bg-White" onChange={value => onChange(value)}>
-                <option value="">{t('user-list.col-status')}</option>
-                <option value="true">{t('common.status_active')}</option>
-                <option value="false">{t('common.status_inactive')}</option>
-              </CSelect>
             </CInputGroupAppend>
           </CInputGroup>
+
         </CCol>
-        <CCol>
+        <CCol className="d-flex">
           {/* Right */}
           <div className="d-flex flex-row ml-lg-auto ml-md-auto ml-sm-auto">
             <div className="ml-lg-auto p-0" lg="0">
               <CLink to="/users/create-user">
                 <CButton color="primary">
-                  <FontAwesomeIcon icon={faUserPlus} className="mr-2" />
+                  <CIcon name="cil-user-plus" className="mr-2" />
                   <span>{t('user-list.btn-new-user')}</span>
                 </CButton>
               </CLink>
@@ -203,13 +229,8 @@ const Users = () => {
                     (item) => (
                       <td>
                         <CBadge className="badge-status border" color={getRole(getUserRole(item.roles))}>
-                          <FontAwesomeIcon icon={faUserShield} className="mr-1" />
                           {t(`role.${getUserRole(item.roles)}`)}
                         </CBadge>
-                        {/* <CBadge color="light" className="badge-status border">
-                          {item.roles.includes("admin") && <FontAwesomeIcon icon={faUserShield} className="mr-2" /> && t('role.admin')}
-                          {item.roles.includes("moderator") && <FontAwesomeIcon icon={faUserEdit} className="mr-2" />}
-                        </CBadge> */}
                       </td>
                     ),
                   'action':
@@ -217,13 +238,13 @@ const Users = () => {
                       <td>
                         <CDropdown className="d-flex justify-content-center">
                           <CDropdownToggle color="ghost">
-                            <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12 }} />
+                            {/* <FontAwesomeIcon icon={faEllipsisV} style={{ width: 12, height: 12 }} /> */}
                           </CDropdownToggle>
                           <CDropdownMenu className="">
                             <CDropdownItem>
-                              <CLink to="/users/:id"><FontAwesomeIcon icon={faEye} className="" />View details</CLink>
+                              <CLink to="/users/:id">View details</CLink>
                             </CDropdownItem>
-                            <CDropdownItem><FontAwesomeIcon icon={faPen} className="" />Update Info</CDropdownItem>
+                            <CDropdownItem>Update Info</CDropdownItem>
                           </CDropdownMenu>
                         </CDropdown>
                         {' '}

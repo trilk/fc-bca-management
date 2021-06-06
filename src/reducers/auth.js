@@ -7,20 +7,26 @@ import {
   SIDEBAR_SHOW,
   CHANGE_LANGUAGE,
   CHANNELS,
-  LOADING
+  LOADING,
+  AUTHENTICATED
 } from "../actions/types";
 
 const initialState = {
   sidebarShow: "responsive",
   isAuthenticated: false,
   user: null,
-  channels: [],
+  users: [],
   lang: 'vi',
   loading: false
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case AUTHENTICATED:
+      return {
+        ...state,
+        isAuthenticated: true,
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,
@@ -35,21 +41,22 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload
+        user: action.payload.user,
+        users: action.payload.users
       };
     case LOGIN_FAIL:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
-        channels: []
+        users: []
       };
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
-        channels: []
+        users: []
       };
     case SIDEBAR_SHOW:
       return {

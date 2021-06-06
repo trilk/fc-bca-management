@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock, } from '@fortawesome/free-solid-svg-icons'
 import "./login.scss"
 import {
   CButton,
@@ -17,26 +15,29 @@ import {
   CInput,
   CAlert,
   CHeaderBrand,
-  CRow
+  CInputGroup,
+  CInputGroupPrepend,
+  CInputGroupText,
+  CRow, CLink
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { login } from "../../../actions/auth";
+import { login, fbLogin } from "../../../actions/auth";
 import { CHANGE_LANGUAGE } from "../../../actions/types";
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
 import i18n from './../../../i18n';
-import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
-
 
 const Login = () => {
+  console.log('Login');
   const { t } = useTranslation();
   const dispatch = useDispatch();
   // get from store redux
-  let isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const message = useSelector(state => state.message.msgCode);
   const [userData, setUserData] = useState({ username: '', password: '' });
   const [showMsg, setShowMessage] = useState(false);
+  const [redirectTo, setRedirectTo] = useState(false);
 
   const onChange = e => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -51,75 +52,78 @@ const Login = () => {
   const onSubmit = e => {
     e.preventDefault();
 
-    dispatch(login(userData)).then(() => {
-      isAuthenticated = true;
-    });
+    dispatch(login(userData));
   };
 
+  const onFbLogin = () => {
+    dispatch(fbLogin());
+  }
+
   useEffect(() => {
+    if (isAuthenticated) {
+      console.log('Login: user loggedin ');
+      setRedirectTo(true);
+    }
+
     if (message) {
       setShowMessage(true);
     } else {
       setShowMessage(false);
     }
-  }, [message]);
+  }, [isAuthenticated, message]);
 
-  if (isAuthenticated) {
-    return <Redirect to="/" />
+  if (redirectTo) {
+    console.log('bye bye');
+    return <Redirect to='/dashboard' />
   }
 
   return (
     <div className="c-app c-default-layout flex-row align-items-start pt-4" >
       <CContainer>
         <CRow className="d-flex justify-content-center">
-          <CCol col="6">
-            <CHeaderBrand className="mb-3 d-flex justify-content-center" to="">
-              <CIcon name="logoBg" height="120" alt="Logo-bg" />
+          <CCol xs="10" md="5">
+            <CHeaderBrand className="mb-5" to="">
+              <CLink to="/">
+                <div className="logo position-absolute text-center">
+                  <CIcon name="logoBg" height="150" alt="Logo-bg" className="mt-10" />
+                </div>
+                <div className="half-circle position-absolute"></div>
+              </CLink>
             </CHeaderBrand>
           </CCol>
         </CRow>
         <CRow className="justify-content-center">
-          <CCol col="6" md="4">
+          <CCol xs="10" md="5">
             <CCardGroup>
               <CCard className="pt-0 pb-4 form-login">
                 <CCardBody className="pb-5">
                   <CForm onSubmit={onSubmit}>
-                    {/* <CRow>
-                      <CCol col="6" className="pb-2">
-                        <CSelect className='col-md-4 float-right' custom name="select" id="select-lang" defaultValue={language} onChange={value => onLanguageChanged(value)}>
-                          <option value="en" >English</option>
-                          <option value="vi" >Tieng Viet</option>
-                        </CSelect>
-                      </CCol>
-                    </CRow> */}
-                    <CRow>
-                      <CCol col="6">
-                        {showMsg && <CAlert color="danger">
-                          {t(message)}
-                        </CAlert>}
-                      </CCol>
-                    </CRow>
+
                     <CRow className="d-flex justify-content-center">
-                      <CCol col="6" lg="0" className=" mt-2 pb-2 ">
-                        <h2 className="title-login mb-3 d-flex justify-content-center ">{t('login.title')}</h2>
-                        <h6 className="description mb-4  d-flex justify-content-center">{t('login.description')}</h6>
+                      <CCol className="mt-5 mb-2">
+                        <h1 className="title-login mt-5 mb-3 d-flex justify-content-center">Welcome</h1>
                       </CCol>
                     </CRow>
-                    <CFormGroup className="form-group2 has-search pb-1">
-                      <span className="form-control-feedback mt-1 ml-2">
-                        <FontAwesomeIcon icon={faPhoneAlt} style={{ height: 18, width: 18 }} />
-                      </span>
-                      <CInput id="" type="text" size="lg" placeholder={t('login.ph-username')} required autoComplete="username" name="username" className="form-control2" onChange={value => onChange(value)} />
+                    <CFormGroup>
+                      <CInputGroup>
+                        <CInputGroupPrepend>
+                          <CInputGroupText><CIcon name="cil-user" size="lg" /></CInputGroupText>
+                        </CInputGroupPrepend>
+                        <CInput size="lg" placeholder={t('login.ph-username')} required autoComplete="username" name="username" className="form-control2" onChange={value => onChange(value)} />
+                      </CInputGroup>
                     </CFormGroup>
-                    <CFormGroup className="form-group2 has-search pb-2">
-                      <span className="form-control-feedback mt-1 ml-2">
-                        <FontAwesomeIcon icon={faLock} style={{ height: 18, width: 18 }} />
-                      </span>
-                      <CInput id="" type="password" size="lg" placeholder={t('login.ph-password')} required autoComplete="current-password" name="password" className="form-control2" onChange={value => onChange(value)} />
+                    <CFormGroup>
+                      <CInputGroup>
+                        <CInputGroupPrepend>
+                          <CInputGroupText><CIcon name="cil-lock-locked" size="lg" /></CInputGroupText>
+                        </CInputGroupPrepend>
+                        <CInput id="" type="password" size="lg" placeholder={t('login.ph-password')} required name="password" className="form-control2" onChange={value => onChange(value)} />
+                      </CInputGroup>
                     </CFormGroup>
+
                     {/* check login */}
                     <CRow>
-                      <CCol col="3" lg="0" className="pt-0 pr-0 pl-3">
+                      <CCol col="6" className="pt-0 pr-0 pl-3">
                         <CFormGroup variant="custom-checkbox" inline>
                           <CInputCheckbox
                             custom
@@ -130,12 +134,21 @@ const Login = () => {
                           <CLabel className="check-label-custom" variant="custom-checkbox" htmlFor="inline-checkbox1"><p>{t('login.lb-check-login')}</p></CLabel>
                         </CFormGroup>
                       </CCol>
-                      <CCol col="3" className="pt-0 pb-4"> <Link to="##" className="text-ps d-inline-block float-right">{t('login.bt-forget-password')}</Link></CCol>
+                      <CCol col="6" className="pt-0 pb-4"> <Link to="##" className="text-ps d-inline-block float-right">{t('login.bt-forget-password')}</Link></CCol>
                     </CRow>
                     {/* button login  */}
-                    <CCol col="6" lg="0" className="pt-2 pb-2">
-                      <CButton block color="primary" type="submit">{t('login.bt-login')}</CButton>
-                    </CCol>
+                    <CRow className="">
+                      <CCol className="pt-2 pb-2 d-flex justify-content-center">
+                        <CButton block size="lg" color="success" type="submit" style={{ width: '200px' }}><CIcon className="mr-2" name="cil-lock-unlocked" size="lg" />{t('login.bt-login')}</CButton>
+                        {/* <CButton block color="primary" onClick={onFbLogin}>Login Facebook</CButton> */}
+                      </CCol></CRow>
+                    <CRow>
+                      <CCol col="12">
+                        {showMsg && <CAlert color="danger">
+                          {t(message)}
+                        </CAlert>}
+                      </CCol>
+                    </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>
