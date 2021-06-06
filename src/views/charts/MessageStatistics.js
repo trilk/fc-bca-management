@@ -11,12 +11,7 @@ import {
   CDropdownToggle,
   CCol,
 } from "@coreui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendarWeek,
-  faCircle,
-  faSortDown,
-} from "@fortawesome/free-solid-svg-icons";
+
 
 const brandSent = getStyle("sent") || "#009ef7";
 const brandDelivered = getStyle("delivered") || "#4dbd74";
@@ -152,9 +147,9 @@ const MessageStatistics = (attributes) => {
                   size="md"
                   className="d-flex align-items-center"
                 >
-                  <FontAwesomeIcon icon={faCalendarWeek} className="mr-2" />
+                  {/* <FontAwesomeIcon icon={faCalendarWeek} className="mr-2" /> */}
                   <span>{t("msg-statistics.filter")}</span>
-                  <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                  {/* <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" /> */}
                 </CDropdownToggle>
                 <small className="d-flex justify-content-end pt-1 text-muted">
                   <strong className="mr-1">
@@ -208,17 +203,17 @@ const MessageStatistics = (attributes) => {
           />
           <CCol className="pl-4 d-flex bd-highlight py-4">
             <div className="mr-4">
-              <FontAwesomeIcon icon={faCircle} className="mr-1 primary-color" />
+              {/* <FontAwesomeIcon icon={faCircle} className="mr-1 primary-color" /> */}
               <span className="light-color">{t("widget-msg.totalmsg")}</span>
             </div>
             <div className="mr-4">
-              <FontAwesomeIcon icon={faCircle} className="mr-1 success-color" />
+              {/* <FontAwesomeIcon icon={faCircle} className="mr-1 success-color" /> */}
               <span className="light-color">
                 {t("widget-msg.msgdelivered")}
               </span>
             </div>
             <div>
-              <FontAwesomeIcon icon={faCircle} className="mr-1 danger-color" />
+              {/* <FontAwesomeIcon icon={faCircle} className="mr-1 danger-color" /> */}
               <span className="light-color">{t("widget-msg.msgfail")}</span>
             </div>
           </CCol>

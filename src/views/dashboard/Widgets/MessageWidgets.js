@@ -2,12 +2,6 @@ import React, { lazy } from "react";
 import "../dashboard.scss";
 import { CWidgetDropdown, CCol, CRow, CPopover } from "@coreui/react";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCommentSlash,
-  faEnvelopeOpenText,
-  faPaperPlane,
-} from "@fortawesome/free-solid-svg-icons";
 
 const MessageWidget = () => {
   const { t, i18n } = useTranslation();
@@ -27,11 +21,11 @@ const MessageWidget = () => {
               <div className="d-flex flex-row align-items-center">
                 <h6 className="light-color">{t("widget-msg.totalmsg")}</h6>
                 <div className="ml-auto">
-                  <FontAwesomeIcon
+                  {/* <FontAwesomeIcon
                     icon={faPaperPlane}
                     className="primary-color"
                     size="2x"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="pt-1">
@@ -46,11 +40,11 @@ const MessageWidget = () => {
               <div className="d-flex flex-row align-items-center">
                 <h6 className="light-color">{t("widget-msg.msgdelivered")}</h6>
                 <div className="ml-auto">
-                  <FontAwesomeIcon
+                  {/* <FontAwesomeIcon
                     icon={faEnvelopeOpenText}
                     className="success-color"
                     size="2x"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="pt-1">
@@ -65,11 +59,11 @@ const MessageWidget = () => {
               <div className="d-flex flex-row align-items-center">
                 <h6 className="light-color">{t("widget-msg.msgfail")}</h6>
                 <div className="ml-auto">
-                  <FontAwesomeIcon
+                  {/* <FontAwesomeIcon
                     icon={faCommentSlash}
                     className="danger-color"
                     size="2x"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="pt-1">

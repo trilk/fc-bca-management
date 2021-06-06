@@ -19,21 +19,16 @@ const TheLayout = (props) => {
   const [isSignedIn, setSignedIn] = useState(false);
 
   const onAuthStateChanged = (user) => {
-    console.log('auth changed!')
-    if (!user) {
-      console.log('Chua login')
+    if (!user || user.isAnonymous) {
       setSignedIn(false);
       setInitializing(false);
     } else {
-      console.log('Doi login:' + user)
       dispatch(setUser(user.uid));
     }
   }
 
   useEffect(() => {
-    console.log('Vo day: ' + new Date());
     if (authed) {
-      console.log('login xong')
       setSignedIn(true);
       setInitializing(false);
     }
@@ -47,6 +42,10 @@ const TheLayout = (props) => {
 
   if (initializing) {
     return <div>Loading</div>
+  }
+
+  if (!isSignedIn) {
+    return <Redirect to='/login' />
   }
 
   return (isSignedIn ?

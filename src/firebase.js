@@ -13,14 +13,16 @@ const config = {
 firebase.initializeApp(config)
 
 const db = firebase.firestore()
-const ref = firebase.database().ref()
+const ref = firebase.database()
 const auth = firebase.auth()
+const firestore = firebase.firestore
 const provider = new firebase.auth.FacebookAuthProvider()
 
 export {
     config,
     db,
     ref,
+    firestore,
     auth,
     provider
 }

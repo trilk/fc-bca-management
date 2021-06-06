@@ -1,22 +1,8 @@
-import React, { Component, useEffect, useState } from "react";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-import PrivateRoute from './helpers/PrivateRoute'
+import React, { Component } from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./services/authToken";
 
-import { logout, setUser } from "./actions/auth";
-import { AUTHENTICATED, LOGOUT } from "./actions/types";
-import store from "./store";
-import { auth, config } from './firebase'
-import firebase from 'firebase'
 import 'firebase/auth'
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-  IfFirebaseAuthed,
-  IfFirebaseAuthedAnd
-} from "@react-firebase/auth";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -37,7 +23,6 @@ const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 class App extends Component {
   render() {
     return (
-      // <FirebaseAuthProvider {...config} firebase={firebase}>
       <HashRouter>
         <React.Suspense fallback={loading}>
           <Switch>
@@ -74,38 +59,9 @@ class App extends Component {
               path="/"
               name="Dashboard"
               render={(props) => <TheLayout {...props} />} />
-            {/* <FirebaseAuthConsumer>
-                {({ isSignedIn, user }) => {
-                  if (isSignedIn === true) {
-                    console.log('Vo auth context app');
-                    // if (!isAuthed) {
-                    //   store.dispatch(setUser(user.uid));
-                    // }
-                    store.dispatch({
-                      type: AUTHENTICATED
-                    });
-                    return <Route
-                      path="/dashboard"
-                      name="Dashboard"
-                      render={(props) => <TheLayout {...props} userId={user.uid} />} />
-                  } else {
-                    // store.dispatch({
-                    //   type: LOGOUT
-                    // });
-                    // return <Redirect to='/500' />
-
-                  }
-
-
-                }
-
-                }
-              </FirebaseAuthConsumer> */}
-
           </Switch>
         </React.Suspense>
       </HashRouter>
-      // </FirebaseAuthProvider>
     );
   }
 }

@@ -1,12 +1,12 @@
-import {configure} from 'enzyme';
+import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
-configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
 
 if (global.document) {
   document.createRange = () => ({
-    setStart: () => {},
-    setEnd: () => {},
+    setStart: () => { },
+    setEnd: () => { },
     commonAncestorContainer: {
       nodeName: 'BODY',
       ownerDocument: document,

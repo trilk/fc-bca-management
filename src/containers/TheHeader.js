@@ -49,7 +49,7 @@ const TheHeader = () => {
         onClick={toggleSidebar}
       />
       <CHeaderBrand className="d-lg-none mx-auto" to="/">
-        <CIcon name="logoBg" height="48" alt="Logo" />
+        <CIcon height={48} name="logoBg" alt="Logo" />
       </CHeaderBrand>
       <CHeaderNav className="px-3 ml-auto">
         <TheHeaderDropDownLanguage />

@@ -5,7 +5,6 @@ import UserWidget from "./Widgets/UserWidgets";
 import MessageStatistics from "../charts/MessageStatistics.js";
 import MainChartUsersTrend from "../charts/MainChartUsersTrend.js";
 import MainChartUsersRevoked from "../charts/MainChartUsersRevoked.js";
-import LastMsg from "./lastMsg";
 import {
   CDropdown,
   CDropdownMenu,
@@ -14,14 +13,10 @@ import {
   CCol,
   CRow,
 } from "@coreui/react";
+import CIcon from '@coreui/icons-react'
 
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendarWeek,
-  faMobileAlt,
-  faSortDown,
-} from "@fortawesome/free-solid-svg-icons";
+
 
 const Dashboard = () => {
   const { t, i18n } = useTranslation();
@@ -47,10 +42,11 @@ const Dashboard = () => {
                     size="md"
                     className="d-flex align-items-center"
                   >
-                    <FontAwesomeIcon icon={faCalendarWeek} className="mr-2" />
+                    {/* <FontAwesomeIcon icon={faCalendarWeek} className="mr-2" /> */}
                     <span>{t("user-sort.lb-30d")}</span>
-                    <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                    {/* <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" /> */}
                   </CDropdownToggle>
+
                   <CDropdownMenu className="mt-2" placement="bottom-end">
                     <CDropdownItem>{t("user-sort.lb-30d")}</CDropdownItem>
                     <CDropdownItem>{t("user-sort.item-24h")}</CDropdownItem>
@@ -66,9 +62,9 @@ const Dashboard = () => {
                     size="md"
                     className="d-flex align-items-center"
                   >
-                    <FontAwesomeIcon icon={faMobileAlt} className="mr-2" />
+                    {/* <FontAwesomeIcon icon={faMobileAlt} className="mr-2" /> */}
                     <span>{t("channel-sort.lb-main")}<span className="ml-2">{t("channel-sort.item-all")}</span></span>
-                    <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" />
+                    {/* <FontAwesomeIcon icon={faSortDown} className="ml-2 mb-1" /> */}
                   </CDropdownToggle>
                   <CDropdownMenu className="mt-2" placement="bottom-end">
                     <CDropdownItem>All Channels</CDropdownItem>

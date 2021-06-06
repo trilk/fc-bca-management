@@ -15,7 +15,7 @@ const initialState = {
   sidebarShow: "responsive",
   isAuthenticated: false,
   user: null,
-  channels: [],
+  users: [],
   lang: 'vi',
   loading: false
 };
@@ -41,21 +41,22 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload
+        user: action.payload.user,
+        users: action.payload.users
       };
     case LOGIN_FAIL:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
-        channels: []
+        users: []
       };
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
-        channels: []
+        users: []
       };
     case SIDEBAR_SHOW:
       return {

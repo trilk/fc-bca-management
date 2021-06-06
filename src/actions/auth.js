@@ -2,6 +2,7 @@
 import setAuthToken from "../services/authToken";
 import AuthService from "../services/auth.service";
 import jwt_decode from "jwt-decode";
+import _ from 'lodash'
 // import { useHistory, Redirect } from 'react-router-dom';
 
 import {
@@ -13,7 +14,7 @@ import {
   SET_MESSAGE,
   CLEAR_MESSAGE
 } from "./types";
-import { MESSAGES } from './../utils/_constants'
+import { USER_STATUS } from './../utils/_constants'
 import * as firebase from './../firebase'
 
 // Register User
@@ -57,7 +58,7 @@ export const login = (userData) => async (dispatch) => {
   try {
     console.log('Vo ham login');
     const { user } = await firebase.auth.signInWithEmailAndPassword(userData.username, userData.password);
-
+    console.log(user);
     dispatch(setUser(user.uid));
   }
   catch (error) {
@@ -109,23 +110,30 @@ export const logout = () => async (dispatch) => {
 
 // Set logged in user
 export const setUser = (userId) => async (dispatch) => {
-  const user = await firebase.db.collection('users').doc(userId).get();
-  if (user && user.exists) {
-    const userInfo = {
-      id: userId,
-      name: user.data().name,
-      email: user.data().email,
-      role: user.data().role,
-      avatar: user.data().photoUrl
+  console.log('set user')
+  const users = await firebase.db.collection('users').where('status', '!=', USER_STATUS.INACTIVE).get();
+  let userInfo = null;
+  const storeUsers = users.docs.map((doc) => {
+    if (doc.id === userId) {
+      userInfo = {
+        id: userId,
+        name: doc.data().name,
+        email: doc.data().email,
+        isAdmin: doc.data().role === 'admin',
+        avatar: doc.data().photoUrl,
+        group: doc.data().role === 'admin' ? '' : doc.data().group
+      }
     }
+    return { id: doc.id, name: doc.data().name, avatar: doc.data().photoUrl };
+  });
 
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: userInfo
-    });
 
-    dispatch({
-      type: CLEAR_MESSAGE
-    });
-  }
+  dispatch({
+    type: LOGIN_SUCCESS,
+    payload: { user: userInfo, users: storeUsers }
+  });
+
+  dispatch({
+    type: CLEAR_MESSAGE
+  });
 };

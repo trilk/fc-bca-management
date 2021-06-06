@@ -1,7 +1,5 @@
 import './createUser.scss'
 import React, { useState, useEffect, useRef } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAddressCard, faPen, faFileSignature, faEye, faBan, faCheck, faUserShield, faTrash, faSave, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -25,18 +23,17 @@ import {
     CModalBody,
     CModalFooter, CModalHeader, CModalTitle, CSpinner
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
 
 import UserService from './../../services/user.service'
 import { MESSAGES, SELECT_STYLES } from './../../utils/_constants'
 
 const UserEditForm = (props) => {
-    // console.log(props.userInfo);
-
     const channels = useSelector(state => state.auth.user.channels);
     const history = useHistory();
     const channelsRef = useRef();
     const { t, i18n } = useTranslation()
-    const [iconRole, setIconRole] = useState({ icon: faBan, color: '#ced4da' })
+    // const [iconRole, setIconRole] = useState({ icon: faBan, color: '#ced4da' })
     const [userInfo, setUserInfo] = useState({});
     const [deleteAlert, setDeleteConfirm] = useState(false)
     const isNewUser = props.isNewUser;
@@ -44,13 +41,13 @@ const UserEditForm = (props) => {
     const onChange = e => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
 
-        if (e.target.name === 'role') {
-            if (e.target.value === 'admin') {
-                setIconRole({ icon: faCheck, color: '#28a745' })
-            } else {
-                setIconRole({ icon: faBan, color: '#ced4da' })
-            }
-        }
+        // if (e.target.name === 'role') {
+        //     if (e.target.value === 'admin') {
+        //         setIconRole({ icon: faCheck, color: '#28a745' })
+        //     } else {
+        //         setIconRole({ icon: faBan, color: '#ced4da' })
+        //     }
+        // }
     }
     const onCancel = () => {
         history.goBack();
@@ -116,11 +113,11 @@ const UserEditForm = (props) => {
         if (props.userInfo) {
             setUserInfo(props.userInfo)
 
-            if (props.userInfo.role === 'admin') {
-                setIconRole({ icon: faCheck, color: '#28a745' })
-            } else {
-                setIconRole({ icon: faBan, color: '#ced4da' })
-            }
+            // if (props.userInfo.role === 'admin') {
+            //     setIconRole({ icon: faCheck, color: '#28a745' })
+            // } else {
+            //     setIconRole({ icon: faBan, color: '#ced4da' })
+            // }
         }
     }, [props.userInfo])
 
@@ -131,7 +128,7 @@ const UserEditForm = (props) => {
                     <CCol xs="12" sm="6" className="pr-2">
                         <CCard>
                             <CCardHeader>
-                                <h4><FontAwesomeIcon icon={faAddressCard} className="mr-2" /><span>{t('user-edit-form.title-header1')}</span></h4>
+                                <h4>{t('user-edit-form.title-header1')}</h4>
                             </CCardHeader>
                             <CCardBody>
                                 <CFormGroup row>
@@ -202,7 +199,7 @@ const UserEditForm = (props) => {
                     <CCol xs="12" sm="6" className="pl-2">
                         <CCard>
                             <CCardHeader>
-                                <h4><FontAwesomeIcon icon={faUserShield} className="mr-2" /> <span>{t('user-edit-form.title-header2')}</span></h4>
+                                <h4>{t('user-edit-form.title-header2')}</h4>
                             </CCardHeader>
                             <CCardBody>
                                 <CFormGroup row>
@@ -253,94 +250,7 @@ const UserEditForm = (props) => {
                                 <CRow className="d-flex flex-column">
                                     <CCol md="12">
                                         <CCol className="p-0 overflow-auto">
-                                            <table className="table table-outline mb-0 border">
-                                                <thead className="bg-light">
-                                                    <tr>
-                                                        <th></th>
-                                                        <th className="text-center" ><FontAwesomeIcon icon={faEye} style={{ height: 12, width: 12 }} className="mr-2" />{t('user-edit-form.td-read')}</th>
-                                                        <th className="text-center" ><FontAwesomeIcon icon={faPen} style={{ height: 10, width: 10 }} className="mr-2" />{t('user-edit-form.td-create')}</th>
-                                                        <th className="text-center" ><FontAwesomeIcon icon={faFileSignature} style={{ height: 12, width: 12 }} className="mr-2" />{t('user-edit-form.td-update')}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td className="pr-0">
-                                                            <strong className="pl-3">{t('user-edit-form.th-message')}</strong>
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="bg-light">
-                                                            <strong className="pl-3">{t('user-edit-form.th-template')}</strong>
-                                                        </td>
-                                                        {/* read */}
-                                                        <td className="text-center bg-light">
-                                                            <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
-                                                        </td>
-                                                        {/* Create */}
-                                                        <td className="text-center bg-light">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                        {/* Edit */}
-                                                        <td className="text-center bg-light">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <strong className="pl-3">{t('user-edit-form.th-user')}</strong>
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className="bg-light">
-                                                            <strong className="pl-3">{t('user-edit-form.th-channel')}</strong>
-                                                        </td>
-                                                        {/* read */}
-                                                        <td className="text-center bg-light">
-                                                            <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
-                                                        </td>
-                                                        {/* create */}
-                                                        <td className="text-center bg-light">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                        {/* Edit */}
-                                                        <td className="text-center bg-light">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <strong className="pl-3">{t('user-edit-form.th-user')}</strong>
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={faCheck} className="icon-center icon-color-enable" />
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                        <td className="text-center">
-                                                            <FontAwesomeIcon icon={iconRole.icon} className="icon-center" color={iconRole.color} />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+
                                         </CCol>
                                     </CCol>
                                 </CRow>
@@ -353,9 +263,9 @@ const UserEditForm = (props) => {
                         <CCard>
                             <CCardHeader>
                                 <CCol className="p-0 pt-3 d-flex flex-row-reverse bd-highlight">
-                                    <CButton color="primary" className="ml-2" type="submit"><FontAwesomeIcon icon={faSave} className="mr-2" />{t('user-edit-form.btn-save')}</CButton>
-                                    {!isNewUser && <CButton color="danger" className="ml-2" name="delete" onClick={() => setDeleteConfirm(true)}><FontAwesomeIcon icon={faTrash} className="mr-2" />{t('user-edit-form.btn-delete')}</CButton>}
-                                    <CButton color="outline-dark" className="ml-2" name="cancel" onClick={onCancel}><FontAwesomeIcon icon={faTimes} className="mr-2" />{t('user-edit-form.btn-cancel')}</CButton>
+                                    <CButton color="primary" className="ml-2" type="submit"><CIcon name="cil-save" className="mr-2" />{t('user-edit-form.btn-save')}</CButton>
+                                    {!isNewUser && <CButton color="danger" className="ml-2" name="delete" onClick={() => setDeleteConfirm(true)}><CIcon name="cil-pencil" className="mr-2" />{t('user-edit-form.btn-delete')}</CButton>}
+                                    <CButton color="outline-dark" className="ml-2" name="cancel" onClick={onCancel}><CIcon name="cil-x" className="mr-2" />{t('user-edit-form.btn-cancel')}</CButton>
                                 </CCol>
                             </CCardHeader>
                         </CCard>

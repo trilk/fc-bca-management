@@ -1,0 +1,71 @@
+.team-group.card{
+    box-shadow: 5px 5px 10px #aaa;
+    border-radius: 0.5rem;
+        .card-header {
+        background-color: #28b8cec2;
+        font-size: large;
+        font-weight: bold;
+    }
+    .card-body {
+        padding: 0;
+        table.table {
+            margin-bottom: 0;
+            th {
+                font-weight: normal;
+                color: lighten($color:#3c4b64, $amount: 10%);
+                border: none;
+            }
+            td {
+                padding: 0.5rem;
+            }
+        }
+        
+    }
+}
+.team-group.none-table-header {
+    .card-header{
+        background-color: #fbca9e;
+    }
+    th {
+        padding: 0;
+    }
+}
+
+.score-text {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+.score-text-sm {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 50%;
+    display: inline-block;
+    background: #ced4da no-repeat center/cover;
+    position: relative;
+    text-align: center;
+    color: #868e96;
+    font-weight: 600;
+    vertical-align: bottom;
+    font-size: .875rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.avatar-blue {
+    background-color: #c8d9f1;
+    color: #467fcf;
+}
+.avatar-sm {
+    width: 1.7rem;
+    height: 1.7rem;
+    line-height: 1.7rem;
+    font-size: .8rem;
+}
+

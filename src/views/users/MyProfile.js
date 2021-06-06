@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import CIcon from '@coreui/icons-react'
 import './users.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
 import {
   CButton,
   CModal,
@@ -63,7 +62,7 @@ const MyProfile = () => {
                   </div>
                   <CTooltip content={`Change Avatar`} placement="top">
                     <CLabel className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change">
-                      <FontAwesomeIcon icon={faPen} style={{ height: 10, width: 10 }} className="light-color" />
+                      <CIcon name='cil-edit' />
                     </CLabel>
                   </CTooltip>
                 </div>

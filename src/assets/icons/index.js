@@ -1,14 +1,37 @@
 import { sygnet } from './sygnet'
 import { logo } from './logo'
 // import { logoNegative } from './logo-negativedefaul'
-import { msgPreview } from './message-preview'
 import { logoBg } from './logo-bg'
-import { zaloIcon } from './zalo-icon'
 import { femaleImg } from './female'
-import { phonePreview } from './phone-preview'
-import {enFlat} from './en-flat'
 import { logoNegative } from './logo-negative'
-import {viFlat} from './vi-flat'
+import {
+  flagTbd,
+  flagAu,
+  flagBe,
+  flagWa,
+  flagUk,
+  flagTu,
+  flagSw,
+  flagSp,
+  flagSl,
+  flagSe,
+  flagSc,
+  flagRu,
+  flagPt,
+  flagPl,
+  flagNe,
+  flagMa,
+  flagIt,
+  flagHu,
+  flagGe,
+  flagFr,
+  flagFi,
+  flagEn,
+  flagDe,
+  flagCz,
+  flagCr,
+  flagVi
+} from './flags'
 
 import {
   cibSkype,
@@ -34,12 +57,9 @@ import {
   cibStripe,
   cibPaypal,
   cibGooglePay,
-  cibCcAmex
+  cibCcAmex,
 } from '@coreui/icons'
-import {
-  cifUs,
-  cifVn
-} from '@coreui/icons'
+
 import {
   cilAccountLogout,
   cilAlignCenter,
@@ -98,6 +118,7 @@ import {
   cilListRich,
   cilLocationPin,
   cilLockLocked,
+  cilLockUnlocked,
   cilMagnifyingGlass,
   cilMap,
   cilMoon,
@@ -139,13 +160,34 @@ export const icons = Object.assign({}, {
   sygnet,
   logo,
   logoNegative,
-  msgPreview,
   logoBg,
   femaleImg,
-  phonePreview,
-  enFlat,
-  zaloIcon,
-  viFlat
+  flagTbd,
+  flagAu,
+  flagBe,
+  flagWa,
+  flagUk,
+  flagTu,
+  flagSw,
+  flagSp,
+  flagSl,
+  flagSe,
+  flagSc,
+  flagRu,
+  flagPt,
+  flagPl,
+  flagNe,
+  flagMa,
+  flagIt,
+  flagHu,
+  flagGe,
+  flagFr,
+  flagFi,
+  flagEn,
+  flagDe,
+  flagCz,
+  flagCr,
+  flagVi
 }, {
   cilAccountLogout,
   cilAlignCenter,
@@ -204,6 +246,7 @@ export const icons = Object.assign({}, {
   cilListRich,
   cilLocationPin,
   cilLockLocked,
+  cilLockUnlocked,
   cilMagnifyingGlass,
   cilMap,
   cilMoon,
@@ -239,32 +282,30 @@ export const icons = Object.assign({}, {
   cilX,
   cilXCircle,
   cilWarning
-}, {
-  cifUs,
-  cifVn
-}, {
-  cibSkype,
-  cibFacebook,
-  cibTwitter,
-  cibLinkedin,
-  cibFlickr,
-  cibTumblr,
-  cibXing,
-  cibGithub,
-  cibStackoverflow,
-  cibYoutube,
-  cibDribbble,
-  cibInstagram,
-  cibPinterest,
-  cibVk,
-  cibYahoo,
-  cibBehance,
-  cibReddit,
-  cibVimeo,
-  cibCcMastercard,
-  cibCcVisa,
-  cibStripe,
-  cibPaypal,
-  cibGooglePay,
-  cibCcAmex
-})
+},
+  {
+    cibSkype,
+    cibFacebook,
+    cibTwitter,
+    cibLinkedin,
+    cibFlickr,
+    cibTumblr,
+    cibXing,
+    cibGithub,
+    cibStackoverflow,
+    cibYoutube,
+    cibDribbble,
+    cibInstagram,
+    cibPinterest,
+    cibVk,
+    cibYahoo,
+    cibBehance,
+    cibReddit,
+    cibVimeo,
+    cibCcMastercard,
+    cibCcVisa,
+    cibStripe,
+    cibPaypal,
+    cibGooglePay,
+    cibCcAmex
+  })

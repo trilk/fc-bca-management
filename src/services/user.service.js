@@ -1,5 +1,6 @@
 import { axiosInstance } from './axios';
 import _ from 'lodash'
+import * as firebase from 'src/firebase'
 
 class UserService {
   saveUser(user, isCreateNew) {
@@ -28,8 +29,18 @@ class UserService {
     }
   }
 
-  getUsers(query) {
-    return axiosInstance.get('api/user/list' + query);
+  async getUsers(query) {
+    return [];
+    // const teamIds = await firebase.db.collection(`users/${userId}/teams`).get();
+    // const teams = await Promise.all(
+    //   teamIds.docs.map(async (doc) => {
+    //     const team = await firebase.db.doc(`teams/${doc.id}`).get();
+    //     const user_team = await firebase.db.doc(`teams/${doc.id}/users/${userId}`).get();
+    //     return Object.assign({}, user_team.data(), team.data());
+    //   })
+    // );
+    // // teams.map(doc => { console.log(doc.data()); });
+    // console.log(teams);
   }
 
 
