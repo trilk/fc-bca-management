@@ -166,8 +166,11 @@ class GameService {
         })
 
         // Commit the batch
-        batch.commit().then((response) => {
-            console.log(response)
+        return batch.commit().then(() => {
+            return { status: 'OK', message: 'Trận đấu đã được cập nhật thành công.' }
+        }).catch((err) => {
+            console.error(err);
+            return { status: 'ERR', message: 'Lỗi cập nhật status cho trận đấu!' }
         });
 
     }

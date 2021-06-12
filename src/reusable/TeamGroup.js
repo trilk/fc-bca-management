@@ -10,10 +10,15 @@ import {
     CCardBody,
     CDataTable, CLink, CCol, CButton, CRow
 } from '@coreui/react'
+import { useSelector, useDispatch } from 'react-redux'
+import GameService from 'src/services/game.service'
 
 const TeamGroup = props => {
-    const [collapsed, setCollapsed] = useState(true)
+    const dispatch = useDispatch()
+    const event = useSelector(state => state.auth.event);
+    const [collapsed, setCollapsed] = useState(!props.isMobile)
     const [teams, setTeams] = useState([]);
+    const [isAdmin, setAdminState] = useState(false);
     const tbName = props.table;
 
     const fields = [
@@ -25,27 +30,39 @@ const TeamGroup = props => {
         { key: 'gD', label: 'GF-GA', _classes: 'align-middle' },
         { key: 'point', label: 'PTS', _classes: 'align-middle text-center font-weight-bold' },
     ]
+
+    const updateStandingTable = (table) => {
+        GameService.updateStandingTable(event.id, table).then((response) => {
+            setTeams(response)
+        })
+    }
+
     useEffect(() => {
         if (props.teams) {
             setTeams(props.teams)
         }
+        setAdminState(props.admin)
 
-    }, [props.teams])
+    }, [props.teams, props.admin])
 
     return (
         <CFade>
-            <CCard className="team-group">
+            <CCard className="team-group mb-3">
                 <CCardHeader>
                     {`Bảng ${tbName}`}
                     <div className="card-header-actions">
+                        {isAdmin &&
+                            <CLink className="card-header-action" onClick={() => updateStandingTable(tbName)}>
+                                <CIcon size="xl" color="red" name='cil-sync' title="Cập nhật bảng xếp hạng" />
+                            </CLink>}
                         <CLink className="card-header-action" onClick={() => setCollapsed(!collapsed)}>
-                            <CIcon name={collapsed ? 'cil-chevron-bottom' : 'cil-chevron-top'} />
+                            <CIcon size="xl" color="black" name={collapsed ? 'cil-chevron-bottom' : 'cil-chevron-top'} />
                         </CLink>
                     </div>
                 </CCardHeader>
                 <CCollapse show={collapsed}>
                     <CCardBody>
-                        <CDataTable
+                        <CDataTable addTableClasses="standing"
                             noItemsView={{ noItems: 'Loading teams', icon: '' }}
                             items={teams}
                             fields={fields}

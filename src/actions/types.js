@@ -14,3 +14,7 @@ export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
 
 export const CHANNELS = "CHANNELS";
 
+export const SHOW_MODAL = "SHOW_MODAL"
+export const FAVOR_TEAM = "FAVOR_TEAM"
+export const EVENT_TEAMS = "EVENT_TEAMS"
+

@@ -1,131 +1,157 @@
 import React, { useState, useEffect } from 'react'
 import {
-    CButton,
+    CToaster,
+    CToast,
+    CToastBody,
+    CToastHeader,
     CCol,
-    CContainer,
     CRow,
-    CLink,
-    CImg
+    CModal
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { TeamGroup, MatchGroup } from 'src/reusable/index'
-import GameService from 'src/services/game.service'
-import * as firebase from 'src/firebase'
-import { cilLockUnlocked } from '@coreui/icons'
+import ModalMatchInfo from 'src/reusable/ModalMatchInfo'
+import * as fbDb from 'src/services/index'
+import { isEmpty } from 'lodash'
+import { useMediaQuery } from 'react-responsive'
+import { MODAL_RESPONSE_TYPE } from 'src/utils/_constants'
+import { distanceTime } from 'src/utils/_common'
 
 const Home = () => {
-    const user = useSelector(state => state.auth.user);
-    const [acceptedUser, setUser] = useState(firebase.auth.currentUser);
+    const largeScreen = useMediaQuery({
+        query: '(min-device-width: 600px)'
+    });
+    const dispatch = useDispatch()
+    const sysUser = useSelector(state => state.auth.user);
+    const event = useSelector(state => state.auth.event);
     const [tableData, setTableData] = useState({});
     const [gameData, setGameData] = useState({});
     const [isAdmin, setAdminState] = useState(false);
-    const btnText = { yes: 'Chơi luôn', no: 'Thôi khỏi' }
-    const [button, setButtonText] = useState({
-        leftYes: true,
-        yes: btnText.yes,
-        no: btnText.no
-    });
-    const eventId = 'EURO2021';
+    const [showModal, setShowModal] = useState(false)
+    const [modalData, setModalData] = useState({})
+    const [modalColor, setModalColor] = useState('')
+    const [countdown, setCountDown] = useState(null)
+    const [toast, setToast] = useState({
+        key: 0,
+        show: false,
+        title: 'Toast title',
+        message: 'Thiss is toast message'
+    })
 
-    // firebase.auth.onAuthStateChanged(function(response) {
-    //     if (response) {
-    //       // User is signed in.
-    //       console.log(response)
-    //     } else {
-    //       // No user is signed in.
-    //     }
-    //   });
-    const onMouseOver = (event) => {
-        var name = event.target.name;
-        if (name === 'yes') {
-            setButtonText({
-                leftYes: true,
-                yes: btnText.yes,
-                no: btnText.no
-            })
-        } else {
-            setButtonText({
-                leftYes: false,
-                yes: btnText.no,
-                no: btnText.yes
-            })
-        }
+
+    const onShowMatchModal = (data) => {
+        setModalData(data)
+        setModalColor(data.myBet.color)
+        setShowModal(true);
     }
-    useEffect(() => {
-        if (acceptedUser) {
-            console.log(acceptedUser)
-            if (user && user.isAdmin) {
-                setAdminState(true)
+
+    const onNotify = (response) => {
+        var color = response.status === 'OK' ? 'success' : 'danger'
+        setToast({
+            key: toast.key + 1,
+            show: true,
+            color: color,
+            title: 'Thông báo',
+            message: response.message
+        })
+    }
+
+    const onModalSubmit = (modalRes) => {
+        if (!isEmpty(modalRes)) {
+            switch (modalRes.type) {
+                case MODAL_RESPONSE_TYPE.BETTING:
+                    fbDb.BettingService.userBetGames(event.id, sysUser.id, event.round, modalRes.data).then(response => {
+                        onNotify(response)
+                    });
+
+                    break;
+                case MODAL_RESPONSE_TYPE.CHANGE_STATUS:
+                    fbDb.GameService.updateStatusOfGames(event.id, modalRes.data).then(response => {
+                        onNotify(response)
+                    });
+                    break;
+                case MODAL_RESPONSE_TYPE.SET_RESULT:
+                    fbDb.BettingService.updateGameResult(event.id, modalRes.gameId, modalRes.goals).then(response => {
+                        onNotify(response)
+                    });
+                    break;
+
+                default:
+                    break;
             }
-            GameService.getAllGames(eventId).then((response) => {
+        }
+        setShowModal(false);
+    }
+
+    useEffect(() => {
+        if (sysUser && sysUser.isAdmin) {
+            setAdminState(true);
+        }
+        else {
+            setAdminState(false);
+        }
+        if (isEmpty(gameData) || isEmpty(tableData)) {
+            fbDb.GameService.getAllGames(event.id).then((response) => {
                 setGameData(response)
             })
-            GameService.getStandingTables(eventId).then((response) => {
+            fbDb.GameService.getStandingTables(event.id).then((response) => {
                 setTableData(response)
             })
-
-        } else {
-            firebase.auth.signInAnonymously().then(response => {
-                setUser(response.user)
-            })
         }
-    }, [acceptedUser]);
+
+    }, [sysUser]);
 
     return (
-        <div className="c-app c-default-layout flex-row">
+        <>
+            <CRow className="px-3">
+                <div className="headline w-100">
+                    <div className="ribbon ribbon-top-left"><span>Euro 2021</span></div>
+                    <div className="banner">ĐI TÌM THÁNH DỰ</div>
+                </div>
+            </CRow>
+            <CRow className={'mt-2'}>
 
-            <CContainer>
-                <CRow className="mb-3">
-                    <CCol>
-                        <CImg
-                            src={'avatars/uefa-euro-2020.png'}
-                            width="100%"
-                        />
-                    </CCol>
-                </CRow>
-                <CRow className="justify-content-center">
-                    <CCol md="6">
-                        <div className="position-absolute" style={{ top: '-70px' }}>
-                            <CRow>
-                                <CCol className="col-md-auto"><CIcon name="logo" width={80} className="" /></CCol>
-                                <CCol className="text-center"><h4 className="pt-2">Anh em sẵn sàng tìm thánh dự chưa?</h4>
-                                    <CLink to="/dashboard">
-                                        <CButton onMouseEnter={onMouseOver} name="yes" className={`mr-2 ${button.leftYes ? 'btn-success' : 'btn-secondary'}`} >{button.yes}</CButton>
-                                        <CButton onMouseEnter={onMouseOver} name="no" className={!button.leftYes ? 'btn-success' : 'btn-secondary'} >{button.no}</CButton></CLink>
-                                </CCol>
-                            </CRow>
-                            {/* <div className="clearfix">
-                                
-                                
-                                <p className="text-muted float-left">
-                                    
-                                </p>
-                            </div> */}
-                        </div>
+                <CCol md="5" className="pr-2">
+                    {
+                        Object.keys(tableData).map((key, index) =>
+                            <TeamGroup key={key + index} teams={tableData[key]} table={key} admin={isAdmin} isMobile={!largeScreen} />
+                        )
+                    }
+                </CCol>
+                <CCol xl="7" className="pl-2">
+                    {
+                        Object.keys(gameData).map((key, index) =>
+                            <MatchGroup key={key + index} items={gameData[key]} name={key} admin={isAdmin} onRowClick={onShowMatchModal} />
+                        )
+                    }
+                </CCol>
+            </CRow>
+            <CRow>
+                <CModal
+                    show={showModal}
+                    onClose={() => setShowModal(!showModal)}
+                    size="lg"
+                    color={modalColor}
+                    className="mi-modal">
+                    <ModalMatchInfo data={modalData} onModalResponse={onModalSubmit}></ModalMatchInfo>
+                </CModal>
+                <CToaster position={'top-right'} >
+                    <CToast
+                        key={toast.key}
+                        show={toast.show}
+                        autohide={3000}
+                        fade={true} >
+                        <CToastHeader closeButton={true}>
+                            {toast.title}
+                        </CToastHeader>
+                        <CToastBody>
+                            {toast.message}
+                        </CToastBody>
+                    </CToast>
+                </CToaster>
+            </CRow>
 
-                    </CCol>
-                </CRow>
-                <CRow className="mt-5">
-                    <CCol md="5">
-                        {
-                            Object.keys(tableData).map((key, index) =>
-                                <TeamGroup key={key + index} teams={tableData[key]} table={key} />
-                            )
-                        }
-
-                    </CCol>
-                    <CCol xl="7">
-                        {
-                            Object.keys(gameData).map((key, index) =>
-                                <MatchGroup key={key + index} items={gameData[key]} name={key} />
-                            )
-                        }
-
-                    </CCol>
-                </CRow>
-            </CContainer>
-        </div>
+        </>
     )
 }
 

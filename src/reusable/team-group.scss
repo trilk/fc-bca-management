@@ -1,8 +1,8 @@
 .team-group.card{
-    box-shadow: 5px 5px 10px #aaa;
+    box-shadow: rgba(69, 69, 70, 0.8) 0px 8px 24px;
     border-radius: 0.5rem;
         .card-header {
-        background-color: #28b8cec2;
+        background-color: rgba(50, 228, 255,0.8);
         font-size: large;
         font-weight: bold;
     }
@@ -18,6 +18,12 @@
             td {
                 padding: 0.5rem;
             }
+            &.standing {
+                tbody tr:nth-child(-n + 2) {
+                    background-color: #eff6ff;
+                    font-weight: bold;
+                }
+            }
         }
         
     }
@@ -28,6 +34,15 @@
     }
     th {
         padding: 0;
+    }
+    tr.finished {
+        background-color: #e6e6e6;
+    }
+    tr.betting {
+        background-color: #e3fde6;
+    }
+    tr.not_started {
+        background-color: #fff;
     }
 }
 
@@ -67,5 +82,103 @@
     height: 1.7rem;
     line-height: 1.7rem;
     font-size: .8rem;
+}
+
+.mi-modal {
+    .modal-dialog{
+        .modal-header.mi-header {
+            font-size: 2rem;
+            font-weight: bold;
+            .goal-input {
+                input {
+                    max-width: 40px;
+                    text-align: center;
+                    font-size: 1.8rem;
+                    height: 38px;
+                }
+            }
+        }
+        .mi-team {
+            cursor: pointer;
+            padding: 1.2rem;
+            border: 1px solid #fff;
+            &.middle {
+                padding: 2.4rem;
+                svg {
+                    color: #909090;
+                }
+                &:hover, &.selected {
+                    svg {
+                        color: #28b8cec2;
+                    }
+                }
+            }
+            &:hover, &.selected {
+                border-color: #ddd;
+                border-radius: 4px;
+                box-shadow: 2px 2px 8px #ddd;
+                svg {
+                    filter: none;
+                    opacity: 1;
+                }
+            }
+            svg {
+                filter: grayscale(1);
+                opacity: 0.8;
+            }
+        }
+        .mi-aet {
+            cursor: pointer;
+            svg {
+                color: #909090;
+                
+            }
+            &:hover, &.checked{
+                svg { 
+                color: #28b8cec2;
+                }
+            }
+        }
+        .admin{
+            .mi-team svg{
+                filter: none;
+                opacity: 1;
+            }
+        }
+        .mi-stat-container {
+            padding: 1rem 0;
+            .mi-stat {
+                font-size: 2rem;
+                font-weight: bold;
+                &.middle {
+                    border-left: 1px solid #ddd;
+                    border-right: 1px solid #ddd;
+                }
+                p {
+                    font-size: 1rem;
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+        .alert{
+            span {
+                font-size: 1.05rem;
+            }
+        }
+    }
+
+    fieldset {
+        border: 1px solid #ddd;
+        padding-bottom: 25px;
+        border-radius: 5px;
+        legend {
+            width: auto;
+            background-color: inherit;
+            padding: 5px;
+            padding-bottom: 8px;
+            font-size: 1.1rem;
+            margin-left: 15px;
+        }
+    }
 }
 

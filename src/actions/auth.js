@@ -1,9 +1,7 @@
 // import firebase from 'firebase'
-import setAuthToken from "../services/authToken";
 import AuthService from "../services/auth.service";
-import jwt_decode from "jwt-decode";
 import _ from 'lodash'
-// import { useHistory, Redirect } from 'react-router-dom';
+import { COLLECTION } from 'src/utils/_constants'
 
 import {
   REGISTER_SUCCESS,
@@ -14,7 +12,7 @@ import {
   SET_MESSAGE,
   CLEAR_MESSAGE
 } from "./types";
-import { USER_STATUS } from './../utils/_constants'
+import { GROUP, USER_STATUS } from './../utils/_constants'
 import * as firebase from './../firebase'
 
 // Register User
@@ -70,43 +68,102 @@ export const login = (userData) => async (dispatch) => {
   }
 };
 
-export const fbLogin = () => async (dispatch) => {
-  const { user } = await firebase.auth.signInWithPopup(firebase.provider);
-
-  const currentUser = await firebase.db.collection('users').doc(user.uid);
-
-  currentUser.get().then((doc) => {
-    if (!doc.exists) {
-      currentUser.set({
-        name: user.displayName,
-        email: user.email,
-        phone: '',
-        role: 'user'
-      });
-    }
-    console.log(doc.data())
-  });
+export const fbLogin = () => async () => {
+  firebase.auth.signInWithPopup(firebase.provider);
 };
 
+export const anonymousLogin = () => async () => {
+  console.log('sao ko vao day')
+  firebase.auth.signInAnonymously();
+}
+
+export const deleteUser = (user) => async () => {
+  if (user.isAnonymous) {
+    user.delete()
+  }
+}
+
+export const deleteAnonymousUser = () => async () => {
+
+}
 // Log user out
 export const logout = () => async (dispatch) => {
-  await firebase.auth.signOut()
-
   //Sign-out successful.
   dispatch({
     type: LOGOUT
   });
 
-  // // Remove token from local storage
-  // localStorage.removeItem("jwtToken");
-  // // Remove auth header for future requests
-  // setAuthToken(false);
-  // Set current user to empty object {} which will set isAuthenticated to false
-
+  firebase.auth.signOut()
 
   // Redirect to login
   // return history.push("/login");
 };
+
+export const setSystemUser = (group, eventId, authedUser) => async (dispatch) => {
+  let userInfo = null;
+  if (authedUser.isAnonymous) {
+    userInfo = {
+      id: authedUser.uid,
+      isAnonymous: true
+    }
+  } else {
+    let userData = {};
+    const sysUserRef = firebase.db.collection(COLLECTION.USER).doc(authedUser.uid);
+    const user = await sysUserRef.get();
+
+    if (!user.exists) {
+      userData = {
+        name: authedUser.displayName || '',
+        email: authedUser.email || '',
+        personalInfo: {},
+        photoUrl: authedUser.photoURL ? `${authedUser.photoURL}?type=large` : '',
+        slogan: '',
+        status: 'ACTIVE',
+        role: 'user',
+        group: group,
+        joinedDate: new Date()
+      }
+
+      const userTeamRef = firebase.db.doc(`${COLLECTION.EVENT}/${eventId}/${COLLECTION.USER}/${authedUser.uid}`);
+      const userTeam = await userTeamRef.get()
+
+      try {
+        sysUserRef.set(userData);
+        if (!userTeam.exists) {
+          userTeamRef.set({
+            active: true,
+            createdAt: new Date()
+          })
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      const eventRef = await firebase.db.doc(`${COLLECTION.EVENT_SUMMARY}/${eventId}`).get();
+      const favTeam = eventRef.data().users[user.id];
+
+      userData = favTeam ? { ...user.data(), favTeam: favTeam.betTeam } : user.data();
+    }
+    userInfo = {
+      id: authedUser.uid,
+      name: userData.name,
+      photoUrl: userData.photoUrl,
+      isAdmin: userData.role === 'admin',
+      group: userData.group,
+      favTeam: userData.favTeam || ''
+    }
+  }
+
+
+  dispatch({
+    type: LOGIN_SUCCESS,
+    payload: { user: userInfo, users: [] }
+  });
+
+  dispatch({
+    type: CLEAR_MESSAGE
+  });
+}
 
 // Set logged in user
 export const setUser = (userId) => async (dispatch) => {
@@ -121,7 +178,7 @@ export const setUser = (userId) => async (dispatch) => {
         email: doc.data().email,
         isAdmin: doc.data().role === 'admin',
         avatar: doc.data().photoUrl,
-        group: doc.data().role === 'admin' ? '' : doc.data().group
+        group: doc.data().role === 'admin' ? GROUP.ALL : doc.data().group
       }
     }
     return { id: doc.id, name: doc.data().name, avatar: doc.data().photoUrl };

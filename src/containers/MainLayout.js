@@ -1,66 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { logout, setUser } from "./../actions/auth";
+import { anonymousLogin, setSystemUser, deleteUser } from "../actions/auth";
 import {
-  TheContent,
-  TheSidebar,
+  MainContent,
   TheFooter,
-  TheHeader
+  MainHeader
 } from './index';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { auth } from './../firebase'
+import { auth } from '../firebase'
 
-const TheLayout = (props) => {
-  console.log(props)
+const MainLayout = ({ match }) => {
+  const eventId = match.params.event || 'EURO2021'
+  const group = match.params.group || 'BCA'
   const dispatch = useDispatch()
   const authed = useSelector(state => state.auth.isAuthenticated);
   const [initializing, setInitializing] = useState(true);
-  const [isSignedIn, setSignedIn] = useState(false);
+  const [authedUser, setAuthedUser] = useState(null);
 
   const onAuthStateChanged = (user) => {
-    if (!user || user.isAnonymous) {
-      setSignedIn(false);
-      setInitializing(false);
+    console.log('authed changed');
+    if (!user) {
+      auth.signInAnonymously();
     } else {
-      dispatch(setUser(user.uid));
+      if (authedUser !== null && authedUser.isAnonymous && authedUser.uid !== user.uid) {
+        dispatch(deleteUser(authedUser))
+      }
+      setAuthedUser(user);
+      dispatch(setSystemUser(group, eventId, user));
     }
   }
 
   useEffect(() => {
     if (authed) {
-      setSignedIn(true);
       setInitializing(false);
     }
     const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
     return subscriber;
   }, [authed]);
 
-  // if (!isAuthenticated) {
-  //   return <Redirect to="/login" />;
-  // }
-
   if (initializing) {
     return <div>Loading</div>
   }
 
-  if (!isSignedIn) {
-    return <Redirect to='/login' />
-  }
-
-  return (isSignedIn ?
-    <div className="c-app c-default-layout">
-      {/* <TheSidebar /> */}
+  return (
+    <div className="c-app c-default-layout flex-row">
       <div className="c-wrapper">
-        <TheHeader />
+        <MainHeader />
         <div className="c-body">
-          <TheContent />
+          <MainContent />
         </div>
         <TheFooter />
       </div>
-    </div> :
-    <Redirect to="/" />
+    </div>
   )
 }
 
-export default TheLayout
+export default MainLayout

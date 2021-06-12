@@ -1,0 +1,52 @@
+$borderColor: #ddd;
+
+.ts-modal{
+    .modal-header {
+        font-size: large;
+        font-weight: bold;
+        text-align: center;
+    }
+    .fav-team {
+        font-size: 1.6rem;
+        color: #2a1ab9;
+        border-bottom: 1px solid $borderColor;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+        padding-top: 0;
+        padding-bottom: 0.5rem;
+    }
+    .team-cotainer {
+        padding-left: 20;
+        .team-info {
+            cursor: pointer;
+            max-height: 40px;
+            border-bottom: 1px solid $borderColor;
+    
+            &:hover, &.selected {
+                border-color: darken($borderColor, 10%);
+                box-shadow: 2px 2px 8px #ccc;            
+                svg {
+                    filter: none;
+                    opacity: 1;
+                }
+                span {
+                    color: inherit;
+                    font-size: 0.9rem;
+                }
+            }
+            svg {
+                filter: grayscale(1);
+                opacity: 0.8;
+                position: relative;
+                left: -20px;
+                transform: scale(1.2);
+            }
+            span {
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #aaa;
+            }
+            
+        }
+    }
+}

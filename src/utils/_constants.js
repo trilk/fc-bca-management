@@ -8,7 +8,8 @@ export const COLLECTION = {
     PAYMENT: 'user_payments',
     GAME: '_games',
     TEAM: '_teams',
-    USER_BET: '_bettings'
+    USER_BET: '_bettings',
+    EVENT_SUMMARY: 'event_summary'
 }
 
 export const GROUP = {
@@ -16,7 +17,8 @@ export const GROUP = {
     BCA: 'BCA',
     CCG: 'CCG',
     IVC: 'IVC',
-    EMPTY: ''
+    EMPTY: '',
+    DEFAULT: 'BCA'
 }
 export const USER_ROLE = {
     ADMIN: 'admin',
@@ -68,11 +70,10 @@ export const GENDER = {
     O: 'gender.other'
 };
 
-export const MESSAGE_STATUS = {
-    SENDING: 'Sending',
-    DELIVERED: 'Delivered',
-    SENT: 'Sent',
-    FAIL: 'Fail'
+export const MODAL_RESPONSE_TYPE = {
+    BETTING: 'BETTING',
+    CHANGE_STATUS: 'CHANGE_STATUS',
+    SET_RESULT: 'SET_RESULT',
 }
 
 export const MESSAGES = {

@@ -8,7 +8,8 @@ import {
   CHANGE_LANGUAGE,
   CHANNELS,
   LOADING,
-  AUTHENTICATED
+  AUTHENTICATED,
+  FAVOR_TEAM
 } from "../actions/types";
 
 const initialState = {
@@ -16,8 +17,16 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   users: [],
+  logo: {
+    icon: 'euro2021',
+    img: ''
+  },
   lang: 'vi',
-  loading: false
+  loading: false,
+  event: {
+    id: 'EURO2021',
+    round: 1
+  }
 };
 
 export default function (state = initialState, action) {
@@ -77,6 +86,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: action.payload,
+      };
+    case FAVOR_TEAM:
+      return {
+        ...state,
+        user: { ...state.user, favTeam: action.payload }
       };
     default:
       return state;

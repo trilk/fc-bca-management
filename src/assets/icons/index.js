@@ -2,9 +2,11 @@ import { sygnet } from './sygnet'
 import { logo } from './logo'
 // import { logoNegative } from './logo-negativedefaul'
 import { logoBg } from './logo-bg'
+import { euro2021 } from './events/euro-2021'
 import { femaleImg } from './female'
 import { logoNegative } from './logo-negative'
 import {
+  flagTie,
   flagTbd,
   flagAu,
   flagBe,
@@ -153,15 +155,29 @@ import {
   cilUserUnfollow,
   cilX,
   cilXCircle,
-  cilWarning
+  cilWarning,
+  cilGroup,
+  cilSoccer,
+  cilSync,
+  cilCalendarCheck,
+  cilBolt,
+  cilBlind,
+  cilAlarm,
+  cilThumbDown,
+  cilMoodVeryGood,
+  cilMenu,
+  cilZoomIn,
+  cilSortNumericDown
 } from '@coreui/icons'
 
 export const icons = Object.assign({}, {
+  euro2021,
   sygnet,
   logo,
   logoNegative,
   logoBg,
   femaleImg,
+  flagTie,
   flagTbd,
   flagAu,
   flagBe,
@@ -281,7 +297,19 @@ export const icons = Object.assign({}, {
   cilUserUnfollow,
   cilX,
   cilXCircle,
-  cilWarning
+  cilWarning,
+  cilGroup,
+  cilSoccer,
+  cilSync,
+  cilCalendarCheck,
+  cilBolt,
+  cilBlind,
+  cilAlarm,
+  cilThumbDown,
+  cilMoodVeryGood,
+  cilMenu,
+  cilZoomIn,
+  cilSortNumericDown
 },
   {
     cibSkype,

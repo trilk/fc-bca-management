@@ -1,4 +1,4 @@
-// import _ from 'lodash'
+import { toLower } from 'lodash'
 import * as firebase from 'src/firebase'
 import { COLLECTION } from 'src/utils/_constants'
 
@@ -51,7 +51,26 @@ class EventService {
         }
     }
 
-    getUsersBetting = async (eventId, group, catalog) => {
+    getTeamsByEvent = async (eventId) => {
+        const teamCollection = toLower(eventId) + COLLECTION.TEAM
+        const teamsRef = await firebase.db.collection(teamCollection)
+            .where('name', '!=', 'TBD').get();
+
+        return await Promise.all(
+            teamsRef.docs.map((team) => {
+                return { id: team.id, name: team.data().name, flagCode: team.data().flagCode }
+            })
+        )
+    }
+
+    getEventSummary = async (eventId) => {
+        const sumRef = await firebase.db.collection(COLLECTION.EVENT_SUMMARY).doc(eventId).get()
+
+        if (sumRef.exists) {
+            return sumRef.data()
+        }
+
+        return null;
     }
 
 }
