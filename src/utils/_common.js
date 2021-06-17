@@ -255,7 +255,7 @@ export const getMatchStatusForAdmin = (match) => {
 }
 
 export const getWinnerBettingStatus = (selectedTeam, userName) => {
-    const deadline = moment('2021-06-20 15:00')
+    const deadline = moment('2021-06-17 15:00')
     const now = moment()
     const diff = deadline.diff(now, 'minutes')
 

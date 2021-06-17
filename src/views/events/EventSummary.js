@@ -1,20 +1,21 @@
-import './event.summary.scss'
+import './event.scss'
 import React, { useState, useEffect } from 'react'
 import {
     CDataTable,
-    CToast,
-    CToastBody,
-    CToastHeader,
+    CTabs,
+    CNav,
+    CNavItem,
     CCol,
     CRow,
-    CModal
+    CNavLink
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import * as fbDb from 'src/services/index'
 import { isEmpty, find, toUpper } from 'lodash'
 import { useMediaQuery } from 'react-responsive'
-import { MODAL_RESPONSE_TYPE } from 'src/utils/_constants'
+import { SET_LOGO } from 'src/actions/types'
 
 const EventSummary = (props) => {
     console.log(props)
@@ -23,9 +24,11 @@ const EventSummary = (props) => {
     });
     const eventId = toUpper(props.eventId || props.match.params.id)
     const dispatch = useDispatch()
+    const history = useHistory()
     const sysUser = useSelector(state => state.auth.user);
     const event = useSelector(state => state.auth.event);
     const evtTeams = useSelector(state => state.event.teams);
+    const storedUsers = useSelector(state => state.auth.users);
     const [userPoints, setUserPoints] = useState([]);
     const [selectRound, setSelectRound] = useState(props.round || event.round);
 
@@ -38,23 +41,30 @@ const EventSummary = (props) => {
         { key: 'missed', label: largeScreen ? 'Bỏ qua' : 'M', _classes: 'text-center d-none d-sm-table-cell' },
         { key: 'percent', label: '%', _classes: 'text-center' },
         { key: 'point', label: largeScreen ? 'Điểm' : 'Pts', _classes: 'text-center' },
-
     ]
 
     const onClickUserItem = (user) => {
-
+        history.push(`/event-user/${user.id}`)
     }
 
     useEffect(async () => {
-        if (userPoints.length == 0 && evtTeams.length > 0) {
-            let userPts = await fbDb.BettingService.getUserBettingResults(sysUser.group, eventId, selectRound)
+
+        if (userPoints.length == 0 && evtTeams.length > 0 && storedUsers.length > 0) {
+            dispatch({
+                type: SET_LOGO,
+                payload: {
+                    icon: 'logo',
+                    img: ''
+                }
+            })
+
+            let userPts = await fbDb.BettingService.getUserBettingResults(sysUser.group, eventId, 0)
             const eventSummary = await fbDb.EventService.getEventSummary(eventId)
 
-            console.log(userPts)
             userPts = userPts.map((user) => {
                 var favTeam = {}
                 var newUser = null
-                var initName = user.name.split(" ").map((n) => n[0]).join(".");
+                var userInfo = find(storedUsers, ['id', user.id]);
                 if (!isEmpty(eventSummary.users[user.id] && eventSummary.users[user.id].betTeam)) {
                     favTeam = find(evtTeams, ['id', eventSummary.users[user.id].betTeam])
                 }
@@ -63,9 +73,9 @@ const EventSummary = (props) => {
                 }
 
                 if (user.id == sysUser.id) {
-                    newUser = { ...user, initName: initName, favTeam: favTeam || {}, _classes: 'my-position' }
+                    newUser = { ...user, ...userInfo, favTeam: favTeam || {}, _classes: 'my-position' }
                 } else {
-                    newUser = { ...user, initName: initName, favTeam: favTeam || {} }
+                    newUser = { ...user, ...userInfo, favTeam: favTeam || {} }
                 }
                 return newUser;
             })
@@ -81,7 +91,20 @@ const EventSummary = (props) => {
 
     return (
         <>
-            <CRow className="user-point">
+            {/* <CRow className="user-point-header">
+                <CCol md="3">
+                    <span className="title">BẢNG XẾP HẠNG</span>
+                </CCol>
+                <CCol>
+                    <CNav className="justify-content-end">
+                        <CNavLink active>Active</CNavLink>
+                        <CNavLink>Link</CNavLink>
+                        <CNavLink>Link</CNavLink>
+                        <CNavLink>Disabled</CNavLink>
+                    </CNav>
+                </CCol>
+            </CRow> */}
+            <CRow className="event-data">
                 <CCol>
                     <CDataTable
                         header={true}
@@ -133,7 +156,7 @@ const EventSummary = (props) => {
                             'percent':
                                 (item) => (
                                     <td className="text-center align-middle">
-                                        {item.result.percent * 100}%
+                                        {Math.round(item.result.percent * 100)}%
                                     </td>
                                 ),
                             'point':

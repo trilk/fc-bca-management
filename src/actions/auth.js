@@ -10,11 +10,15 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
-  CLEAR_MESSAGE
+  CLEAR_MESSAGE,
+  SET_EVENT
 } from "./types";
 import { GROUP, USER_STATUS } from './../utils/_constants'
 import * as firebase from './../firebase'
 
+export const setHeaderLogo = (logoName) => (dispatch) => {
+  dispatch({})
+}
 // Register User
 export const registerUser = (userData) => (dispatch) => {
   return AuthService.register(userData).then(
@@ -100,7 +104,9 @@ export const logout = () => async (dispatch) => {
 };
 
 export const setSystemUser = (group, eventId, authedUser) => async (dispatch) => {
-  let userInfo = null;
+  let userInfo = null, storeUsers = [];
+  let event = { id: eventId, round: 0 }
+
   if (authedUser.isAnonymous) {
     userInfo = {
       id: authedUser.uid,
@@ -141,9 +147,24 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
     } else {
       const eventRef = await firebase.db.doc(`${COLLECTION.EVENT_SUMMARY}/${eventId}`).get();
       const favTeam = eventRef.data().users[user.id];
+      event.round = eventRef.data().currentRound
 
       userData = favTeam ? { ...user.data(), favTeam: favTeam.betTeam } : user.data();
     }
+
+    const sysUsers = await firebase.db.collection('users')
+      .where('status', '!=', USER_STATUS.INACTIVE)
+      .where('role', '==', 'user')
+      .get();
+    storeUsers = sysUsers.docs.map((doc) => {
+      return {
+        id: doc.id,
+        name: doc.data().name,
+        initName: doc.data().name.split(" ").map((n) => n[0]).join("."),
+        avatar: doc.data().photoUrl
+      };
+    })
+
     userInfo = {
       id: authedUser.uid,
       name: userData.name,
@@ -154,10 +175,14 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
     }
   }
 
+  dispatch({
+    type: SET_EVENT,
+    payload: event
+  });
 
   dispatch({
     type: LOGIN_SUCCESS,
-    payload: { user: userInfo, users: [] }
+    payload: { user: userInfo, users: storeUsers }
   });
 
   dispatch({

@@ -9,7 +9,9 @@ import {
   CHANNELS,
   LOADING,
   AUTHENTICATED,
-  FAVOR_TEAM
+  FAVOR_TEAM,
+  SET_LOGO,
+  SET_EVENT
 } from "../actions/types";
 
 const initialState = {
@@ -25,7 +27,7 @@ const initialState = {
   loading: false,
   event: {
     id: 'EURO2021',
-    round: 1
+    round: 0
   }
 };
 
@@ -91,6 +93,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: { ...state.user, favTeam: action.payload }
+      };
+    case SET_LOGO:
+      return {
+        ...state,
+        logo: action.payload
+      };
+    case SET_EVENT:
+      return {
+        ...state,
+        event: action.payload
       };
     default:
       return state;

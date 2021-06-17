@@ -1,10 +1,17 @@
 import * as fbDb from 'src/services/index'
-import { SHOW_MODAL } from './types';
+import { SHOW_MODAL, SHOW_ADMIN_MODAL } from './types';
 import _ from 'lodash'
 
 export const showTeamSelection = (isShow) => (dispatch) => {
     dispatch({
         type: SHOW_MODAL,
+        payload: isShow,
+    });
+}
+
+export const showAdminModal = (isShow) => (dispatch) => {
+    dispatch({
+        type: SHOW_ADMIN_MODAL,
         payload: isShow,
     });
 }

@@ -36,7 +36,6 @@ class BettingService {
                 matches: {}
             }
             batch.set(ubRef, data);
-
         })
 
         // Commit the batch
@@ -94,9 +93,12 @@ class BettingService {
         const tableResult = await Promise.all(
             betData.map(async (ub) => {
                 let result = {};
-                const user = await firebase.db.collection(COLLECTION.USER).doc(ub.id).get();
-                ub['name'] = user.data().name
-                ub['avatar'] = user.data().photoUrl
+                // const user = await firebase.db.collection(COLLECTION.USER).doc(ub.id).get();
+                // if (!user.exists) {
+                //     console.log(user)
+                // }
+                // ub['name'] = user.data().name
+                // ub['avatar'] = user.data().photoUrl
 
                 await _.each(ub.rounds, (r, index) => {
                     result.corrected = (result.corrected || 0) + r.corrected;
@@ -143,8 +145,6 @@ class BettingService {
                 .get();
         }
 
-
-
         await ubRef.docs.map((ub) => {
             const bGame = ub.data().matches[gameId];
             if (_.isEmpty(bGame) || bGame.bet === 0) {
@@ -159,7 +159,6 @@ class BettingService {
             if (userId === ub.data().userId) {
                 myBet = _.isEmpty(bGame) ? {
                     'bet': 0,
-                    'betTime': null,
                     'result': -1
                 } : bGame
             }
@@ -176,16 +175,16 @@ class BettingService {
 
     //Get an user's bet by game ids
     getUserBetByGameIds = async (betData, gameIds) => {
-        const userRef = await firebase.db.collection(COLLECTION.USER).doc(betData.userId).get();
-        const userBet = { id: betData.userId, name: userRef.data().name, avatar: userRef.data().photoUrl }
+        // const userRef = await firebase.db.collection(COLLECTION.USER).doc(betData.userId).get();
+        // const initName = userRef.data().name.split(" ").map((n) => n[0]).join(".");
+        const userBet = { id: betData.userId }
 
         await gameIds.map((gameId) => {
-            console.log(betData);
+            // console.log(betData);
             userBet[gameId] = !_.isEmpty(betData.matches[gameId]) ?
                 betData.matches[gameId] :
                 {
                     'bet': 0,
-                    'betTime': null,
                     'result': -1
                 };
             return null
@@ -205,12 +204,15 @@ class BettingService {
         if (_.isEmpty(gameIds)) {
             emptyGameIds = true;
             gameIds = [];
-            query = gamesRef.where('status', 'in', [GAME_STATUS.FINISHED, GAME_STATUS.BETTING]).orderBy('seq', 'asc')
+            query = gamesRef.where('status', '==', GAME_STATUS.BETTING).orderBy('seq', 'asc')
         } else {
             query = gamesRef.where(firebase.firestore.FieldPath.documentId(), 'in', gameIds).orderBy('seq', 'asc')
         }
 
         const todayGames = await query.get();
+        if (todayGames.docs.length === 0) {
+            return null;
+        }
         const games = await todayGames.docs.map(game => {
             const startTime = moment(game.data().startTime);
             const betTime = moment().add(-5, 'minutes')
@@ -229,16 +231,17 @@ class BettingService {
             const userBet = await this.getUserBetByGameIds(ubRef.data(), gameIds)
             usersBet.push(userBet)
         } else {
-            const all_user = null
+            let all_user = null
             if (group !== GROUP.ALL) {
                 all_user = await firebase.db.collection(ubCollection)
                     .where('group', 'in', [GROUP.ALL, group])
-                    .where('round', '==', currentRound).get();
+                    .where('round', '==', currentRound)
+                    .orderBy('betSum.corrected', 'desc')
+                    .get();
             } else {
                 all_user = await firebase.db.collection(ubCollection)
-                    .where('round', '==', currentRound).get();
+                    .where('round', '==', currentRound).orderBy('betSum.corrected', 'desc').get();
             }
-
 
             usersBet = await Promise.all(
                 all_user.docs.map(async (ub) => {
@@ -247,53 +250,80 @@ class BettingService {
             )
         }
 
-        return { games: games, users: usersBet }
+        return { games: games, users: _.orderBy(usersBet, [], []) }
     }
 
     //Get all game already bet by user Id
     getGamesBetByUser = async (eventId, currentRound, userId) => {
+        const ratioPoint = {
+            r1: 1,
+            r2: 1,
+            r3: 1,
+            r4: 1.5,
+            r5: 2
+        }
         let userBetResult = {};
         const ubCollection = _.toLower(eventId) + COLLECTION.USER_BET;
         const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
 
         await Promise.all(
             _.map(Array(currentRound), async (__, i) => {
-                const round = i + 1;
-                const docId = `R${round}_${userId}`
+                const roundNo = i + 1;
+                const docId = `R${roundNo}_${userId}`
                 const ubRef = await firebase.db.collection(ubCollection).doc(docId).get();
+                const betSum = {
+                    ...ubRef.data().betSum,
+                    missed: ubRef.data().betSum.total - (ubRef.data().betSum.corrected + ubRef.data().betSum.wrong),
+                    point: ubRef.data().betSum.corrected * ratioPoint[`r${roundNo}`]
+                }
 
                 if (_.isEmpty(userBetResult)) {
                     userBetResult = {
-                        betSum: ubRef.data().betSum,
-                        matches: []
+                        betSum: betSum,
+                        rounds: []
                     }
                 } else {
-                    userBetResult.betSum.corrected += ubRef.data().betSum.corrected
-                    userBetResult.betSum.wrong += ubRef.data().betSum.wrong
-                    userBetResult.betSum.total += ubRef.data().betSum.total
+                    userBetResult.betSum.corrected += betSum.corrected
+                    userBetResult.betSum.wrong += betSum.wrong
+                    userBetResult.betSum.total += betSum.total
+                    userBetResult.betSum.point += betSum.corrected * ratioPoint[`r${roundNo}`]
                 }
 
-                _.forIn(ubRef.data().matches, async (value, key) => {
-                    const gameRef = await firebase.db.collection(gameCollection).doc(key).get();
+                let roundObj = {
+                    betSum: betSum,
+                    matches: []
+                }
 
-                    userBetResult.matches.push({
-                        id: key,
-                        seq: gameRef.data().seq,
-                        firstTeam: gameRef.data().firstTeam,
-                        secondTeam: gameRef.data().secondTeam,
-                        goals: gameRef.data().goals,
-                        ...value
-                    });
-                });
-                return round;
+                let matches = []
+                await Promise.all(
+                    Object.keys(ubRef.data().matches).map(async (key, index) => {
+                        const gameRef = await firebase.db.collection(gameCollection).doc(key).get();
+
+                        matches.push({
+                            id: key,
+                            seq: gameRef.data().seq,
+                            firstTeam: gameRef.data().firstTeam,
+                            secondTeam: gameRef.data().secondTeam,
+                            goals: gameRef.data().goals,
+                            bet: ubRef.data().matches[key].bet,
+                            result: ubRef.data().matches[key].result
+                        });
+
+                    })
+                )
+                roundObj.matches = _.sortBy(matches, ['seq'])
+                userBetResult.rounds.push(roundObj)
+                return roundNo;
             })
         )
         if (!_.isEmpty(userBetResult)) {
             const userRef = await firebase.db.collection(COLLECTION.USER).doc(userId).get();
             userBetResult['name'] = userRef.data().name
             userBetResult['slogan'] = userRef.data().slogan
+            userBetResult['avatar'] = userRef.data().photoUrl
+            userBetResult.betSum['missed'] = userBetResult.betSum.total - (userBetResult.betSum.corrected + userBetResult.betSum.wrong)
 
-            userBetResult.matches = _.sortBy(userBetResult.matches, ['seq']);
+            // userBetResult.matches = _.sortBy(userBetResult.matches, ['seq']);
         }
 
         return userBetResult;
@@ -320,7 +350,6 @@ class BettingService {
                         if (betTime.isBefore(startTime)) {
                             const mBet = {
                                 bet: data.betValue,
-                                betTime: new Date(),
                                 result: -1
                             }
                             Object.assign(betData, { [`matches.${data.gameId}`]: mBet });
@@ -394,7 +423,7 @@ class BettingService {
                 goals['result'] = result;
 
                 transaction.update(gameRef, { goals: goals, status: GAME_STATUS.FINISHED });
-                return { eventId: eventId, round: game.data().round, gameId: game.id, result: result };
+                return { eventId: eventId, round: game.data().round, gameId: game.id, result: result, total: game.data().seq };
             });
         }).then((data) => {
             //Update result to user bet collection
@@ -407,6 +436,26 @@ class BettingService {
 
     //Private func: Update bet data to DB
     setUserBetResult = async (data) => {
+        let startIdx = 0
+        switch (data.round) {
+            case 1:
+                startIdx = -1
+                break;
+            case 2:
+                startIdx = 12
+                break;
+            case 3:
+                startIdx = 24
+                break;
+            case 4:
+                startIdx = 36
+                break;
+            case 5:
+                startIdx = 44
+                break;
+            default:
+                break;
+        }
         const ubCollection = _.toLower(data.eventId) + COLLECTION.USER_BET;
         const ubRef = await firebase.db.collection(ubCollection).where('round', '==', data.round).get();
 
@@ -415,11 +464,12 @@ class BettingService {
                 let betValues = !_.isEmpty(ub.data().matches[data.gameId]) ? ub.data().matches[data.gameId] :
                     {
                         bet: 0,
-                        betTime: null,
                         result: -1,
                     };
 
-                betValues.result = betValues.bet === data.result ? 1 : 0;
+                if (betValues.bet !== 0) {
+                    betValues.result = betValues.bet === data.result ? 1 : 0;
+                }
 
                 let corrected = 0, wrong = 0;
                 _.forIn(ub.data().matches, function (value, key) {
@@ -431,7 +481,7 @@ class BettingService {
                 let betSum = ub.data().betSum;
                 betSum.corrected = (betValues.result === 1) ? corrected + 1 : corrected;
                 betSum.wrong = (betValues.result === 0) ? wrong + 1 : wrong;
-                betSum.total = betSum.corrected + betSum.wrong + (betValues.result === -1 ? 1 : 0)
+                betSum.total = data.total - startIdx;
 
                 return {
                     id: ub.id,

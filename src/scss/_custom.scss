@@ -3,10 +3,38 @@
 .c-main {
   background-color: #555555e0;
 }
-.header-logo:hover {
-  cursor: pointer;
-  transition: scale(1.5);
+.c-subheader {
+  .event-title {
+    font-size: 2rem;
+    font-family: 'Roboto Slab', cursive; 
+    color: #048cac;
+    position: relative;
+    top: -26px;
+    background-color: white;
+    padding:0 1.5rem;
+    text-shadow: 2px 2px 4px;
+  }
+  @include media-breakpoint-down(xs) { 
+    .event-title {
+      font-size: 1.4rem;
+      top: -15px;
+      padding:0 0.5rem;
+    }  
+  }
 }
+
+.header-logo{
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  width: 96px;
+  height: 96px;
+  &:hover{
+    transform: scale(1.05);
+  }
+}
+
+
+
 .input-group.customize {
     input {
         height: 38px;

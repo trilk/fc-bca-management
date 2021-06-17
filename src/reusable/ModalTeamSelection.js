@@ -43,6 +43,7 @@ const ModalTeamSelection = props => {
     useEffect(() => {
         if (_.isEmpty(evtTeams)) {
             fbDb.EventService.getTeamsByEvent(eventId).then((response) => {
+                console.warn('Get teams')
                 setEventTeams(response);
                 dispatch({
                     type: EVENT_TEAMS,

@@ -61,17 +61,17 @@ class GameService {
             var firstTeam = _.find(teams, ['id', game.data().firstTeam]);
             var secondTeam = _.find(teams, ['id', game.data().secondTeam]);
             var match = { id: game.id, firstTeam, secondTeam, ..._.omit(game.data(), ['table', 'firstTeam', 'secondTeam']) };
-            if (index < 36) {
+            if (match.seq <= 36) {
                 match['match'] = game.data().table
                 rounds.grp.push(match)
-            } else if (index < 44) {
-                match['match'] = `R${index - 35}`
+            } else if (match.seq <= 44) {
+                match['match'] = `R${match.seq - 36}`
                 rounds.ro16.push(match)
-            } else if (index < 48) {
-                match['match'] = `Q${index - 43}`
+            } else if (match.seq <= 48) {
+                match['match'] = `Q${match.seq - 44}`
                 rounds.qf.push(match)
-            } else if (index < 50) {
-                match['match'] = `SF${index - 47}`
+            } else if (match.seq <= 50) {
+                match['match'] = `SF${match.seq - 48}`
                 rounds.sf.push(match)
             } else {
                 match['match'] = 'F'
@@ -124,7 +124,6 @@ class GameService {
                 user_bet.data().matches[gameId] :
                 {
                     'bet': 0,
-                    'betTime': null,
                     'result': -1
                 };
 
@@ -147,7 +146,6 @@ class GameService {
 
                 const startTime = moment(game.data().startTime);
                 const betTime = moment().add(-5, 'minutes')
-                console.log(betTime)
 
                 const canBet = betTime.isBefore(startTime);
                 return { ...game.data(), id: game.id, canBet: canBet, myBet: myBet }
@@ -181,7 +179,7 @@ class GameService {
 
         const gamesRef = await firebase.db.collection(gameCollection)
             .where('table', '==', table)
-            .where('status', '!=', GAME_STATUS.NOT_STARTED).get();
+            .where('status', '==', GAME_STATUS.FINISHED).get();
 
         let playedTeams = []
         await gamesRef.docs.map(game => {

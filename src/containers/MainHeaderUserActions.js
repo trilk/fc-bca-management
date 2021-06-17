@@ -9,7 +9,7 @@ import {
   CDropdownDivider
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { showTeamSelection, startRound } from '../actions/event'
+import { showTeamSelection, showAdminModal } from '../actions/event'
 
 import ModalTeamSelection from 'src/reusable/ModalTeamSelection'
 
@@ -25,8 +25,8 @@ const MainHeaderUserActions = () => {
     dispatch(showTeamSelection(true))
   }
 
-  const startBettingRound = () => {
-    dispatch(startRound(event))
+  const onOpenAdminModal = () => {
+    dispatch(showAdminModal(true))
   }
 
   return (
@@ -50,13 +50,13 @@ const MainHeaderUserActions = () => {
         {!sysUser.isAdmin &&
           <>
             <CDropdownItem onClick={onOpenModal}><CIcon name="cil-star" className="mr-2 text-success" /> Bói nhà vô địch</CDropdownItem>
-            <CDropdownItem disabled><CIcon name="cil-user" className="mr-2 text-danger" /> Dự đoán của tao</CDropdownItem>
+            <CDropdownItem to={`/event-user/${sysUser.id}`}><CIcon name="cil-user" className="mr-2 text-danger" /> Dự đoán của tao</CDropdownItem>
           </>}
         {sysUser.isAdmin &&
-          <CDropdownItem onClick={startBettingRound}><CIcon name="cil-star" className="mr-2 text-success" /> Khởi động vòng đấu</CDropdownItem>
+          <CDropdownItem onClick={onOpenAdminModal} ><CIcon name="cil-star" className="mr-2 text-success" /> Khởi động vòng đấu</CDropdownItem>
         }
         <CDropdownDivider />
-        <CDropdownItem disabled><CIcon name="cil-zoom-in" className="mr-2 text-info" /> Soi kèo hôm nay</CDropdownItem>
+        <CDropdownItem to={`/events/today`}><CIcon name="cil-zoom-in" className="mr-2 text-info" /> Soi kèo hôm nay</CDropdownItem>
         <CDropdownItem to={`/events/${event.id}`}><CIcon name="cil-sort-numeric-down" className="mr-2 text-primary" /> Bảng xếp hạng</CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

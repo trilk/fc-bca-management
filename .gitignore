@@ -29,3 +29,7 @@ package-lock.json
 .env
 .firebase/hosting.YnVpbGQ.cache
 .env
+.firebaserc
+firestore-debug.log
+firestore.indexes.json
+firestore.rules

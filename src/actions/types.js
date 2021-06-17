@@ -14,7 +14,10 @@ export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
 
 export const CHANNELS = "CHANNELS";
 
+export const SHOW_ADMIN_MODAL = "SHOW_ADMIN_MODAL"
 export const SHOW_MODAL = "SHOW_MODAL"
 export const FAVOR_TEAM = "FAVOR_TEAM"
 export const EVENT_TEAMS = "EVENT_TEAMS"
+export const SET_LOGO = "SET_LOGO"
+export const SET_EVENT = "SET_EVENT"
 

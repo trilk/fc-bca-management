@@ -54,7 +54,7 @@ class EventService {
     getTeamsByEvent = async (eventId) => {
         const teamCollection = toLower(eventId) + COLLECTION.TEAM
         const teamsRef = await firebase.db.collection(teamCollection)
-            .where('name', '!=', 'TBD').get();
+            .where('group', '!=', '').orderBy('table', 'asc').get();
 
         return await Promise.all(
             teamsRef.docs.map((team) => {

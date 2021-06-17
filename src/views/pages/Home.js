@@ -15,7 +15,7 @@ import * as fbDb from 'src/services/index'
 import { isEmpty } from 'lodash'
 import { useMediaQuery } from 'react-responsive'
 import { MODAL_RESPONSE_TYPE } from 'src/utils/_constants'
-import { distanceTime } from 'src/utils/_common'
+import { SET_LOGO } from 'src/actions/types'
 
 const Home = () => {
     const largeScreen = useMediaQuery({
@@ -98,16 +98,23 @@ const Home = () => {
                 setTableData(response)
             })
         }
+        dispatch({
+            type: SET_LOGO,
+            payload: {
+                icon: 'euro2021',
+                img: ''
+            }
+        })
 
     }, [sysUser]);
 
     return (
         <>
             <CRow className="px-3">
-                <div className="headline w-100">
+                {/* <div className="headline w-100">
                     <div className="ribbon ribbon-top-left"><span>Euro 2021</span></div>
                     <div className="banner">ĐI TÌM THÁNH DỰ</div>
-                </div>
+                </div> */}
             </CRow>
             <CRow className={'mt-2'}>
 

@@ -32,7 +32,8 @@ import {
   flagDe,
   flagCz,
   flagCr,
-  flagVi
+  flagVi,
+  flagUae
 } from './flags'
 
 import {
@@ -203,7 +204,8 @@ export const icons = Object.assign({}, {
   flagDe,
   flagCz,
   flagCr,
-  flagVi
+  flagVi,
+  flagUae
 }, {
   cilAccountLogout,
   cilAlignCenter,

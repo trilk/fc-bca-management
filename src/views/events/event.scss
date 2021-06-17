@@ -1,0 +1,75 @@
+.event-data {
+    font-family: 'Roboto Slab', cursive;
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 7px;
+        thead th {
+            text-transform: uppercase;
+            background-color: rgba(50, 228, 255,0.8);
+            border-bottom: none;
+            border-top: #2190a0cc;
+        }
+        td {
+            background-color: #fff;
+            padding: 0.55rem;
+        }
+        tr.my-position td{
+            background-color: #a5cbff;
+        }
+        // tbody tr:nth-child(-n + 3) td{
+        //     background-color: #faffc4;
+        //     font-weight: bold;
+        // }
+        td.draw svg{
+            color:#888;
+        }
+    }
+    .bet-round {
+        .table {
+            border-collapse: inherit;
+            border-spacing: inherit;
+            thead th {
+                background-color: rgba(213, 249, 255,0.8);
+                color: #888;
+            }
+        }
+    }
+    
+}
+.event-data-header {
+    .title {
+        color: #fff;
+        border-bottom: 2px solid #fff;
+        span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        svg {
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+        &.mobile {
+            span {
+                font-size: 1.2rem;
+            }
+            svg {
+                width: 28;
+            }
+        }
+    }
+}
+
+.user-stat {
+    p {
+        margin-bottom: 0;
+    }
+    .name {
+        font-size: 1.5rem;
+        color: blue;
+    }
+    span {
+        font-size: 1.5rem;
+    }
+}
+
+ 
