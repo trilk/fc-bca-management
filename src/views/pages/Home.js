@@ -6,16 +6,21 @@ import {
     CToastHeader,
     CCol,
     CRow,
-    CModal
+    CLink,
+    CModal, CProgress, CProgressBar, CCard, CCardBody, CCardHeader
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TeamGroup, MatchGroup } from 'src/reusable/index'
 import ModalMatchInfo from 'src/reusable/ModalMatchInfo'
 import * as fbDb from 'src/services/index'
-import { isEmpty } from 'lodash'
+import { isEmpty, find, maxBy } from 'lodash'
 import { useMediaQuery } from 'react-responsive'
 import { MODAL_RESPONSE_TYPE } from 'src/utils/_constants'
-import { SET_LOGO } from 'src/actions/types'
+import { setEventProgress } from 'src/utils/_common'
+import { EVENT_TEAMS, SET_LOGO, SET_STAR } from 'src/actions/types'
+import { _ } from 'core-js'
+import EventSummary from '../events/EventSummary'
 
 const Home = () => {
     const largeScreen = useMediaQuery({
@@ -30,7 +35,7 @@ const Home = () => {
     const [showModal, setShowModal] = useState(false)
     const [modalData, setModalData] = useState({})
     const [modalColor, setModalColor] = useState('')
-    const [countdown, setCountDown] = useState(null)
+    const [progress, setProgress] = useState(0)
     const [toast, setToast] = useState({
         key: 0,
         show: false,
@@ -38,15 +43,69 @@ const Home = () => {
         message: 'Thiss is toast message'
     })
 
-
     const onShowMatchModal = (data) => {
         setModalData(data)
         setModalColor(data.myBet.color)
         setShowModal(true);
     }
 
+    const setStoredTeams = (teams) => {
+        const evtTeams = []
+        let storedTeams = localStorage.getItem('eventTeams') ? JSON.parse(localStorage.getItem('eventTeams')) : []
+        if (storedTeams.length === 0) {
+            teams.forEach(team => {
+                if (team.id !== 'TBD') {
+                    evtTeams.push({
+                        id: team.id,
+                        name: team.name,
+                        flagCode: team.flagCode
+                    })
+                }
+            });
+
+            localStorage.setItem('eventTeams', JSON.stringify(evtTeams))
+
+            dispatch({
+                type: EVENT_TEAMS,
+                payload: evtTeams
+            })
+        }
+    }
+
+    const getEventGames = (teams) => {
+        let storedGames = localStorage.getItem('eventGames') ? JSON.parse(localStorage.getItem('eventGames')) : []
+        let gameTimestamp = localStorage.getItem('gameTimestamp') || null
+        if (_.isEmpty(storedGames)) {
+            gameTimestamp = null;
+        }
+
+        fbDb.GameService.getEventGames(event.id, gameTimestamp).then((response) => {
+            //setGameData(response)
+            response.forEach((game) => {
+                let storedGame = find(storedGames, ['id', game.id])
+                if (storedGame) {
+                    Object.assign(storedGame, game)
+                } else {
+                    storedGames.push(game)
+                }
+            })
+            localStorage.setItem('eventGames', JSON.stringify(storedGames));
+            localStorage.setItem('gameTimestamp', new Date());
+
+            const fItem = maxBy(storedGames, (g) => {
+                return g.status === 'FINISHED' && g.seq
+            })
+            setProgress(Math.round(fItem.seq / 51 * 100))
+
+            fbDb.GameService.splitToGroup(storedGames, teams).then(response => {
+                setGameData(response)
+            })
+        })
+
+    }
+
     const onNotify = (response) => {
-        var color = response.status === 'OK' ? 'success' : 'danger'
+        var color = response.status === 'OK' ? 'toast-success' : 'toast-danger'
         setToast({
             key: toast.key + 1,
             show: true,
@@ -60,8 +119,14 @@ const Home = () => {
         if (!isEmpty(modalRes)) {
             switch (modalRes.type) {
                 case MODAL_RESPONSE_TYPE.BETTING:
-                    fbDb.BettingService.userBetGames(event.id, sysUser.id, event.round, modalRes.data).then(response => {
+                    fbDb.BettingService.userBetGames(event.id, sysUser.id, event.round, [modalRes.data]).then(response => {
                         onNotify(response)
+                        if (modalRes.data.changedStar || false) {
+                            dispatch({
+                                type: SET_STAR,
+                                payload: !sysUser.usedStar
+                            })
+                        }
                     });
 
                     break;
@@ -71,7 +136,7 @@ const Home = () => {
                     });
                     break;
                 case MODAL_RESPONSE_TYPE.SET_RESULT:
-                    fbDb.BettingService.updateGameResult(event.id, modalRes.gameId, modalRes.goals).then(response => {
+                    fbDb.AdminService.updateGameResult(event.id, modalRes.gameId, modalRes.goals).then(response => {
                         onNotify(response)
                     });
                     break;
@@ -90,14 +155,21 @@ const Home = () => {
         else {
             setAdminState(false);
         }
-        if (isEmpty(gameData) || isEmpty(tableData)) {
-            fbDb.GameService.getAllGames(event.id).then((response) => {
-                setGameData(response)
-            })
-            fbDb.GameService.getStandingTables(event.id).then((response) => {
-                setTableData(response)
+        if (isEmpty(tableData)) {
+            fbDb.EventService.getAllTeams(event.id).then(teamsRes => {
+                setStoredTeams(teamsRes)
+                getEventGames(teamsRes)
+
+                fbDb.GameService.getStandingAllTables(teamsRes).then((groupRes) => {
+                    setTableData(groupRes)
+                })
+
+                // fbDb.GameService.getAllGames(event.id, teamsRes).then((response) => {
+                //     setGameData(response)
+                // })
             })
         }
+
         dispatch({
             type: SET_LOGO,
             payload: {
@@ -115,16 +187,43 @@ const Home = () => {
                     <div className="ribbon ribbon-top-left"><span>Euro 2021</span></div>
                     <div className="banner">ĐI TÌM THÁNH DỰ</div>
                 </div> */}
+                <CCol className="px-0">
+                    {progress !== 0 &&
+                        <CProgress size="lg" style={{ height: '1.5rem', fontSize: '0.8rem' }}>
+                            <CProgressBar striped color="success" value={progress}>
+                                Loading {progress}%
+                            </CProgressBar>
+                        </CProgress>}
+                </CCol>
             </CRow>
             <CRow className={'mt-2'}>
 
-                <CCol md="5" className="pr-2">
-                    {
-                        Object.keys(tableData).map((key, index) =>
-                            <TeamGroup key={key + index} teams={tableData[key]} table={key} admin={isAdmin} isMobile={!largeScreen} />
-                        )
-                    }
-                </CCol>
+                {event.round < 4 &&
+                    <CCol md="5" className="pr-2">
+                        {
+                            Object.keys(tableData).map((key, index) =>
+                                <TeamGroup key={key + index} teams={tableData[key]} table={key} admin={isAdmin} isMobile={!largeScreen} />
+                            )
+                        }
+                    </CCol>}
+                {event.round > 3 &&
+                    <CCol md="5" className="pr-2">
+                        <CCard className="team-group">
+                            <CCardHeader>{'Top 10 thánh dự'}
+                                <div className="card-header-actions">
+
+                                    <CLink className="" to={`/events/${event.id}`}>
+                                        <small>{'Chi tiết'}</small><CIcon className="ml-2" size="lg" color="black" name={'cil-diamond'} />
+                                    </CLink>
+                                </div>
+                            </CCardHeader>
+                            <CCardBody>
+                                <EventSummary eventId={event.id} />
+                            </CCardBody>
+                        </CCard>
+                        <div></div>
+                        {/* <EventSummary /> */}
+                    </CCol>}
                 <CCol xl="7" className="pl-2">
                     {
                         Object.keys(gameData).map((key, index) =>
@@ -147,7 +246,7 @@ const Home = () => {
                         key={toast.key}
                         show={toast.show}
                         autohide={3000}
-                        fade={true} >
+                        fade={true} className={toast.color}>
                         <CToastHeader closeButton={true}>
                             {toast.title}
                         </CToastHeader>

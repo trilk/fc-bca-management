@@ -54,11 +54,23 @@ class EventService {
     getTeamsByEvent = async (eventId) => {
         const teamCollection = toLower(eventId) + COLLECTION.TEAM
         const teamsRef = await firebase.db.collection(teamCollection)
-            .where('group', '!=', '').orderBy('table', 'asc').get();
+            .where('table', '!=', '').orderBy('table', 'asc').get();
 
         return await Promise.all(
             teamsRef.docs.map((team) => {
                 return { id: team.id, name: team.data().name, flagCode: team.data().flagCode }
+            })
+        )
+    }
+
+    getAllTeams = async (eventId) => {
+        const teamCollection = toLower(eventId) + COLLECTION.TEAM
+        const teamsRef = await firebase.db.collection(teamCollection)
+            .orderBy('table', 'asc').get();
+
+        return await Promise.all(
+            teamsRef.docs.map((team) => {
+                return { id: team.id, ...team.data() }
             })
         )
     }

@@ -3,15 +3,11 @@ import './team-selection.scss'
 import React, { useState, useEffect } from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-    CModalHeader, CModal, CModalBody, CModalFooter, CButton, CRow, CCol, CInput, CFormGroup, CLabel, CSelect, CInputRadio, CAlert
+    CModalHeader, CModal, CModalBody, CModalFooter, CButton, CRow, CCol, CFormGroup, CLabel, CSelect, CInputRadio, CAlert
 } from '@coreui/react'
 import _ from 'lodash'
-import { MODAL_RESPONSE_TYPE, GAME_STATUS } from 'src/utils/_constants'
 import { useSelector, useDispatch } from 'react-redux'
-import { showAdminModal } from 'src/actions/event'
-import * as fbDb from 'src/services/index'
-import { getWinnerBettingStatus } from 'src/utils/_common'
-import { EVENT_TEAMS, FAVOR_TEAM } from 'src/actions/types'
+import { showAdminModal, calculateUserPointByRound, startRound } from 'src/actions/event'
 
 const ModalAdminTask = props => {
     const dispatch = useDispatch()
@@ -27,10 +23,15 @@ const ModalAdminTask = props => {
     }
     const onSubmit = (confirmed) => {
         if (confirmed) {
-            console.log(selectedRound)
-            console.log(feature)
+            if (feature === 1) {
+                dispatch(calculateUserPointByRound(event.id, parseInt(selectedRound)))
+            }
+            if (feature === 2) {
+                dispatch(startRound(event.id, parseInt(selectedRound)))
+            }
+        } else {
+            dispatch(showAdminModal(false))
         }
-        dispatch(showAdminModal(false))
     }
 
     useEffect(() => {
@@ -41,14 +42,14 @@ const ModalAdminTask = props => {
         <CModal className=""
             show={show}
             onClose={() => onSubmit(false)}
-            size="md" color="info" className="ts-modal">
+            color="info" className="ts-modal">
             <CModalHeader closeButton>
                 Can nhac khi thuc hien
             </CModalHeader>
             <CModalBody>
                 <CRow>
                     <CCol md="4">
-                        <CLabel>Chon chuc nang</CLabel>
+                        <CLabel>Chọn chức năng</CLabel>
                     </CCol>
                     <CCol>
                         <CFormGroup variant="custom-radio" inline>
@@ -82,7 +83,7 @@ const ModalAdminTask = props => {
                 </CRow>
             </CModalBody>
             <CModalFooter className="d-flex justify-content-center">
-                <CButton color="primary" onClick={() => onSubmit(true)}>
+                <CButton color="primary" onClick={() => onSubmit(true)} disabled={selectedRound === 0}>
                     <CIcon className="mr-2" name="cil-check" />
                     {'Thực hiện'}
                 </CButton>

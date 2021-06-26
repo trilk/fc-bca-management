@@ -10,10 +10,17 @@
         padding: 0;
         table.table {
             margin-bottom: 0;
+            tr.my-position {
+                background-color: #eff6ff;
+                td{
+                    font-weight: bold;
+                }
+            }
             th {
                 font-weight: normal;
                 color: lighten($color:#3c4b64, $amount: 10%);
                 border: none;
+                text-transform: uppercase;
             }
             td {
                 padding: 0.5rem;
@@ -127,11 +134,18 @@
                 opacity: 0.8;
             }
         }
-        .mi-aet {
+        svg.hope-star {
             cursor: pointer;
+            top: -3rem;
+            color: white;
+            &:hover, &.selected {
+                color: yellow;
+            }
+        }
+        .mi-aet {
             svg {
-                color: #909090;
-                
+                cursor: pointer;
+                color: #909090;                
             }
             &:hover, &.checked{
                 svg { 

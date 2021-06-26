@@ -25,6 +25,18 @@
         }
     }
     .bet-round {
+        &.card {
+            margin: 0;
+            &:last-child {
+                margin-bottom: 2rem;
+            }
+        }
+        header {
+            cursor: pointer;
+            &.finished {
+                background-color: #efefef;
+            }
+        }
         .table {
             border-collapse: inherit;
             border-spacing: inherit;
@@ -57,6 +69,31 @@
             }
         }
     }
+}
+
+.user-point-header {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    .title {
+        font-size: 1.5rem;
+    }
+    .nav-link {
+        color: #ddd;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        &.active {
+            background: #fff;
+            color: #555;
+            font-weight: bold;
+        }
+        &:hover {
+            background: #ccc;
+            color: #555;
+        }
+    }
+
 }
 
 .user-stat {

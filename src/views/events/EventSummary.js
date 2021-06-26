@@ -13,7 +13,7 @@ import CIcon from '@coreui/icons-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import * as fbDb from 'src/services/index'
-import { isEmpty, find, toUpper } from 'lodash'
+import { isEmpty, take, toUpper, orderBy } from 'lodash'
 import { useMediaQuery } from 'react-responsive'
 import { SET_LOGO } from 'src/actions/types'
 
@@ -30,60 +30,55 @@ const EventSummary = (props) => {
     const evtTeams = useSelector(state => state.event.teams);
     const storedUsers = useSelector(state => state.auth.users);
     const [userPoints, setUserPoints] = useState([]);
-    const [selectRound, setSelectRound] = useState(props.round || event.round);
+    const [selectRound, setSelectRound] = useState(-1);
+    const panelDisplay = !isEmpty(props.eventId)
 
     const fields = [
-        { key: 'pos', label: '', _classes: 'text-center' },
+        { key: 'pos', label: '#', _classes: 'text-center' },
         { key: 'name', label: 'Tên', _classes: 'align-middle' },
-        { key: 'winner', label: largeScreen ? 'Vô địch' : 'VĐ', _classes: 'text-center' },
-        { key: 'corrected', label: largeScreen ? 'Đúng' : 'Đ', _classes: 'align-middle text-center' },
-        { key: 'wrong', label: largeScreen ? 'Sai' : 'S', _classes: 'text-center' },
-        { key: 'missed', label: largeScreen ? 'Bỏ qua' : 'M', _classes: 'text-center d-none d-sm-table-cell' },
-        { key: 'percent', label: '%', _classes: 'text-center' },
-        { key: 'point', label: largeScreen ? 'Điểm' : 'Pts', _classes: 'text-center' },
+        { key: 'winner', label: largeScreen ? 'Vô địch' : 'VĐ', _classes: `text-center ${panelDisplay ? 'd-none' : ''}` },
+        { key: 'corrected', label: largeScreen && !panelDisplay ? 'Đúng' : 'Đ.', _classes: 'align-middle text-center' },
+        { key: 'wrong', label: largeScreen && !panelDisplay ? 'Sai' : 'S.', _classes: 'text-center' },
+        { key: 'missed', label: largeScreen && !panelDisplay ? 'Bỏ qua' : 'BQ', _classes: `text-center d-none ${panelDisplay ? '' : ' d-sm-table-cell'}` },
+        { key: 'percent', label: '%', _classes: `text-center` },
+        { key: 'point', label: largeScreen && !panelDisplay ? 'Điểm' : 'Pt', _classes: 'text-center' },
     ]
 
     const onClickUserItem = (user) => {
         history.push(`/event-user/${user.id}`)
     }
 
+    const onSelectRound = (rNo, data) => {
+        const usPts = data || userPoints
+        setSelectRound(rNo)
+        const field = rNo === 0 ? 'result' : 'R' + rNo
+        const tmpTable = orderBy(usPts, [`${field}.point`, `${field}.corrected`, 'name'], ['desc', 'desc', 'asc'])
+        setUserPoints(panelDisplay ? take(tmpTable, 10) : tmpTable)
+    }
+
     useEffect(async () => {
+        if (isEmpty(userPoints) && evtTeams.length > 0 && storedUsers.length > 0) {
+            if (!panelDisplay) {
+                dispatch({
+                    type: SET_LOGO,
+                    payload: {
+                        icon: 'logo',
+                        img: ''
+                    }
+                })
+            }
 
-        if (userPoints.length == 0 && evtTeams.length > 0 && storedUsers.length > 0) {
-            dispatch({
-                type: SET_LOGO,
-                payload: {
-                    icon: 'logo',
-                    img: ''
-                }
-            })
-
-            let userPts = await fbDb.BettingService.getUserBettingResults(sysUser.group, eventId, 0)
+            let userPts = await fbDb.BettingService.getUserBettingRound(sysUser.group, eventId, event.round)
             const eventSummary = await fbDb.EventService.getEventSummary(eventId)
 
-            userPts = userPts.map((user) => {
-                var favTeam = {}
-                var newUser = null
-                var userInfo = find(storedUsers, ['id', user.id]);
-                if (!isEmpty(eventSummary.users[user.id] && eventSummary.users[user.id].betTeam)) {
-                    favTeam = find(evtTeams, ['id', eventSummary.users[user.id].betTeam])
-                }
-                if (favTeam === undefined) {
-                    console.log(evtTeams)
-                }
-
-                if (user.id == sysUser.id) {
-                    newUser = { ...user, ...userInfo, favTeam: favTeam || {}, _classes: 'my-position' }
-                } else {
-                    newUser = { ...user, ...userInfo, favTeam: favTeam || {} }
-                }
-                return newUser;
+            // console.log(userPts)
+            fbDb.BettingService.calculatePointTable(userPts, eventSummary, evtTeams, storedUsers, sysUser.id).then(response => {
+                // setUserPoints(response)
+                onSelectRound(event.round, response)
             })
 
-            setUserPoints(userPts)
-
         }
-    }, [evtTeams]);
+    }, [evtTeams, selectRound]);
 
     if (isEmpty(userPoints)) {
         return <div></div>
@@ -91,20 +86,25 @@ const EventSummary = (props) => {
 
     return (
         <>
-            {/* <CRow className="user-point-header">
-                <CCol md="3">
-                    <span className="title">BẢNG XẾP HẠNG</span>
-                </CCol>
-                <CCol>
-                    <CNav className="justify-content-end">
-                        <CNavLink active>Active</CNavLink>
-                        <CNavLink>Link</CNavLink>
-                        <CNavLink>Link</CNavLink>
-                        <CNavLink>Disabled</CNavLink>
-                    </CNav>
-                </CCol>
-            </CRow> */}
-            <CRow className="event-data">
+            {!panelDisplay &&
+                <div className="user-point-header">
+                    <CRow>
+                        <CCol md="3">
+                            <span className="title"><CIcon name="cil-diamond" size="xl" className="mr-1 mb-1"></CIcon> BẢNG XẾP HẠNG</span>
+                        </CCol>
+                        <CCol>
+                            <CNav className="justify-content-end">
+                                <CNavLink active={selectRound === 1} onClick={() => onSelectRound(1)}>{largeScreen ? 'Vòng 1' : 'V1'}</CNavLink>
+                                {event.round >= 2 && <CNavLink active={selectRound === 2} onClick={() => onSelectRound(2)}>{largeScreen ? 'Vòng 2' : 'V2'}</CNavLink>}
+                                {event.round >= 3 && <CNavLink active={selectRound === 3} onClick={() => onSelectRound(3)}>{largeScreen ? 'Vòng 3' : 'V3'}</CNavLink>}
+                                {event.round >= 4 && <CNavLink active={selectRound === 4} onClick={() => onSelectRound(4)}>{largeScreen ? 'Vòng 4' : 'V4'}</CNavLink>}
+                                {event.round == 5 && <CNavLink active={selectRound === 5} onClick={() => onSelectRound(5)}>{largeScreen ? 'Vòng 5' : 'V5'}</CNavLink>}
+                                {event.round >= 2 && <CNavLink active={selectRound === 0} onClick={() => onSelectRound(0)}>Tất cả</CNavLink>}
+                            </CNav>
+                        </CCol>
+                    </CRow>
+                </div>}
+            <CRow className={`${panelDisplay ? 'panel' : 'event-data'}`}>
                 <CCol>
                     <CDataTable
                         header={true}
@@ -130,39 +130,39 @@ const EventSummary = (props) => {
                                 ),
                             'winner':
                                 (item) => (
-                                    <td className="text-center">
+                                    <td className={`text-center ${panelDisplay ? 'd-none' : ''}`}>
                                         <CIcon className="" width="36" name={item.favTeam.flagCode || 'flag-tbd'}></CIcon>
                                     </td>
                                 ),
                             'corrected':
                                 (item) => (
-                                    <td className="text-center align-middle">
-                                        {item.result.corrected}
+                                    <td className={`text-center align-middle`}>
+                                        {selectRound === 0 ? item.result.corrected : item[`R${selectRound}`].corrected}
                                     </td>
                                 ),
                             'wrong':
                                 (item) => (
                                     <td className="text-center align-middle">
-                                        {item.result.wrong}
+                                        {selectRound === 0 ? item.result.wrong : item[`R${selectRound}`].wrong}
                                     </td>
                                 ),
 
                             'missed':
                                 (item) => (
-                                    <td className="text-center align-middle d-none d-sm-table-cell">
-                                        {item.result.missed}
+                                    <td className={`text-center align-middle d-none ${panelDisplay ? '' : 'd-sm-table-cell'}`}>
+                                        {selectRound === 0 ? item.result.missed : item[`R${selectRound}`].missed}
                                     </td>
                                 ),
                             'percent':
                                 (item) => (
-                                    <td className="text-center align-middle">
-                                        {Math.round(item.result.percent * 100)}%
+                                    <td className={`text-center align-middle`}>
+                                        {Math.round((selectRound === 0 ? item.result.percent : item[`R${selectRound}`].percent) * 100)}%
                                     </td>
                                 ),
                             'point':
                                 (item) => (
                                     <td className="text-center align-middle">
-                                        {item.result.point}
+                                        {selectRound === 0 ? item.result.point : item[`R${selectRound}`].point}
                                     </td>
                                 ),
                         }}

@@ -17,11 +17,14 @@ const ModalTeamSelection = props => {
     const dispatch = useDispatch()
     const sysUser = useSelector(state => state.auth.user);
     const eventId = useSelector(state => state.auth.event.id);
+    // const evtTeams = useSelector(state => state.event.teams);
     const showModal = useSelector(state => state.event.showModal);
     const [show, setShowModal] = useState(false)
     const [evtTeams, setEventTeams] = useState([])
     const [selectedTeam, setSelectedTeam] = useState(null)
     const [myBet, setMyBet] = useState(null)
+
+
 
     const onSelectTeam = (team) => {
         setSelectedTeam(team)
@@ -42,15 +45,29 @@ const ModalTeamSelection = props => {
 
     useEffect(() => {
         if (_.isEmpty(evtTeams)) {
-            fbDb.EventService.getTeamsByEvent(eventId).then((response) => {
-                console.warn('Get teams')
-                setEventTeams(response);
-                dispatch({
-                    type: EVENT_TEAMS,
-                    payload: response
-                })
+            console.log('dzo day nha')
+            let storedTeams = localStorage.getItem('eventTeams') ? JSON.parse(localStorage.getItem('eventTeams')) : []
+            setEventTeams(storedTeams)
+
+            dispatch({
+                type: EVENT_TEAMS,
+                payload: storedTeams
             })
-        } else {
+        }
+        if (!_.isEmpty(evtTeams)) {
+            // dispatch({
+            //     type: EVENT_TEAMS,
+            //     payload: storedTeams
+            // })
+            //     fbDb.EventService.getTeamsByEvent(eventId).then((response) => {
+            //         console.warn('Get teams')
+            //         setEventTeams(response);
+            //         dispatch({
+            //             type: EVENT_TEAMS,
+            //             payload: response
+            //         })
+            //     })
+            // } else {
             var favTeam = _.isEmpty(sysUser.favTeam) ? null : _.find(evtTeams, ['id', sysUser.favTeam])
             setSelectedTeam(favTeam)
             setMyBet(getWinnerBettingStatus(favTeam, sysUser.name))

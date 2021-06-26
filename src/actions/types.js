@@ -20,4 +20,5 @@ export const FAVOR_TEAM = "FAVOR_TEAM"
 export const EVENT_TEAMS = "EVENT_TEAMS"
 export const SET_LOGO = "SET_LOGO"
 export const SET_EVENT = "SET_EVENT"
+export const SET_STAR = "SET_STAR"
 

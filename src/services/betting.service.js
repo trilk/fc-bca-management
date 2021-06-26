@@ -6,52 +6,8 @@ import { euroHandicap } from 'src/utils/_common'
 
 class BettingService {
 
-    startBettingRound = async (eventId, round) => {
-        const ubCollection = _.toLower(eventId) + COLLECTION.USER_BET;
-        const evtUsersRef = await firebase.db.collection(`${COLLECTION.EVENT}/${eventId}/${COLLECTION.USER}/`)
-            .where('active', '==', true).get();
-
-        const evtUsers = await Promise.all(
-            evtUsersRef.docs.map(async (evtUser) => {
-                const user = await firebase.db.collection(COLLECTION.USER).doc(evtUser.id).get();
-                return { id: evtUser.id, group: user.data().group }
-            })
-        )
-
-        // Get a new write batch
-        var batch = firebase.db.batch();
-
-        _.each(evtUsers, async (user) => {
-            var ubRef = firebase.db.collection(ubCollection).doc(`R${round}_${user.id}`);
-
-            var data = {
-                userId: user.id,
-                group: user.group,
-                round: round,
-                betSum: {
-                    corrected: 0,
-                    wrong: 0,
-                    total: 0
-                },
-                matches: {}
-            }
-            batch.set(ubRef, data);
-        })
-
-        // Commit the batch
-        return batch.commit().then(() => {
-            return { status: 'OK', message: `Tao xong vong du doan cho ${evtUsers.length} nguoi choi!` }
-        });
-    }
     //Get user's bet result by tournament Id 
-    getUserBettingResults = async (group, eventId, round) => {
-        const ratioPoint = {
-            r1: 1,
-            r2: 1,
-            r3: 1,
-            r4: 1.5,
-            r5: 2
-        }
+    getUserBettingRound = async (group, eventId, round) => {
         const ubCollection = _.toLower(eventId) + COLLECTION.USER_BET;
         let betResultRef = null;
 
@@ -66,58 +22,72 @@ class BettingService {
         const betResult = await betResultRef.get();
 
         const betData = [];
-        await betResult.docs.map((user) => {
+        return await betResult.docs.map((user) => {
             const userData = user.data();
-
-            const betSum = {
-                ...userData.betSum,
-                missed: userData.betSum.total - (userData.betSum.corrected + userData.betSum.wrong),
-                percent: userData.betSum.total !== 0 ? parseFloat((userData.betSum.corrected / userData.betSum.total).toFixed(2)) : 0,
-                point: userData.betSum.corrected * ratioPoint[`r${userData.round}`]
-            }
 
             let userRound = _.find(betData, ['id', userData.userId]);
             if (_.isEmpty(userRound)) {
-                betData.push({
+                userRound = {
                     id: userData.userId,
-                    rounds: [betSum],
-                    [`round${userData.round}`]: {},
-                    result: {}
-                })
+                    [`R${userData.round}`]: userData.betSum,
+                    // result: {}
+                }
+                betData.push(userRound)
             } else {
-                userRound.rounds.push(betSum)
+                userRound[`R${userData.round}`] = userData.betSum
             }
-            return null
+            return userRound
         })
 
-        const tableResult = await Promise.all(
-            betData.map(async (ub) => {
-                let result = {};
-                // const user = await firebase.db.collection(COLLECTION.USER).doc(ub.id).get();
-                // if (!user.exists) {
-                //     console.log(user)
-                // }
-                // ub['name'] = user.data().name
-                // ub['avatar'] = user.data().photoUrl
+        // return _.orderBy(tableResult, ['result.point', 'result.corrected', 'name'], ['desc', 'desc', 'asc']);
+    }
 
-                await _.each(ub.rounds, (r, index) => {
-                    result.corrected = (result.corrected || 0) + r.corrected;
-                    result.wrong = (result.wrong || 0) + r.wrong;
-                    result.missed = (result.missed || 0) + r.missed;
-                    result.total = (result.total || 0) + r.total;
-                    result.point = (result.point || 0) + r.point;
-                    ub[`round${(index + 1)}`] = r;
-                });
+    calculatePointTable = async (userPts, evtSummary, evtTeams, storedUsers, myId) => {
+        const ratioPoint = {
+            R1: 1,
+            R2: 1,
+            R3: 1,
+            R4: 1.5,
+            R5: 2
+        }
 
-                result['percent'] = result.total !== 0 ? parseFloat((result.corrected / result.total).toFixed(2)) : 0;
-                ub.result = result;
+        const usersResult = await userPts.map(user => {
+            // console.log(user)
+            const evtUser = { ...user, ...evtSummary.users[user.id] }
+            let betResult = {
+                corrected: 0,
+                wrong: 0,
+                total: 0,
+                point: 0
+            }
+            Object.keys(evtUser).forEach(key => {
+                if (key !== 'id' && key !== 'betTeam' && key !== 'usedStar') {
+                    evtUser[key]['missed'] = evtUser[key].total - (evtUser[key].corrected + evtUser[key].wrong)
+                    evtUser[key]['percent'] = evtUser[key].total !== 0 ? (evtUser[key].corrected / evtUser[key].total).toFixed(2) : 0
+                    evtUser[key]['point'] = evtUser[key].corrected * ratioPoint[key]
 
-                return _.omit(ub, ['rounds'])
+                    betResult.corrected += evtUser[key].corrected
+                    betResult.wrong += evtUser[key].wrong
+                    betResult.total += evtUser[key].total
+                    betResult.point += evtUser[key].point
+                }
             })
-        )
 
+            betResult['missed'] = betResult.total - (betResult.corrected + betResult.wrong)
+            betResult['percent'] = betResult.total !== 0 ? (betResult.corrected / betResult.total).toFixed(2) : 0
 
-        return _.orderBy(tableResult, ['result.point', 'result.corrected', 'name'], ['desc', 'desc', 'asc']);
+            const favTeam = _.find(evtTeams, ['id', evtUser.betTeam])
+            const stUser = _.find(storedUsers, ['id', user.id])
+            let _class = {}
+            if (user.id === myId) {
+                _class = {
+                    _classes: 'my-position'
+                }
+            }
+            return { ...stUser, ...evtUser, favTeam: favTeam, result: betResult, ..._class }
+        })
+
+        return usersResult
     }
 
     //Get bet statistic by gameId.
@@ -279,7 +249,7 @@ class BettingService {
 
                 if (_.isEmpty(userBetResult)) {
                     userBetResult = {
-                        betSum: betSum,
+                        betSum: _.cloneDeep(betSum),
                         rounds: []
                     }
                 } else {
@@ -290,7 +260,8 @@ class BettingService {
                 }
 
                 let roundObj = {
-                    betSum: betSum,
+                    round: roundNo,
+                    betSum: _.cloneDeep(betSum),
                     matches: []
                 }
 
@@ -311,6 +282,7 @@ class BettingService {
 
                     })
                 )
+
                 roundObj.matches = _.sortBy(matches, ['seq'])
                 userBetResult.rounds.push(roundObj)
                 return roundNo;
@@ -323,7 +295,7 @@ class BettingService {
             userBetResult['avatar'] = userRef.data().photoUrl
             userBetResult.betSum['missed'] = userBetResult.betSum.total - (userBetResult.betSum.corrected + userBetResult.betSum.wrong)
 
-            // userBetResult.matches = _.sortBy(userBetResult.matches, ['seq']);
+            userBetResult.rounds = _.sortBy(userBetResult.rounds, ['round'], ['asc']);
         }
 
         return userBetResult;
@@ -335,6 +307,7 @@ class BettingService {
         const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
         let fails = [];
         const betData = {};
+        let usedStar = false, changedStar = false;
 
         try {
             const betRef = firebase.db.collection(ubCollection).doc(`R${round}_${userId}`)
@@ -348,10 +321,18 @@ class BettingService {
                         const betTime = moment().add(-5, 'minutes')
 
                         if (betTime.isBefore(startTime)) {
-                            const mBet = {
+                            let mBet = {
                                 bet: data.betValue,
                                 result: -1
                             }
+                            if (data.usedStar || false) {
+                                mBet['usedStar'] = true
+                                usedStar = true
+                            }
+                            if (!changedStar) {
+                                changedStar = data.changedStar || false
+                            }
+
                             Object.assign(betData, { [`matches.${data.gameId}`]: mBet });
 
                         } else {
@@ -363,9 +344,11 @@ class BettingService {
 
             //Update bet info to firebase
             await betRef.update(betData);
-            return fails.length == 0 ?
-                { status: 'OK', message: 'Dự đoán kết quả trận đấu thành công.' } :
-                { status: 'ERR', message: 'Đã hết thời gian dự đoán kết quả trận đấu.' }
+            if (fails.length == 0) {
+                return changedStar ? this.userUsedStar(eventId, userId, usedStar) : { status: 'OK', message: 'Dự đoán kết quả trận đấu thành công.' }
+            }
+            return { status: 'ERR', message: 'Đã hết thời gian dự đoán kết quả trận đấu.' }
+
         } catch (error) {
             return { status: 'ERR', message: 'Dự đoán kết quả không thành công, vui lòng kiểm tra lại' }
         }
@@ -382,7 +365,7 @@ class BettingService {
                     throw "Document does not exist!";
                 }
 
-                let userResult = evt[userId];
+                let userResult = evt.data().users[userId];
                 if (userResult) {
                     userResult = { ...userResult, betTeam: teamId }
                 } else {
@@ -407,104 +390,30 @@ class BettingService {
         });
     }
 
-    //Update data base on game finished
-    updateGameResult = async (eventId, gameId, goals) => {
-        const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
-        const gameRef = firebase.db.collection(gameCollection).doc(gameId);
+    userUsedStar = (eventId, userId, usedStar) => {
+        const eventRef = firebase.db.collection(COLLECTION.EVENT_SUMMARY).doc(eventId);
 
         return firebase.db.runTransaction((transaction) => {
-            // This code may get re-run multiple times if there are conflicts.
-            return transaction.get(gameRef).then((game) => {
-                if (!game.exists) {
+            return transaction.get(eventRef).then((evt) => {
+                if (!evt.exists) {
                     throw "Document does not exist!";
                 }
 
-                const result = euroHandicap(goals, game.data().betId);
-                goals['result'] = result;
+                let userResult = evt.data().users[userId];
+                console.log(userResult)
+                if (userResult) {
+                    userResult = { ...userResult, usedStar: usedStar }
+                }
 
-                transaction.update(gameRef, { goals: goals, status: GAME_STATUS.FINISHED });
-                return { eventId: eventId, round: game.data().round, gameId: game.id, result: result, total: game.data().seq };
+                transaction.update(eventRef, { [`users.${userId}`]: userResult });
+                return {};
             });
-        }).then((data) => {
+        }).then(() => {
             //Update result to user bet collection
-            return this.setUserBetResult(data);
+            return { status: 'OK', message: `Dự đoán kết quả trận đấu ${usedStar ? 'với' : 'hủy'} ngôi sao hi vọng thành công!` }
         }).catch((error) => {
             console.log("Transaction failed: ", error);
-            return { status: 'ERR', message: 'Lỗi cập nhật tỉ số trận đấu!' }
-        });
-    }
-
-    //Private func: Update bet data to DB
-    setUserBetResult = async (data) => {
-        let startIdx = 0
-        switch (data.round) {
-            case 1:
-                startIdx = -1
-                break;
-            case 2:
-                startIdx = 12
-                break;
-            case 3:
-                startIdx = 24
-                break;
-            case 4:
-                startIdx = 36
-                break;
-            case 5:
-                startIdx = 44
-                break;
-            default:
-                break;
-        }
-        const ubCollection = _.toLower(data.eventId) + COLLECTION.USER_BET;
-        const ubRef = await firebase.db.collection(ubCollection).where('round', '==', data.round).get();
-
-        const usersResult = await Promise.all(
-            ubRef.docs.map(async (ub) => {
-                let betValues = !_.isEmpty(ub.data().matches[data.gameId]) ? ub.data().matches[data.gameId] :
-                    {
-                        bet: 0,
-                        result: -1,
-                    };
-
-                if (betValues.bet !== 0) {
-                    betValues.result = betValues.bet === data.result ? 1 : 0;
-                }
-
-                let corrected = 0, wrong = 0;
-                _.forIn(ub.data().matches, function (value, key) {
-                    if (key !== data.gameId) {
-                        corrected += (value.result === 1) ? 1 : 0
-                        wrong += (value.result === 0) ? 1 : 0
-                    }
-                });
-                let betSum = ub.data().betSum;
-                betSum.corrected = (betValues.result === 1) ? corrected + 1 : corrected;
-                betSum.wrong = (betValues.result === 0) ? wrong + 1 : wrong;
-                betSum.total = data.total - startIdx;
-
-                return {
-                    id: ub.id,
-                    betSum: betSum,
-                    [`matches.${data.gameId}`]: betValues
-                }
-            })
-        )
-
-        // Get a new write batch
-        var batch = firebase.db.batch();
-
-        _.each(usersResult, async (user) => {
-            var ubRef = firebase.db.collection(ubCollection).doc(user.id);
-            batch.update(ubRef, _.omit(user, ['id']));
-        })
-
-        // Commit the batch
-        return batch.commit().then(() => {
-            return { status: 'OK', message: 'Tỉ số trận đấu đã được cập nhật thành công.' }
-        }).catch((err) => {
-            console.error(err);
-            return { status: 'ERR', message: 'Lỗi cập nhật tỉ số trận đấu!' }
+            return { status: 'ERR', message: 'Có lỗi gì đó!' }
         });
     }
 

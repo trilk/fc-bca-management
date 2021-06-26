@@ -33,7 +33,7 @@ const UserBetHistory = (props) => {
     const event = useSelector(state => state.auth.event);
     const evtTeams = useSelector(state => state.event.teams);
     const [userData, setUserData] = useState({});
-    const [selectedRound, setSelectRound] = useState(1);
+    const [selectedRound, setSelectRound] = useState(event.round);
     const [evtSummary, setEventSummary] = useState({});
 
     const fields = [
@@ -65,6 +65,7 @@ const UserBetHistory = (props) => {
                 userFavorTeam: eventSummary.users[userId] ? eventSummary.users[userId].betTeam : ''
             })
             let userGames = await fbDb.BettingService.getGamesBetByUser(event.id, event.round, userId).then(async (response) => {
+                console.log(response)
                 setUserData(response)
 
                 dispatch({
@@ -154,7 +155,8 @@ const UserBetHistory = (props) => {
                     {
                         userData.rounds.map((round, idx) =>
                             <CCard className="bet-round" key={idx}>
-                                <CCardHeader>
+                                <CCardHeader onClick={() => setSelectRound(idx + 1)}
+                                    className={idx < userData.rounds.length - 1 ? 'finished' : ''} title={`Xem lại lựa chọn vòng ${idx + 1}`}>
                                     <CRow>
                                         <CCol md="4">Vòng {idx + 1}</CCol>
                                         <CCol className="d-flex align-items-center justify-content-center"><div className="text-center">

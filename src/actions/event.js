@@ -16,8 +16,14 @@ export const showAdminModal = (isShow) => (dispatch) => {
     });
 }
 
-export const startRound = (event) => (dispatch) => {
-    fbDb.BettingService.startBettingRound(event.id, event.round).then(response => {
+export const calculateUserPointByRound = (eventId, round) => (dispatch) => {
+    fbDb.AdminService.finalBettingRound(eventId, round).then(response => {
+        console.log(response)
+    })
+}
+
+export const startRound = (eventId, round) => (dispatch) => {
+    fbDb.AdminService.startBettingRound(eventId, round).then(response => {
         console.log(response)
     })
 }

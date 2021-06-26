@@ -11,7 +11,8 @@ import {
   AUTHENTICATED,
   FAVOR_TEAM,
   SET_LOGO,
-  SET_EVENT
+  SET_EVENT,
+  SET_STAR
 } from "../actions/types";
 
 const initialState = {
@@ -103,6 +104,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         event: action.payload
+      };
+    case SET_STAR:
+      return {
+        ...state,
+        user: { ...state.user, usedStar: action.payload }
       };
     default:
       return state;

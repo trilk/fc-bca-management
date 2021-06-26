@@ -15,10 +15,11 @@ const ModalMatchInfo = props => {
     const match = props.data.match || null
     const statistic = props.data.stat || null
     const [myBet, setMyBet] = useState({ bet: { value: 0, first90: 0, second90: 0, canEdit: false } })
+    const [showStar, setShowStar] = useState(false)
     const [changedScore, setChangedScore] = useState(false)
 
     const setUserSelection = (value) => {
-        const newBet = { value: value, extraTime: myBet.bet.extraTime }
+        const newBet = { ...myBet.bet, value: value }
 
         if (!sysUser.isAdmin && myBet.canEdit) {
             var msg = userSelectMessage(match.round, newBet, match.firstTeam.name, match.secondTeam.name, sysUser.name) + ' CHỐT KÈO THÔI!!!'
@@ -33,7 +34,7 @@ const ModalMatchInfo = props => {
     }
 
     const setExtraTimeSelection = () => {
-        const newBet = { value: myBet.bet.value, extraTime: !myBet.bet.extraTime }
+        const newBet = { ...myBet.bet, extraTime: !myBet.bet.extraTime }
 
         if (myBet.canEdit) {
             if (sysUser.isAdmin) {
@@ -55,10 +56,18 @@ const ModalMatchInfo = props => {
         }
     }
 
+    const setHopeStar = () => {
+        const newBet = { ...myBet.bet, usedStar: !myBet.bet.usedStar }
+        setMyBet({
+            ...myBet,
+            bet: newBet,
+        })
+    }
+
     const onScoreChange = (e) => {
         setMyBet({ ...myBet, [e.target.name]: e.target.value })
-        console.log(myBet)
     }
+
     const onSubmit = (isSubmit) => {
         if (isSubmit) {
             if (sysUser.isAdmin) {
@@ -83,18 +92,27 @@ const ModalMatchInfo = props => {
                 }
             } else {
                 let betValue = myBet.bet.value;
+                let usedStar = {}
 
                 //If knowout round, return value 1,2,3,4
                 if (match.round > 3) {
                     if (myBet.bet.extraTime) {
                         betValue += 2;
                     }
+                    if (myBet.bet.usedStar) {
+                        usedStar = {
+                            usedStar: true
+                        }
+                    }
+                    if (myBet.bet.usedStar !== sysUser.usedStar) {
+                        usedStar['changedStar'] = true
+                    }
                 }
 
                 //User bet a game
                 props.onModalResponse({
                     type: MODAL_RESPONSE_TYPE.BETTING,
-                    data: [{ gameId: match.id, betValue: betValue }]
+                    data: { gameId: match.id, betValue: betValue, ...usedStar }
                 })
             }
         } else {
@@ -106,6 +124,8 @@ const ModalMatchInfo = props => {
         if (props.data.match) {
             setMyBet(_.cloneDeep(props.data.myBet))
             setChangedScore(sysUser.isAdmin && myBet.canEdit)
+            setShowStar(props.data.myBet.bet.usedStar || (props.data.myBet.canEdit && !sysUser.usedStar))
+            console.log(props.data.myBet.usedStar);
         }
     }, [props.data])
 
@@ -141,51 +161,60 @@ const ModalMatchInfo = props => {
             <CModalBody>
                 <fieldset>
                     <legend>Dự của tao</legend>
-                    <div className={`d-flex justify-content-around`}>
+                    <div className={`d-flex justify-content-around py-4`}>
                         <div onClick={() => setUserSelection(1)}
-                            className={`mi-team ${myBet.bet.value === 1 ? 'selected' : ''}`}
+                            className={`mi-team d-flex align-items-center ${myBet.bet.value === 1 ? 'selected' : ''}`}
                             title={`Theo ${match.firstTeam.name}`}>
                             <CIcon name={match.firstTeam.flagCode} width={100}></CIcon>
                         </div>
 
                         {match.round <= 3 &&
                             <div onClick={() => setUserSelection(3)}
-                                className={`mi-team middle ${myBet.bet.value === 3 ? 'selected' : ''}`}
+                                className={`mi-team middle d-flex align-items-center ${myBet.bet.value === 3 ? 'selected' : ''}`}
                                 title="Chọn Hòa Minzy">
                                 <CIcon name="flag-tie" width={60}></CIcon>
                             </div>}
                         {match.round > 3 &&
 
-                            <div onClick={() => setExtraTimeSelection()}
-                                className={`mi-aet d-flex align-items-center ${myBet.bet.extraTime ? 'checked' : ''}`}
-                                title="Dau them gio">
-                                <CIcon color={'primary'} name={myBet.bet.extraTime ? 'cil-check-circle' : 'cil-circle'} size="3xl" />
+                            <div className={`d-flex align-items-end pb-4 position-relative`}>
+                                {showStar &&
+                                    <CIcon name={'flag-star'} size="4xl" onClick={() => setHopeStar()}
+                                        className={`hope-star position-absolute ${myBet.bet.usedStar ? 'selected' : ''}`} />
+                                }
+                                <div onClick={() => setExtraTimeSelection()}
+                                    className={`mi-aet ${myBet.bet.extraTime ? 'checked' : ''}`}
+                                    title="Chọn đấu thêm giờ.">
+                                    <CIcon color={'primary'} name={myBet.bet.extraTime ? 'cil-check-circle' : 'cil-circle'} size="4xl" />
+                                </div>
                             </div>
-
                         }
                         <div onClick={() => setUserSelection(2)}
-                            className={`mi-team ${myBet.bet.value === 2 ? 'selected' : ''}`}
+                            className={`mi-team d-flex align-items-center ${myBet.bet.value === 2 ? 'selected' : ''}`}
                             title={`Theo ${match.secondTeam.name}`}>
                             <CIcon name={match.secondTeam.flagCode} width={100}></CIcon>
                         </div>
                     </div>
                 </fieldset>
                 <div className="mi-stat-container d-flex justify-content-around">
-                    <CCol className="mi-stat justify-content-center col d-flex align-items-end"><div className="text-center">{statistic.firstWin}<p>Bình chọn</p></div></CCol>
+                    <CCol className="mi-stat justify-content-center col d-flex align-items-end">
+                        <div className="text-center">{statistic.firstWin + statistic.firstWinExtra}<p>Bình chọn</p></div>
+                    </CCol>
                     <CCol className="mi-stat text-center middle">
                         {match.round <= 3 && <>{statistic.draw}<p>Bình chọn</p></>}
                         {match.round > 3 &&
                             <>
                                 <CRow className="justify-content-center m-0 p-0"><small>Thêm giờ</small></CRow>
-                                <CRow>
+                                {/* <CRow>
                                     <CCol>{statistic.firstWinExtra}<p><small>Bình chọn</small></p></CCol>
                                     <CCol>{statistic.secondWinExtra}<p><small>Bình chọn</small></p></CCol>
-                                </CRow>
+                                </CRow> */}
                             </>
                         }
 
                     </CCol>
-                    <CCol className="mi-stat justify-content-center col d-flex align-items-end"><div className="text-center">{statistic.secondWin}<p>Bình chọn</p></div></CCol>
+                    <CCol className="mi-stat justify-content-center col d-flex align-items-end">
+                        <div className="text-center">{statistic.secondWin + statistic.secondWinExtra}<p>Bình chọn</p></div>
+                    </CCol>
 
                 </div>
                 <div>
@@ -198,10 +227,10 @@ const ModalMatchInfo = props => {
             <CModalFooter>
                 {sysUser.isAdmin && myBet.canChangeStatus &&
                     <CButton color="success" onClick={() => onSubmit(true)}><CIcon className="mr-2" name="cil-check" />
-                Dự ngay thôi
-                </CButton>
+                        Dự ngay thôi
+                    </CButton>
                 }
-                {myBet.canEdit && <CButton color="primary" onClick={() => onSubmit(true)}><CIcon className="mr-2" name="cil-check" />
+                {myBet.canEdit && <CButton color="primary" onClick={() => onSubmit(true)} disabled={myBet.bet.value === 0 && !sysUser.isAdmin}><CIcon className="mr-2" name="cil-check" />
                     {sysUser.isAdmin ? 'Cập Nhật' : 'Chốt Kèo'}
                 </CButton>}
                 <CButton color="secondary" onClick={() => onSubmit(false)}><CIcon className="mr-2" name="cil-x" />Bỏ Qua</CButton>

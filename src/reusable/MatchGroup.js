@@ -14,12 +14,13 @@ import {
 } from '@coreui/react'
 import moment from 'moment'
 import * as fbDb from 'src/services/index'
-import { GROUP } from 'src/utils/_constants'
+import { GAME_STATUS, GROUP } from 'src/utils/_constants'
 import { getBetStatus, getMatchStatusForAdmin } from 'src/utils/_common'
+import { round } from 'lodash'
 
 const MatchGroup = props => {
     const sysUser = useSelector(state => state.auth.user);
-    const eventId = useSelector(state => state.auth.event.id);
+    const event = useSelector(state => state.auth.event);
     const [collapsed, setCollapsed] = useState(true)
     const [games, setGames] = useState([]);
     const [name, setName] = useState('');
@@ -43,10 +44,9 @@ const MatchGroup = props => {
     ]
 
     const onClickMatchItem = (item) => {
-        // item.startTime = '2021-06-09 02:00'
-        //item.status = GAME_STATUS.FINISHED 
-        //item.goals.extraTime = true
-        fbDb.BettingService.getBetStatisticByGame(sysUser.group || GROUP.DEFAULT, eventId, item.round, item.id, sysUser.id).then(response => {
+        // item.startTime = '2021-06-24 15:00'
+        // item.status = GAME_STATUS.BETTING
+        fbDb.BettingService.getBetStatisticByGame(sysUser.group || GROUP.DEFAULT, event.id, item.round, item.id, sysUser.id).then(response => {
             let bet = {}
             if (item.round <= 3) {
                 bet = {
@@ -54,12 +54,14 @@ const MatchGroup = props => {
                     extraTime: false
                 }
             } else {
-                const tempValue = sysUser.isAdmin ? item.goals.result : response.myBet.bet
+                const tempValue = sysUser.isAdmin ? item.goals.result : response.myBet.bet || 0
 
                 bet = {
                     value: tempValue > 2 ? tempValue - 2 : tempValue,
-                    extraTime: sysUser.isAdmin ? item.goals.result > 2 : response.myBet.bet > 2,
+                    extraTime: sysUser.isAdmin ? tempValue > 2 : tempValue > 2,
+                    usedStar: response.myBet.usedStar || false
                 }
+
             }
 
             const betStatus = sysUser.isAdmin ? getMatchStatusForAdmin(item) :
@@ -91,6 +93,10 @@ const MatchGroup = props => {
         setAdminState(props.admin)
     }, [props.items, props.admin])
 
+    if (name === 'grp' && event.round > 3) {
+        return <></>
+    }
+
     return (
         <>
             <CFade>
@@ -99,7 +105,7 @@ const MatchGroup = props => {
                         {grpName[name]}
                         <div className="card-header-actions">
                             <CLink className="card-header-action" onClick={() => setCollapsed(!collapsed)}>
-                                <CIcon size="xl" name={collapsed ? 'cil-chevron-bottom' : 'cil-chevron-top'} />
+                                <CIcon size="lg" name={collapsed ? 'cil-chevron-bottom' : 'cil-chevron-top'} />
                             </CLink>
                         </div>
                     </CCardHeader>

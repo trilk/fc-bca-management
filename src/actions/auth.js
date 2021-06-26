@@ -146,10 +146,10 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
       }
     } else {
       const eventRef = await firebase.db.doc(`${COLLECTION.EVENT_SUMMARY}/${eventId}`).get();
-      const favTeam = eventRef.data().users[user.id];
+      const userSmr = eventRef.data().users[user.id];
       event.round = eventRef.data().currentRound
 
-      userData = favTeam ? { ...user.data(), favTeam: favTeam.betTeam } : user.data();
+      userData = userSmr ? { ...user.data(), favTeam: userSmr.betTeam, usedStar: userSmr.usedStar } : user.data();
     }
 
     const sysUsers = await firebase.db.collection('users')
@@ -171,7 +171,8 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
       photoUrl: userData.photoUrl,
       isAdmin: userData.role === 'admin',
       group: userData.group,
-      favTeam: userData.favTeam || ''
+      favTeam: userData.favTeam || '',
+      usedStar: userData.role === 'admin' ? true : userData.usedStar
     }
   }
 

@@ -36,7 +36,7 @@ const MainHeaderUserActions = () => {
     >
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <CIcon name="cil-menu" size="xl" />
-        <CBadge shape="pill" color="danger">{2}</CBadge>
+        {/* <CBadge shape="pill" color="danger">{2}</CBadge> */}
       </CDropdownToggle>
       <CDropdownMenu placement="bottom-end" className="pt-0">
         <CDropdownItem
@@ -53,7 +53,7 @@ const MainHeaderUserActions = () => {
             <CDropdownItem to={`/event-user/${sysUser.id}`}><CIcon name="cil-user" className="mr-2 text-danger" /> Dự đoán của tao</CDropdownItem>
           </>}
         {sysUser.isAdmin &&
-          <CDropdownItem onClick={onOpenAdminModal} ><CIcon name="cil-star" className="mr-2 text-success" /> Khởi động vòng đấu</CDropdownItem>
+          <CDropdownItem onClick={onOpenAdminModal} ><CIcon name="cil-star" className="mr-2 text-success" /> Quản lý dữ liệu</CDropdownItem>
         }
         <CDropdownDivider />
         <CDropdownItem to={`/events/today`}><CIcon name="cil-zoom-in" className="mr-2 text-info" /> Soi kèo hôm nay</CDropdownItem>

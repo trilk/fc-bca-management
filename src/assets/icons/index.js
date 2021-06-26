@@ -6,6 +6,7 @@ import { euro2021 } from './events/euro-2021'
 import { femaleImg } from './female'
 import { logoNegative } from './logo-negative'
 import {
+  flagStar,
   flagTie,
   flagTbd,
   flagAu,
@@ -168,7 +169,8 @@ import {
   cilMoodVeryGood,
   cilMenu,
   cilZoomIn,
-  cilSortNumericDown
+  cilSortNumericDown,
+  cilDiamond
 } from '@coreui/icons'
 
 export const icons = Object.assign({}, {
@@ -178,6 +180,7 @@ export const icons = Object.assign({}, {
   logoNegative,
   logoBg,
   femaleImg,
+  flagStar,
   flagTie,
   flagTbd,
   flagAu,
@@ -311,7 +314,8 @@ export const icons = Object.assign({}, {
   cilMoodVeryGood,
   cilMenu,
   cilZoomIn,
-  cilSortNumericDown
+  cilSortNumericDown,
+  cilDiamond
 },
   {
     cibSkype,

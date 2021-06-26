@@ -5,6 +5,37 @@ import { GAME_STATUS, COLLECTION } from 'src/utils/_constants'
 import { getPoint } from 'src/utils/_common'
 
 class GameService {
+    getStandingAllTables = async (teams) => {
+        const grpTeams = _.filter(teams, function (t) { return t.table !== ''; })
+        let tables = {}
+
+        await Promise.all(
+            grpTeams.map((team) => {
+                var tbName = team.table
+                if (_.isEmpty(tables[tbName])) {
+                    tables[tbName] = []
+                }
+
+                tables[tbName].push({
+                    id: team.id,
+                    name: team.name,
+                    flagCode: team.flagCode,
+                    ...team.played,
+                    gF: team.goals.for,
+                    gA: team.goals.against,
+                    gD: team.goals.diff,
+                    point: team.point
+                })
+            })
+        )
+
+        _.forIn(tables, (value, key) => {
+            tables[key] = _.orderBy(value, ['point', 'gD', 'gF', 'name'], ['desc', 'desc', 'desc', 'asc']);
+        })
+
+        return tables;
+    }
+
     getStandingTables = async (eventId) => {
         const teamCollection = _.toLower(eventId) + COLLECTION.TEAM;
         const teamsRef = await firebase.db.collection(teamCollection)
@@ -39,17 +70,17 @@ class GameService {
         return tables;
     }
 
-    getAllGames = async (eventId) => {
-        const teamCollection = _.toLower(eventId) + COLLECTION.TEAM;
+    getAllGames = async (eventId, evtTeams) => {
+        // const teamCollection = _.toLower(eventId) + COLLECTION.TEAM;
         const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
         // const eventRef = await firebase.db.collection(COLLECTION.EVENT).doc(eventId).get();
         const gamesRef = await firebase.db.collection(gameCollection)
             .orderBy('seq', "asc").get();
-        const teamsRef = await firebase.db.collection(teamCollection).orderBy('table', 'asc').get();
 
-        const teams = await teamsRef.docs.map(team => {
-            return { id: team.id, flagCode: team.data().flagCode, name: team.data().name }
+        const teams = await evtTeams.map(team => {
+            return { id: team.id, flagCode: team.flagCode, name: team.name }
         })
+
         let rounds = {
             grp: [],
             ro16: [],
@@ -63,6 +94,64 @@ class GameService {
             var match = { id: game.id, firstTeam, secondTeam, ..._.omit(game.data(), ['table', 'firstTeam', 'secondTeam']) };
             if (match.seq <= 36) {
                 match['match'] = game.data().table
+                rounds.grp.push(match)
+            } else if (match.seq <= 44) {
+                match['match'] = `R${match.seq - 36}`
+                rounds.ro16.push(match)
+            } else if (match.seq <= 48) {
+                match['match'] = `Q${match.seq - 44}`
+                rounds.qf.push(match)
+            } else if (match.seq <= 50) {
+                match['match'] = `SF${match.seq - 48}`
+                rounds.sf.push(match)
+            } else {
+                match['match'] = 'F'
+                rounds.final.push(match)
+            }
+            return ''
+        })
+
+        return rounds
+    }
+
+    getEventGames = async (eventId, timestamp) => {
+        let gamesRef = null;
+        const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
+        // const eventRef = await firebase.db.collection(COLLECTION.EVENT).doc(eventId).get();
+        if (timestamp === null) {
+            gamesRef = await firebase.db.collection(gameCollection)
+                .orderBy('seq', "asc").get()
+        } else {
+            const ts = new Date(timestamp)
+            gamesRef = await firebase.db.collection(gameCollection)
+                .where('updatedAt', '>', ts)
+                .orderBy('updatedAt', "asc").get()
+        }
+
+        console.log(gamesRef.docs)
+        return await gamesRef.docs.map((game, index) => {
+            return { id: game.id, ..._.omit(game.data(), ['betId', 'event', 'updatedAt']) }
+        })
+    }
+
+    splitToGroup = async (evtGames, evtTeams) => {
+        const teams = await evtTeams.map(team => {
+            return { id: team.id, flagCode: team.flagCode, name: team.name }
+        })
+
+        let rounds = {
+            grp: [],
+            ro16: [],
+            qf: [],
+            sf: [],
+            final: []
+        }
+        await evtGames.map((game) => {
+            var firstTeam = _.find(teams, ['id', game.firstTeam]);
+            var secondTeam = _.find(teams, ['id', game.secondTeam]);
+            var match = { id: game.id, firstTeam, secondTeam, ..._.omit(game, ['table', 'firstTeam', 'secondTeam']) };
+            if (match.seq <= 36) {
+                match['match'] = game.table
                 rounds.grp.push(match)
             } else if (match.seq <= 44) {
                 match['match'] = `R${match.seq - 36}`

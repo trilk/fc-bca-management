@@ -29,6 +29,9 @@ const TodayBetting = (props) => {
     const [scopedSlots, setScopedSlots] = useState({});
 
     const getFlagCode = (firstTeam, secondTeam, bet) => {
+        if (event.round > 3 && bet > 2) {
+            bet = bet - 2
+        }
         if (bet === 3) return 'flag-tie';
 
         if (bet === 1) {
@@ -80,6 +83,7 @@ const TodayBetting = (props) => {
                             (item) => (
                                 <td className={`text-center align-middle ${item[game.id].bet === 3 ? 'draw' : ''}`}>
                                     {item[game.id].bet !== 0 && <CIcon width="32" name={getFlagCode(game.firstTeam, game.secondTeam, item[game.id].bet)} />}
+                                    {(item[game.id].usedStar || false) && <CIcon name="flag-star" className="text-warning ml-2" />}
                                 </td>
                             )
                     })

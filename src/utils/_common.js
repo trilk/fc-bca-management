@@ -111,6 +111,49 @@ export const euroHandicap = (goals, code) => {
     }
 }
 
+export const calculatePoint = (bet, result, round, usedStar) => {
+    if (bet === 0) return 0
+
+    let point = 0
+    if (round === 4) {
+        if (bet === result) {
+            point = bet > 2 ? 1.5 : 1
+            point = usedStar ? point * 2 : point
+        } else if ((bet + 2) === result || bet === (result + 2)) {
+            point = usedStar ? 0 : 0.5
+        } else {
+            if (bet > 2 && usedStar) {
+                point = -1.5
+            }
+            if (bet <= 2 && usedStar) {
+                point = -1
+            }
+        }
+
+        return point
+    }
+
+    if (round === 5) {
+        if (bet === result) {
+            point = bet > 2 ? 3 : 2
+            point = usedStar ? point * 2 : point
+        } else if ((bet + 2) === result || bet === (result + 2)) {
+            point = usedStar ? 0 : 1
+        } else {
+            if (bet > 2 && usedStar) {
+                point = -3
+            }
+            if (bet <= 2 && usedStar) {
+                point = -2
+            }
+        }
+
+        return point
+    }
+
+    return bet === result ? 1 : 0
+}
+
 export const userSelectMessage = (round, myBet, firstName, secondName, userName) => {
     switch (myBet.value) {
         case 1:
@@ -143,10 +186,15 @@ export const getBetStatus = (match, myBet, betResult, userName) => {
         canEdit: false,
         color: 'secondary',
         iconName: '',
-        message: ''
+        message: '',
+        starMsg: ''
     }
     if (match.status === GAME_STATUS.NOT_STARTED) {
-        return { ...result, iconName: 'cil-calendar-check', message: `Vào đây làm gì vậy <b><a href="#">${userName}</a></b>? Trận đấu đã dự được đâu.` }
+        return {
+            ...result,
+            iconName: 'cil-calendar-check',
+            message: `Vào đây làm gì vậy <b><a href="#">${userName}</a></b>? Trận đấu đã dự được đâu.`
+        }
     }
 
     if (match.status === GAME_STATUS.BETTING) {
@@ -161,14 +209,18 @@ export const getBetStatus = (match, myBet, betResult, userName) => {
                     canEdit: canEdit,
                     color: 'warning',
                     iconName: 'cil-bolt',
-                    message: `NHANH LÊN <b><a href="#">${userName}</a></b>! Còn ${remainTime} phút thôi. Chọn theo phía trên đó.`
+                    message: `NHANH LÊN <b><a href="#">${userName}</a></b>! Còn ${remainTime} phút thôi. Chọn theo phía trên đó.`,
+                    starMsg: 'Bạn có 1 cơ hội để x2 số điểm trận này nếu trả lời đúng!'
                 }
             } else {
+
                 return {
                     canEdit: canEdit,
                     color: 'info',
                     iconName: 'cil-blind',
-                    message: userSelectMessage(match.round, myBet, match.firstTeam.name, match.secondTeam.name, userName)
+                    message: userSelectMessage(match.round, myBet, match.firstTeam.name, match.secondTeam.name, userName),
+                    starMsg: myBet.usedStar ? 'Bạn đã chọn ngôi sao hi vọng cho trận đấy này!' :
+                        'Bạn có 1 cơ hội để <b><a href="#">x2</a></b> số điểm trận này nếu trả lời đúng!'
                 }
             }
         }
@@ -176,6 +228,7 @@ export const getBetStatus = (match, myBet, betResult, userName) => {
     }
 
     if (myBet.value === 0) { //Finish or overtime
+        myBet.showStar = false
         return {
             canEdit: false,
             color: 'dark',
@@ -188,7 +241,8 @@ export const getBetStatus = (match, myBet, betResult, userName) => {
                 canEdit: false,
                 color: 'info',
                 iconName: 'cil-blind',
-                message: userSelectMessage(match.round, myBet, match.firstTeam.name, match.secondTeam.name, userName) + ' Chờ mà xem!'
+                message: userSelectMessage(match.round, myBet, match.firstTeam.name, match.secondTeam.name, userName) + ' Chờ mà xem!',
+                starMsg: myBet.usedStar ? 'Bạn đã chọn ngôi sao hi vọng cho trận đấy này!' : ''
             }
         } else {
             if (betResult === 1) {
@@ -196,14 +250,16 @@ export const getBetStatus = (match, myBet, betResult, userName) => {
                     canEdit: false,
                     color: 'success',
                     iconName: 'cil-mood-very-good',
-                    message: `CHÚC MỪNG! Sao đoán trúng hay vậy <b><a href="#">${userName}</a></b>, mai chỉ bài với nha`
+                    message: `CHÚC MỪNG! Sao đoán trúng hay vậy <b><a href="#">${userName}</a></b>, mai chỉ bài với nha`,
+                    starMsg: myBet.usedStar ? 'Ngôi sao hi vọng thật đúng lúc!' : ''
                 }
             } else {
                 return {
                     canEdit: false,
                     color: 'danger',
                     iconName: 'cil-thumb-down',
-                    message: `Rất tiếc! Dễ vậy mà đoán cũng sai nữa <b><a href="#">${userName}</a></b>`
+                    message: `Rất tiếc! Dễ vậy mà đoán cũng sai nữa <b><a href="#">${userName}</a></b>`,
+                    starMsg: myBet.usedStar ? 'Ngôi sao hi vọng đã khiến bạn mất điểm!' : ''
                 }
             }
         }
@@ -337,4 +393,42 @@ export const getPoint = (tblTeams, game, isFirstTeam) => {
     }
 
     return tblTeams;
+}
+
+export const setEventProgress = (seq, round) => {
+    let prg = {
+        R1: Math.round(13 / 51 * 100),
+        R2: Math.round(12 / 51 * 100),
+        R3: Math.round(12 / 51 * 100),
+        R4: Math.round(8 / 51 * 100),
+        R5: Math.round(7 / 51 * 100)
+    }
+
+    switch (round) {
+        case 1:
+            prg.R1 = Math.round(seq / 51 * 100)
+            break;
+        case 2:
+            prg.R2 = Math.round((seq - 12) / 51 * 100)
+            prg.R3 = 0
+            prg.R4 = 0
+            prg.R5 = 0
+            break;
+        case 3:
+            prg.R3 = Math.round((seq - 24) / 51 * 100)
+            prg.R4 = 0
+            prg.R5 = 0
+            break;
+        case 4:
+            prg.R4 = Math.round((seq - 36) / 51 * 100)
+            prg.R5 = 0
+            break;
+        case 5:
+            prg.R4 = Math.round((seq - 44) / 51 * 100)
+            break;
+
+        default:
+            break;
+    }
+    return prg;
 }
