@@ -58,9 +58,7 @@ export const registerUser = (userData) => (dispatch) => {
 // Login - get user token
 export const login = (userData) => async (dispatch) => {
   try {
-    console.log('Vo ham login');
     const { user } = await firebase.auth.signInWithEmailAndPassword(userData.username, userData.password);
-    console.log(user);
     dispatch(setUser(user.uid));
   }
   catch (error) {
@@ -77,7 +75,6 @@ export const fbLogin = () => async () => {
 };
 
 export const anonymousLogin = () => async () => {
-  console.log('sao ko vao day')
   firebase.auth.signInAnonymously();
 }
 
@@ -149,7 +146,7 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
       const userSmr = eventRef.data().users[user.id];
       event.round = eventRef.data().currentRound
 
-      userData = userSmr ? { ...user.data(), favTeam: userSmr.betTeam, usedStar: userSmr.usedStar } : user.data();
+      userData = userSmr ? { ...user.data(), favTeam: userSmr.betTeam } : user.data();
     }
 
     const sysUsers = await firebase.db.collection('users')
@@ -172,7 +169,7 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
       isAdmin: userData.role === 'admin',
       group: userData.group,
       favTeam: userData.favTeam || '',
-      usedStar: userData.role === 'admin' ? true : userData.usedStar
+      // usedStar: userData.role === 'admin' ? true : userData.usedStar
     }
   }
 
@@ -193,7 +190,6 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
 
 // Set logged in user
 export const setUser = (userId) => async (dispatch) => {
-  console.log('set user')
   const users = await firebase.db.collection('users').where('status', '!=', USER_STATUS.INACTIVE).get();
   let userInfo = null;
   const storeUsers = users.docs.map((doc) => {

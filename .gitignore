@@ -33,3 +33,4 @@ package-lock.json
 firestore-debug.log
 firestore.indexes.json
 firestore.rules
+.firebase/hosting.YnVpbGQ.cache

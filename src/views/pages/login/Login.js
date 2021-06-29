@@ -55,7 +55,6 @@ const Login = () => {
 
   useEffect(() => {
     if (sysUser && !sysUser.isAnonymous) {
-      console.log('Login: user loggedin ');
       setRedirectTo(true);
     }
 

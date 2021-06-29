@@ -64,7 +64,7 @@ class BettingService {
                 if (key !== 'id' && key !== 'betTeam' && key !== 'usedStar') {
                     evtUser[key]['missed'] = evtUser[key].total - (evtUser[key].corrected + evtUser[key].wrong)
                     evtUser[key]['percent'] = evtUser[key].total !== 0 ? (evtUser[key].corrected / evtUser[key].total).toFixed(2) : 0
-                    evtUser[key]['point'] = evtUser[key].corrected * ratioPoint[key]
+                    evtUser[key]['point'] = evtUser[key].point || evtUser[key].corrected
 
                     betResult.corrected += evtUser[key].corrected
                     betResult.wrong += evtUser[key].wrong
@@ -99,7 +99,7 @@ class BettingService {
             secondWinExtra: 0,
             notBet: 0
         }
-        let myBet = {}
+        let myBet = {}, usedStar = false
 
         const ubCollection = _.toLower(eventId) + COLLECTION.USER_BET;
         let ubRef = null
@@ -127,6 +127,7 @@ class BettingService {
             }
 
             if (userId === ub.data().userId) {
+                usedStar = ub.data().usedStar || false
                 myBet = _.isEmpty(bGame) ? {
                     'bet': 0,
                     'result': -1
@@ -140,7 +141,7 @@ class BettingService {
             statistic = { draw: statistic.firstWinExtra, ..._.omit(statistic, ['firstWinExtra', 'secondWinExtra']) }
         }
 
-        return { myBet: myBet, statistic: statistic }
+        return { myBet: myBet, statistic: statistic, usedStar: usedStar }
     }
 
     //Get an user's bet by game ids
@@ -269,6 +270,7 @@ class BettingService {
                 await Promise.all(
                     Object.keys(ubRef.data().matches).map(async (key, index) => {
                         const gameRef = await firebase.db.collection(gameCollection).doc(key).get();
+                        const matchBet = ubRef.data().matches[key];
 
                         matches.push({
                             id: key,
@@ -276,8 +278,10 @@ class BettingService {
                             firstTeam: gameRef.data().firstTeam,
                             secondTeam: gameRef.data().secondTeam,
                             goals: gameRef.data().goals,
-                            bet: ubRef.data().matches[key].bet,
-                            result: ubRef.data().matches[key].result
+                            bet: matchBet.bet,
+                            usedStar: matchBet.usedStar || false,
+                            result: matchBet.result,
+                            point: matchBet.point || (matchBet.result != -1 ? matchBet.result : '')
                         });
 
                     })
@@ -306,7 +310,7 @@ class BettingService {
         const ubCollection = _.toLower(eventId) + COLLECTION.USER_BET;
         const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
         let fails = [];
-        const betData = {};
+        let betData = {};
         let usedStar = false, changedStar = false;
 
         try {
@@ -333,7 +337,11 @@ class BettingService {
                                 changedStar = data.changedStar || false
                             }
 
-                            Object.assign(betData, { [`matches.${data.gameId}`]: mBet });
+                            betData = changedStar ? Object.assign(betData, {
+                                [`matches.${data.gameId}`]: mBet,
+                                usedStar: usedStar
+                            }) : Object.assign(betData, { [`matches.${data.gameId}`]: mBet })
+
 
                         } else {
                             fails.push(gameRef.id);
@@ -344,8 +352,9 @@ class BettingService {
 
             //Update bet info to firebase
             await betRef.update(betData);
+
             if (fails.length == 0) {
-                return changedStar ? this.userUsedStar(eventId, userId, usedStar) : { status: 'OK', message: 'Dự đoán kết quả trận đấu thành công.' }
+                return { status: 'OK', message: 'Dự đoán kết quả trận đấu thành công.' }
             }
             return { status: 'ERR', message: 'Đã hết thời gian dự đoán kết quả trận đấu.' }
 
@@ -400,7 +409,6 @@ class BettingService {
                 }
 
                 let userResult = evt.data().users[userId];
-                console.log(userResult)
                 if (userResult) {
                     userResult = { ...userResult, usedStar: usedStar }
                 }

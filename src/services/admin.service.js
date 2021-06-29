@@ -169,9 +169,9 @@ class AdminService {
 
                 if (betValues.bet !== 0) {
                     betValues.result = betValues.bet === data.result ? 1 : 0;
-                    if (data.round > 3) {
-                        betValues['point'] = calculatePoint(betValues.bet, data.result, data.round, betValues.usedStar || false)
-                    }
+                }
+                if (data.round > 3) {
+                    betValues['point'] = calculatePoint(betValues.bet, data.result, data.round, betValues.usedStar || false)
                 }
 
                 let corrected = 0, wrong = 0, point = 0;

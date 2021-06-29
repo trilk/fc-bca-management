@@ -128,7 +128,6 @@ class GameService {
                 .orderBy('updatedAt', "asc").get()
         }
 
-        console.log(gamesRef.docs)
         return await gamesRef.docs.map((game, index) => {
             return { id: game.id, ..._.omit(game.data(), ['betId', 'event', 'updatedAt']) }
         })

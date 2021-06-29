@@ -22,7 +22,6 @@ const MainHeader = () => {
   const [logoName, setLogoName] = useState(logo.icon)
 
   useEffect(() => {
-    console.log(logo)
     if (logo.icon === '') {
       setLogoName(logo.img)
     } else {

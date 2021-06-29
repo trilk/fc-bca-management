@@ -44,7 +44,10 @@ const UserBetHistory = (props) => {
         { key: 'point', label: largeScreen ? 'Điểm' : 'Pts', _classes: 'text-center' },
     ]
 
-    const getFlagCode = (firstTeam, secondTeam, bet) => {
+    const getFlagCode = (round, firstTeam, secondTeam, bet) => {
+        if (round > 3 && bet > 2) {
+            bet = bet - 2
+        }
         if (bet === 3) return 'flag-tie';
 
         if (bet === 1) {
@@ -65,7 +68,6 @@ const UserBetHistory = (props) => {
                 userFavorTeam: eventSummary.users[userId] ? eventSummary.users[userId].betTeam : ''
             })
             let userGames = await fbDb.BettingService.getGamesBetByUser(event.id, event.round, userId).then(async (response) => {
-                console.log(response)
                 setUserData(response)
 
                 dispatch({
@@ -99,7 +101,7 @@ const UserBetHistory = (props) => {
 
                                 </CCol>
                                 <CCol className="justify-content-center d-flex">
-                                    <CIcon name={isEmpty(evtSummary.userFavorTeam) ? 'flagTbd' : getFlagCode(evtSummary.userFavorTeam, '', 1)} width="100"></CIcon>
+                                    <CIcon name={isEmpty(evtSummary.userFavorTeam) ? 'flagTbd' : getFlagCode(1, evtSummary.userFavorTeam, '', 1)} width="100"></CIcon>
 
                                 </CCol>
                             </CRow>
@@ -187,19 +189,21 @@ const UserBetHistory = (props) => {
                                                 'bet':
                                                     (item) => (
                                                         <td className={`align-middle text-center ${item.bet == 3 && 'text-secondary'}`}>
-                                                            {item.bet !== 0 && <CIcon width="32" name={getFlagCode(item.firstTeam, item.secondTeam, item.bet)} />}
+                                                            {item.bet !== 0 && <CIcon width="32" name={getFlagCode(idx + 1, item.firstTeam, item.secondTeam, item.bet)} />}
+                                                            <span className="position-relative">{item.usedStar && <CIcon name="flag-star" className="text-warning position-absolute" />}</span>
                                                         </td>
                                                     ),
                                                 'result':
                                                     (item) => (
                                                         <td className="text-center align-middle">
+                                                            {item.id === 'EURO2021_41' ? console.log(item) : console.log('')}
                                                             {item.result !== -1 && <CIcon className={item.result === 1 ? "text-success" : 'text-danger'} name={item.result === 1 ? 'cil-check-circle' : 'cil-x-circle'} size="xl" />}
                                                         </td>
                                                     ),
                                                 'point':
                                                     (item) => (
                                                         <td className="text-center align-middle">
-                                                            {item.result !== -1 ? item.result : ''}
+                                                            {item.point || (item.result !== -1 ? item.result : '')}
                                                         </td>
                                                     ),
 

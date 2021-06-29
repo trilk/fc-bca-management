@@ -104,7 +104,7 @@ const ModalMatchInfo = props => {
                             usedStar: true
                         }
                     }
-                    if (myBet.bet.usedStar !== sysUser.usedStar) {
+                    if (myBet.bet.usedStar !== props.data.myBet.bet.usedStar) {
                         usedStar['changedStar'] = true
                     }
                 }
@@ -124,8 +124,7 @@ const ModalMatchInfo = props => {
         if (props.data.match) {
             setMyBet(_.cloneDeep(props.data.myBet))
             setChangedScore(sysUser.isAdmin && myBet.canEdit)
-            setShowStar(props.data.myBet.bet.usedStar || (props.data.myBet.canEdit && !sysUser.usedStar))
-            console.log(props.data.myBet.usedStar);
+            setShowStar(props.data.myBet.bet.usedStar || (props.data.myBet.canEdit && !props.data.usedStar))
         }
     }, [props.data])
 
@@ -141,7 +140,7 @@ const ModalMatchInfo = props => {
                         <span>{match.firstTeam.name}</span>
                     </CCol>
                     <CCol className="text-center col-md-2 p-0">
-                        <div className="goal-input form-row justify-content-center pt-2">
+                        <div className="goal-input form-row justify-content-center">
                             <div className="col-auto">
                                 <CInput disabled={!changedScore} className="form-control p-0" name="first90" value={myBet.first90}
                                     onChange={(value) => onScoreChange(value)} autoComplete="off" />

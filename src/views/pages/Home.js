@@ -121,12 +121,12 @@ const Home = () => {
                 case MODAL_RESPONSE_TYPE.BETTING:
                     fbDb.BettingService.userBetGames(event.id, sysUser.id, event.round, [modalRes.data]).then(response => {
                         onNotify(response)
-                        if (modalRes.data.changedStar || false) {
-                            dispatch({
-                                type: SET_STAR,
-                                payload: !sysUser.usedStar
-                            })
-                        }
+                        // if (modalRes.data.changedStar || false) {
+                        //     dispatch({
+                        //         type: SET_STAR,
+                        //         payload: !sysUser.usedStar
+                        //     })
+                        // }
                     });
 
                     break;
@@ -182,12 +182,12 @@ const Home = () => {
 
     return (
         <>
-            <CRow className="px-3">
+            <CRow >
                 {/* <div className="headline w-100">
                     <div className="ribbon ribbon-top-left"><span>Euro 2021</span></div>
                     <div className="banner">ĐI TÌM THÁNH DỰ</div>
                 </div> */}
-                <CCol className="px-0">
+                <CCol>
                     {progress !== 0 &&
                         <CProgress size="lg" style={{ height: '1.5rem', fontSize: '0.8rem' }}>
                             <CProgressBar striped color="success" value={progress}>
@@ -199,7 +199,7 @@ const Home = () => {
             <CRow className={'mt-2'}>
 
                 {event.round < 4 &&
-                    <CCol md="5" className="pr-2">
+                    <CCol md="5" className={largeScreen ? 'pr-2' : ''}>
                         {
                             Object.keys(tableData).map((key, index) =>
                                 <TeamGroup key={key + index} teams={tableData[key]} table={key} admin={isAdmin} isMobile={!largeScreen} />
@@ -207,7 +207,7 @@ const Home = () => {
                         }
                     </CCol>}
                 {event.round > 3 &&
-                    <CCol md="5" className="pr-2">
+                    <CCol md="5" className={largeScreen ? 'pr-2' : ''}>
                         <CCard className="team-group">
                             <CCardHeader>{'Top 10 thánh dự'}
                                 <div className="card-header-actions">
@@ -224,7 +224,7 @@ const Home = () => {
                         <div></div>
                         {/* <EventSummary /> */}
                     </CCol>}
-                <CCol xl="7" className="pl-2">
+                <CCol xl="7" className={largeScreen ? 'pl-2' : ''}>
                     {
                         Object.keys(gameData).map((key, index) =>
                             <MatchGroup key={key + index} items={gameData[key]} name={key} admin={isAdmin} onRowClick={onShowMatchModal} />

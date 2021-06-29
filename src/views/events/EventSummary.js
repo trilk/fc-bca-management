@@ -13,12 +13,11 @@ import CIcon from '@coreui/icons-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import * as fbDb from 'src/services/index'
-import { isEmpty, take, toUpper, orderBy } from 'lodash'
+import { isEmpty, take, toUpper, orderBy, indexOf } from 'lodash'
 import { useMediaQuery } from 'react-responsive'
 import { SET_LOGO } from 'src/actions/types'
 
 const EventSummary = (props) => {
-    console.log(props)
     const largeScreen = useMediaQuery({
         query: '(min-device-width: 600px)'
     });
@@ -31,6 +30,7 @@ const EventSummary = (props) => {
     const storedUsers = useSelector(state => state.auth.users);
     const [userPoints, setUserPoints] = useState([]);
     const [selectRound, setSelectRound] = useState(-1);
+    const [outTeams, setOutTeams] = useState([]);
     const panelDisplay = !isEmpty(props.eventId)
 
     const fields = [
@@ -44,6 +44,9 @@ const EventSummary = (props) => {
         { key: 'point', label: largeScreen && !panelDisplay ? 'Điểm' : 'Pt', _classes: 'text-center' },
     ]
 
+    const isOutTeam = (team) => {
+        return indexOf(outTeams, team.id) > -1 ? 'out' : ''
+    }
     const onClickUserItem = (user) => {
         history.push(`/event-user/${user.id}`)
     }
@@ -70,6 +73,8 @@ const EventSummary = (props) => {
 
             let userPts = await fbDb.BettingService.getUserBettingRound(sysUser.group, eventId, event.round)
             const eventSummary = await fbDb.EventService.getEventSummary(eventId)
+            // console.log(userPts)
+            setOutTeams(eventSummary.outTeams)
 
             // console.log(userPts)
             fbDb.BettingService.calculatePointTable(userPts, eventSummary, evtTeams, storedUsers, sysUser.id).then(response => {
@@ -130,7 +135,7 @@ const EventSummary = (props) => {
                                 ),
                             'winner':
                                 (item) => (
-                                    <td className={`text-center ${panelDisplay ? 'd-none' : ''}`}>
+                                    <td className={`text-center ${panelDisplay ? 'd-none' : ''} ${isOutTeam(item.favTeam)}`}>
                                         <CIcon className="" width="36" name={item.favTeam.flagCode || 'flag-tbd'}></CIcon>
                                     </td>
                                 ),

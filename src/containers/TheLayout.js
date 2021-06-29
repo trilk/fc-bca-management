@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { auth } from './../firebase'
 
 const TheLayout = (props) => {
-  console.log(props)
   const dispatch = useDispatch()
   const authed = useSelector(state => state.auth.isAuthenticated);
   const [initializing, setInitializing] = useState(true);

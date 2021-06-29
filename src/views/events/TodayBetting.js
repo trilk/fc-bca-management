@@ -55,7 +55,6 @@ const TodayBetting = (props) => {
 
         if (userData.length == 0 && evtTeams.length > 0 && storedUsers.length > 0) {
             let userGames = await fbDb.BettingService.getCurrentBettingGames(sysUser.group, event.id, event.round, '', []).then(async (response) => {
-                console.log(response)
                 if (response !== null) {
                     setUserData(response.users)
                     let tmpFields = [{ key: 'name', label: 'Tên', _classes: 'pl-3 align-middle' }],
@@ -83,7 +82,7 @@ const TodayBetting = (props) => {
                             (item) => (
                                 <td className={`text-center align-middle ${item[game.id].bet === 3 ? 'draw' : ''}`}>
                                     {item[game.id].bet !== 0 && <CIcon width="32" name={getFlagCode(game.firstTeam, game.secondTeam, item[game.id].bet)} />}
-                                    {(item[game.id].usedStar || false) && <CIcon name="flag-star" className="text-warning ml-2" />}
+                                    <span className="position-relative">{(item[game.id].usedStar || false) && <CIcon name="flag-star" className="text-warning position-absolute" />}</span>
                                 </td>
                             )
                     })

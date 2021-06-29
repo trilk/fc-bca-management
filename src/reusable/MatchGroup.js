@@ -70,6 +70,7 @@ const MatchGroup = props => {
             props.onRowClick({
                 match: item,
                 stat: response.statistic,
+                usedStar: response.usedStar,
                 myBet: {
                     ...betStatus,
                     bet,
