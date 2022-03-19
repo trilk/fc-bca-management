@@ -1,198 +1,203 @@
-.team-group.card{
-    box-shadow: rgba(69, 69, 70, 0.8) 0px 8px 24px;
-    border-radius: 0.5rem;
-        .card-header {
-        background-color: rgba(50, 228, 255,0.8);
-        font-size: large;
-        font-weight: bold;
-    }
-    .card-body {
-        padding: 0;
-        table.table {
-            margin-bottom: 0;
-            tr.my-position {
-                background-color: #eff6ff;
-                td{
-                    font-weight: bold;
-                }
-            }
-            th {
-                font-weight: normal;
-                color: lighten($color:#3c4b64, $amount: 10%);
-                border: none;
-                text-transform: uppercase;
-            }
-            td {
-                padding: 0.5rem;
-            }
-            &.standing {
-                tbody tr:nth-child(-n + 2) {
-                    background-color: #eff6ff;
-                    font-weight: bold;
-                }
-            }
+.team-group.card {
+  box-shadow: rgba(69, 69, 70, 0.8) 0px 8px 24px;
+  border-radius: 0.5rem;
+  .card-header {
+    background-color: rgba(50, 228, 255, 0.8);
+    font-size: large;
+    font-weight: bold;
+  }
+  .card-body {
+    padding: 0;
+    table.table {
+      margin-bottom: 0;
+      tr.my-position {
+        background-color: #eff6ff;
+        td {
+          font-weight: bold;
         }
-        
+      }
+      th {
+        font-weight: normal;
+        color: lighten($color: #3c4b64, $amount: 10%);
+        border: none;
+        text-transform: uppercase;
+      }
+      td {
+        padding: 0.5rem;
+      }
+      &.standing {
+        tbody tr:nth-child(-n + 2) {
+          background-color: #eff6ff;
+          font-weight: bold;
+        }
+      }
     }
+  }
 }
 .team-group.none-table-header {
-    .card-header{
-        background-color: #fbca9e;
-    }
-    th {
-        padding: 0;
-    }
-    tr.finished {
-        background-color: #e6e6e6;
-    }
-    tr.betting {
-        background-color: #e3fde6;
-    }
-    tr.not_started {
-        background-color: #fff;
-    }
+  .card-header {
+    background-color: #fbca9e;
+  }
+  th {
+    padding: 0;
+  }
+  tr.finished {
+    background-color: #e6e6e6;
+  }
+  tr.betting {
+    background-color: #e3fde6;
+  }
+  tr.not_started {
+    background-color: #fff;
+  }
 }
 
 .score-text {
-    font-weight: bold;
-    font-size: 1.3rem;
+  font-weight: bold;
+  font-size: 1.3rem;
 }
 .score-text-sm {
-    font-size: 0.8rem;
-    font-style: italic;
+  font-size: 0.8rem;
+  font-style: italic;
 }
 .avatar {
-    width: 2rem;
-    height: 2rem;
-    line-height: 2rem;
-    border-radius: 50%;
-    display: inline-block;
-    background: #ced4da no-repeat center/cover;
-    position: relative;
-    text-align: center;
-    color: #868e96;
-    font-weight: 600;
-    vertical-align: bottom;
-    font-size: .875rem;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 50%;
+  display: inline-block;
+  background: #ced4da no-repeat center/cover;
+  position: relative;
+  text-align: center;
+  color: #868e96;
+  font-weight: 600;
+  vertical-align: bottom;
+  font-size: 0.875rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .avatar-blue {
-    background-color: #c8d9f1;
-    color: #467fcf;
+  background-color: #c8d9f1;
+  color: #467fcf;
 }
 .avatar-sm {
-    width: 1.7rem;
-    height: 1.7rem;
-    line-height: 1.7rem;
-    font-size: .8rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  line-height: 1.7rem;
+  font-size: 0.8rem;
 }
 
 .mi-modal {
-    .modal-dialog{
-        .modal-header.mi-header {
-            font-size: 1.5rem;
-            font-weight: bold;
-            .goal-input {
-                input {
-                    max-width: 40px;
-                    text-align: center;
-                    font-size: 1.8rem;
-                    height: 38px;
-                }
-            }
+  .modal-dialog {
+    .modal-header.mi-header {
+      font-size: 1.5rem;
+      font-weight: bold;
+      .goal-input {
+        input {
+          max-width: 40px;
+          text-align: center;
+          font-size: 1.8rem;
+          height: 38px;
         }
-        .mi-team {
-            cursor: pointer;
-            padding: 1.2rem;
-            border: 1px solid #fff;
-            &.middle {
-                padding: 2.4rem;
-                svg {
-                    color: #909090;
-                }
-                &:hover, &.selected {
-                    svg {
-                        color: #28b8cec2;
-                    }
-                }
-            }
-            &:hover, &.selected {
-                border-color: #ddd;
-                border-radius: 4px;
-                box-shadow: 2px 2px 8px #ddd;
-                svg {
-                    filter: none;
-                    opacity: 1;
-                }
-            }
-            svg {
-                filter: grayscale(1);
-                opacity: 0.8;
-            }
-        }
-        svg.hope-star {
-            cursor: pointer;
-            top: -3rem;
-            color: white;
-            &:hover, &.selected {
-                color: yellow;
-            }
-        }
-        .mi-aet {
-            svg {
-                cursor: pointer;
-                color: #909090;                
-            }
-            &:hover, &.checked{
-                svg { 
-                color: #28b8cec2;
-                }
-            }
-        }
-        .admin{
-            .mi-team svg{
-                filter: none;
-                opacity: 1;
-            }
-        }
-        .mi-stat-container {
-            padding: 1rem 0;
-            .mi-stat {
-                font-size: 2rem;
-                font-weight: bold;
-                &.middle {
-                    border-left: 1px solid #ddd;
-                    border-right: 1px solid #ddd;
-                }
-                p {
-                    font-size: 1rem;
-                    margin-bottom: 0.5rem;
-                }
-            }
-        }
-        .alert{
-            span {
-                font-size: 1.05rem;
-            }
-        }
+      }
     }
+    .mi-team {
+      cursor: pointer;
+      padding: 1.2rem;
+      border: 1px solid #fff;
+      &.middle {
+        padding: 2.4rem;
+        svg {
+          color: #909090;
+        }
+        &:hover,
+        &.selected {
+          svg {
+            color: #28b8cec2;
+          }
+        }
+      }
+      &:hover,
+      &.selected {
+        border-color: #ddd;
+        border-radius: 4px;
+        box-shadow: 2px 2px 8px #ddd;
+        svg {
+          filter: none;
+          opacity: 1;
+        }
+      }
+      svg {
+        filter: grayscale(1);
+        opacity: 0.8;
+      }
+    }
+    svg.hope-star {
+      cursor: pointer;
+      top: -4.5rem;
+      color: white;
+      &:hover,
+      &.selected {
+        color: yellow;
+      }
+    }
+    .mi-aet,
+    .mi-over-under {
+      svg {
+        cursor: pointer;
+        color: #909090;
+      }
+      &:hover,
+      &.selected {
+        svg {
+          color: #2eb85c;
+        }
+      }
+    }
+    .admin {
+      .mi-team svg {
+        filter: none;
+        opacity: 1;
+      }
+    }
+    .mi-stat-container {
+      padding: 0.6rem 0;
+      .mi-stat {
+        font-size: 2rem;
+        font-weight: bold;
+        &.middle {
+          border-left: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+        }
+        p {
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+          color: #555;
+          font-weight: normal;
+        }
+      }
+    }
+    .alert {
+      span {
+        font-size: 1.05rem;
+      }
+    }
+  }
 
-    fieldset {
-        border: 1px solid #ddd;
-        padding-bottom: 25px;
-        border-radius: 5px;
-        legend {
-            width: auto;
-            background-color: inherit;
-            padding: 5px;
-            padding-bottom: 8px;
-            font-size: 1.1rem;
-            margin-left: 15px;
-        }
+  fieldset {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    legend {
+      color: blue;
+      font-weight: bold;
+      width: auto;
+      background-color: inherit;
+      padding: 0 5px 5px;
+      font-size: 1.1rem;
+      margin-left: 15px;
     }
+  }
 }
-
