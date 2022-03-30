@@ -1,5 +1,6 @@
 import React from "react";
 
+const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const Home = React.lazy(() => import("./views/pages/Home"));
 const TodayBetting = React.lazy(() => import("./views/events/TodayBetting"));
 const EventSummary = React.lazy(() => import("./views/events/EventSummary"));
@@ -10,7 +11,7 @@ const routes = [
   { path: "/events/today", exact: true, name: 'TodayBetting', component: TodayBetting },
   { path: "/events/:id", exact: true, name: 'EventSummary', component: EventSummary },
   { path: "/event-user/:id", exact: true, name: 'UserBetHistory', component: UserBetHistory },
-  // { path: "/dashboard", name: i18n.t('top-menu.br-dashboard'), component: Dashboard },
+  { path: "/dashboard", exact: true, name: 'UserDashboard', component: Dashboard },
 ];
 
 export default routes;

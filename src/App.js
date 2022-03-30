@@ -10,6 +10,9 @@ const loading = (
   </div>
 );
 
+// Dashboard Layout
+const TheDashboardLayout = React.lazy(() => import('./containers/Dashboard/TheDashboardLayout'));
+
 // Containers
 const TheLayout = React.lazy(() => import("./containers/TheLayout"));
 const MainLayout = React.lazy(() => import("./containers/MainLayout"));
@@ -62,7 +65,7 @@ class App extends Component {
             <Route
               path="/dashboard"
               name="Dashboard"
-              render={(props) => <TheLayout {...props} />} />
+              render={(props) => <TheDashboardLayout {...props} />} />
           </Switch>
         </React.Suspense>
       </HashRouter>
