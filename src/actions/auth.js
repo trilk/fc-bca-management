@@ -1,7 +1,6 @@
-// import firebase from 'firebase'
 import AuthService from "../services/auth.service";
 import _ from 'lodash'
-import { COLLECTION } from 'src/utils/_constants'
+import { COLLECTION, USER_ROLE } from 'src/utils/_constants'
 
 import {
   REGISTER_SUCCESS,
@@ -71,7 +70,15 @@ export const login = (userData) => async (dispatch) => {
 };
 
 export const fbLogin = () => async () => {
-  firebase.auth.signInWithPopup(firebase.provider);
+
+  try {
+    var signIn =  await firebase.auth.signInWithPopup(firebase.provider)
+      .then( (user) => {
+        console.log(user);
+      });    
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const anonymousLogin = () => async () => {
@@ -100,9 +107,8 @@ export const logout = () => async (dispatch) => {
   // return history.push("/login");
 };
 
-export const setSystemUser = (group, eventId, authedUser) => async (dispatch) => {
+export const setSystemUser = (eventId, authedUser) => async (dispatch) => {
   let userInfo = null, storeUsers = [];
-  let event = { id: eventId, round: 0 }
 
   if (authedUser.isAnonymous) {
     userInfo = {
@@ -118,69 +124,47 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
       userData = {
         name: authedUser.displayName || '',
         email: authedUser.email || '',
-        personalInfo: {},
         photoUrl: authedUser.photoURL ? `${authedUser.photoURL}?type=large` : '',
-        slogan: '',
-        status: 'ACTIVE',
-        role: 'user',
-        group: group,
-        joinedDate: new Date()
+        active: true,
+        role: USER_ROLE.USER,
+        group: '',
       }
 
-      const userTeamRef = firebase.db.doc(`${COLLECTION.EVENT}/${eventId}/${COLLECTION.USER}/${authedUser.uid}`);
-      const userTeam = await userTeamRef.get()
-
       try {
-        sysUserRef.set(userData);
-        if (!userTeam.exists) {
-          userTeamRef.set({
-            active: true,
-            createdAt: new Date()
-          })
-        }
+        sysUserRef.set(userData);        
       } catch (error) {
         console.error(error);
       }
     } else {
-      const eventRef = await firebase.db.doc(`${COLLECTION.EVENT_SUMMARY}/${eventId}`).get();
-      const userSmr = eventRef.data().users[user.id];
-      event.round = eventRef.data().currentRound
-
-      userData = userSmr ? { ...user.data(), favTeam: userSmr.betTeam } : user.data();
-    }
-
-    const sysUsers = await firebase.db.collection('users')
-      .where('status', '!=', USER_STATUS.INACTIVE)
-      .where('role', '==', 'user')
-      .get();
-    storeUsers = sysUsers.docs.map((doc) => {
-      return {
-        id: doc.id,
-        name: doc.data().name,
-        initName: doc.data().name.split(" ").map((n) => n[0]).join("."),
-        avatar: doc.data().photoUrl
-      };
-    })
+      userData = user.data();
+    }    
 
     userInfo = {
       id: authedUser.uid,
       name: userData.name,
       photoUrl: userData.photoUrl,
-      isAdmin: userData.role === 'admin',
+      isAdmin: userData.role === USER_ROLE.ADMIN,
       group: userData.group,
-      favTeam: userData.favTeam || '',
-      // usedStar: userData.role === 'admin' ? true : userData.usedStar
     }
   }
+  
+  const evtGroups = await firebase.db.collection(`${COLLECTION.EVENT}/${eventId}/groups/`).get();
+  const groups = await firebase.db.collection(COLLECTION.GROUP).get();
+  console.log(groups.docs);
+  console.log(evtGroups.docs);
+  const storedGroups = evtGroups.docs.map((doc) => {
+    var grp = _.find(groups.docs, ['id', doc.id])    
+    return {id: doc.id, name: grp.name}
+  })
 
-  dispatch({
-    type: SET_EVENT,
-    payload: event
-  });
+  const types = await firebase.db.collection(COLLECTION.EXPENSE_TYPE).get();
+  const storedTypes = types.docs.map((doc) => {
+    return {code: doc.data().code, name: doc.data().name, icon: doc.data().icon}
+  })
 
   dispatch({
     type: LOGIN_SUCCESS,
-    payload: { user: userInfo, users: storeUsers }
+    payload: { user: userInfo, groups: storedGroups, exTypes: storedTypes}
   });
 
   dispatch({
@@ -190,7 +174,7 @@ export const setSystemUser = (group, eventId, authedUser) => async (dispatch) =>
 
 // Set logged in user
 export const setUser = (userId) => async (dispatch) => {
-  const users = await firebase.db.collection('users').where('status', '!=', USER_STATUS.INACTIVE).get();
+  const users = await firebase.db.collection('users').where('status', '!=', false).get();
   let userInfo = null;
   const storeUsers = users.docs.map((doc) => {
     if (doc.id === userId) {
@@ -198,9 +182,9 @@ export const setUser = (userId) => async (dispatch) => {
         id: userId,
         name: doc.data().name,
         email: doc.data().email,
-        isAdmin: doc.data().role === 'admin',
+        isAdmin: doc.data().role === USER_ROLE.ADMIN,
         avatar: doc.data().photoUrl,
-        group: doc.data().role === 'admin' ? GROUP.ALL : doc.data().group
+        group: doc.data().group
       }
     }
     return { id: doc.id, name: doc.data().name, avatar: doc.data().photoUrl };

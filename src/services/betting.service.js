@@ -1,10 +1,10 @@
 import _, { isEqual } from "lodash";
 import * as moment from "moment";
 import * as firebase from "src/firebase";
-import { COLLECTION, GAME_STATUS, GROUP } from "src/utils/_constants";
-import { euroHandicap } from "src/utils/_common";
+import { CATEGORY, COLLECTION, GROUP, TYPE } from "src/utils/_constants";
 
-class BettingService {
+class BettingService {  
+
   //Get user's bet result by tournament Id
   getUserBettingRound = async (group, eventId, round) => {
     const ubCollection = _.toLower(eventId) + COLLECTION.USER_BET;
@@ -204,7 +204,7 @@ class BettingService {
       emptyGameIds = true;
       gameIds = [];
       query = gamesRef
-        .where("status", "==", GAME_STATUS.BETTING)
+        .where("status", "==", '')
         .orderBy("seq", "asc");
     } else {
       query = gamesRef
@@ -316,7 +316,7 @@ class BettingService {
               .get();
             const matchBet = ubRef.data().matches[key];
 
-            if (gameRef.data().status !== GAME_STATUS.BETTING) {
+            if (gameRef.data().status !== '') {
               matches.push({
                 id: key,
                 seq: gameRef.data().seq,

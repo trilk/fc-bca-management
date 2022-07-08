@@ -13,8 +13,6 @@ import {
 } from "@coreui/react";
 import moment from "moment";
 import * as fbDb from "src/services/index";
-import { GAME_STATUS, GROUP } from "src/utils/_constants";
-import { getBetStatus, getMatchStatusForAdmin } from "src/utils/_common";
 
 const MatchGroup = (props) => {
   const sysUser = useSelector((state) => state.auth.user);
@@ -63,7 +61,7 @@ const MatchGroup = (props) => {
     //item.startTime = "2021-07-04 15:00";
     // item.status = GAME_STATUS.BETTING;
     fbDb.BettingService.getBetStatisticByGame(
-      sysUser.group || GROUP.DEFAULT,
+      sysUser.group || '',
       event.id,
       item.round,
       item.id,
@@ -88,9 +86,7 @@ const MatchGroup = (props) => {
         };
       }
 
-      const betStatus = sysUser.isAdmin
-        ? getMatchStatusForAdmin(item)
-        : getBetStatus(item, bet, response.myBet.result, sysUser.name);
+      const betStatus = '';
 
       props.onRowClick({
         match: item,

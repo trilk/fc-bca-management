@@ -1,14 +1,16 @@
 import firebase from 'firebase'
 
+console.log(process.env.REACT_APP_FIREBASE_API_KEY);
+
 // Your web app's Firebase configuration
 const config = {
-    apiKey: "AIzaSyDU7VCKeL74lW0i-T9P7xaGwgVVT6-lW1A",
-    authDomain: "fc-bca.firebaseapp.com",
-    databaseURL: "https://fc-bca.firebaseio.com",
-    projectId: "fc-bca",
-    storageBucket: "fc-bca.appspot.com",
-    messagingSenderId: "874368456194",
-    appId: "1:874368456194:web:1489ef414ed95fb156391b"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+    appID: process.env.REACT_APP_FIREBASE_APP_ID
 };
 firebase.initializeApp(config)
 

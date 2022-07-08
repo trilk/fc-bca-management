@@ -1,7 +1,7 @@
 import _, { isEqual } from "lodash";
 import * as moment from "moment";
 import * as firebase from "src/firebase";
-import { COLLECTION, GAME_STATUS, GROUP } from "src/utils/_constants";
+import { COLLECTION } from "src/utils/_constants";
 import { calculatePoint, euroHandicap } from "src/utils/_common";
 
 class AdminService {
@@ -144,7 +144,7 @@ class AdminService {
 
           transaction.update(gameRef, {
             goals: goals,
-            status: GAME_STATUS.FINISHED,
+            status: '',
             updatedAt: new Date(),
           });
           return {

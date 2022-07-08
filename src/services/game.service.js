@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import * as moment from 'moment'
 import * as firebase from 'src/firebase'
-import { GAME_STATUS, COLLECTION } from 'src/utils/_constants'
+import { COLLECTION } from 'src/utils/_constants'
 import { getPoint } from 'src/utils/_common'
 
 class GameService {
@@ -222,25 +222,7 @@ class GameService {
 
     }
 
-    getGamesToBet = async (eventId, userId) => {
-        const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
-        const gamesRef = await firebase.db.collection(gameCollection)
-            .where('status', 'in', [GAME_STATUS.FINISHED, GAME_STATUS.BETTING])
-            .orderBy('seq', "asc").get();
-
-        return await Promise.all(
-            gamesRef.docs.map(async (game) => {
-                const myBet = await this.getUserBetByGame(eventId, userId, game.id, game.data().round);
-
-                const startTime = moment(game.data().startTime);
-                const betTime = moment().add(-5, 'minutes')
-
-                const canBet = betTime.isBefore(startTime);
-                return { ...game.data(), id: game.id, canBet: canBet, myBet: myBet }
-            })
-        )
-    }
-
+    
     updateStatusOfGames = async (eventId, games) => {
         const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
         // Get a new write batch
@@ -261,33 +243,7 @@ class GameService {
 
     }
 
-    updateStandingTable = async (eventId, table) => {
-        const teamCollection = _.toLower(eventId) + COLLECTION.TEAM;
-        const gameCollection = _.toLower(eventId) + COLLECTION.GAME;
-
-        const gamesRef = await firebase.db.collection(gameCollection)
-            .where('table', '==', table)
-            .where('status', '==', GAME_STATUS.FINISHED).get();
-
-        let playedTeams = []
-        await gamesRef.docs.map(game => {
-            playedTeams = getPoint(playedTeams, game.data(), true)
-            playedTeams = getPoint(playedTeams, game.data(), false)
-            return null
-        })
-
-        var batch = firebase.db.batch();
-
-        _.each(playedTeams, async (team) => {
-            var teamRef = firebase.db.collection(teamCollection).doc(team.id);
-            batch.update(teamRef, team);
-        })
-
-        // Commit the batch
-        return batch.commit().then((response) => {
-            return this.getStandingTable(eventId, table)
-        });
-    }
+    
 
     getStandingTable = async (eventId, table) => {
         const teamCollection = _.toLower(eventId) + COLLECTION.TEAM;

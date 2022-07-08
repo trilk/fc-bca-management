@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { anonymousLogin, setSystemUser, deleteUser } from "../actions/auth";
+import { setSystemUser, deleteUser } from "../actions/auth";
 import {
   MainContent,
   TheFooter,
@@ -10,9 +9,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { auth } from '../firebase'
 
-const MainLayout = ({ match }) => {
-  const eventId = match.params.event || 'EURO2021'
-  const group = match.params.group || 'BCA'
+const MainLayout = () => {
   const dispatch = useDispatch()
   const authed = useSelector(state => state.auth.isAuthenticated);
   const [initializing, setInitializing] = useState(true);
@@ -20,14 +17,17 @@ const MainLayout = ({ match }) => {
 
   const onAuthStateChanged = (user) => {
     console.log('authed changed');
-    if (!user) {
-      auth.signInAnonymously();
+
+    if (!user || user.isAnonymous) {
+      setAuthedUser(null);
+      setInitializing(false);
     } else {
       if (authedUser !== null && authedUser.isAnonymous && authedUser.uid !== user.uid) {
         dispatch(deleteUser(authedUser))
       }
+      console.log(process.env.ACTIVE_EVENT);
       setAuthedUser(user);
-      dispatch(setSystemUser(group, eventId, user));
+      dispatch(setSystemUser('VQ2022', user));
     }
   }
 

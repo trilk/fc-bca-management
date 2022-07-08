@@ -19,7 +19,8 @@ const initialState = {
   sidebarShow: "responsive",
   isAuthenticated: false,
   user: null,
-  users: [],
+  groups: [],
+  exTypes: [],
   logo: {
     icon: 'euro2021',
     img: ''
@@ -54,21 +55,24 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: true,
         user: action.payload.user,
-        users: action.payload.users
+        groups: action.payload.groups,
+        exTypes: action.payload.exTypes,
       };
     case LOGIN_FAIL:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
-        users: []
+        groups: [],
+        exTypes: []
       };
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
-        users: []
+        groups: [],
+        exTypes: []
       };
     case SIDEBAR_SHOW:
       return {

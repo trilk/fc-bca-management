@@ -1,68 +1,51 @@
+export const Service_Provider = "Nhà cung cấp"
+
 export const COLLECTION = {
     USER: 'users',
+    GROUP: 'groups',
     EVENT: 'events',
-    BET: 'bets',
-    FUND: 'funds',
-    FUND_TRACK: 'fund_trackings',
-    MATCH: 'matches',
-    PAYMENT: 'user_payments',
-    GAME: '_games',
-    TEAM: '_teams',
-    USER_BET: '_bettings',
-    EVENT_SUMMARY: 'event_summary'
+    PAYMENT: '_payments',
+    EXPENSE: '_expenses',
+    EXPENSE_TYPE: 'expense_types'
 }
 
 export const GROUP = {
-    ALL: "_",
-    BCA: 'BCA',
-    CCG: 'CCG',
-    IVC: 'IVC',
-    EMPTY: '',
-    DEFAULT: 'BCA'
+    ALL: '',
+    CUSTOMER: 'GRP00'
 }
+
 export const USER_ROLE = {
-    ADMIN: 'admin',
-    USER: 'user',
-    GUEST: 'guest'
+    ADMIN: 'ADMIN',
+    USER: 'USER',
+    GUEST: 'GUEST'
 }
+
+export const CATEGORY = {
+    ALL: '',
+    TRANSPORT: 'TRANSPORT',
+    HOTEL: 'HOTEL',
+    FOOD: 'FOOD',
+    GIFT: 'GIFT',
+    OTHER: 'OTHER'
+}
+
+export const TYPE = {
+    ALL: '',
+    PRIVATE: 'PRIVATE',
+    SHARE: 'SHARE'
+}
+
+export const PAYMENT_TYPE = {
+    ALL: '',
+    PAID: 'PAID',
+    RECIEVED: 'RECIEVED'
+}
+
 export const USER_STATUS = {
     ACTIVE: 'ACTIVE',
     INACTIVE: 'INACTIVE',
     IDLE: 'IDLE'
 };
-
-export const TEAM_STATUS = {
-    NOT_STARTED: 'NOT_STARTED',
-    ON_GOING: 'ON_GOING',
-    CLOSED: 'CLOSED',
-    CANCELLED: 'CANCELLED'
-}
-
-export const TEAM_TYPE = {
-    SPORT: "SPORT",
-    GAME: "GAME"
-}
-
-export const GAME_STATUS = {
-    NOT_STARTED: 'NOT_STARTED',
-    BETTING: 'BETTING',
-    FINISHED: 'FINISHED',
-    DONE: 'DONE'
-}
-export const BET_CODE = {
-    EU_90: 'EU_90P',
-    EU_120: 'EU_120P'
-}
-export const BET_RESULT = {
-    MISSED: 0,
-    WRONG: -1,
-    CORRECTED: 1
-}
-
-export const FUNDING = {
-    OPEN: 'OPEN',
-    ACCEPTED: 'ACCEPTED'
-}
 
 export const GENDER = {
     M: 'gender.male',
@@ -78,11 +61,6 @@ export const MODAL_RESPONSE_TYPE = {
 
 export const MESSAGES = {
     UNKNOW_ERROR: 'msg_unknow_error'
-}
-
-export const CHANNEL_TYPES = {
-    VIBER: 'Viber',
-    ZALO: 'Zalo'
 }
 
 export const DATETIME_FORMAT = {

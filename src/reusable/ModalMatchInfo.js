@@ -14,7 +14,7 @@ import {
 } from "@coreui/react";
 import _ from "lodash";
 import { userSelectMessage } from "src/utils/_common";
-import { MODAL_RESPONSE_TYPE, GAME_STATUS } from "src/utils/_constants";
+import { MODAL_RESPONSE_TYPE } from "src/utils/_constants";
 import { useSelector } from "react-redux";
 
 const ModalMatchInfo = (props) => {
@@ -121,7 +121,7 @@ const ModalMatchInfo = (props) => {
         } else {
           props.onModalResponse({
             type: MODAL_RESPONSE_TYPE.CHANGE_STATUS,
-            data: [{ id: match.id, status: GAME_STATUS.BETTING }],
+            data: [{ id: match.id, status: '' }],
           });
         }
       } else {

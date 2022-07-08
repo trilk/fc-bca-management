@@ -1,6 +1,6 @@
 import moment from "moment";
 import _, { result } from "lodash";
-import { DATETIME_FORMAT, BET_CODE, GAME_STATUS } from "./_constants";
+import { DATETIME_FORMAT } from "./_constants";
 
 export const getCircularReplacer = () => {
   const seen = new WeakSet();
@@ -107,7 +107,7 @@ export const euroHandicap = (goals, code) => {
   if (goals.first90 === goals.second90) {
     return 3;
   } else {
-    if (code === BET_CODE.EU_90) {
+    if (code === '') {
       return goals.first90 > goals.second90 ? 1 : 2;
     } else {
       if (!goals.extraTime) {
@@ -201,155 +201,9 @@ export const userSelectMessage = (
   }
 };
 
-export const getBetStatus = (match, myBet, betResult, userName) => {
-  if (!userName) {
-    userName = "Người Vô Danh";
-  }
-  // myBet.bet = Math.floor(Math.random() * 4)
-  let result = {
-    canEdit: false,
-    color: "secondary",
-    iconName: "",
-    message: "",
-    starMsg: "",
-  };
-  if (match.status === GAME_STATUS.NOT_STARTED) {
-    return {
-      ...result,
-      iconName: "cil-calendar-check",
-      message: `Vào đây làm gì vậy <b><a href="#">${userName}</a></b>? Trận đấu đã dự được đâu.`,
-    };
-  }
 
-  if (match.status === GAME_STATUS.BETTING) {
-    const gameTime = moment(match.startTime);
-    const betTime = moment().add(-5, "minutes");
 
-    var canEdit = betTime.isBefore(gameTime);
-    var remainTime = gameTime.diff(betTime, "minutes");
-    if (canEdit) {
-      if (myBet.value === 0) {
-        return {
-          canEdit: canEdit,
-          color: "warning",
-          iconName: "cil-bolt",
-          message: `NHANH LÊN <b><a href="#">${userName}</a></b>! Còn ${remainTime} phút thôi. Chọn theo phía trên đó.`,
-          starMsg: "Bạn có 1 cơ hội để x2 số điểm trận này nếu trả lời đúng!",
-        };
-      } else {
-        return {
-          canEdit: canEdit,
-          color: "info",
-          iconName: "cil-blind",
-          message: userSelectMessage(
-            match.round,
-            myBet,
-            match.firstTeam.name,
-            match.secondTeam.name,
-            userName
-          ),
-          starMsg: myBet.usedStar
-            ? "Bạn đã chọn ngôi sao hi vọng cho trận đấy này!"
-            : 'Bạn có 1 cơ hội để <b><a href="#">x2</a></b> số điểm trận này nếu trả lời đúng!',
-        };
-      }
-    }
-  }
 
-  if (myBet.value === 0) {
-    //Finish or overtime
-    myBet.showStar = false;
-    return {
-      canEdit: false,
-      color: "dark",
-      iconName: "cil-alarm",
-      message: `THÔI TÈO EM. Làm gì mà không dự <b><a href="#">${userName}</a></b> người ơi?`,
-    };
-  } else {
-    if (match.status === GAME_STATUS.BETTING) {
-      return {
-        canEdit: false,
-        color: "info",
-        iconName: "cil-blind",
-        message:
-          userSelectMessage(
-            match.round,
-            myBet,
-            match.firstTeam.name,
-            match.secondTeam.name,
-            userName
-          ) + " Chờ mà xem!",
-        starMsg: myBet.usedStar
-          ? "Bạn đã chọn ngôi sao hi vọng cho trận đấy này!"
-          : "",
-      };
-    } else {
-      if (betResult === 1) {
-        return {
-          canEdit: false,
-          color: "success",
-          iconName: "cil-mood-very-good",
-          message: `CHÚC MỪNG! Sao đoán trúng hay vậy <b><a href="#">${userName}</a></b>, mai chỉ bài với nha`,
-          starMsg: myBet.usedStar ? "Ngôi sao hi vọng thật đúng lúc!" : "",
-        };
-      } else {
-        return {
-          canEdit: false,
-          color: "danger",
-          iconName: "cil-thumb-down",
-          message: `Rất tiếc! Dễ vậy mà đoán cũng sai nữa <b><a href="#">${userName}</a></b>`,
-          starMsg: myBet.usedStar
-            ? "Ngôi sao hi vọng đã khiến bạn mất điểm!"
-            : "",
-        };
-      }
-    }
-  }
-};
-
-export const getMatchStatusForAdmin = (match) => {
-  if (match.status === GAME_STATUS.NOT_STARTED) {
-    return {
-      canEdit: false,
-      canChangeStatus: true,
-      color: "secondary",
-      iconName: "cil-calendar-check",
-      message: `<b><a href="#">TRẬN ĐẤU CHƯA BẮT ĐẦU.</a></b> Thay đổi trạng thái để ngươi chơi dự đoán.`,
-    };
-  }
-  if (match.status === GAME_STATUS.FINISHED) {
-    return {
-      canEdit: false,
-      canChangeStatus: false,
-      color: "dark",
-      iconName: "cil-mood-very-good",
-      message: `<b><a href="#">TRẬN ĐẤU ĐÃ KẾT THÚC.</a></b>`,
-    };
-  }
-
-  const now = moment();
-  const endTime = moment(match.startTime).add(110, "minutes");
-
-  var canEdit = endTime.isBefore(now);
-
-  if (canEdit) {
-    return {
-      canEdit: true,
-      canChangeStatus: false,
-      color: "success",
-      iconName: "cil-pencil",
-      message: `<b><a href="#">TRẬN ĐẤU KẾT THÚC RỒI.</a></b> Cập nhật tỉ số ngay.`,
-    };
-  } else {
-    return {
-      canEdit: false,
-      canChangeStatus: false,
-      color: "warning",
-      iconName: "cil-lock-locked",
-      message: `<b><a href="#">TRẬN ĐẤU CHƯA KẾT THÚC.</a></b> Không thể thay đổi tỉ số.`,
-    };
-  }
-};
 
 export const getWinnerBettingStatus = (selectedTeam, userName) => {
   const deadline = moment("2021-06-17 15:00");
