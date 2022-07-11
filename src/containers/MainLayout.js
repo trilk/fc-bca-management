@@ -24,10 +24,10 @@ const MainLayout = () => {
     } else {
       if (authedUser !== null && authedUser.isAnonymous && authedUser.uid !== user.uid) {
         dispatch(deleteUser(authedUser))
-      }
-      console.log(process.env.ACTIVE_EVENT);
+      }      
+      
       setAuthedUser(user);
-      dispatch(setSystemUser('VQ2022', user));
+      dispatch(setSystemUser(process.env.REACT_APP_ACTIVE_EVENT, user));
     }
   }
 

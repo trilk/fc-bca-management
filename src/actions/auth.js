@@ -150,16 +150,15 @@ export const setSystemUser = (eventId, authedUser) => async (dispatch) => {
   
   const evtGroups = await firebase.db.collection(`${COLLECTION.EVENT}/${eventId}/groups/`).get();
   const groups = await firebase.db.collection(COLLECTION.GROUP).get();
-  console.log(groups.docs);
-  console.log(evtGroups.docs);
+
   const storedGroups = evtGroups.docs.map((doc) => {
     var grp = _.find(groups.docs, ['id', doc.id])    
-    return {id: doc.id, name: grp.name}
+    return {id: doc.id, name: grp.data().name}
   })
 
   const types = await firebase.db.collection(COLLECTION.EXPENSE_TYPE).get();
   const storedTypes = types.docs.map((doc) => {
-    return {code: doc.data().code, name: doc.data().name, icon: doc.data().icon}
+    return {id: doc.data().code, name: doc.data().name, icon: doc.data().icon}
   })
 
   dispatch({

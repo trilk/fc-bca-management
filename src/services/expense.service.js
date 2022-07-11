@@ -6,7 +6,10 @@ import { CATEGORY, COLLECTION, TYPE, GROUP, Service_Provider } from "src/utils/_
 class ExpenseService {
   //Get expenses by event, group family, category and type
   getExpenses = async (eventId, group, category = CATEGORY.ALL, type = TYPE.ALL) => {
-    const result = [];
+    const result = {
+      totalFee: 0,
+      data: []
+    };
     const exCollection = _.toLower(eventId) + COLLECTION.EXPENSE
     let expenseRefs = firebase.db.collection(exCollection);
 
@@ -33,7 +36,8 @@ class ExpenseService {
       }
 
       if(fee !== 0) {
-        result.push({
+        result.totalFee += fee;
+        result.data.push({
           name: data.name,
           totalFee: fee,
           type: data.type,
