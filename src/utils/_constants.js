@@ -29,6 +29,14 @@ export const CATEGORY = {
     OTHER: 'OTHER'
 }
 
+export const CATEGORIES = [
+    { id: 'TRANSPORT', name: 'Phương tiện di chuyển', icon: ''},
+    { id: 'HOTEL', name: 'Nơi lưu trú', icon: ''},
+    { id: 'FOOD', name: 'Ăn uống', icon: ''},
+    { id: 'GIFT', name: 'Quà tặng', icon: ''},
+    { id: 'OTHER', name: 'Khác', icon: ''},
+]
+
 export const TYPE = {
     ALL: '',
     PRIVATE: 'PRIVATE',

@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import {
-    CFormGroup, CLabel, CSelect,
-    CToaster,
-    CToast,
-    CToastBody,
-    CToastHeader,
-    CCol,
-    CRow,
-    CLink,
-    CModal, CProgress, CProgressBar, CCard, CCardBody, CCardHeader
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+    CFormGroup, CLabel, CSelect, CCol,
+    CRow} from '@coreui/react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TeamGroup, MatchGroup } from 'src/reusable/index'
-import ModalMatchInfo from 'src/reusable/ModalMatchInfo'
 import * as fbDb from 'src/services/index'
-import { isEmpty, find, maxBy } from 'lodash'
 import { useMediaQuery } from 'react-responsive'
-import { CATEGORY, GROUP, MODAL_RESPONSE_TYPE, TYPE } from 'src/utils/_constants'
-import { setEventProgress } from 'src/utils/_common'
-import { EVENT_TEAMS, SET_LOGO, SET_STAR } from 'src/actions/types'
-import EventSummary from '../events/EventSummary'
+import ExpenseManagement from '../expense/ExpenseManagement'
 
 const Home = () => {    
     const largeScreen = useMediaQuery({
@@ -31,24 +16,23 @@ const Home = () => {
     const eventGroups = useSelector(state => state.auth.groups);
     const expenseTypes = useSelector(state => state.auth.exTypes);
     const [expenseFilter, setExpenseFilter] = useState({group: '', category: ''});
-    const [expenses, setExpenses] = useState({data: [], totalFee: 0});
+    const [expenseData, setExpenseData] = useState(null);
  
-
     const searchExpenses =  async () => {
-        fbDb.ExpenseService.getExpenses('vq2022', expenseFilter.group, expenseFilter.category, TYPE.ALL).then((response) => {
-            setExpenses(response);
+        fbDb.ExpenseService.getExpenses('vq2022', expenseFilter.group, eventGroups, expenseFilter.category).then((response) => {
+          setExpenseData(response);
         });
     }
 
     const onSelectChanged = (e) => {
         setExpenseFilter({...expenseFilter, [e.target.name]: e.target.value})        
-    }
+    }    
 
     useEffect(() => {
-        if(sysUser !== null) {
+        if(sysUser !== null && expenseFilter !== null) {
             console.log('Filter changed');
 
-            searchExpenses(GROUP.ALL, CATEGORY.ALL)
+            searchExpenses()
         }
     }, [sysUser, expenseFilter]);
 
@@ -89,6 +73,9 @@ const Home = () => {
             </CRow>
             
             <CRow className={'mt-2'}>
+                {expenseData !== null && 
+                  <ExpenseManagement expenseData={expenseData} />
+                }
             </CRow>
 
         </>
