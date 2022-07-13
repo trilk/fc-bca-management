@@ -40,7 +40,8 @@ export const CATEGORIES = [
 export const TYPE = {
   ALL: "",
   PRIVATE: "PRIVATE",
-  SHARE: "SHARE",
+  PERSON_SHARE: "PERSON_SHARE",
+  GROUP_SHARE: "GROUP_SHARE",
 };
 
 export const PAYMENT_TYPE = {
