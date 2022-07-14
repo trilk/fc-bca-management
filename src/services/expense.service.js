@@ -47,43 +47,41 @@ class ExpenseService {
         result.totalFee += fee;
 
         result.data.push({
+          ...data,
           id: doc.id,
-          date: data.date,
-          name: data.name,
           totalFee: fee,
-          type: data.type,
           category: cat,
           payBy: grp,
-          note: data.note,
         });
       }
     });
 
     return result;
   };
-
-  addExpense = async (eventId, expenseObj) => {
+  
+  getExpenseGroups = async (eventId, expenseId, evtGroups) => {
     const exCollection = _.toLower(eventId) + COLLECTION.EXPENSE;
+    let expense = await firebase.db.collection(exCollection).doc(expenseId).get();
+    if (expense == null || expense=== undefined)
+      return []
 
-    try {
-
-      return true;
-    } catch (error) {
-      console.error("Error adding document: ", error);
-      return false;
-    }    
+    const expenseData = expense.data()
+    return evtGroups.map(grp => {
+      return {...grp, count: expenseData[grp.id].count, fee: expenseData[grp.id].fee}
+    })
   }
 
   updateExpense = async (eventId, expenseObj) => {
     const exCollection = _.toLower(eventId) + COLLECTION.EXPENSE;
     let result = null;
+    const docId = expenseObj.id
     const expenseDoc = this.calculateFee(expenseObj)
 
     try {
       if(expenseObj.id === '') {
         result = await firebase.db.collection(exCollection).add(expenseDoc)
       } else {
-        result = await firebase.db.collection(exCollection).doc(expenseDoc.id).set(expenseDoc)
+        result = await firebase.db.collection(exCollection).doc(docId).set(expenseDoc)
       }
 
     } catch (error) {
@@ -106,7 +104,6 @@ class ExpenseService {
     }
 
     let expenseDoc = {
-      id: expenseObj.id,
       name: expenseObj.name,
       date: moment(expenseObj.date).format('DD/MM/YYYY'),
       category: expenseObj.category,
